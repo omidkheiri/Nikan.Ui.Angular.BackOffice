@@ -1,0 +1,31 @@
+
+.navbar-expand-sm .navbar-item {
+    display: contents;
+    flex-direction: column;
+    padding-right: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.header-container .navbar .navbar-item .nav-item.dropdown .dropdown-menu.show {
+    top: 53px !important;
+    /* margin-left: -100px; */
+}
+.header-container .navbar .navbar-item .nav-item.dropdown .dropdown-menu:after {
+    position: absolute;
+    content: "";
+    top: -10px;
+    /* margin-left: 100px; */
+    height: 0;
+    width: 0;
+    border-right: 9px solid transparent;
+    border-left: 9px solid transparent;
+    border-bottom: 15px solid #fff;
+    right: auto;
+    left: 8px;
+    border-bottom-color: #fafafa;
+}
+@media (max-width: 1199px){
+#topbar .theme-brand li.theme-logo img {
+     width: 80px; 
+    height: 40px;
+}}

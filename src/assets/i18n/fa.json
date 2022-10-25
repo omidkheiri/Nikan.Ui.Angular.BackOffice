@@ -1,0 +1,336 @@
+{
+    "textAlign": "right",
+    "direction": "rtl",
+    "HeaderMenus": {
+        "Accounts": "سازمانها",
+        "Contact": "اشخاص",
+        "Reserves": "رزروها",
+        "NewReserve": "رزرو جدید",
+        "NewAccount": "سازمان جدید",
+        "NewContact": "شخص جدید",
+        "Flights": "شماره پروازها",
+        "AirLineNames": "ایرلاین ها"
+    },
+    "Contact": {
+        "CustomerMenu": "رزروها",
+        "HomeMenu": "معرفی",
+        "DashboardTitle": "داشبورد اشخاص",
+        "Intro": {
+            "Palceholder": "یک معرفی برای این شخص بنویسید",
+            "Title": "معرفی"
+        },
+        "List": {
+            "PageTitle": "فهرست اشخاص:",
+            "ContactNumber": "شناسه",
+            "Name": "نام ",
+            "LastName": "نام خانوادگی",
+            "EmailAddress": "ایمیل",
+            "Phone": "شماره تلفن",
+            "َAccountTitle": "عنوان سازمان",
+            "Link": "پیوند"
+        },
+        "FormElement": {
+            "FormTitle": "یک شخص جدید اضافه کنید",
+            "AccountId": "نام سازمان",
+            "Name": "نام",
+            "LastName": "نام خانوادگی",
+            "Phone": "شماره موبایل",
+            "EmailAddress": "آدرس ایمیل",
+            "BirthDate": "تاریخ تولد",
+            "NameRequiredMessage": " نام لازم است",
+            "LastNameRequiredMessage": " نام خانوادگی لازم است",
+            "PhoneRequiredMessage": "شماره تلفن لازم است",
+            "PhoneFormatMessage": "شماره تلفن معتبر نیست",
+            "EmailFormatMessage": "آدرس ایمیل معتبر نیست",
+            "SaveContact": "دخیره"
+        }
+    },
+    "Account": {
+        "Intro": {
+            "Palceholder": "یک معرفی برای این سازمان بنویسید",
+            "Title": "معرفی"
+        },
+        "DashboardTitle": "داشبورد سازمان",
+        "SupplierMenu": "تامین کننده",
+        "CustomerMenu": "مشتری",
+        "HomeMenu": "معرفی",
+        "List": {
+            "PageTitle": "فهرست سازمانها:",
+            "AccountNumber": "شناسه",
+            "Title": "عنوان",
+            "EmailAddress": "ایمیل",
+            "Phone": "شماره تلفن",
+            "IsCustomer": "مشتری",
+            "IsSupplier": "تامین کننده",
+            "Link": "پیوند"
+        },
+        "FormElement": {
+            "FormTitle": "فرم ثبت سازمان جدید",
+            "Title": "عنوان",
+            "Phone": "شماره تلفن",
+            "EmailAddress": "آدرس ایمیل",
+            "PostalAddress": "آدرس پستی",
+            "SaveAccount": "ذخیره",
+            "EmailRequiredMessage": "آدرس ایمیل لازم است",
+            "TitleRequiredMessage": "عنوان لازم است",
+            "PhoneRequiredMessage": "شماره تلفن لازم است",
+            "EmailFormatMessage": "آدرس ایمیل معتبر نیست",
+            "PhoneFormatMessage": "شماره تلفن معتبر نیست",
+            "ErrorResponse_500-1": "اطلاعات ارسالی معتبر نیست",
+            "ErrorResponse_500-2": "رکورد تکراری",
+            "ErrorResponse_500-3": "رکوردی پیدا نشد "
+        }
+    },
+    "FlightNumber": {
+        "List": {
+            "PageTitle": "فهرست پروازها",
+            "AirlineName": "نام ایرلاین",
+            "FlightName": "شماره پرواز",
+            "ArrivalCity": "شهر مقصد",
+            "DepartureCity": "شهر مبدا",
+            "FlightDate": "تاریخ پرواز",
+            "DepartureTime": "زمان شروع پرواز",
+            "ArrivalTime": "زمان پایان پرواز",
+            "FlightType": "نوع پرواز",
+            "Scheduled": "پرواز برنامه ریزی شده",
+            "Status": "وضعیت",
+            "Link": "پیوند"
+        },
+        "FormElement": {
+            "Status": "پرواز فعال است",
+            "AirlineName": "نام ایرلاین",
+            "AirlineNameRequiredMessage": "نام ایرلاین لازم است",
+            "FlightNumber": "شماره پرواز",
+            "FlightNumberRequiredMessage": "شماره پرواز لازم است",
+            "FlightType": "نوع پرواز",
+            "FlightDate": "تاریخ پرواز",
+            "FlightTypeRequiredMessage": "نوع پرواز ورودی یا خروجی لازم است",
+            "Scheduled": "پرواز روتین",
+            "FlightSource": "محدوده پرواز",
+            "DepartureAirport": "فرودگاه مبدا",
+            "DepartureAirportRequiredMessage": "فرودگاه مبدا لازم است",
+            "DepartureCity": "شهر مبدا",
+            "DepartureCityRequiredMessage": "شهر مبدا لازم است",
+            "DepartureTime": "ساعت حرکت 00:00",
+            "DepartureTimeRequiredMessage": "ساعت حرکت لازم است",
+            "ArrivalAirport": "فرودگاه مقصد",
+            "ArrivalAirportRequiredMessage": "فرودگاه مقصد لازم است",
+            "ArrivalCity": "شهر مقصد",
+            "ArrivalCityRequiredMessage": "شهر مقصد لازم است",
+            "ArrivalTime": "ساعت ورود 00:00",
+            "ArrivalTimeRequiredMessage": "ساعت ورود لازم است",
+            "SaveFlightNumber": "ذخیره",
+            "ArrivalTimeFromatMessage": "ساعت را درست وارد کنید",
+            "DepartureTimeFromatMessage": "ساعت را درست وارد کنید"
+        }
+    },
+    "Airline": {
+        "List": {
+            "PageTitle": "فهرست ایرلاینها",
+            "Name": "نام ایرلاین",
+            "IconUrl": "آدرس آیکون"
+        }
+    },
+    "ServiceLocation": {
+        "List": {
+            "PageTitle": "محل ارائه سرویس",
+            "Title": "محل ارائه سرویس"
+        },
+        "FormElement": {
+            "FormTitle": "فرم ثبت سازمان جدید",
+            "Title": "عنوان",
+            "Address": "آدرس",
+            "Location": "موقعیت جغرافیایی",
+            "ArrivalBufferTime": "بافر ورودی",
+            "DepartureBufferTime": "بافر خروجی",
+            "TransferBufferTime": "بافر ترنسفر",
+            "MaxAllowtedDate": "آخرین زمان مجاز",
+            "SaveAccount": "ذخیره",
+            "TitleRequiredMessage": "عنوان لازم است",
+            "AddressRequiredMessage": "آدرس لازم است",
+            "LocationRequiredMessage": "موقعیت جغرافیایی لازم است",
+            "ErrorResponse_500-1": "اطلاعات ارسالی معتبر نیست",
+            "ErrorResponse_500-2": "رکورد تکراری",
+            "ErrorResponse_500-3": "رکوردی پیدا نشد "
+        }
+    },
+    "ServiceLine": {
+        "List": {
+            "PageTitle": "  سرویس",
+            "Title": "سرویسها"
+        },
+        "FormElement": {
+            "FormTitle": "فرم ثبت سرویس جدید",
+            "Title": "عنوان",
+            "Status": "سرویس فعال است",
+            "TaxInclude": "شامل مالیات",
+            "ServiceLocationId": "محل ارائه سرویس",
+            "NoneNative": "غیر ایرانی",
+            "ServiceTypeId": "نوع سرویس",
+            "FinancialCode": "کد مالی",
+            "FinancialTitle": "عنوان مالی",
+            "SaveAccount": "ذخیره",
+            "TitleRequiredMessage": "عنوان",
+            "StatusRequiredMessage": "وضعیت",
+            "TaxIncludeRequiredMessage": "شامل مالیات",
+            "ServiceLocationIdRequiredMessage": "محل ارائه سرویس",
+            "ServiceTypeIdRequiredMessage": "نوع سرویس",
+            "FinancialCodeRequiredMessage": "کد مالی",
+            "FinancialTitleRequiredMessage": "عنوان مالی",
+            "ErrorResponse_500-1": "اطلاعات ارسالی معتبر نیست",
+            "ErrorResponse_500-2": "رکورد تکراری",
+            "ErrorResponse_500-3": "رکوردی پیدا نشد ",
+            "Type": "نوع سرویس",
+            "Location": "محل ارائه",
+            "Price": "قیمت"
+        }
+    },
+    "LoginPage": {
+        "FormElement": {
+            "FormTitle": "ورود",
+            "Title": "برای ادامه لطفا وارد شوید",
+            "UserName": "نام کاربری ",
+            "Password": "رمز عبوز",
+            "ForgetPassword": "رمز عبور را فراموش کرده ام",
+            "NotRegisterd": "ثبت نام نکرده اید؟",
+            "CreateAnAccount": "یک حساب کاربری بسازید",
+            "UserNamePlaceHolder": "نام کاربری",
+            "PasswordPlaceHolder": "رمز عبوز",
+            "LogIn": "ورود"
+        }
+    },
+    "ReservePage": {
+        "List": {
+            "PageTitle": "فهرست رزرو ها",
+            "FlightNumber": "شماره پرواز",
+            "FlightDate": "تاریخ پرواز",
+            "Approved": "تائید شده",
+            "Payment": "پرداخت شده",
+            "CustomerName": "نام مشتری",
+            "CustomerId": "شناسه مشتری",
+            "LocationTitle": "محل سرویس",
+            "ContactPhone": "تلفن",
+            "Remaining": "باقی مانده",
+            "ReserveNumber": "شناسه رزرو"
+        },
+        "LocationHeaderTitle": "محل ارائه سرویس",
+        "FlightInfoForm": {
+            "DepartureInfo": "اطلاعات حرکت",
+            "َArrivalInfo": "اطلاعات ورود",
+            "FlightDate": "تاریخ پرواز",
+            "FlightType": "نوع پرواز",
+            "FlightNumber": "شماره پرواز",
+            "DepartureFlightTime": "ساعت حرکت",
+            "ArrivalFlightTime": "ساعت ورود",
+            "FlightTimeMessage": "فیلد اجباری",
+            "FlightNumberRequiredMessage": "شماره پرواز لازم است",
+            "FlightTypeRequiredMessage": "نوع پرواز لازم است",
+            "TimeFormatMessage": "فرمت ساعت 23:59"
+        },
+        "Transfer": {
+            "List": {
+                "Type": "نوع ترنسفر",
+                "Address": "آدرس",
+                "Time": "مبدا سفر",
+                "Description": "مبدا سفر"
+            },
+            "FormElement": {
+                "TransferType": "نوع ترنسفر",
+                "Address": "آدرس",
+                "Time": "زمان مراجعه",
+                "Description": "توضیحات",
+                "MobileNumber": "شماره تماس",
+                "FromAddressRequired": "آدرس مبدا اجباری است",
+                "ToAddressRequired": "آدرس مقصد اجباری است"
+            }
+        },
+        "Passenger": {
+            "Genders": {
+                "Male": "آقا",
+                "Female": "خانم"
+            },
+            "Nationality": {
+                "Iranian": "ایرانی",
+                "Foreigner": "خارجی"
+            },
+            "List": {
+                "FullName": "نام ",
+                "GenderType": {
+                    "Male": "آقای",
+                    "Female": "خانم"
+                },
+                "Type": "نوع مسافر",
+                "Gender": "جنسیت",
+                "Visa": "خدمات ویزا",
+                "Wheelchair": "خدمات ویلچر"
+            },
+            "FormElement": {
+                "PassengerType": "نوع مسافر",
+                "Name": "نام",
+                "LastName": "نام خانوادگی",
+                "Gender": "جنسیت",
+                "NationalCode": "کد ملی",
+                "PassportNumber": "شماره پاسپورت",
+                "PassportExpireDate": "تاریخ انقضای پاسپورت",
+                "MobileNumber": "شماره موبایل",
+                "EmailAddress": "ایمیل",
+                "BirthDate": "تاریخ تولد",
+                "Age": "خردسال",
+                "Nationality": "ملیت",
+                "GenderRequired": "جنسیت لازم است",
+                "NameRequired": "نام لازم است",
+                "LastNameRequired": "نام  خانوادگی لازم است",
+                "NationalityRequired": "تعیین ملیت اجبرای است",
+                "NameFromatErrorMessage": "با حروف انگلیسی وارد شود",
+                "Visa": "خدمات ویزا",
+                "Wheelchair": "خدمات ویلچر",
+                "SaveThis": "این رکورد رو دخیره کن",
+                "MobileNumberRequired": "شماره موبایل لازم است",
+                "EmailAddressRequired": "آدرس ایمیل لازم است",
+                "PassportNumberRequired": "شماره پاسپورت لازم است",
+                "NationalCodeRequired": "کدملی لازم است"
+            }
+        },
+        "Pet": "خدمات حیوان زنده",
+        "Attendee": {
+            "Genders": {
+                "Male": "آقا",
+                "Female": "خانم"
+            },
+            "List": {
+                "Gender": "جنسیت",
+                "Name": "نام ",
+                "LastName": "نام خانوادگی",
+                "GenderType": {
+                    "Male": "آقای",
+                    "Female": "خانم"
+                }
+            },
+            "FormElement": {
+                "Gender": "جنسیت",
+                "GenderRequired": "جنسیت لازم است",
+                "Name": "نام ",
+                "NameRequired": "نام لازم است",
+                "LastName": "نام خانوادگی",
+                "LastNameRequired": "نام  خانوادگی لازم است"
+            }
+        }
+    },
+    "SupplierPanel": {
+        "Menu": {
+            "Home": "خانه",
+            "Reserves": "رزروها",
+            "Contacts": "اشخاص",
+            "Services": "سرویسها",
+            "ServiceLocations": "محل ارائه سرویس"
+        }
+    },
+    "SummeryPage": {
+        "List": {
+            "Type": "نوع سرویس",
+            "UnitPrice": "قیمت",
+            "QTY": "تعداد",
+            "Description": "توضیحات"
+        }
+    }
+}
