@@ -51,9 +51,9 @@
           </ul>
 
           <ul class="list-unstyled menu-categories" id="topAccordion">
-            <li class="menu single-menu">
+            <li class="menu single-menu" routerLinkActive="active">
               <a
-                href="#menu1"
+                routerLink="/dashboard/content"
                 data-toggle="collapse"
                 aria-expanded="false"
                 class="dropdown-toggle autodroprown"
@@ -77,7 +77,7 @@
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                   </svg>
 
-                  <span>Menu 1</span>
+                  <span>صفحه اصلی {{ account ? account.title : "" }}</span>
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -94,23 +94,11 @@
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </a>
-              <ul
-                class="collapse submenu list-unstyled animated fadeInUp"
-                id="menu1"
-                data-parent="#topAccordion"
-              >
-                <li>
-                  <a href="javascript:void(0);"> Submenu 1 </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0);"> Submenu 2 </a>
-                </li>
-              </ul>
             </li>
 
-            <li class="menu single-menu">
+            <li class="menu single-menu" routerLinkActive="active">
               <a
-                href="#menu2"
+                routerLink="/dashboard/crm/accounts"
                 data-toggle="collapse"
                 aria-expanded="false"
                 class="dropdown-toggle"
@@ -123,138 +111,20 @@
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-box"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-users"
                   >
-                    <path
-                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                    ></path>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
 
-                  <span>Menu2</span>
+                  <span>مشتریان</span>
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-chevron-down"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
               </a>
-              <ul
-                class="collapse submenu list-unstyled animated fadeInUp"
-                id="menu2"
-                data-parent="#topAccordion"
-              >
-                <li class="sub-sub-submenu-list">
-                  <a
-                    href="#uiKit"
-                    data-toggle="collapse"
-                    aria-expanded="false"
-                    class="dropdown-toggle"
-                  >
-                    Submenu 1
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-chevron-right"
-                    >
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </a>
-                  <ul
-                    class="collapse list-unstyled sub-submenu animated fadeInUp"
-                    id="uiKit"
-                    data-parent="#components"
-                  >
-                    <li>
-                      <a href="javascript:void(0);"> Sub-submenu 1 </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);"> Sub-submenu 2 </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="javascript:void(0);"> Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="menu single-menu active">
-              <a
-                href="#starter-kit"
-                data-toggle="collapse"
-                aria-expanded="true"
-                class="dropdown-toggle"
-              >
-                <div class="">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-plus-circle"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                  </svg>
-                  <span>Starter Kit</span>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-chevron-down"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </a>
-              <ul
-                class="collapse submenu list-unstyled animated fadeInUp"
-                id="starter-kit"
-                data-parent="#topAccordion"
-              >
-                <li class="active">
-                  <a href="starter_kit_blank_page.html"> Blank Page </a>
-                </li>
-                <li>
-                  <a href="starter_kit_boxed.html"> Boxed </a>
-                </li>
-                <li>
-                  <a href="starter_kit_breadcrumb.html"> Breadcrumb </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav>
@@ -274,7 +144,7 @@
         >
           <div class="media">
             <img
-              src="assets/img/profile-7.jpg"
+              src="assets/img/user_icon.png"
               class="img-fluid"
               alt="admin-profile"
             />
@@ -355,7 +225,7 @@
             </a>
           </div>
           <div class="dropdown-item">
-            <a href="auth_login.html">
+            <a (click)="logOute()">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

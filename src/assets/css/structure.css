@@ -1224,6 +1224,7 @@ code {
   border-radius: 30px;
   box-shadow: 0 0px 0.9px rgba(0, 0, 0, 0.07), 0 0px 7px rgba(0, 0, 0, 0.14);
   border: none;
+  background: darkseagreen;
 }
 .navbar
   .navbar-item
@@ -1903,11 +1904,13 @@ code {
     padding: 9px 0 9px 0;
   }
   .topbar-nav.header nav#topbar ul.menu-categories li.menu.active {
+    color: #b69234;
     padding: 9px 0 9px 0;
+    border-bottom: 1.5px solid;
   }
   .topbar-nav.header nav#topbar ul.menu-categories li.menu.active > a {
-    background: #b69234;
-    border-radius: 6px;
+    background:transparent;
+    border-radius: 0px;
   }
   .topbar-nav.header nav#topbar ul.menu-categories li.menu:not(:last-child) {
     margin-left: 5px;
@@ -2072,7 +2075,7 @@ code {
     > a
     > div
     svg:not(.feather-chevron-down) {
-    color: #fff;
+    color: #000000;
     stroke-width: 1.6px;
   }
   .topbar-nav.header
@@ -2091,7 +2094,7 @@ code {
     > a
     > div
     span {
-    color: #fff;
+    color: rgb(37, 23, 23);
     font-weight: 600;
   }
   .topbar-nav.header nav#topbar ul.menu-categories li.menu .submenu {

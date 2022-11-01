@@ -1,0 +1,102 @@
+<div class="layout-px-spacing">
+  <div class="page-header">
+    <div class="page-title">
+      <h3>{{ "Account.List.PageTitle" | translate }}</h3>
+    </div>
+  </div>
+
+  <div class="row layout-top-spacing">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+      <div class="widget widget-chart-one" style="padding: 20px">
+        <div class="widget-heading">
+          <dx-data-grid
+            [dataSource]="dataSource"
+            [showBorders]="true"
+            remoteOperations="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [hoverStateEnabled]="true"
+          >
+            <dxi-column
+              direction="rtl"
+              alignment="center"
+              dataField="accountNumber"
+              caption="{{ 'Account.List.AccountNumber' | translate }}"
+              dataType="string"
+              width="120"
+            ></dxi-column>
+            <dxi-column
+              direction="rtl"
+              alignment="right"
+              dataField="title"
+              dataType="string"
+              caption="{{ 'Account.List.Title' | translate }}"
+            ></dxi-column>
+
+            <dxi-column
+              width="200"
+              dataField="emailAddress"
+              dataType="string"
+              caption="{{ 'Account.List.EmailAddress' | translate }}"
+            ></dxi-column>
+            <dxi-column
+              width="200"
+              dataField="phone"
+              dataType="string"
+              caption="{{ 'Account.List.Phone' | translate }}"
+            ></dxi-column>
+            <dxi-column
+              width="50"
+              dataField="isSupplier"
+              dataType="boolean"
+              caption="{{ 'Account.List.IsSupplier' | translate }}"
+              cellRender="checkBoxCell"
+            ></dxi-column>
+            <dxi-column
+              width="50"
+              dataField="isCustomer"
+              dataType="boolean"
+              caption="{{ 'Account.List.IsCustomer' | translate }}"
+              cellRender="checkBoxCell"
+            ></dxi-column>
+
+            <dxi-column
+              dataField="accountId"
+              width="50"
+              allowSorting="false"
+              cellTemplate="cellTemplate"
+              caption="{{ 'Account.List.Link' | translate }}"
+            ></dxi-column>
+            <dxo-paging defaultPageSize="12"></dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              allowedPageSizes="allowedPageSizes"
+            ></dxo-pager>
+            <div *dxTemplate="let data of 'cellTemplate'">
+              <a [routerLink]="['/dashboard/crm/account', data.value]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-settings"
+                >
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

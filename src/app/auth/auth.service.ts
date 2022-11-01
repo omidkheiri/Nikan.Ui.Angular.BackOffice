@@ -1,20 +1,29 @@
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import * as fromApp from '../store/app.reducer';
+
+import * as AuthActions from './store/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private tokenExpirationTimer: any;
 
-  signIn(userName: string, password: string) {
+  public isAuthenticated = new BehaviorSubject<boolean>(false);
+  constructor(
+    private http: HttpClient,
+    private store: Store<fromApp.AppState>
+  ) {
+    if (localStorage.getItem('token')) {
+      this.isAuthenticated.next(true);
+    }
+  }
+
+  signIn(userName: string, password: string): Observable<any> {
     let body = new HttpParams()
       .set('grant_type', 'password')
       .set('username', userName)
@@ -29,5 +38,18 @@ export class AuthService {
     return this.http.post(environment.stsUrl, body.toString(), {
       headers,
     });
+  }
+
+  setLogoutTimer(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.store.dispatch(new AuthActions.Logout());
+    }, expirationDuration);
+  }
+
+  clearLogoutTimer() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+      this.tokenExpirationTimer = null;
+    }
   }
 }

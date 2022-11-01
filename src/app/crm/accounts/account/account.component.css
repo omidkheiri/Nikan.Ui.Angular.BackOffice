@@ -1,0 +1,28 @@
+/* .user-profile .widget-content-area h3:after {
+    background: #4361ee;
+    border-radius: 0;
+    bottom: -5px;
+    content: "";
+    height: 2px;
+    position: absolute;
+    right: 15px;
+    width: 55px;
+} */
+
+.rounded-vertical-pills-icon
+ .nav-pills .nav-link.active,
+  .rounded-vertical-pills-icon
+   .nav-pills .show>.nav-link {
+    background-color: #009688;
+    border-color: transparent;
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 30%);
+}
+
+
+.rounded-vertical-pills-icon .nav-pills div svg {
+    display: block;
+    margin: 5px auto 10px;
+    text-align: center;
+    width: 100px;
+    
+}

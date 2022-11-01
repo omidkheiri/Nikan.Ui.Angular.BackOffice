@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { AuthService } from '../auth.service';
-
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +11,10 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   errorMessage = '';
-  constructor(private service: AuthService) {}
+  constructor(
+    private service: AuthService,
+    private store: Store<fromApp.AppState>
+  ) {}
 
   ngOnInit(): void {}
   onSubmit(form: NgForm) {
@@ -19,22 +24,31 @@ export class LoginComponent implements OnInit {
     }
     const value = form.value;
 
-    console.log(value);
-    this.service.signIn(value.username, value.password).subscribe(
-      (subscriber) => {
-        console.log(subscriber);
-      },
-      (error) => {
-        switch (error.error.error_description) {
-          case 'invalid_username_or_password':
-            this.errorMessage = 'Invalid user name or password';
-            break;
-
-          default:
-            this.errorMessage = '';
-            break;
-        }
-      }
+    this.store.dispatch(
+      new AuthActions.LoginStart({
+        email: value.username,
+        password: value.password,
+      })
     );
+
+    // console.log(value);
+    // this.service.signIn(value.username, value.password).subscribe(
+    //   (subscriber: any) => {
+    //     console.log(subscriber);
+    //     this.service.isAuthenticated.next(true);
+    //     localStorage.setItem('token', JSON.stringify(subscriber));
+    //   },
+    //   (error) => {
+    //     switch (error.error.error_description) {
+    //       case 'invalid_username_or_password':
+    //         this.errorMessage = 'Invalid user name or password';
+    //         break;
+
+    //       default:
+    //         this.errorMessage = '';
+    //         break;
+    //     }
+    //   }
+    // );
   }
 }
