@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export const LOGIN_START = '[Auth] Login Start';
 export const AUTHENTICATE_SUCCESS = '[Auth] Login';
@@ -8,55 +8,38 @@ export const CLEAR_ERROR = '[Auth] Clear Error';
 export const AUTO_LOGIN = '[Auth] Auto Login';
 export const LOGOUT = '[Auth] Logout';
 
-export class AuthenticateSuccess implements Action {
-  readonly type = AUTHENTICATE_SUCCESS;
-
-  constructor(
-    public payload: {
+export const AuthenticateSuccess = createAction(
+  AUTHENTICATE_SUCCESS,
+  props<{
+    payload: {
       email: string;
       userId: string;
       token: string;
       expirationDate: Date;
       redirect: boolean;
-    }
-  ) {}
-}
+    };
+  }>()
+);
 
-export class Logout implements Action {
-  readonly type = LOGOUT;
-}
+export const Logout = createAction(LOGOUT);
 
-export class LoginStart implements Action {
-  readonly type = LOGIN_START;
+export const LoginStart = createAction(
+  LOGIN_START,
+  props<{ payload: { email: string; password: string } }>()
+);
 
-  constructor(public payload: { email: string; password: string }) {}
-}
+export const AuthenticateFail = createAction(
+  AUTHENTICATE_FAIL,
+  props<{ payload: string }>()
+);
 
-export class AuthenticateFail implements Action {
-  readonly type = AUTHENTICATE_FAIL;
+export const SignupStart = createAction(
+  SIGNUP_START,
+  props<{ payload: { email: string; password: string } }>()
+);
 
-  constructor(public payload: string) {}
-}
-
-export class SignupStart implements Action {
-  readonly type = SIGNUP_START;
-
-  constructor(public payload: { email: string; password: string }) {}
-}
-
-export class ClearError implements Action {
-  readonly type = CLEAR_ERROR;
-}
-
-export class AutoLogin implements Action {
-  readonly type = AUTO_LOGIN;
-}
-
-export type AuthActions =
-  | AuthenticateSuccess
-  | Logout
-  | LoginStart
-  | AuthenticateFail
-  | SignupStart
-  | ClearError
-  | AutoLogin;
+export const ClearError = createAction(
+  CLEAR_ERROR,
+  props<{ payload: { email: string; password: string } }>()
+);
+export const AutoLogin = createAction(AUTO_LOGIN);

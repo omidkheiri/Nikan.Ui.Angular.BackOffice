@@ -17,13 +17,13 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private store: Store<{ account: Account }>
   ) {
-    this.account$ = this.store.select('account');
+    // this.account$ = this.store.select('account');
   }
   showProfile = '';
   ngOnInit(): void {
-    this.account$.subscribe((data: any) => {
-      this.account = data.account;
-    });
+    // this.account$.subscribe((data: any) => {
+    //   this.account = data.account;
+    // });
   }
   openmenu() {
     this.menuService.menuStatus.next(true);
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     this.showProfile = this.showProfile === '' ? 'show' : '';
   }
   logOute() {
-    localStorage.removeItem('token');
-    this.authService.isAuthenticated.next(false);
+    localStorage.removeItem('userData');
+    window.location.reload();
   }
 }

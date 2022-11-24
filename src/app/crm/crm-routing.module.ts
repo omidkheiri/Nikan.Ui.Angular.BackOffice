@@ -13,6 +13,7 @@ import { ReservesComponent } from './accounts/account/supplier/reserves/reserves
 import { ServicesComponent } from './accounts/account/supplier/services/services.component';
 import { LocationsComponent } from './accounts/account/supplier/locations/locations.component';
 import { AccountFormComponent } from './accounts/account/account-form/account-form.component';
+import { EditLocationComponent } from './accounts/account/supplier/locations/edit-location/edit-location.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,17 @@ const routes: Routes = [
               { path: 'reserves', component: ReservesComponent },
               { path: 'contacts', component: ContactsComponent },
               { path: 'services', component: ServicesComponent },
-              { path: 'locations', component: LocationsComponent },
+              {
+                path: 'locations',
+                component: LocationsComponent,
+                children: [
+                  { path: 'edit', component: EditLocationComponent },
+                  {
+                    path: 'edit/:locationId',
+                    component: EditLocationComponent,
+                  },
+                ],
+              },
             ],
           },
           {

@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { StoreModule } from '@ngrx/store';
+
+import { authReducers } from './store';
 
 @NgModule({
   declarations: [AuthComponent, ForgotPasswordComponent],
@@ -13,6 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     CommonModule,
     FormsModule,
     AuthRoutingModule,
+    StoreModule.forFeature('AUTH', authReducers),
     RouterModule.forChild([{ path: '', component: AuthComponent }]),
   ],
 })

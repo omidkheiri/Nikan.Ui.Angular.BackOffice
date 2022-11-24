@@ -6,9 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './auth/auth.service';
 
 import { LoggingService } from './login.service';
-import * as fromApp from './store/app.reducer';
-import * as AuthActions from './auth/store/auth.actions';
-
+import * as fromAuth from './auth/store';
+import * as authAction from './auth/store/auth.actions';
+import { environment } from './../environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,30 +21,14 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>,
+    private store: Store<fromAuth.AuthModuleState>,
     private loggingService: LoggingService
   ) {
     translate.setDefaultLang('fa');
     translate.use('fa');
   }
   ngOnInit(): void {
-    this.store.dispatch(new AuthActions.AutoLogin());
-    this.loggingService.printLog('Hello from AppComponent ngOnInit');
-
-    // this.authService.isAuthenticated.subscribe((subscriber) => {
-    //   if (subscriber) {
-    //     if (location.pathname === '/auth/login') {
-    //       this.router.navigate(['/dashboard/content']);
-    //     } else {
-    //       this.router.navigate([location.pathname]);
-    //     }
-    //   } else {
-    //     if (localStorage.getItem('token')) {
-    //       this.router.navigate(['/dashboard/content']);
-    //     } else {
-    //       this.router.navigate(['/auth/login']);
-    //     }
-    //   }
-    // });
+    this.store.dispatch(authAction.AutoLogin());
+    //this.loggingService.printLog('Hello from AppComponent ngOnInit');
   }
 }

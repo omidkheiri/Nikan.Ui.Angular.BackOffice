@@ -60,7 +60,7 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit(): void {}
   // navigate(data: any) {
-  //   console.log(data);
+
   //   this.router.navigate(["/da",data.value], );
   // }
 }

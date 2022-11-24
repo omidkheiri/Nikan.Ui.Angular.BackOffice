@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import * as fromApp from '../store/app.reducer';
 
 import * as AuthActions from './store/auth.actions';
-
+import * as fromAuth from './store';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +15,7 @@ export class AuthService {
   public isAuthenticated = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromAuth.AuthModuleState>
   ) {
     if (localStorage.getItem('token')) {
       this.isAuthenticated.next(true);
@@ -42,7 +41,7 @@ export class AuthService {
 
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
-      this.store.dispatch(new AuthActions.Logout());
+      this.store.dispatch(AuthActions.Logout());
     }, expirationDuration);
   }
 

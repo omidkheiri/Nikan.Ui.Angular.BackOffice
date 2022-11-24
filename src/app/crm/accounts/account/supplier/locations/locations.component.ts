@@ -1,44 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, Subscription } from 'rxjs';
-import { Account } from 'src/app/crm/model/account.model';
-import {
-  loadLocations,
-  setLocationList,
-} from '../../../../store/location/location.action';
+import { map, Observable, Subscription, take } from 'rxjs';
+import { loadLocations } from '../../../../store/location/location.action';
+import * as fromStore from '../../../../store';
+import { LocationItem } from 'src/app/crm/model/location.model';
+
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
   styleUrls: ['./locations.component.css'],
 })
 export class LocationsComponent implements OnInit {
-  id: string = '';
-  location$: Observable<Location[]> = this.store.select(
-    (state) => state.locations
-  );
-  account$: Subscription | any;
-  locations: Location[] = [];
-  constructor(
-    private store: Store<{ locations: any }>,
-    private accontStore: Store<{ account: Account }>
-  ) {
-    this.account$ = this.accontStore.select('account');
-    this.account$.subscribe((data: any) => {
-      let acc = data.account as Account;
+  id$ = '';
 
-      if (acc.id) {
-        this.store.dispatch(loadLocations({ payload: acc.id }));
-      }
-    });
+  account$: Subscription | any;
+  locations: LocationItem[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<fromStore.CrmModuleState>
+  ) {
+    this.store
+      .select<any>('CRM')
+      .pipe(map((locations) => locations))
+      .subscribe((location: any) => {
+        this.locations = location.location.locations;
+      });
   }
 
   ngOnInit(): void {
-    this.store
-      .select('locations')
-      .pipe(map((locations) => locations))
-      .subscribe((recipes: any) => {
-        this.locations = recipes;
-      });
+    this.store.select<any>('CRM').subscribe((d) => {
+      if (this.id$ !== d.account.account.id) {
+        this.id$ = d.account.account.id;
+        this.store.dispatch(loadLocations({ payload: this.id$ }));
+      }
+    });
   }
 }

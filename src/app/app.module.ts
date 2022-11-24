@@ -8,7 +8,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { DxButtonModule } from 'devextreme-angular';
+import { DxButtonModule, DxDateBoxModule } from 'devextreme-angular';
 
 import { AppComponent } from './app.component';
 import { SingleComponent } from './layouts/single/single.component';
@@ -21,12 +21,23 @@ import { BasicDataComponent } from './basic-data/basic-data.component';
 import { ReservationComponent } from './reservation/reservation.component';
 
 import { JalaliPipe } from './Shared/jalali.pipe';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as fromApp from './store/app.reducer';
+
 import { AccountEffect } from './crm/store/account.effect';
 import { AuthEffects } from './auth/store/auth.effects';
 import { LocationEffect } from './crm/store/location/location.effect';
+import { AuthModule } from './auth/auth.module';
+
+export const metaReducers: MetaReducer<any>[] = [debug];
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+  return function (state, action) {
+    console.log('state', state);
+    console.log('action', action);
+
+    return reducer(state, action);
+  };
+}
 
 @NgModule({
   declarations: [
@@ -44,12 +55,15 @@ import { LocationEffect } from './crm/store/location/location.effect';
   imports: [
     SharedModule,
     DxButtonModule,
+    DxDateBoxModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AccountEffect, AuthEffects, LocationEffect, ]),
+    AuthModule,
+
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([AccountEffect, AuthEffects, LocationEffect]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -57,7 +71,6 @@ import { LocationEffect } from './crm/store/location/location.effect';
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}, {}),
   ],
   providers: [AccountEffect],
   bootstrap: [AppComponent],

@@ -7,12 +7,12 @@ export const environment = {
   stsUrl: 'http://sts.ribbonid.com/connect/token',
   client_id: 'basicdata',
   client_secret: 'basicdatasecret',
-  baseAddress: `http://gaitway.ribbonid.com/GW/Report/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
-  accountAddress: `http://gaitway.ribbonid.com/GW/Account/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
-  flightAddress: `http://gaitway.ribbonid.com/GW/Account/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
-  serviceLocationAddress: `http://gaitway.ribbonid.com/GW/ServiceLocation/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
-  serviceLineAddress: `http://gaitway.ribbonid.com/GW/ServiceLine/V1/Company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
-  ReserveAddress: `http://gaitway.ribbonid.com/GW/Reserve/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
+  baseAddress: `http://localhost:30007/GW/Report/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  accountAddress: `http://localhost:30007/GW/Account/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  flightAddress: `http://localhost:30007/GW/Account/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  serviceLocationAddress: `http://localhost:30007/GW/ServiceLocation/V1/Company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  serviceLineAddress: `http://localhost:30007/GW/ServiceLine/V1/Company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  ReserveAddress: `http://localhost:30007/GW/Reserve/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
 };
 
 /*
@@ -22,4 +22,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+import 'zone.js/plugins/zone-error'; // Included with Angular CLI.

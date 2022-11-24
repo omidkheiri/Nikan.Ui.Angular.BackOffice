@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../auth.service';
-import * as fromApp from '../../store/app.reducer';
+import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   constructor(
     private service: AuthService,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromAuth.AuthModuleState>
   ) {}
 
   ngOnInit(): void {}
@@ -25,16 +25,17 @@ export class LoginComponent implements OnInit {
     const value = form.value;
 
     this.store.dispatch(
-      new AuthActions.LoginStart({
-        email: value.username,
-        password: value.password,
+      AuthActions.LoginStart({
+        payload: {
+          email: value.username,
+          password: value.password,
+        },
       })
     );
 
-    // console.log(value);
     // this.service.signIn(value.username, value.password).subscribe(
     //   (subscriber: any) => {
-    //     console.log(subscriber);
+
     //     this.service.isAuthenticated.next(true);
     //     localStorage.setItem('token', JSON.stringify(subscriber));
     //   },

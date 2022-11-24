@@ -1,4 +1,4 @@
-export interface Location {
+export interface LocationItem {
   title: string;
   address: string;
   location: string;

@@ -1,22 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, exhaustMap, map, mergeMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import * as locationActions from './location.action';
+import { LocationItem } from '../../model/location.model';
+import { LocationService } from '../../Services/loaction.service';
+import * as LocationActions from './location.action';
+import { Moment } from 'jalali-moment';
 @Injectable()
 export class LocationEffect {
   loadLocation$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType('[Locations API] load Locations'),
+      ofType(LocationActions.loadLocations),
       mergeMap((action) => {
-        console.log('Location');
+        LocationActions.setLocationList({ payload: action.payload });
 
-        console.log(action);
+        if (!action.payload) {
+          () => EMPTY;
+        }
         // ${payload}
         return this.http
           .get<any>(
-            `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+            `${environment.serviceLocationAddress}/ServiceLocation?AccountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
           )
           .pipe(
             map((location) => ({
@@ -28,6 +33,91 @@ export class LocationEffect {
       })
     );
   });
+  updateLocation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LocationActions.updateCurrentLocation),
+      mergeMap((action) => {
+        return this.http
+          .put<any>(
+            `${environment.serviceLocationAddress}/ServiceLocation/${action.payload.id}`,
+            action.payload
+          )
+          .pipe(
+            map((location) =>
+              LocationActions.loadCurrentLocation({
+                payload: location,
+              })
+            ),
+            map((location) => {
+              return LocationActions.loadLocations({
+                payload: 'location',
+              });
+            }),
+            catchError(() => EMPTY)
+          );
+      })
+    );
+  });
+  saveLocation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LocationActions.saveCurrentLocation),
+      mergeMap((action) => {
+        return this.http
+          .post<any>(
+            `${environment.serviceLocationAddress}/ServiceLocation`,
+            {
+              title: action.payload.title,
+              address: action.payload.address,
+              location: action.payload.location,
+              arrivalBufferTime: action.payload.arrivalBufferTime,
+              departureBufferTime: action.payload.departureBufferTime,
+              transferBufferTime: action.payload.transferBufferTime,
+              maxAcceptDate: action.payload.maxAcceptDate,
+              account: {
+                id: action.payload.account.id,
+                title: '',
+              },
+            },
+            { headers: { 'Content-Type': 'application/json' } }
+          )
+          .pipe(
+            map((location) =>
+              LocationActions.loadCurrentLocation({
+                payload: location,
+              })
+            ),
+            map((location) => {
+              return LocationActions.loadLocations({
+                payload: location.payload.account.id,
+              });
+            }),
 
-  constructor(private http: HttpClient, private actions$: Actions) {}
+            catchError((error) => {
+              return EMPTY;
+            })
+          );
+      })
+    );
+  });
+
+  loadAccount$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LocationActions.loadingCurrentLocation),
+      exhaustMap((action) => {
+        return this.locationService
+          .getLocation(action.payload)
+          .pipe(
+            map((location: LocationItem) =>
+              LocationActions.loadCurrentLocation({ payload: location })
+            )
+          );
+      })
+    );
+  });
+
+  constructor(
+    private http: HttpClient,
+    private actions$: Actions,
+    private locationService: LocationService
+  ) {}
 }

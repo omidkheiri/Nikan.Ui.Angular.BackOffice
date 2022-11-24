@@ -8,7 +8,11 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { DxButtonModule } from 'devextreme-angular';
+import {
+  DxButtonModule,
+  DxDateBoxModule,
+  DxPopupModule,
+} from 'devextreme-angular';
 import {
   DxDataGridModule,
   DxBulletModule,
@@ -28,6 +32,8 @@ import { CustomerComponent } from './accounts/account/customer/customer.componen
 import { ServicesComponent } from './accounts/account/supplier/services/services.component';
 import { LocationsComponent } from './accounts/account/supplier/locations/locations.component';
 import { AccountFormComponent } from './accounts/account/account-form/account-form.component';
+import { crmReducers } from './store';
+import { EditLocationComponent } from './accounts/account/supplier/locations/edit-location/edit-location.component';
 
 @NgModule({
   declarations: [
@@ -43,14 +49,19 @@ import { AccountFormComponent } from './accounts/account/account-form/account-fo
     ServicesComponent,
     LocationsComponent,
     AccountFormComponent,
+    EditLocationComponent,
   ],
   imports: [
     RouterModule,
     CrmRoutingModule,
     DxButtonModule,
+    DxPopupModule,
+    DxDateBoxModule,
+    ReactiveFormsModule,
+    DxTemplateModule,
     CommonModule,
     FormsModule,
-
+    StoreModule.forFeature('CRM', crmReducers),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

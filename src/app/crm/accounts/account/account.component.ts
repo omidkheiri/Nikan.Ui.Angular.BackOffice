@@ -3,6 +3,9 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+//import { Observable } from 'rxjs/Observable';
+import * as fromStore from '../../store';
+
 import { Account } from '../../model/account.model';
 import { loadAccount, setAccount } from '../../store/account.action';
 @Component({
@@ -18,9 +21,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<{ account: Account }>
+    private store: Store<fromStore.CrmModuleState>
   ) {
-    this.account$ = this.store.select('account');
+    this.account$ = this.store.select<any>('store');
   }
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
@@ -29,13 +32,12 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      this.store.dispatch(loadAccount({ payload: params.Id }));
+    this.store.select<any>('CRM').subscribe((state) => {
+      this.account = state.account.account;
     });
 
-    this.account$.subscribe((data: any) => {
-      this.account = data.account;
-      console.log(this.account);
+    this.route.params.subscribe((params: any) => {
+      this.store.dispatch(loadAccount({ payload: params.Id }));
     });
   }
 

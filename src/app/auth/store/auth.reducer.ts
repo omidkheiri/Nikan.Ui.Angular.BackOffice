@@ -1,9 +1,10 @@
+import { createReducer, on } from '@ngrx/store';
 import { User } from '../token.model';
 import * as AuthActions from './auth.actions';
 
 export interface State {
   user: User | any;
-  authError: string | any;
+  authError: any;
   loading: boolean;
 }
 
@@ -13,49 +14,48 @@ const initialState: State = {
   loading: false,
 };
 
-export function authReducer(
-  state = initialState,
-  action: AuthActions.AuthActions
-) {
-  switch (action.type) {
-    case AuthActions.AUTHENTICATE_SUCCESS:
-      const user = new User(
-        action.payload.email,
-        action.payload.userId,
-        action.payload.token,
-        action.payload.expirationDate
-      );
-      return {
-        ...state,
-        authError: null,
-        user: user,
-        loading: false,
-      };
-    case AuthActions.LOGOUT:
-      return {
-        ...state,
-        user: null,
-      };
-    case AuthActions.LOGIN_START:
-    case AuthActions.SIGNUP_START:
-      return {
-        ...state,
-        authError: null,
-        loading: true,
-      };
-    case AuthActions.AUTHENTICATE_FAIL:
-      return {
-        ...state,
-        user: null,
-        authError: action.payload,
-        loading: false,
-      };
-    case AuthActions.CLEAR_ERROR:
-      return {
-        ...state,
-        authError: null,
-      };
-    default:
-      return state;
-  }
-}
+export const authReducer = createReducer(
+  initialState,
+  on(AuthActions.AuthenticateSuccess, (state, { payload }) => {
+    const user = new User(
+      payload.email,
+      payload.userId,
+      payload.token,
+      payload.expirationDate
+    );
+
+    return {
+      ...state,
+      authError: null,
+      user: user,
+      loading: false,
+    };
+  }),
+  on(AuthActions.Logout, (state) => {
+    return {
+      ...state,
+      user: null,
+    };
+  }),
+  on(AuthActions.LoginStart, (state) => {
+    return {
+      ...state,
+      authError: null,
+      loading: true,
+    };
+  }),
+  on(AuthActions.AuthenticateFail, (state, { payload }) => {
+    return {
+      ...state,
+      user: null,
+      authError: payload,
+      loading: false,
+    };
+  }),
+  on(AuthActions.ClearError, (state) => {
+    return {
+      ...state,
+      authError: null,
+    };
+  })
+);
