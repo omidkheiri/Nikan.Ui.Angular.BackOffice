@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, ActionsSubject } from '@ngrx/store';
+
 import { map, Observable, Subscription, take } from 'rxjs';
-import { loadLocations } from '../../../../store/location/location.action';
+import * as fromAction from '../../../../store/location/location.action';
 import * as fromStore from '../../../../store';
 import { LocationItem } from 'src/app/crm/model/location.model';
+import { AccountService } from '../../../../Services/account.service';
 
 @Component({
   selector: 'app-locations',
@@ -19,7 +21,8 @@ export class LocationsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<fromStore.CrmModuleState>
+    private store: Store<fromStore.CrmModuleState>,
+    private AccountService: AccountService
   ) {
     this.store
       .select<any>('CRM')
@@ -30,11 +33,8 @@ export class LocationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select<any>('CRM').subscribe((d) => {
-      if (this.id$ !== d.account.account.id) {
-        this.id$ = d.account.account.id;
-        this.store.dispatch(loadLocations({ payload: this.id$ }));
-      }
+    this.AccountService.getAccountIdObs().subscribe((accountid) => {
+      this.store.dispatch(fromAction.loadLocations({ payload: accountid }));
     });
   }
 }

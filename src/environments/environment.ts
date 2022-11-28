@@ -7,12 +7,12 @@ export const environment = {
   stsUrl: 'http://sts.ribbonid.com/connect/token',
   client_id: 'basicdata',
   client_secret: 'basicdatasecret',
-  baseAddress: `http://localhost:30007/GW/Report/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
-  accountAddress: `http://localhost:30007/GW/Account/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
-  flightAddress: `http://localhost:30007/GW/Account/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
-  serviceLocationAddress: `http://localhost:30007/GW/ServiceLocation/V1/Company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
-  serviceLineAddress: `http://localhost:30007/GW/ServiceLine/V1/Company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
-  ReserveAddress: `http://localhost:30007/GW/Reserve/V1/company/f39c582d-82cb-49d5-818b-ee4014e59ae1`,
+  baseAddress: `http://localhost:30007/GW/Report/V1/company/44359985-cc6f-47f3-96be-63fd5553466d`,
+  accountAddress: `http://localhost:30007/GW/Account/V1/company/44359985-cc6f-47f3-96be-63fd5553466d`,
+  flightAddress: `http://localhost:30007/GW/Account/V1/company/44359985-cc6f-47f3-96be-63fd5553466d`,
+  serviceLocationAddress: `http://localhost:30007/GW/ServiceLocation/V1/Company/44359985-cc6f-47f3-96be-63fd5553466d`,
+  serviceLineAddress: `http://localhost:30007/GW/ServiceLine/V1/Company/44359985-cc6f-47f3-96be-63fd5553466d`,
+  ReserveAddress: `http://localhost:30007/GW/Reserve/V1/company/44359985-cc6f-47f3-96be-63fd5553466d`,
 };
 
 /*

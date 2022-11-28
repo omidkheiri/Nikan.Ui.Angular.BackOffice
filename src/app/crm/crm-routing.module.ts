@@ -14,6 +14,9 @@ import { ServicesComponent } from './accounts/account/supplier/services/services
 import { LocationsComponent } from './accounts/account/supplier/locations/locations.component';
 import { AccountFormComponent } from './accounts/account/account-form/account-form.component';
 import { EditLocationComponent } from './accounts/account/supplier/locations/edit-location/edit-location.component';
+import { ServiceLineEditComponent } from './accounts/account/supplier/services/service-line-edit/service-line-edit.component';
+import { ServiceLinePriceComponent } from './accounts/account/supplier/services/service-line-price/service-line-price.component';
+import { ServiceLineSchemaComponent } from './accounts/account/supplier/services/service-line-schema/service-line-schema.component';
 
 const routes: Routes = [
   {
@@ -26,8 +29,9 @@ const routes: Routes = [
         path: 'accounts',
         component: AccountsComponent,
       },
+      { path: 'accountform', component: AccountFormComponent },
       {
-        path: 'account/:Id',
+        path: 'account/:accountId',
         component: AccountComponent,
         children: [
           { path: '', redirectTo: 'accountform', pathMatch: 'full' },
@@ -40,7 +44,26 @@ const routes: Routes = [
               { path: 'home', component: SupplierHomeComponent },
               { path: 'reserves', component: ReservesComponent },
               { path: 'contacts', component: ContactsComponent },
-              { path: 'services', component: ServicesComponent },
+              {
+                path: 'services',
+                component: ServicesComponent,
+                children: [
+                  { path: 'edit', component: ServiceLineEditComponent },
+                  {
+                    path: 'edit/:serviceLineId',
+                    component: ServiceLineEditComponent,
+                  },
+
+                  {
+                    path: 'price/:serviceLineId',
+                    component: ServiceLinePriceComponent,
+                  },
+                  {
+                    path: 'Schema/:serviceLineId',
+                    component: ServiceLineSchemaComponent,
+                  },
+                ],
+              },
               {
                 path: 'locations',
                 component: LocationsComponent,

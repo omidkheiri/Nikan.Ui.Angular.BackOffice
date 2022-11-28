@@ -8,7 +8,12 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { DxButtonModule, DxDateBoxModule } from 'devextreme-angular';
+import {
+  DxNumberBoxModule,
+  DxButtonModule,
+  DxDateBoxModule,
+  DxSelectBoxModule,
+} from 'devextreme-angular';
 
 import { AppComponent } from './app.component';
 import { SingleComponent } from './layouts/single/single.component';
@@ -28,6 +33,7 @@ import { AccountEffect } from './crm/store/account.effect';
 import { AuthEffects } from './auth/store/auth.effects';
 import { LocationEffect } from './crm/store/location/location.effect';
 import { AuthModule } from './auth/auth.module';
+import { ServiceLineEffect } from './crm/accounts/account/supplier/services/store/serviceline.effect';
 
 export const metaReducers: MetaReducer<any>[] = [debug];
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -61,9 +67,15 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     FormsModule,
     HttpClientModule,
     AuthModule,
-
+    DxSelectBoxModule,
+    DxNumberBoxModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([AccountEffect, AuthEffects, LocationEffect]),
+    EffectsModule.forRoot([
+      AccountEffect,
+      AuthEffects,
+      LocationEffect,
+      ServiceLineEffect,
+    ]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -41,7 +41,6 @@ export class EditLocationComponent implements OnInit, OnDestroy {
   });
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.CrmModuleState>,
     private _location: Location

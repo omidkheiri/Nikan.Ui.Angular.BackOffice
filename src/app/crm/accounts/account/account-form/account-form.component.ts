@@ -7,8 +7,10 @@ import * as fromStore from '../../../store';
 import { Account } from 'src/app/crm/model/account.model';
 import {
   loadAccount,
+  saveAccountStarted,
   updateAccountStarted,
 } from 'src/app/crm/store/account.action';
+import { saveCurrentLocation } from 'src/app/crm/store/location/location.action';
 
 @Component({
   selector: 'app-account-form',
@@ -24,20 +26,30 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.CrmModuleState>
-  ) {}
+  ) {
+    this.account$ = this.store.select<any>('CRM');
+  }
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
 
     this.account$ = null;
+    this.account = null;
   }
 
   ngOnInit(): void {
-    this.store.select<any>('CRM').subscribe((state) => {
+    this.account$.subscribe((state: any) => {
       this.account = state.account.account;
+
+      console.log(state.account);
+      if (state.account.saved) {
+        if (
+          location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
+        ) {
+          this.router.navigate(['/dashboard/crm/accounts']);
+          this.account = null;
+        }
+      }
     });
-    // this.route.params.subscribe((params: any) => {
-    //   this.store.dispatch(loadAccount({ payload: params.Id }));
-    // });
 
     // this.account$.subscribe((data: any) => {
     //   this.account = data.account as Account;
@@ -48,8 +60,13 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     if (!form.valid) {
       return;
     }
-
-    this.store.dispatch(updateAccountStarted({ payload: form.value }));
+    if (
+      location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
+    ) {
+      this.store.dispatch(saveAccountStarted({ payload: form.value }));
+    } else {
+      this.store.dispatch(updateAccountStarted({ payload: form.value }));
+    }
   }
   onIntro() {
     this.router.navigate(['intro'], { relativeTo: this.route });
@@ -58,6 +75,6 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     this.router.navigate(['accountDetail'], { relativeTo: this.route });
   }
   onCustomer() {
-    this.router.navigate(['intro'], { relativeTo: this.route });
+    this.router.navigate(['intro', {}], { relativeTo: this.route });
   }
 }

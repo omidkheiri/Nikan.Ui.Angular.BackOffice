@@ -11,11 +11,16 @@ export class LocationService {
 
   getLocations(id: string) {
     return this.http.get<LocationItem[]>(
-      `${environment.serviceLocationAddress}/ServiceLocation?AccountId=${id}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+      `${environment.serviceLocationAddress}/ServiceLocation?AccountId=${id}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=title`
     );
   }
   getLocation(id: any) {
     return this.http.get<LocationItem>(
+      `${environment.serviceLocationAddress}/ServiceLocation/${id}`
+    );
+  }
+  deleteLocation(id: any) {
+    return this.http.delete(
       `${environment.serviceLocationAddress}/ServiceLocation/${id}`
     );
   }

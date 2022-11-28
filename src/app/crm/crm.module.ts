@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { AngJsoneditorModule } from '@maaxgr/ang-jsoneditor';
 import {
   DxButtonModule,
   DxDateBoxModule,
   DxPopupModule,
+  DxSelectBoxModule,
 } from 'devextreme-angular';
 import {
   DxDataGridModule,
@@ -34,6 +35,9 @@ import { LocationsComponent } from './accounts/account/supplier/locations/locati
 import { AccountFormComponent } from './accounts/account/account-form/account-form.component';
 import { crmReducers } from './store';
 import { EditLocationComponent } from './accounts/account/supplier/locations/edit-location/edit-location.component';
+import { ServiceLineEditComponent } from './accounts/account/supplier/services/service-line-edit/service-line-edit.component';
+import { ServiceLinePriceComponent } from './accounts/account/supplier/services/service-line-price/service-line-price.component';
+import { ServiceLineSchemaComponent } from './accounts/account/supplier/services/service-line-schema/service-line-schema.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,9 @@ import { EditLocationComponent } from './accounts/account/supplier/locations/edi
     LocationsComponent,
     AccountFormComponent,
     EditLocationComponent,
+    ServiceLineEditComponent,
+    ServiceLinePriceComponent,
+    ServiceLineSchemaComponent,
   ],
   imports: [
     RouterModule,
@@ -61,6 +68,8 @@ import { EditLocationComponent } from './accounts/account/supplier/locations/edi
     DxTemplateModule,
     CommonModule,
     FormsModule,
+    DxSelectBoxModule,
+    AngJsoneditorModule,
     StoreModule.forFeature('CRM', crmReducers),
     TranslateModule.forRoot({
       loader: {

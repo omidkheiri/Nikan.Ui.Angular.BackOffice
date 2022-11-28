@@ -53,6 +53,7 @@ export class LocationEffect {
                 payload: 'location',
               });
             }),
+            map((location: any) => LocationActions.locationlistUpdated()),
             catchError(() => EMPTY)
           );
       })
@@ -91,6 +92,7 @@ export class LocationEffect {
                 payload: location.payload.account.id,
               });
             }),
+            map((location: any) => LocationActions.locationlistUpdated()),
 
             catchError((error) => {
               return EMPTY;
@@ -100,7 +102,7 @@ export class LocationEffect {
     );
   });
 
-  loadAccount$ = createEffect(() => {
+  loadcurrentLocation$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationActions.loadingCurrentLocation),
       exhaustMap((action) => {
@@ -111,6 +113,17 @@ export class LocationEffect {
               LocationActions.loadCurrentLocation({ payload: location })
             )
           );
+      })
+    );
+  });
+
+  deleteLocation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LocationActions.deleteLocation),
+      exhaustMap((action) => {
+        return this.locationService
+          .deleteLocation(action.payload)
+          .pipe(map((location: any) => LocationActions.locationlistUpdated()));
       })
     );
   });

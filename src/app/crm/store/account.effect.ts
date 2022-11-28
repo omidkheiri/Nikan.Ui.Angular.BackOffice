@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { map, exhaustMap } from 'rxjs/operators';
@@ -15,7 +16,7 @@ export class AccountEffect {
           .getAccount(action.payload)
           .pipe(
             map((account: Account) =>
-              AccountAction.setAccount({ payload: account })
+              AccountAction.saveAccountFinished({ payload: account })
             )
           )
       )
@@ -30,7 +31,21 @@ export class AccountEffect {
           .putAccount(action.payload)
           .pipe(
             map((account: Account) =>
-              AccountAction.setAccount({ payload: account })
+              AccountAction.saveAccountFinished({ payload: account })
+            )
+          )
+      )
+    )
+  );
+  saveAccount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountAction.saveAccountStarted),
+      exhaustMap((action) =>
+        this.accountService
+          .postAccount(action.payload)
+          .pipe(
+            map((account: Account) =>
+              AccountAction.saveAccountFinished({ payload: account })
             )
           )
       )
@@ -39,6 +54,7 @@ export class AccountEffect {
 
   constructor(
     private actions$: Actions,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router
   ) {}
 }

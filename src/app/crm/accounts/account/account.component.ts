@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 //import { Observable } from 'rxjs/Observable';
 import * as fromStore from '../../store';
-
+import { AccountService } from '../../Services/account.service';
 import { Account } from '../../model/account.model';
-import { loadAccount, setAccount } from '../../store/account.action';
+import { loadAccount } from '../../store/account.action';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -21,9 +21,14 @@ export class AccountComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromStore.CrmModuleState>
+    private store: Store<fromStore.CrmModuleState>,
+    private AccountService: AccountService
   ) {
-    this.account$ = this.store.select<any>('store');
+    this.account$ = this.store.select<any>('CRM');
+    this.route.params.subscribe((params: any) => {
+      this.store.dispatch(loadAccount({ payload: params.accountId }));
+      AccountService.setAccountIdObs(params.accountId);
+    });
   }
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
@@ -32,12 +37,10 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select<any>('CRM').subscribe((state) => {
-      this.account = state.account.account;
-    });
+    this.account$.subscribe((state: any) => {
+      console.log(state);
 
-    this.route.params.subscribe((params: any) => {
-      this.store.dispatch(loadAccount({ payload: params.Id }));
+      this.account = state.account.account;
     });
   }
 
