@@ -10,7 +10,6 @@ import {
   saveAccountStarted,
   updateAccountStarted,
 } from 'src/app/crm/store/account.action';
-import { saveCurrentLocation } from 'src/app/crm/store/location/location.action';
 
 @Component({
   selector: 'app-account-form',

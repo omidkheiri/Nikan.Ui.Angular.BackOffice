@@ -1,39 +1,30 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import CustomStore from 'devextreme/data/custom_store';
+import DataSource from 'devextreme/data/data_source';
+import { exportDataGrid } from 'devextreme/excel_exporter';
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver-es';
-
-import CustomStore from 'devextreme/data/custom_store';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import * as fromStore from '../store';
-import * as fromaction from 'src/app/crm/store/account.action';
-import { exportDataGrid } from 'devextreme/excel_exporter';
-@Component({
-  selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.css'],
-})
-export class AccountsComponent implements OnInit {
-  dataSource: any = {};
-  constructor(
-    httpClient: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute,
-    private store: Store<fromStore.CrmModuleState>
-  ) {
-    store.dispatch(fromaction.accountSaved({ payload: false }));
 
+@Component({
+  selector: 'app-air-lines',
+  templateUrl: './air-lines.component.html',
+  styleUrls: ['./air-lines.component.css'],
+})
+export class AirLinesComponent implements OnInit {
+  dataSource: CustomStore;
+
+  constructor(private httpClient: HttpClient) {
     function isNotEmpty(value: any): boolean {
       return value !== undefined && value !== null && value !== '';
     }
 
     this.dataSource = new CustomStore({
       key: 'id',
-      load(loadOptions: any) {
-        let params: HttpParams = new HttpParams();
+      load: (loadOptions: any) => {
+        let params = '?';
         [
           'skip',
           'take',
@@ -46,35 +37,47 @@ export class AccountsComponent implements OnInit {
           'groupSummary',
         ].forEach((i) => {
           if (i in loadOptions && isNotEmpty(loadOptions[i])) {
-            params = params.set(i, JSON.stringify(loadOptions[i]));
+            params += `${i}=${JSON.stringify(loadOptions[i])}&`;
           }
         });
-        return lastValueFrom(
-          httpClient.get(`${environment.baseAddress}/account?${params}`, {
-            params,
-          })
-        )
-          .then((data: any) => ({
+        params = params.slice(0, -1);
+        return fetch(`${environment.flightAddress}/AirlineName${params}`)
+          .then((response) => response.json())
+          .then((data) => ({
             data: data.data,
             totalCount: data.totalCount,
             summary: data.summary,
             groupCount: data.groupCount,
           }))
-          .catch((error) => {
-            throw 'Data Loading Error';
+          .catch(() => {
+            throw new Error('Data Loading Error');
           });
+      },
+      insert: (values) => {
+        return httpClient
+          .post(`${environment.flightAddress}/AirlineName`, values)
+          .toPromise();
+      },
+      update: (key, values) => {
+        return httpClient
+          .put(`${environment.flightAddress}/AirlineName/${key}`, values)
+          .toPromise();
+      },
+      onRemoving: function (key) {
+        httpClient
+          .delete(`${environment.flightAddress}/AirlineName/` + key)
+          .toPromise();
+        location.reload();
+      },
+      onRemoved: function (key) {
+        httpClient
+          .delete(`${environment.flightAddress}/AirlineName/` + key)
+          .toPromise();
       },
     });
   }
 
   ngOnInit(): void {}
-  // navigate(data: any) {
-
-  //   this.router.navigate(["/da",data.value], );
-  // }
-  AddAccount() {
-    this.router.navigate(['/dashboard/crm/accountform']);
-  }
   onExporting(e: any) {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Sheet');

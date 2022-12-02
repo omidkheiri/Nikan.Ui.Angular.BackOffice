@@ -17,6 +17,8 @@ import { EditLocationComponent } from './accounts/account/supplier/locations/edi
 import { ServiceLineEditComponent } from './accounts/account/supplier/services/service-line-edit/service-line-edit.component';
 import { ServiceLinePriceComponent } from './accounts/account/supplier/services/service-line-price/service-line-price.component';
 import { ServiceLineSchemaComponent } from './accounts/account/supplier/services/service-line-schema/service-line-schema.component';
+import { ContactComponent } from './contacts/contact/contact.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
 const routes: Routes = [
   {
@@ -84,7 +86,16 @@ const routes: Routes = [
         ],
       },
 
-      { path: 'contacts', component: ContactsComponent },
+      { path: 'Contacts', component: ContactsComponent },
+      { path: 'Contactform', component: ContactComponent },
+      {
+        path: 'Contact/:accountId/:contactId',
+        component: ContactDetailComponent,
+        children: [
+          { path: '', redirectTo: 'contactform', pathMatch: 'full' },
+          { path: 'contactform', component: ContactComponent },
+        ],
+      },
     ],
   },
 ];

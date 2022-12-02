@@ -1,7 +1,7 @@
 <div class="layout-px-spacing">
   <div class="page-header">
     <div class="page-title">
-      <h3>{{ "Contact.List.PageTitle" | translate }}</h3>
+      <h3>{{ "FlightNumber.List.PageTitle" | translate }}</h3>
     </div>
   </div>
 
@@ -27,66 +27,79 @@
             <dxo-header-filter [visible]="true"></dxo-header-filter>
             <dxo-search-panel
               [visible]="true"
-              [width]="240"
+              [width]="250"
               placeholder="Search..."
             ></dxo-search-panel>
 
             <dxi-column
               direction="rtl"
               alignment="center"
-              dataField="accountNumber"
-              caption="{{ 'Contact.List.AccountNumber' | translate }}"
+              dataField="airlineName"
+              caption="{{ 'FlightNumber.List.AirlineName' | translate }}"
               dataType="string"
               width="120"
-            >
-            </dxi-column>
+            ></dxi-column>
             <dxi-column
               direction="rtl"
               alignment="right"
-              dataField="accountTitle"
+              dataField="flightName"
               dataType="string"
-              caption="{{ 'Contact.List.AccountTitle' | translate }}"
+              width="200"
+              caption="{{ 'FlightNumber.List.FlightName' | translate }}"
             ></dxi-column>
 
             <dxi-column
-              direction="rtl"
-              alignment="right"
-              dataField="name"
+              width="200"
+              dataField="flightInfo.arrivalCity"
               dataType="string"
-              caption="{{ 'Contact.List.Name' | translate }}"
-            ></dxi-column>
-            <dxi-column
-              direction="rtl"
-              alignment="right"
-              dataField="lastName"
-              dataType="string"
-              caption="{{ 'Contact.List.LastName' | translate }}"
+              caption="{{ 'FlightNumber.List.ArrivalCity' | translate }}"
             ></dxi-column>
             <dxi-column
               width="200"
-              dataField="emailAddress"
+              dataField="flightInfo.departureCity"
               dataType="string"
-              caption="{{ 'Contact.List.EmailAddress' | translate }}"
+              caption="{{ 'FlightNumber.List.DepartureCity' | translate }}"
             ></dxi-column>
             <dxi-column
-              width="200"
-              dataField="phone"
-              dataType="string"
-              caption="{{ 'Contact.List.Phone' | translate }}"
-            ></dxi-column>
-            <dxi-column
-              width="50"
-              dataField="birthDate"
+              dataField="flightDate"
+              format="yyyy/MM/dd"
               dataType="date"
-              caption="{{ 'Contact.List.BirthDate' | translate }}"
+              caption="{{ 'FlightNumber.List.FlightDate' | translate }}"
+              cellRender="checkBoxCell"
+            ></dxi-column>
+            <dxi-column
+              dataField="flightInfo.departureTime"
+              dataType="string"
+              caption="{{ 'FlightNumber.List.DepartureTime' | translate }}"
+              cellRender="checkBoxCell"
             ></dxi-column>
 
             <dxi-column
-              dataField="contactId"
-              width="50"
+              dataField="flightInfo.arrivalTime"
               allowSorting="false"
+              caption="{{ 'FlightNumber.List.ArrivalTime' | translate }}"
+            ></dxi-column>
+            <dxi-column
+              dataField="flightType"
+              allowSorting="true"
+              caption="{{ 'FlightNumber.List.FlightType' | translate }}"
+            ></dxi-column>
+            <dxi-column
+              dataField="scheduled"
+              allowSorting="true"
+              caption="{{ 'FlightNumber.List.Scheduled' | translate }}"
+            ></dxi-column>
+
+            <dxi-column
+              dataField="status"
+              allowSorting="true"
+              caption="{{ 'FlightNumber.List.Status' | translate }}"
+            ></dxi-column>
+            <dxi-column
               cellTemplate="cellTemplate"
-              caption="{{ 'Account.List.Link' | translate }}"
+              dataField="id"
+              allowSorting="true"
+              caption="{{ 'FlightNumber.List.Link' | translate }}"
             ></dxi-column>
 
             <dxo-paging defaultPageSize="12"></dxo-paging>
@@ -94,10 +107,16 @@
               [showPageSizeSelector]="true"
               allowedPageSizes="allowedPageSizes"
             ></dxo-pager>
+
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
             <div *dxTemplate="let data of 'cellTemplate'">
-              <div style="cursor: pointer" (click)="LoadContact(data)">
+              <a
+                [routerLink]="[
+                  '/dashboard/basicdata/flights/flightForm',
+                  data.value
+                ]"
+              >
                 <svg
-                  style="cursor: pointer"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -114,10 +133,8 @@
                     d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
                   ></path>
                 </svg>
-              </div>
+              </a>
             </div>
-            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-
             <dxo-export
               [enabled]="true"
               [allowExportSelectedData]="true"
@@ -125,11 +142,12 @@
             <dxo-toolbar>
               <dxi-item location="after">
                 <div *dxTemplate>
-                  <dx-button icon="plus" (onClick)="AddContact()"> </dx-button>
+                  <dx-button icon="plus" (onClick)="AddAccount()"> </dx-button>
                 </div>
               </dxi-item>
               <dxi-item name="columnChooserButton"></dxi-item>
               <dxi-item name="exportButton"></dxi-item>
+              <dxi-item name="searchPanel"></dxi-item>
             </dxo-toolbar>
           </dx-data-grid>
         </div>
@@ -137,3 +155,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

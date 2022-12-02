@@ -20,6 +20,13 @@ export class HeaderComponent implements OnInit {
     // this.account$ = this.store.select('account');
   }
   showProfile = '';
+  showsubMenu = '';
+  showSub(submenu: string) {
+    this.showsubMenu = submenu;
+  }
+  mouseOut(event: any) {
+    this.showsubMenu = '';
+  }
   ngOnInit(): void {
     // this.account$.subscribe((data: any) => {
     //   this.account = data.account;

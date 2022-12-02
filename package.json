@@ -33,6 +33,7 @@
     "jalali-moment": "^3.3.11",
     "jsoneditor": "9.7",
     "moment": "^2.29.4",
+    "ngrx-forms": "^8.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

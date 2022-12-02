@@ -1,0 +1,107 @@
+<div style="margin-left: auto; margin-right: auto; max-width: 500px">
+  <div class="row">
+    <div id="flFormsGrid" class="col-lg-12 layout-spacing">
+      <div class="statbox widget box box-shadow">
+        <div class="widget-header">
+          <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+              <h4 class="invalid-feedback" style="display: block">پروفایل</h4>
+            </div>
+          </div>
+        </div>
+        <div class="widget-content widget-content-area">
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="form-row mb-4">
+              <div class="form-group col-md-12">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نام سازمان
+                </label>
+                <dx-select-box
+                  [dataSource]="dataSource"
+                  displayExpr="title"
+                  [searchEnabled]="true"
+                  name="accountId"
+                  id="accountId"
+                  formControlName="accountId"
+                >
+                </dx-select-box>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نام</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  dir="ltr"
+                  placeholder="نام"
+                  formControlName="name"
+                  style="text-align: left"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نام خانوادگی</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  dir="ltr"
+                  placeholder="نام خانوادگی"
+                  formControlName="lastName"
+                  style="text-align: left"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+            </div>
+            <div class="form-row mb-4">
+              <div class="form-group col-md-12">
+                <label for="AccountId" style="text-align: right; width: 100%"
+                  >تاریخ تولد</label
+                >
+                <dx-date-box
+                  pickerType="calendar"
+                  formControlName="birthDate"
+                  type="date"
+                  displayFormat="yyyy-MM-dd"
+                ></dx-date-box>
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input" style="text-align: right; width: 100%"
+                  >آدرس ایمیل</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="EmailAddress"
+                  dir="ltr"
+                  formControlName="emailAddress"
+                  placeholder="آدرس ایمیل"
+                  value=""
+                  style="text-align: left"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input" style="text-align: right; width: 100%"
+                  >شماره موبایل</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="Phone"
+                  dir="ltr"
+                  placeholder="شماره موبایل"
+                  formControlName="phone"
+                  style="text-align: left"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">دخیره</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

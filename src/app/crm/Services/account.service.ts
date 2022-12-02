@@ -9,13 +9,13 @@ import { Account } from '../model/account.model';
 })
 export class AccountService {
   private accountId = new BehaviorSubject('');
-  constructor(private http: HttpClient) {}
   setAccountIdObs(accountId: string) {
     this.accountId.next(accountId);
   }
   getAccountIdObs(): Observable<string> {
     return this.accountId.asObservable();
   }
+  constructor(private http: HttpClient) {}
 
   getAccount(id: string) {
     return this.http.get<Account>(

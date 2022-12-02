@@ -11,6 +11,7 @@ import { AngJsoneditorModule } from '@maaxgr/ang-jsoneditor';
 import {
   DxButtonModule,
   DxDateBoxModule,
+  DxDropDownBoxModule,
   DxPopupModule,
   DxSelectBoxModule,
 } from 'devextreme-angular';
@@ -38,6 +39,8 @@ import { EditLocationComponent } from './accounts/account/supplier/locations/edi
 import { ServiceLineEditComponent } from './accounts/account/supplier/services/service-line-edit/service-line-edit.component';
 import { ServiceLinePriceComponent } from './accounts/account/supplier/services/service-line-price/service-line-price.component';
 import { ServiceLineSchemaComponent } from './accounts/account/supplier/services/service-line-schema/service-line-schema.component';
+import { ContactComponent } from './contacts/contact/contact.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import { ServiceLineSchemaComponent } from './accounts/account/supplier/services
     ServiceLineEditComponent,
     ServiceLinePriceComponent,
     ServiceLineSchemaComponent,
+    ContactComponent,
+    ContactDetailComponent,
   ],
   imports: [
     RouterModule,
@@ -64,6 +69,7 @@ import { ServiceLineSchemaComponent } from './accounts/account/supplier/services
     DxButtonModule,
     DxPopupModule,
     DxDateBoxModule,
+    DxDropDownBoxModule,
     ReactiveFormsModule,
     DxTemplateModule,
     CommonModule,

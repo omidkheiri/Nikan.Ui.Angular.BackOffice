@@ -4,17 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './Shared/shared,module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { ContactEffect } from './crm/contacts/store/contact.effect';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { NgrxFormsModule } from 'ngrx-forms';
 import {
   DxNumberBoxModule,
   DxButtonModule,
   DxDateBoxModule,
   DxSelectBoxModule,
 } from 'devextreme-angular';
-
 import { AppComponent } from './app.component';
 import { SingleComponent } from './layouts/single/single.component';
 import { MasterComponent } from './layouts/master/master.component';
@@ -59,6 +58,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     JalaliPipe,
   ],
   imports: [
+    NgrxFormsModule,
     SharedModule,
     DxButtonModule,
     DxDateBoxModule,
@@ -67,6 +67,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     FormsModule,
     HttpClientModule,
     AuthModule,
+
     DxSelectBoxModule,
     DxNumberBoxModule,
     StoreModule.forRoot({}),
@@ -75,6 +76,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
       AuthEffects,
       LocationEffect,
       ServiceLineEffect,
+      ContactEffect,
     ]),
     TranslateModule.forRoot({
       loader: {

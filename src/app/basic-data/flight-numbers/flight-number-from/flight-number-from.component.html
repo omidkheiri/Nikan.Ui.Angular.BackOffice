@@ -1,0 +1,284 @@
+<dx-popup
+  [width]="'40vw'"
+  [height]="'90vh'"
+  [showTitle]="true"
+  title="Flight"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="false"
+  container=".dx-viewport"
+  [visible]="true"
+>
+  <div *dxTemplate="let data of 'content'">
+    <div class="">
+      <div class="row">
+        <div id="flFormsGrid" class="col-lg-12 layout-spacing">
+          <form [formGroup]="flightForm" (submit)="onSubmit()">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نام ایرلاین</label
+                >
+                <dx-select-box
+                  [dataSource]="dataSource"
+                  displayExpr="name"
+                  valueExpr="name"
+                  [searchEnabled]="true"
+                  name="airlineName"
+                  id="airlineName"
+                  formControlName="airlineName"
+                >
+                </dx-select-box>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input" style="text-align: right; width: 100%"
+                  >شماره پرواز</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="flightName"
+                  name="flightName"
+                  placeholder="شماره پرواز"
+                  formControlName="flightName"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="from">تاریخ پرواز</label>
+                <dx-date-box
+                  pickerType="calendar"
+                  formControlName="flightDate"
+                  type="date"
+                  displayFormat="yyyy-MM-dd"
+                ></dx-date-box>
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
+            </div>
+            <div class="form-row mb-4">
+              <div class="form-group col-md-4">
+                <label>&nbsp;</label>
+                <div class="">
+                  <input
+                    type="checkbox"
+                    class=""
+                    id="scheduled"
+                    style="height: 24px; width: 24px"
+                    formControlName="scheduled"
+                  /><label
+                    class=""
+                    for="Scheduled"
+                    style="text-align: right; float: right"
+                    >پرواز روتین</label
+                  >
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>&nbsp;</label>
+                <div class="">
+                  <input
+                    type="checkbox"
+                    class=""
+                    id="status"
+                    style="height: 24px; width: 25px"
+                    formControlName="status"
+                  /><label
+                    class=""
+                    for="status"
+                    style="text-align: right; float: right"
+                    >پرواز فعال است</label
+                  >
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نوع پرواز</label
+                >
+
+                <dx-select-box
+                  [dataSource]="flightTypeSource"
+                  displayExpr="label"
+                  valueExpr="value"
+                  name="flightType"
+                  id="flightType"
+                  formControlName="flightType"
+                ></dx-select-box>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input" style="text-align: right; width: 100%"
+                  >محدوده پرواز</label
+                >
+                <dx-select-box
+                  [dataSource]="flightSourcesSource"
+                  displayExpr="label"
+                  valueExpr="value"
+                  name="flightType"
+                  id="flightType"
+                  formControlName="flightSources"
+                ></dx-select-box>
+              </div>
+            </div>
+            <hr />
+            <div formGroupName="flightInfo">
+              <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                  <label for="input" style="text-align: right; width: 100%"
+                    >فرودگاه مبدا</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="departureAirport"
+                    dir="ltr"
+                    placeholder="فرودگاه مبدا"
+                    value=""
+                    style="text-align: left"
+                    formControlName="departureAirport"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="input" style="text-align: right; width: 100%"
+                    >شهر مبدا</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="departureCity"
+                    dir="ltr"
+                    placeholder="شهر مبدا"
+                    value=""
+                    style="text-align: left"
+                    formControlName="departureCity"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label
+                    for="input"
+                    style="text-align: left; direction: ltr; width: 100%"
+                    >ساعت حرکت 00:00</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="departureTime"
+                    placeholder="ساعت حرکت 00:00"
+                    value=""
+                    style="text-align: left"
+                    formControlName="departureTime"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+              </div>
+              <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                  <label for="input" style="text-align: right; width: 100%"
+                    >فرودگاه مقصد</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="arrivalAirport"
+                    dir="ltr"
+                    placeholder="فرودگاه مقصد"
+                    value=""
+                    style="text-align: left"
+                    formControlName="arrivalAirport"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="input" style="text-align: right; width: 100%"
+                    >شهر مقصد</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="arrivalCity"
+                    dir="ltr"
+                    placeholder="شهر مقصد"
+                    value=""
+                    formControlName="arrivalCity"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label
+                    for="input"
+                    style="text-align: left; direction: ltr; width: 100%"
+                    >ساعت ورود 00:00</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="arrivalTime"
+                    placeholder="ساعت ورود 00:00"
+                    value=""
+                    style="text-align: left"
+                    formControlName="arrivalTime"
+                  />
+                  <div
+                    class="invalid-feedback show"
+                    style="display: none"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              (click)="oncancel()"
+              class="btn btn-warning mb-2 mr-2 ml-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-x"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <button type="submit" class="btn btn-dark mb-2">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-save"
+                >
+                  <path
+                    d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                  ></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>

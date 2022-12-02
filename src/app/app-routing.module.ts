@@ -28,6 +28,20 @@ const routes: Routes = [
         path: 'crm',
         loadChildren: () => import('./crm/crm.module').then((m) => m.CrmModule),
       },
+      {
+        path: 'basicdata',
+        loadChildren: () =>
+          import('./basic-data/basic-data.module').then(
+            (m) => m.BasicDataModule
+          ),
+      },
+      {
+        path: 'reserve',
+        loadChildren: () =>
+          import('./reservation/reservation.module').then(
+            (m) => m.ReservationModule
+          ),
+      },
     ],
   },
 
