@@ -1,0 +1,86 @@
+<div class="row layout-top-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-heading">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+            <p>مشایعین</p>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area">
+        <dx-data-grid
+          [dataSource]="Attendance"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
+          [hoverStateEnabled]="true"
+          keyExpr="id"
+          (onRowUpdating)="saveUpdate($event)"
+          (onSaved)="onSaved($event)"
+          (onRowRemoved)="ItemRemoved($event)"
+        >
+          <dxo-editing
+            [allowUpdating]="true"
+            [allowAdding]="true"
+            [allowDeleting]="true"
+            [useIcons]="true"
+            mode="row"
+          >
+          </dxo-editing>
+
+          <dxi-column
+            direction="rtl"
+            alignment="center"
+            dataField="attendee.gender"
+            caption="{{ 'ReservePage.Attendee.List.Gender' | translate }}"
+            dataType="string"
+            width="200"
+          >
+            <dxo-lookup
+              [dataSource]="genderSource"
+              displayExpr="label"
+              valueExpr="value"
+            >
+            </dxo-lookup>
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column
+            direction="rtl"
+            alignment="right"
+            dataField="attendee.name"
+            dataType="string"
+            caption="{{ 'ReservePage.Attendee.List.Name' | translate }}"
+          >
+            <dxi-validation-rule type="required"></dxi-validation-rule
+          ></dxi-column>
+          <dxi-column
+            direction="rtl"
+            alignment="right"
+            dataField="attendee.lastName"
+            dataType="string"
+            caption="{{ 'ReservePage.Attendee.List.LastName' | translate }}"
+          >
+            <dxi-validation-rule type="required"></dxi-validation-rule
+          ></dxi-column>
+
+          <dxo-paging defaultPageSize="100"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="true"
+            allowedPageSizes="allowedPageSizes"
+          ></dxo-pager>
+
+          <dxo-editing
+            [allowUpdating]="true"
+            [allowAdding]="true"
+            [allowDeleting]="true"
+            mode="row"
+          >
+          </dxo-editing>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

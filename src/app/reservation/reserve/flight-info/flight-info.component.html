@@ -1,0 +1,138 @@
+<div class="statbox widget box">
+  <div class="widget-content widget-content-area">
+    <div
+      *ngIf="flightInfo"
+      class="row layout-top-spacing"
+      style="direction: rtl"
+    >
+      <div class="col-lg-12 col-12 layout-spacing">
+        <div class="row">
+          <div class="col">
+            <span
+              >Airline: <b>{{ flightInfo.airlineName }}</b></span
+            >
+          </div>
+          <div class="col">
+            <span
+              >Flight Name: <b>{{ flightInfo.flightName }}</b></span
+            >
+          </div>
+          <div class="col">
+            <span
+              >Flight Date:<b>{{
+                flightInfo.flightDate | date : "yyyy/MM/dd"
+              }}</b></span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <blockquote class="blockquote" style="padding: 5px; margin: 0px">
+              <p style="text-align: center">اطلاعات حرکت</p>
+              <p class="d-inline">{{ flightInfo.departureCity }}</p>
+              <small
+                >{{ flightInfo.departureAirport
+                }}<span><code> time </code></span
+                ><b>{{ flightInfo.departureTime }}</b></small
+              >
+            </blockquote>
+          </div>
+          <div class="col" style="align-self: center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="55"
+              height="55"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#cccccc"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-chevrons-left"
+              style="margin: auto; display: block"
+            >
+              <polyline points="11 17 6 12 11 7"></polyline>
+              <polyline points="18 17 13 12 18 7"></polyline>
+            </svg>
+          </div>
+          <div class="col">
+            <blockquote class="blockquote" style="padding: 5px; margin: 0px">
+              <p style="text-align: center">اطلاعات ورود</p>
+              <p class="d-inline">{{ flightInfo.arrivalAirport }}</p>
+              <small
+                >{{ flightInfo.arrivalCity }}<span><code> time </code></span
+                ><b>{{ flightInfo.arrivalTime }}</b></small
+              >
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="flightInfoForm">
+      <div class="row">
+        <div class="col">
+          <label
+            >{{ "ReservePage.FlightInfoForm.FlightDate" | translate }}
+          </label>
+
+          <dx-date-box
+            [min]="min"
+            [max]="max"
+            type="date"
+            [displayFormat]="'yyyy/MM/dd'"
+            [showClearButton]="true"
+            (onValueChanged)="flightDate($event)"
+            formControlName="flightDate"
+          ></dx-date-box>
+        </div>
+        <div class="col">
+          <label for="input">{{
+            "ReservePage.FlightInfoForm.FlightType" | translate
+          }}</label>
+
+          <dx-select-box
+            [dataSource]="flightTypeSource"
+            displayExpr="label"
+            valueExpr="value"
+            name="flightType"
+            id="flightType"
+            #flighttype
+            formControlName="flightType"
+            (onSelectionChanged)="flightTypeChenged($event)"
+          ></dx-select-box>
+        </div>
+        <div class="col">
+          <label for="input"
+            >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}
+          </label>
+          <dx-select-box
+            [dataSource]="flightnumberSource"
+            displayExpr="flightName"
+            [showDataBeforeSearch]="true"
+            [searchEnabled]="true"
+            formControlName="flightName"
+            (onSelectionChanged)="flightNumberChanged($event)"
+          ></dx-select-box>
+        </div>
+        <div class="col">
+          <label
+            for="input"
+            style="text-align: left; direction: ltr; width: 100%"
+            ><span *ngIf="flighttype.value === 1">{{
+              "ReservePage.FlightInfoForm.DepartureFlightTime" | translate
+            }}</span>
+            <span *ngIf="flighttype.value === 0">{{
+              "ReservePage.FlightInfoForm.ArrivalFlightTime" | translate
+            }}</span> </label
+          ><input
+            type="text"
+            class="form-control"
+            placeholder="ساعت ورود"
+            formControlName="flightTime"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

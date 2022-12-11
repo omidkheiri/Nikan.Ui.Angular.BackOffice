@@ -25,8 +25,6 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
   ) {
     this.contact$ = this.store.select<any>('CRM');
     this.route.params.subscribe((params: any) => {
-      console.log(params);
-
       this.accountService.setAccountIdObs(params.accountId);
       this.contactService.setContactIdObs(params.contactId);
     });

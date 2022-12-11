@@ -1,1 +1,37 @@
-<p>reserve works!</p>
+<div id="content">
+  <div class="page-header page-header-scrollspy">
+    <nav class="breadcrumb-one" aria-label="breadcrumb">
+      <div class="title"><h3>محل ارائه سرویس</h3></div>
+      <ol class="breadcrumb">
+        <li *ngIf="location" class="breadcrumb-item">
+          <a href="/">{{ location.title }}</a>
+        </li>
+        <li
+          style="margin-right: 30px"
+          *ngIf="reserveNumber"
+          class="breadcrumb-item"
+        >
+          کد رزرو <strong class="text-danger">{{ reserveNumber }}</strong>
+        </li>
+        <!-- <li style="margin-right: 30px" *ngIf="Status" class="breadcrumb-item">
+          <strong [class]="getStyle(Status)">{{ getStatus(Status) }}</strong>
+        </li> -->
+      </ol>
+    </nav>
+  </div>
+  <div class="container">
+    <div class="container">
+      <div
+        class="navSection nav sidenav"
+        style="top: 95px; width: 300px; direction: rtl"
+      ></div>
+
+      <app-flight-info></app-flight-info>
+      <app-passengers></app-passengers>
+      <app-attendees></app-attendees>
+      <app-transfer></app-transfer>
+      <app-pet-service [item]="item"></app-pet-service>
+      <app-suite></app-suite>
+    </div>
+  </div>
+</div>

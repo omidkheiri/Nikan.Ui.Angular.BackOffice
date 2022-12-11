@@ -1,0 +1,15 @@
+#content>.container {
+    display: flex;
+    margin-right: 14px;
+    max-width: 78.333333%!important;
+    min-height: 400px;
+    padding: 0 32px!important;
+}
+.sidenav {
+    border-right: 1px solid #e0e6ed;
+    height: auto;
+    left: 0px;
+    position: fixed;
+    top: 147px;
+    width: 300px;
+}

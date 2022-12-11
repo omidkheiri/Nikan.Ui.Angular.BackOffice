@@ -61,7 +61,6 @@ export class ServiceLineSchemaComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.servicelineStor$.subscribe((sub: any) => {
-      console.log(sub.serviceline.currentServiceLine);
       this.form = new FormGroup({
         schema: new FormControl(
           JSON.parse(

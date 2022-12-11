@@ -35,7 +35,6 @@ export class ServicesComponent implements OnInit {
       }
       if (d.serviceline.serviceLines.length > 0) {
         this.serviceLines = d.serviceline.serviceLines;
-        console.log(this.serviceLines);
       }
     });
   }
@@ -48,9 +47,7 @@ export class ServicesComponent implements OnInit {
     });
   }
 
-  onfilterByLocation($event: any) {
-    console.log($event);
-  }
+  onfilterByLocation($event: any) {}
   onDeleteItem(id: any) {}
 
   openUpdateing(id: any) {

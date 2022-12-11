@@ -39,7 +39,6 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     this.account$.subscribe((state: any) => {
       this.account = state.account.account;
 
-      console.log(state.account);
       if (state.account.saved) {
         if (
           location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'

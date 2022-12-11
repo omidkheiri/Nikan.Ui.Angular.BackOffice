@@ -119,10 +119,6 @@ export class ServiceLineEffect {
     return this.actions$.pipe(
       ofType(fromAction.updateServiceLineSchemaStart),
       exhaustMap((action) => {
-        console.log('===>');
-
-        console.log(action.schema);
-
         return this.http
           .put<any>(
             `${environment.serviceLineAddress}/account/${action.accountId}/ServiceLine/${action.serviceLineId}/UpdateSchema`,

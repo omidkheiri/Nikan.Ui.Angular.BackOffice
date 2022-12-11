@@ -1,0 +1,242 @@
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div
+      *ngIf="reserveRecord && reserveRecord.reserveNumber"
+      class="widget widget-table-two"
+    >
+      <div class="widget-content searchable-container list">
+        <div class="searchable-items list">
+          <div class="items">
+            <div class="item-content">
+              <div class="user-location">
+                <div class="user-meta-info">
+                  <p class="user-name text-center">کد</p>
+                  <p
+                    class="user-work"
+                    data-occupation="reserveRecord.reserveNumber"
+                  >
+                    {{ reserveRecord.reserveNumber }}
+                  </p>
+                </div>
+              </div>
+              <div class="user-location">
+                <p class="info-title">نام مشتری</p>
+                <p class="usr-email-addr">
+                  {{ reserveRecord.contactFullName }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">شماره موبایل</p>
+                <p class="usr-location">
+                  {{ reserveRecord.contactPhone }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">محل ارائه سرویس</p>
+                <p class="usr-ph-no">
+                  {{ reserveRecord.locationTitle }}
+                </p>
+              </div>
+              <div class="user-profile">
+                <div class="user-meta-info">
+                  <p class="user-name text-center">شماره پرواز</p>
+                  <p
+                    class="user-work"
+                    data-occupation="reserveRecord.reserveNumber"
+                  >
+                    {{ reserveRecord.flightInfo.airlineName }}
+                    <strong> {{ reserveRecord.flightInfo.flightName }}</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="user-location">
+                <p class="info-title">تاریخ پرواز</p>
+                <p class="usr-email-addr" style="direction: ltr">
+                  {{
+                    reserveRecord.flightInfo.flightDate
+                      | date : "yyyy-MM-dd HH:mm"
+                  }}{{ "---" }}
+                  {{
+                    reserveRecord.flightInfo.flightType === 0
+                      ? "ورودی"
+                      : "خروجی"
+                  }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">فرودگاه مبدا</p>
+                <p class="usr-location">
+                  {{ reserveRecord.flightInfo.arrivalAirport }}
+                </p>
+              </div>
+              <div class="user-phone">
+                <p class="info-title">فرودگاه مقصد</p>
+                <p class="usr-ph-no">
+                  {{ reserveRecord.flightInfo.departureAirport }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="widget widget-table-two" style="padding: 20px">
+      <div class="widget-heading" style="text-align: right; margin: 0">
+        <h5 style="text-align: right; margin: 0">خلاصه</h5>
+      </div>
+      <div class="widget-content searchable-container list">
+        <div class="searchable-items list">
+          <div class="items">
+            <div class="item-content">
+              <!-- <div class="user-profile">
+                <div class="user-meta-info">
+                  <p class="user-name text-center">کد</p>
+                  <p
+                    class="user-work"
+                    data-occupation="reserveRecord.reserveNumber"
+                  >
+                    {{ reserveRecord.reserveNumber }}
+                  </p>
+                </div>
+              </div> -->
+              <div class="user-location">
+                <p class="info-title">جمع</p>
+                <p class="usr-email-addr">
+                  {{ reserveRecord.total }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">تخفیف</p>
+                <p class="usr-location">
+                  {{ reserveRecord.discountValue }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">مالیات</p>
+                <p class="usr-ph-no">
+                  {{ reserveRecord.taxTotal }}
+                </p>
+              </div>
+              <div class="user-profile">
+                <div class="user-location">
+                  <p class="user-name text-center">قابل پرداخت</p>
+                  <p
+                    class="user-work"
+                    data-occupation="reserveRecord.reserveNumber"
+                  >
+                    {{ reserveRecord.billable }}
+                  </p>
+                </div>
+              </div>
+              <div class="user-location">
+                <p class="info-title">باقی مانده</p>
+                <p class="usr-email-addr text-danger" style="direction: ltr">
+                  {{ reserveRecord.remainig }}
+                </p>
+              </div>
+              <div class="user-location">
+                <p class="info-title">موجودی</p>
+                <p class="usr-email-addr text-danger" style="direction: ltr">
+                  {{ reserveRecord.remainig }}
+                </p>
+              </div>
+              <div class="user-location">
+                <button (click)="AddPayment()" class="btn btn-dark">
+                  ثبت پرداخت
+                </button>
+              </div>
+              <div class="user-location">
+                <button *ngIf="account" class="btn btn-dark">
+                  پرداخت از حساب
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="widget widget-table-two" style="padding: 20px">
+      <div class="widget-heading">
+        <h5 style="text-align: right">پرداختها</h5>
+      </div>
+
+      <div class="widget-content">
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="reserveRecord.financialPayments"
+          keyExpr="dateIssue"
+          [columns]="[
+            'traceNumber',
+            'amount',
+            'dateIssue',
+            'description',
+            'status'
+          ]"
+          [showBorders]="true"
+        >
+          <dxi-column dataField="traceNumber" [width]="200"></dxi-column>
+          <dxi-column dataField="amount" [width]="200"></dxi-column>
+          <dxi-column
+            dataField="dateIssue"
+            format="yyyy-MM-dd HH:mm"
+            [width]="200"
+          ></dxi-column>
+          <dxi-column dataField="description"></dxi-column>
+          <dxi-column dataField="status"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="widget widget-table-two" style="padding: 20px">
+      <div class="widget-heading">
+        <h5 style="text-align: right">جزئیات رزرو</h5>
+      </div>
+
+      <div class="widget-content">
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="reserveRecord.reserveItems"
+          keyExpr="id"
+          [columns]="[
+            'serviceLineTitle',
+            'serviceQty',
+            'unitPrice',
+            'serviceTotal',
+            'discountPercent',
+            'discountValue',
+            'serviceTotalAfterDiscount',
+            'taxValue',
+            'serviceAdvanceTotal'
+          ]"
+          [showBorders]="true"
+        >
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<dx-popup
+  [width]="'40vw'"
+  [height]="'90vh'"
+  [showTitle]="true"
+  title="Payment"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="false"
+  container=".dx-viewport"
+  [visible]="visible"
+  ><app-add-payment [reserveRecord]="reservevalue"></app-add-payment
+></dx-popup>

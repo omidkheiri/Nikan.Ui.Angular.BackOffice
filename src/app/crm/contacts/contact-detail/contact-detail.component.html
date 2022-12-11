@@ -46,6 +46,7 @@
                     aria-orientation="vertical"
                   >
                     <a
+                      [routerLink]="'contactform'"
                       routerLink="accountform"
                       class="nav-link mb-2 mx-auto"
                       routerLinkActive="active"
@@ -98,6 +99,7 @@
                       معرفی
                     </a>
                     <a
+                      [routerLink]="'contactreserves'"
                       routerLinkActive="active"
                       class="nav-link mb-2 mx-auto"
                       routerLink="supplier/home"
@@ -134,9 +136,10 @@
                         <line x1="6" y1="6" x2="6.01" y2="6"></line>
                         <line x1="6" y1="18" x2="6.01" y2="18"></line>
                       </svg>
-                      تامین کننده
+                      رزروها
                     </a>
                     <a
+                      [routerLink]="'contactaccounts'"
                       routerLink="customer"
                       routerLinkActive="active"
                       class="nav-link mb-2 mx-auto"
@@ -161,7 +164,7 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                       </svg>
-                      مشتری
+                      حساب
                     </a>
                   </div>
                 </div>

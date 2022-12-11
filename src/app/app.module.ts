@@ -13,6 +13,8 @@ import {
   DxButtonModule,
   DxDateBoxModule,
   DxSelectBoxModule,
+  DxPopupModule,
+  DxListModule,
 } from 'devextreme-angular';
 import { AppComponent } from './app.component';
 import { SingleComponent } from './layouts/single/single.component';
@@ -33,13 +35,13 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { LocationEffect } from './crm/store/location/location.effect';
 import { AuthModule } from './auth/auth.module';
 import { ServiceLineEffect } from './crm/accounts/account/supplier/services/store/serviceline.effect';
+import { LocationListComponent } from './layouts/master/location-list/location-list.component';
+import { MenuDirective } from './layouts/master/header/shared/menu.directive';
+import { reserveEffect } from './reservation/store/reserve.effect';
 
 export const metaReducers: MetaReducer<any>[] = [debug];
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
-    console.log('state', state);
-    console.log('action', action);
-
     return reducer(state, action);
   };
 }
@@ -56,22 +58,26 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     BasicDataComponent,
     ReservationComponent,
     JalaliPipe,
+    LocationListComponent,
+    MenuDirective,
   ],
   imports: [
     NgrxFormsModule,
     SharedModule,
     DxButtonModule,
     DxDateBoxModule,
+    DxPopupModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     AuthModule,
-
+    DxListModule,
     DxSelectBoxModule,
     DxNumberBoxModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([
+      reserveEffect,
       AccountEffect,
       AuthEffects,
       LocationEffect,

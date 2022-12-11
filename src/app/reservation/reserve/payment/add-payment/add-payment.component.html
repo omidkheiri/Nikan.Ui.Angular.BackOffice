@@ -1,0 +1,100 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-bottom: 20px">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group mb-4">
+        <label for="input" style="text-align: right; width: 100%"
+          >عنوان بانک</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="Title"
+          name="Title"
+          placeholder="عنوان بانک"
+          required
+          ngModel
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="input" style="text-align: right; width: 100%"
+          >شماره حساب</label
+        ><input
+          type="text"
+          class="form-control"
+          id="EmailAddress"
+          name="EmailAddress"
+          dir="ltr"
+          placeholder="شماره حساب"
+          style="text-align: left"
+          email
+          required
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="input" style="text-align: right; width: 100%"
+          >کد پیگیری</label
+        ><input
+          type="text"
+          class="form-control"
+          id="Phone"
+          name="Phone"
+          dir="ltr"
+          placeholder="کد پیگیری"
+          required
+          style="text-align: left"
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-">
+        <label for="input" style="text-align: right; width: 100%">کد مرجع</label
+        ><input
+          type="text"
+          class="form-control"
+          id="PostalAddress"
+          name="PostalAddress"
+          placeholder="کد مرجع"
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-">
+        <label for="input" style="text-align: right; width: 100%">مبلغ</label
+        ><input
+          type="number"
+          class="form-control"
+          id="PostalAddress"
+          name="PostalAddress"
+          placeholder="مبلغ "
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-">
+        <label for="input" style="text-align: right; width: 100%"
+          >تاریخ پرداخت</label
+        ><input
+          type="text"
+          class="form-control"
+          id="PostalAddress"
+          name="PostalAddress"
+          placeholder="تاریخ پرداخت"
+        />
+        <div class="invalid-feedback show" style="display: none"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-warning m-3">ذخیره</button>
+      <button type="button" class="btn btn-dark m-3">لغو</button>
+    </div>
+  </div>
+</form>

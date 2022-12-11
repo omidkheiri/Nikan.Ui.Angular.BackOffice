@@ -1,0 +1,19 @@
+<div
+  class="widget-content widget-content-area"
+  style="padding: 5px; border-radius: 0"
+>
+  <div class="dx-field">
+    <div class="dx-field-label" style="text-align: center !important ;">
+      {{ Id.title }}
+    </div>
+    <div class="dx-field-value">
+      <dx-number-box
+        [value]="Suite ? Suite.serviceQty : 0"
+        [min]="0"
+        [max]="20"
+        [showSpinButtons]="true"
+        (onValueChanged)="updateSuite($event)"
+      ></dx-number-box>
+    </div>
+  </div>
+</div>

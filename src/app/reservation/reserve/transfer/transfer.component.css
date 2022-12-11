@@ -1,0 +1,8 @@
+::ng-deep #data-grid{
+    min-height: 700px;
+  }
+  
+  .dx-text-content-alignment-right{
+    float: right;
+  }
+

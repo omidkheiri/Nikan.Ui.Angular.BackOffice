@@ -1,0 +1,104 @@
+<div class="form-group col-md-12">
+  <dx-toast
+    [(visible)]="reserveNumber"
+    type="success"
+    [message]="'رزرو ثبت شد  ' + reserveNumber"
+  >
+  </dx-toast>
+
+  <label for="input" style="text-align: right; width: 100%">نام مشتری </label>
+
+  <dx-lookup
+    (onValueChanged)="setSerlectedCustomer($event)"
+    [dataSource]="dataSource"
+    [displayExpr]="dispalyCustomer"
+    [value]="contactId ? contactId : ''"
+  >
+    <dxo-drop-down-options [hideOnOutsideClick]="true" [showTitle]="false">
+    </dxo-drop-down-options>
+  </dx-lookup>
+</div>
+<div style="display: block; width: 100%">
+  <div style="margin: auto">
+    <!-- <button class="btn btn-dark m-3">
+      <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-rotate-ccw"
+        >
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span class="icon-name"> Reset</span>
+      </div>
+    </button> -->
+
+    <button
+      [disabled]="savedisabled"
+      (click)="saveReserve()"
+      class="btn btn-primary m-3"
+    >
+      <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-save"
+        >
+          <path
+            d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+          ></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+        <span class="icon-name"> Save</span>
+      </div>
+    </button>
+  </div>
+</div>
+<div style="display: block; width: 100%">
+  <dx-list [dataSource]="summery" [height]="400">
+    <div *dxTemplate="let item of 'item'">
+      <div class="product">
+        <div>{{ item.Title }}</div>
+        <div class="price" style="direction: ltr; text-align: center">
+          {{ item.Qty }} >>
+          <strong>{{ item.Sum | currency : "ریال" : "symbol" : "1.0" }}</strong>
+        </div>
+      </div>
+    </div>
+  </dx-list>
+</div>
+<div class="list-group">
+  <div
+    class="nav-link active"
+    style="border-bottom: 1px solid rgb(237, 234, 234)"
+  >
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <small style="font-size: 10px">جمع کل بدون مالیات و تخفیف</small>
+      </div>
+      <div
+        class="col-md-12 pr-5 pl-5"
+        style="text-align: center; font-size: 24px; margin-top: 10px"
+      >
+        {{ this.sum | currency : "ریال" : "symbol" : "1.0" }}
+      </div>
+    </div>
+  </div>
+</div>

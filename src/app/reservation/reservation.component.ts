@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.css']
+  styleUrls: ['./reservation.component.css'],
 })
 export class ReservationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('fa');
+    translate.use('fa');
   }
 
+  ngOnInit(): void {}
 }

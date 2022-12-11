@@ -1,0 +1,83 @@
+<div class="row layout-top-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-heading">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+            <p>خدمات ترانسفر</p>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area">
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="Transfers"
+          keyExpr="id"
+          [showBorders]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          (onRowInserted)="formSaved($event)"
+          (onRowUpdated)="formSaved($event)"
+          (onRowRemoved)="ItemRemoved($event)"
+        >
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-editing
+            mode="form"
+            [allowUpdating]="true"
+            [allowAdding]="true"
+            [allowDeleting]="true"
+            [useIcons]="true"
+          >
+            <dxo-form
+              labelMode="outside"
+              labelLocation="top"
+              [showColonAfterLabel]="true"
+            >
+              <dxi-item itemType="group" [colSpan]="2">
+                <dxi-item dataField="serviceLineId"> </dxi-item>
+              </dxi-item>
+              <dxi-item itemType="group" [colSpan]="2" [colCount]="4">
+                <dxi-item [colSpan]="4" dataField="address"></dxi-item>
+
+                <dxi-item [colSpan]="2" dataField="mobileNumber"></dxi-item>
+                <dxi-item [colSpan]="2" dataField="time"></dxi-item>
+                <dxi-item [colSpan]="4" dataField="description"> </dxi-item>
+              </dxi-item>
+            </dxo-form>
+          </dxo-editing>
+
+          <dxi-column
+            caption="نوع ترنسفر"
+            dataField="serviceLineId"
+            [width]="200"
+          >
+            <dxo-lookup
+              displayExpr="title"
+              valueExpr="id"
+              [dataSource]="TransferServiceList"
+            ></dxo-lookup>
+          </dxi-column>
+          <dxi-column caption="آدرس" dataField="address"></dxi-column>
+
+          <dxi-column
+            caption="زمان مراجعه"
+            [width]="100"
+            dataField="time"
+          ></dxi-column>
+          <dxi-column
+            caption="شماره موبایل"
+            dataField="mobileNumber"
+            [width]="120"
+          ></dxi-column>
+
+          <dxi-column
+            dataField="description"
+            [width]="170"
+            [visible]="false"
+            caption="توضیحات"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

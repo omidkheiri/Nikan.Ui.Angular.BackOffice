@@ -1422,3 +1422,26 @@ h4 {
   text-overflow: clip;
   direction: ltr;
 }
+
+
+
+.dx-widget, .dx-widget *, .dx-widget ::after, .dx-widget ::before, .dx-widget::after, .dx-widget::before {
+  box-sizing: border-box;
+ 
+}
+.dx-layout-manager .dx-field-item:not(.dx-first-col) {
+padding-left: 15px;
+padding-right: 15px;
+}
+.dx-datagrid .dx-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #061726;
+}
+.dx-widget, .dx-widget *, .dx-widget ::after, .dx-widget ::before, .dx-widget::after, .dx-widget::before {
+  box-sizing: border-box;
+  text-align: right;
+}
+.dx-datagrid-rowsview .dx-master-detail-row .dx-texteditor-input {
+  padding-right: 10px;
+}

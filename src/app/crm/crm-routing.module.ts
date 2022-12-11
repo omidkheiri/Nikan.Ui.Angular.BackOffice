@@ -19,6 +19,8 @@ import { ServiceLinePriceComponent } from './accounts/account/supplier/services/
 import { ServiceLineSchemaComponent } from './accounts/account/supplier/services/service-line-schema/service-line-schema.component';
 import { ContactComponent } from './contacts/contact/contact.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
+import { ContactReservesComponent } from './contacts/contact-detail/contact-reserves/contact-reserves.component';
+import { ContactAccountComponent } from './contacts/contact-detail/contact-account/contact-account.component';
 
 const routes: Routes = [
   {
@@ -94,6 +96,8 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'contactform', pathMatch: 'full' },
           { path: 'contactform', component: ContactComponent },
+          { path: 'contactreserves', component: ContactReservesComponent },
+          { path: 'contactaccounts', component: ContactAccountComponent },
         ],
       },
     ],

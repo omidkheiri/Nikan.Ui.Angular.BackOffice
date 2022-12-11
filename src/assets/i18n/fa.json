@@ -288,7 +288,8 @@
                 "MobileNumberRequired": "شماره موبایل لازم است",
                 "EmailAddressRequired": "آدرس ایمیل لازم است",
                 "PassportNumberRequired": "شماره پاسپورت لازم است",
-                "NationalCodeRequired": "کدملی لازم است"
+                "NationalCodeRequired": "کدملی لازم است",
+                "LOM": "LOM"
             }
         },
         "Pet": "خدمات حیوان زنده",

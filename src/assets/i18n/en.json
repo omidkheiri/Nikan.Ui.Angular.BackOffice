@@ -209,7 +209,19 @@
                 "BirthDate": "Birth Date",
                 "Age": "Age",
                 "Nationality": "Nationality",
-                "GenderRequired": "Gender Required"
+                "GenderRequired": "Gender Required",
+                "NameRequired": "Name Required",
+                "LastNameRequired": "Last Name Required",
+                "NationalityRequired": "Nationality Required",
+                "NameFromatErrorMessage": "Name Fromat Error Message",
+                "Visa": "Visa",
+                "Wheelchair": "Wheelchair",
+                "SaveThis": "Save This",
+                "MobileNumberRequired": "Mobile Number Required",
+                "EmailAddressRequired": "Email Address Required",
+                "PassportNumberRequired": "Passport Number Required",
+                "NationalCodeRequired": "National Code Required",
+                "LOM": "LOM"
             }
         }
     },

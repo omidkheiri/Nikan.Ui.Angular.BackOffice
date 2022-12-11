@@ -72,8 +72,6 @@ export class ContactComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       byKey(key) {
-        console.log(key);
-
         return http
           .get<any>(`${environment.accountAddress}/account/${key}`)
           .toPromise();
@@ -98,7 +96,6 @@ export class ContactComponent implements OnInit {
   }
 
   getDisplayValue(e: any) {
-    console.log(e);
     return e && e.title;
   }
   ngOnDestroy(): void {
@@ -158,7 +155,7 @@ export class ContactComponent implements OnInit {
       emailAddress: this.contactForm.value.emailAddress,
       birthDate: this.contactForm.value.birthDate,
     };
-    console.log(this.contactForm.value);
+
     var selectedAccountId = this.contactForm.value.accountId.accountId;
     if (
       location.pathname.toLocaleLowerCase() === '/dashboard/crm/contactform'

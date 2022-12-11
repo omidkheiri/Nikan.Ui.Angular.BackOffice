@@ -146,7 +146,6 @@ export class FlightNumberFromComponent implements OnInit {
       });
   }
   onSubmit() {
-    console.log(this.flightForm.value);
     if (this.editmode) {
       this.http
         .put<any>(
@@ -204,23 +203,24 @@ export class FlightNumberFromComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       byKey(key) {
-        console.log(key);
-
         return http
           .get<any>(
             `${environment.flightAddress}/AirlineName?skip=0&take=20&requireTotalCount=true&filter=[["name","=","${key}"]]`
           )
           .pipe(
             map((data) => {
-              console.log(data);
               return data.data[0];
             })
           )
           .toPromise();
       },
       load(loadOptions: any) {
-        var filter = `skip=0&take=20&requireTotalCount=true&filter=[["name","contains","${loadOptions.searchValue}"]]`;
-        console.log(filter);
+        var filter = `skip=0&take=20&requireTotalCount=true`;
+        if (loadOptions.searchValue) {
+          filter =
+            filter +
+            `&filter=[["name","contains","${loadOptions.searchValue}"]]`;
+        }
 
         return lastValueFrom(
           http.get(`${environment.flightAddress}/AirlineName?${filter}`)

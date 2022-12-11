@@ -1,0 +1,43 @@
+<dx-popup
+  [width]="300"
+  [position]="'left top'"
+  [height]="'100vh'"
+  [showTitle]="true"
+  title="Flight"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="false"
+  container=".dx-viewport"
+  [visible]="openmenu"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: -300 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: -300 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-list
+      [dataSource]="locations"
+      [height]="'100%'"
+      [allowItemDeleting]="false"
+      searchExpr="title"
+      [searchEnabled]="true"
+      searchMode="contains"
+      displayExpr="title"
+      ><div *dxTemplate="let item of 'item'">
+        <div (click)="openReservePage(item.id)" class="product">
+          <div>{{ item.title }}</div>
+        </div>
+      </div>
+    </dx-list>
+  </div>
+</dx-popup>

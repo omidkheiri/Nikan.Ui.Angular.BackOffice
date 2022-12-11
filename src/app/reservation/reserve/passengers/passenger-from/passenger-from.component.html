@@ -1,0 +1,316 @@
+<div class="widget-header">
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+      <div class="row">
+        <div id="flFormsGrid" class="col-lg-12 layout-spacing">
+          <div class="row"><div class="col"></div></div>
+          <form id="passenger-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="input" style="text-align: right; width: 100%"
+                  >نوع مسافر</label
+                >
+                <dx-select-box
+                  [dataSource]="serviceListSource"
+                  displayExpr="title"
+                  name="passengerType"
+                  id="passengerType"
+                  (onSelectionChanged)="setSelectedPassengerType($event)"
+                  ngModel
+                  #PassengerType
+                ></dx-select-box>
+              </div>
+
+              <div class="col-md-12" *ngIf="PassengerType.value">
+                <div class="row">
+                  <div class="form-group col-md-2" *ngIf="schema.gender">
+                    <label for="input" style="text-align: right; width: 100%"
+                      >{{
+                        "ReservePage.Passenger.FormElement.Gender" | translate
+                      }}
+                    </label>
+                    <dx-select-box
+                      [dataSource]="genderSource"
+                      displayExpr="label"
+                      valueExpr="value"
+                      name="gender"
+                      id="gender"
+                      ngModel
+                      #gender
+                    ></dx-select-box>
+
+                    <div
+                      *ngIf="submited && !gender.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.GenderRequired"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <input
+                    type="hidden"
+                    id="nationality"
+                    name="nationality"
+                    ngModel
+                    value="selectedPassengerType.noneNative?1:0"
+                  />
+                  <div class="form-group col" *ngIf="schema.name">
+                    <label for="input" style="text-align: right; width: 100%"
+                      >{{
+                        "ReservePage.Passenger.FormElement.Name" | translate
+                      }} </label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      pattern="[a-zA-Z ]*"
+                      [placeholder]="
+                        'ReservePage.Passenger.FormElement.Name' | translate
+                      "
+                      #name
+                      ngModel
+                    />
+                    <div
+                      *ngIf="submited && !name.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.NameRequired"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <div class="form-group col" *ngIf="schema.lastName">
+                    <label for="input" style="text-align: right; width: 100%">{{
+                      "ReservePage.Passenger.FormElement.LastName" | translate
+                    }}</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      name="lastName"
+                      pattern="[a-zA-Z ]*"
+                      [placeholder]="
+                        'ReservePage.Passenger.FormElement.LastName' | translate
+                      "
+                      #lastName
+                      ngModel
+                    />
+                    <div
+                      *ngIf="submited && !lastName.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.LastNameRequired"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <div class="form-group col" *ngIf="schema.passportNumber">
+                    <label for="input" style="text-align: right; width: 100%">{{
+                      "ReservePage.Passenger.FormElement.PassportNumber"
+                        | translate
+                    }}</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      id="passportNumber"
+                      name="passportNumber"
+                      [placeholder]="
+                        'ReservePage.Passenger.FormElement.PassportNumber'
+                          | translate
+                      "
+                      ngModel
+                      #passportNumber
+                    />
+                    <div
+                      *ngIf="submited && !passportNumber.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.PassportNumberRequired"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <div class="form-group col" *ngIf="schema.nationalCode">
+                    <label for="input" style="text-align: right; width: 100%">{{
+                      "ReservePage.Passenger.FormElement.NationalCode"
+                        | translate
+                    }}</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      id="nationalCode"
+                      name="nationalCode"
+                      [placeholder]="
+                        'ReservePage.Passenger.FormElement.NationalCode'
+                          | translate
+                      "
+                      ngModel
+                      #nationalCode
+                    />
+                    <div
+                      *ngIf="submited && !nationalCode.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.NationalCodeRequired"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <div class="form-group col" *ngIf="schema.birthDate">
+                    <label for="from"
+                      >{{
+                        "ReservePage.Passenger.FormElement.BirthDate"
+                          | translate
+                      }} </label
+                    ><dx-date-box
+                      type="date"
+                      [max]="max"
+                      name="birthDate"
+                      id="birthDate"
+                      [showClearButton]="true"
+                      ngModel
+                      #birthDate
+                    ></dx-date-box>
+                    <div
+                      *ngIf="submited && !birthDate.value"
+                      class="invalid-feedback"
+                      style="display: block"
+                    >
+                      {{
+                        "ReservePage.Passenger.FormElement.BirthDate"
+                          | translate
+                      }}
+                    </div>
+                  </div>
+                  <hr class="col-md-12" style="margin: 0px" />
+                  <div class="form-group col-md-3">
+                    <label>&nbsp;</label>
+                    <div class="">
+                      <input
+                        type="checkbox"
+                        class=""
+                        id="wheelchair"
+                        name="wheelchair"
+                        style="height: 25px; width: 25px"
+                        ngModel
+                        #wheelchair
+                      /><label
+                        class="pt-1"
+                        for="wheelchair"
+                        style="text-align: right; float: left; margin: 0px 10px"
+                        >{{
+                          "ReservePage.Passenger.FormElement.Wheelchair"
+                            | translate
+                        }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>&nbsp;</label>
+                    <div class="">
+                      <input
+                        type="checkbox"
+                        class=""
+                        name="visa"
+                        id="visa"
+                        style="height: 25px; width: 25px"
+                        ngModel
+                        #visa
+                      /><label
+                        class="pt-1"
+                        for="visa"
+                        style="text-align: right; float: left; margin: 0px 10px"
+                      >
+                        {{
+                          "ReservePage.Passenger.FormElement.Visa" | translate
+                        }}</label
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label>&nbsp;</label>
+                    <div class="">
+                      <input
+                        type="checkbox"
+                        class=""
+                        id="LOM"
+                        name="LOM"
+                        ngModel
+                        #LOM
+                        style="height: 25px; width: 25px"
+                      /><label
+                        class="pt-1"
+                        for="LOM"
+                        style="text-align: right; float: left; margin: 0px 10px"
+                        >{{
+                          "ReservePage.Passenger.FormElement.LOM" | translate
+                        }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <button type="submit" class="btn btn-primary m-3">
+                    <div class="icon-container">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-save"
+                      >
+                        <path
+                          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                        ></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                      </svg>
+                    </div></button
+                  ><button
+                    type="button"
+                    (click)="closeForm()"
+                    class="btn btn-dark m-3"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-x"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
