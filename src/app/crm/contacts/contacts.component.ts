@@ -53,9 +53,7 @@ export class ContactsComponent implements OnInit {
           }
         });
         return lastValueFrom(
-          httpClient.get(`${environment.baseAddress}/contact?${params}`, {
-            params,
-          })
+          httpClient.get(`${environment.baseAddress}/contactReport?${params}`)
         )
           .then((data: any) => ({
             data: data.data,

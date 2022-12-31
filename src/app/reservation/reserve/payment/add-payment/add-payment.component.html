@@ -8,8 +8,8 @@
         <input
           type="text"
           class="form-control"
-          id="Title"
-          name="Title"
+          id="BankTitle"
+          name="BankTitle"
           placeholder="عنوان بانک"
           required
           ngModel
@@ -24,13 +24,11 @@
         ><input
           type="text"
           class="form-control"
-          id="EmailAddress"
-          name="EmailAddress"
-          dir="ltr"
+          id="BankAccountId"
+          name="BankAccountId"
           placeholder="شماره حساب"
           style="text-align: left"
-          email
-          required
+          ngModel
         />
         <div class="invalid-feedback show" style="display: none"></div>
       </div>
@@ -42,11 +40,11 @@
         ><input
           type="text"
           class="form-control"
-          id="Phone"
-          name="Phone"
-          dir="ltr"
+          id="TraceNumber"
+          name="TraceNumber"
           placeholder="کد پیگیری"
           required
+          ngModel
           style="text-align: left"
         />
         <div class="invalid-feedback show" style="display: none"></div>
@@ -58,8 +56,9 @@
         ><input
           type="text"
           class="form-control"
-          id="PostalAddress"
-          name="PostalAddress"
+          id="RefrenceId"
+          name="RefrenceId"
+          ngModel
           placeholder="کد مرجع"
         />
         <div class="invalid-feedback show" style="display: none"></div>
@@ -71,30 +70,29 @@
         ><input
           type="number"
           class="form-control"
-          id="PostalAddress"
-          name="PostalAddress"
-          placeholder="مبلغ "
+          id="Amount"
+          name="Amount"
+          placeholder="مبلغ"
+          [ngModel]="reserveRecord.remainig"
+          [min]="reserveRecord.remainig"
         />
         <div class="invalid-feedback show" style="display: none"></div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group mb-">
-        <label for="input" style="text-align: right; width: 100%"
-          >تاریخ پرداخت</label
-        ><input
-          type="text"
-          class="form-control"
-          id="PostalAddress"
-          name="PostalAddress"
-          placeholder="تاریخ پرداخت"
-        />
-        <div class="invalid-feedback show" style="display: none"></div>
-      </div>
+      <label for="input" style="text-align: right; width: 100%"
+        >تاریخ پرداخت</label
+      ><dx-date-box
+        id="DateIssue"
+        name="DateIssue"
+        ngModel
+        placeholder="تاریخ پرداخت"
+      ></dx-date-box>
+      <div class="invalid-feedback show" style="display: none"></div>
     </div>
     <div class="col-md-6">
-      <button type="submit" class="btn btn-warning m-3">ذخیره</button>
-      <button type="button" class="btn btn-dark m-3">لغو</button>
+      <button type="submit" class="btn btn-dark m-3">ذخیره</button>
+      <button type="button" class="btn btn-warning m-3">لغو</button>
     </div>
   </div>
 </form>

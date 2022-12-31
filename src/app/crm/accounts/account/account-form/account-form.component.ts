@@ -61,6 +61,8 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     if (
       location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
     ) {
+      console.log('asdasdasdadasdasd');
+
       this.store.dispatch(saveAccountStarted({ payload: form.value }));
     } else {
       this.store.dispatch(updateAccountStarted({ payload: form.value }));

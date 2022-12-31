@@ -73,14 +73,14 @@ export class ContactComponent implements OnInit {
       key: 'id',
       byKey(key) {
         return http
-          .get<any>(`${environment.accountAddress}/account/${key}`)
+          .get<any>(`${environment.accountAddress}/accountReport/${key}`)
           .toPromise();
       },
       load(loadOptions: any) {
         var filter = `skip=0&take=20&requireTotalCount=true&filter=[["title","contains","${loadOptions.searchValue}"],"or",["emailAddress","contains","${loadOptions.searchValue}"],"or",["phone","contains","${loadOptions.searchValue}"]]`;
 
         return lastValueFrom(
-          http.get(`${environment.baseAddress}/account?${filter}`)
+          http.get(`${environment.baseAddress}/accountReport?${filter}`)
         )
           .then((data: any) => ({
             data: data.data,

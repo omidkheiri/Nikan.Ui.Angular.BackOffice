@@ -18,11 +18,18 @@ export class PaymentComponent implements OnInit {
     });
   }
   AddPayment() {
-    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLL');
-
-    console.log(this.reserveRecord);
     this.reservevalue = this.reserveRecord;
-    this.visible = true;
+    this.visible = !this.visible;
+  }
+  PayfromAccount() {
+    this.service.getReservePayment(this.id).subscribe((data: any) => {
+      this.service.getReserve(this.id).subscribe((data: any) => {
+        this.reserveRecord = data;
+        this.service.getAccount(data.contactId).subscribe((data: any) => {
+          this.account = data;
+        });
+      });
+    });
   }
   visible = false;
   ngOnInit(): void {
@@ -30,9 +37,17 @@ export class PaymentComponent implements OnInit {
       this.reserveRecord = data;
       this.service.getAccount(data.contactId).subscribe((data: any) => {
         this.account = data;
-        console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKK');
-
-        console.log(this.account);
+      });
+    });
+  }
+  recivePayment(e: any) {
+    console.log('KKKLLLLLLLLLLL');
+    console.log(e);
+    this.visible = false;
+    this.service.getReserve(this.id).subscribe((data: any) => {
+      this.reserveRecord = data;
+      this.service.getAccount(data.contactId).subscribe((data: any) => {
+        this.account = data;
       });
     });
   }

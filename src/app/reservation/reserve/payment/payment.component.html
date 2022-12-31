@@ -139,18 +139,30 @@
                 </p>
               </div>
               <div class="user-location">
-                <p class="info-title">موجودی</p>
+                <p class="info-title">موجودی حساب</p>
                 <p class="usr-email-addr text-danger" style="direction: ltr">
-                  {{ reserveRecord.remainig }}
+                  {{ account ? account.balance : 0 }}
                 </p>
               </div>
               <div class="user-location">
-                <button (click)="AddPayment()" class="btn btn-dark">
+                <button
+                  *ngIf="reserveRecord.remainig > 0"
+                  (click)="AddPayment()"
+                  class="btn btn-dark"
+                >
                   ثبت پرداخت
                 </button>
               </div>
               <div class="user-location">
-                <button *ngIf="account" class="btn btn-dark">
+                <button
+                  (click)="PayfromAccount()"
+                  *ngIf="
+                    account &&
+                    account.balance >= reserveRecord.remainig &&
+                    reserveRecord.remainig > 0
+                  "
+                  class="btn btn-dark"
+                >
                   پرداخت از حساب
                 </button>
               </div>
@@ -183,15 +195,15 @@
           ]"
           [showBorders]="true"
         >
-          <dxi-column dataField="traceNumber" [width]="200"></dxi-column>
           <dxi-column dataField="amount" [width]="200"></dxi-column>
           <dxi-column
             dataField="dateIssue"
-            format="yyyy-MM-dd HH:mm"
+            [format]="'yyyy-MM-dd HH:mm'"
             [width]="200"
+            dataType="date"
+            dir="ltr"
           ></dxi-column>
           <dxi-column dataField="description"></dxi-column>
-          <dxi-column dataField="status"></dxi-column>
         </dx-data-grid>
       </div>
     </div>
@@ -229,14 +241,18 @@
   </div>
 </div>
 <dx-popup
+  *ngIf="reservevalue"
   [width]="'40vw'"
-  [height]="'90vh'"
+  [height]="'60vh'"
   [showTitle]="true"
-  title="Payment"
+  title="ثبت پرداخت"
   [dragEnabled]="false"
   [hideOnOutsideClick]="false"
-  [showCloseButton]="false"
+  [showCloseButton]="true"
   container=".dx-viewport"
   [visible]="visible"
-  ><app-add-payment [reserveRecord]="reservevalue"></app-add-payment
+  ><app-add-payment
+    (paymentEvent)="recivePayment($event)"
+    [reserveRecord]="reservevalue"
+  ></app-add-payment
 ></dx-popup>

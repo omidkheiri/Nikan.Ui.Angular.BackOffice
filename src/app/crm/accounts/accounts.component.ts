@@ -50,9 +50,7 @@ export class AccountsComponent implements OnInit {
           }
         });
         return lastValueFrom(
-          httpClient.get(`${environment.baseAddress}/account?${params}`, {
-            params,
-          })
+          httpClient.get(`${environment.baseAddress}/accountreport?${params}`)
         )
           .then((data: any) => ({
             data: data.data,

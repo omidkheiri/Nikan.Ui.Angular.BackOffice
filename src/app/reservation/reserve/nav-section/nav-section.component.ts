@@ -96,7 +96,7 @@ export class NavSectionComponent implements OnInit {
         }
 
         return lastValueFrom(
-          httpClient.get(`${environment.baseAddress}/contact?${filter}`)
+          httpClient.get(`${environment.baseAddress}/contactReport?${filter}`)
         )
           .then((data: any) => {
             return {
