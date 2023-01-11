@@ -1,12 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap, map } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 import { LocationItem } from 'src/app/crm/model/location.model';
 import { LocationService } from 'src/app/crm/Services/loaction.service';
 import { environment } from 'src/environments/environment';
 
 import * as fromAction from './serviceline.action';
+
+const handleError = (errorRes: any) => {
+  let errorMessage = 'An unknown error occurred!';
+  if (!errorRes.error || !errorRes.error.error) {
+    return errorMessage;
+  }
+  switch (errorRes.error.error_description) {
+    case 'invalid_username_or_password':
+      errorMessage = 'Invalid Email or Password';
+      break;
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email exists already';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'This email does not exist.';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'This password is not correct.';
+      break;
+  }
+  return errorMessage;
+};
+
 @Injectable()
 export class ServiceLineEffect {
   loadLocation$ = createEffect(() => {
@@ -21,6 +44,23 @@ export class ServiceLineEffect {
           .pipe(
             map((locations: any) =>
               fromAction.setLocations({ payload: locations })
+            )
+          );
+      })
+    );
+  });
+  deleteServiceLines$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.deleteServiceLines),
+      exhaustMap((action) => {
+        return this.http
+          .delete<any>(
+            `${environment.serviceLocationAddress}/Account/${action.AccountId}/ServiceLine/${action.ServiceLineId}`
+          )
+
+          .pipe(
+            map((locations: any) =>
+              fromAction.loadServiceLines({ payload: action.AccountId })
             )
           );
       })
@@ -85,9 +125,29 @@ export class ServiceLineEffect {
             { headers: { 'Content-Type': 'application/json' } }
           )
           .pipe(
-            map((serviceLines: any) =>
-              fromAction.saveServiceLinefinished({ payload: action.accountId })
-            )
+            switchMap((res) =>
+              of(
+                fromAction.saveServiceLineError({
+                  errorMessage: '',
+                }),
+
+                fromAction.loadServiceLines({ payload: action.accountId })
+              )
+            ),
+
+            catchError((errorRes) => {
+              console.log(errorRes);
+              var errorMessage = handleError(errorRes);
+
+              return of(
+                fromAction.saveServiceLineError({
+                  errorMessage:
+                    errorRes.error.title && errorRes.error.title === 'Duplicate'
+                      ? 'عنوان تکراری'
+                      : 'An unknown error occurred!',
+                })
+              );
+            })
           );
       })
     );

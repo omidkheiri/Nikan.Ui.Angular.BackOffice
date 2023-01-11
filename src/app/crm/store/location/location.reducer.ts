@@ -34,12 +34,12 @@ export const locationReducer = createReducer(
       ...state,
       currentlocation,
     })
-  ),
-  on(
-    locationAction.saveCurrentLocation,
-    (state, { payload: currentlocation }) => ({
-      ...state,
-      currentlocation,
-    })
   )
+  // on(
+  //   locationAction.saveCurrentLocation,
+  //   (state, { payload: currentlocation }) => ({
+  //     ...state,
+  //     currentlocation,
+  //   })
+  // )
 );

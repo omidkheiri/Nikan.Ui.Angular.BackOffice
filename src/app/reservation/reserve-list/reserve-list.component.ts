@@ -87,10 +87,10 @@ export class ReserveListComponent implements OnInit {
         return 'badge badge-success';
         break;
       case 2:
-        return 'badge badge-success';
+        return 'badge badge-warning';
         break;
       case 3:
-        return 'badge badge-success';
+        return 'badge badge-info';
         break;
       case 4:
         return 'badge badge-success';

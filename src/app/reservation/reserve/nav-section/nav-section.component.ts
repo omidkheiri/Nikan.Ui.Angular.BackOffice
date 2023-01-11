@@ -234,4 +234,7 @@ export class NavSectionComponent implements OnInit {
       }
     });
   }
+  locationReload() {
+    location.reload();
+  }
 }

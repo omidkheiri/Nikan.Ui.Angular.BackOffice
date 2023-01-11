@@ -85,15 +85,12 @@ export class EditLocationComponent implements OnInit, OnDestroy {
     if (!this.locationForm.valid) {
       return;
     }
+    var obj = JSON.stringify(this.locationForm.getRawValue());
+    var j = JSON.parse(obj);
+    j['account'] = { id: this.accountId, title: '' };
     if (this.editMode) {
-      this.store.dispatch(
-        fromAction.updateCurrentLocation({ payload: this.locationForm.value })
-      );
+      this.store.dispatch(fromAction.updateCurrentLocation({ payload: j }));
     } else {
-      var obj = JSON.stringify(this.locationForm.getRawValue());
-      var j = JSON.parse(obj);
-      j['account'] = { id: this.accountId, title: '' };
-
       this.store.dispatch(fromAction.saveCurrentLocation({ payload: j }));
     }
     this.oncancel();
@@ -133,6 +130,7 @@ export class EditLocationComponent implements OnInit, OnDestroy {
     }
   }
   oncancel() {
+    this.store.dispatch(fromAction.loadLocations({ payload: this.accountId }));
     this._location.back();
   }
 }

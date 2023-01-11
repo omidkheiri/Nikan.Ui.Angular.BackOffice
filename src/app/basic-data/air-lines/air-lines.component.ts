@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 import DataSource from 'devextreme/data/data_source';
 import { exportDataGrid } from 'devextreme/excel_exporter';
@@ -14,6 +15,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./air-lines.component.css'],
 })
 export class AirLinesComponent implements OnInit {
+  @ViewChild(DxDataGridComponent, { static: false })
+  dataGrid: DxDataGridComponent;
   dataSource: CustomStore;
 
   constructor(private httpClient: HttpClient) {
@@ -59,8 +62,28 @@ export class AirLinesComponent implements OnInit {
           .toPromise();
       },
       update: (key, values) => {
+        console.log(values);
+        console.log(
+          this.dataGrid.instance
+            .getDataSource()
+            .items()
+            .find((data: any) => {
+              return data.id === key;
+            })
+        );
+        var item = this.dataGrid.instance
+          .getDataSource()
+          .items()
+          .find((data: any) => {
+            return data.id === key;
+          });
+        if (values.name) item.name = values.name;
+        if (values.iconUrl) item.iconUrl = values.iconUrl;
+
+        console.log(item);
+
         return httpClient
-          .put(`${environment.flightAddress}/AirlineName/${key}`, values)
+          .put(`${environment.flightAddress}/AirlineName/${key}`, item)
           .toPromise();
       },
       onRemoving: function (key) {

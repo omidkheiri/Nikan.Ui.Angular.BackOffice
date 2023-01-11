@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as Moment from 'moment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { __values } from 'tslib';
 @Injectable({
   providedIn: 'root',
@@ -44,6 +44,14 @@ export class ReserveService {
       }&FlightType=${this.flightType.getValue()}`
     );
   }
+
+  addPayment(contactId: string, value: any): Observable<any> {
+    return this.http.post(
+      `${environment.FinancialAddress}/BankPayment/${contactId}`,
+      JSON.parse(JSON.stringify(value))
+    );
+  }
+
   getContact(contavtId: string) {
     return this.http.get<any>(
       `${environment.accountAddress}/contact/${contavtId}`

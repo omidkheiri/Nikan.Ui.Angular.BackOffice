@@ -14,6 +14,8 @@ import {
   DxDropDownBoxModule,
   DxPopupModule,
   DxSelectBoxModule,
+  DxToastComponent,
+  DxToastModule,
 } from 'devextreme-angular';
 import {
   DxDataGridModule,
@@ -74,6 +76,7 @@ import { ContactAccountComponent } from './contacts/contact-detail/contact-accou
     CrmRoutingModule,
     DxButtonModule,
     DxPopupModule,
+    DxToastModule,
     DxDateBoxModule,
     DxDropDownBoxModule,
     ReactiveFormsModule,

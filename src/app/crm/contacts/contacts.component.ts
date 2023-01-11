@@ -12,6 +12,7 @@ import { exportDataGrid } from 'devextreme/excel_exporter';
 import { saveAs } from 'file-saver-es';
 import { AccountService } from '../Services/account.service';
 import { ContactService } from '../Services/contact.service';
+import DataSource from 'devextreme/data/data_source';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
@@ -19,6 +20,7 @@ import { ContactService } from '../Services/contact.service';
 })
 export class ContactsComponent implements OnInit {
   dataSource: any = {};
+  accountId: string;
   constructor(
     private accountService: AccountService,
     private contactService: ContactService,
@@ -27,14 +29,24 @@ export class ContactsComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store<fromStore.CrmModuleState>
   ) {
+    var autofilter = null;
     store.dispatch(fromaction.accountSaved({ payload: false }));
+    console.log((this.router.url + '').toLowerCase());
+
+    if ((this.router.url + '').toLowerCase() !== '/dashboard/crm/contacts') {
+      accountService.getAccountIdObs().subscribe((data: string) => {
+        this.accountId = data;
+        autofilter = ['accountId', '=', this.accountId];
+      });
+    }
 
     function isNotEmpty(value: any): boolean {
       return value !== undefined && value !== null && value !== '';
     }
 
-    this.dataSource = new CustomStore({
+    this.dataSource = new DataSource({
       key: 'contactId',
+      filter: autofilter,
       load(loadOptions: any) {
         let params: HttpParams = new HttpParams();
         [

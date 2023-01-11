@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { EMPTY } from 'rxjs';
 import { LocationItem } from '../../../../../model/location.model';
 import * as fromAction from './serviceline.action';
 export interface State {
@@ -7,6 +8,8 @@ export interface State {
   serviceLines: any;
   serviceTypes: any;
   currentServiceLine: any;
+  loaderIndicator: boolean;
+  errorMassage: string;
 }
 const initialState: State = {
   locations: [],
@@ -14,6 +17,8 @@ const initialState: State = {
   serviceLines: [],
   serviceTypes: [],
   currentServiceLine: {},
+  loaderIndicator: false,
+  errorMassage: '',
 };
 
 export const serviceLineReducer = createReducer(
@@ -35,5 +40,18 @@ export const serviceLineReducer = createReducer(
   on(fromAction.setServiceLine, (state, { payload: serviceLine }) => ({
     ...state,
     currentServiceLine: serviceLine,
-  }))
+    errorMassage: '',
+  })),
+  on(fromAction.saveServiceLineError, (state, { errorMessage: message }) => ({
+    ...state,
+    errorMassage: message,
+    loaderIndicator: false,
+  })),
+  on(fromAction.saveServiceLinefinished, (state) => {
+    return {
+      ...state,
+      errorMassage: '',
+      loaderIndicator: false,
+    };
+  })
 );

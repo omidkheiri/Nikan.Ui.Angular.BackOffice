@@ -13,6 +13,10 @@ export const loadServiceLines = createAction(
   '[serviceline page] load service lines',
   props<{ payload: string }>()
 );
+export const deleteServiceLines = createAction(
+  '[serviceline page] delete service line',
+  props<{ AccountId: string; ServiceLineId: string }>()
+);
 export const setServiceLines = createAction(
   '[serviceline page] set service lines',
   props<{ payload: any }>()
@@ -38,13 +42,16 @@ export const saveServiceLineStart = createAction(
   props<{ accountId: any; Item: any }>()
 );
 export const saveServiceLinefinished = createAction(
-  '[serviceline page] save service line finished',
-  props<{ payload: string }>()
+  '[serviceline page] save service line finished'
 );
 
 export const loadServiceLine = createAction(
   '[serviceline page] load service line',
   props<{ accountId: string; serviceLineId: string }>()
+);
+export const saveServiceLineError = createAction(
+  '[serviceline page] save service line error',
+  props<{ errorMessage: string }>()
 );
 export const setServiceLine = createAction(
   '[serviceline page] set service line',

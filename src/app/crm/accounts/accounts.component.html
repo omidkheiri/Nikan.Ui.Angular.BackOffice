@@ -20,6 +20,13 @@
             (onExporting)="onExporting($event)"
             keyExpr="Id"
           >
+            <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50]"
+              [showNavigationButtons]="true"
+            >
+            </dxo-pager>
             <dxo-filter-row
               [visible]="true"
               [applyFilter]="true"

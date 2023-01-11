@@ -35,14 +35,13 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     this.service.getReserve(this.id).subscribe((data: any) => {
       this.reserveRecord = data;
+
       this.service.getAccount(data.contactId).subscribe((data: any) => {
         this.account = data;
       });
     });
   }
   recivePayment(e: any) {
-    console.log('KKKLLLLLLLLLLL');
-    console.log(e);
     this.visible = false;
     this.service.getReserve(this.id).subscribe((data: any) => {
       this.reserveRecord = data;

@@ -28,7 +28,10 @@ export class LocationEffect {
               type: '[LocationList Page] get Locations',
               payload: location,
             })),
-            catchError(() => EMPTY)
+            catchError((error) => {
+              console.log(error);
+              return EMPTY;
+            })
           );
       })
     );

@@ -24,7 +24,9 @@ export class ContactAccountComponent implements OnInit {
   // Prior to Angular 8
   // @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
   _httpClient: any;
+  account: any;
   constructor(
+    private service: ContactService,
     private httpClient: HttpClient,
     private router: Router,
 
@@ -75,7 +77,11 @@ export class ContactAccountComponent implements OnInit {
     this.ref.markForCheck();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.getAccount(this.conatctId).subscribe((data: any) => {
+      this.account = data;
+    });
+  }
   onExporting(e: any) {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Sheet');

@@ -26,7 +26,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import { environment } from 'src/environments/environment';
 import { AccountService } from '../../Services/account.service';
 import { ContactService } from '../../Services/contact.service';
-import DataSource from 'devextreme/data/data_source';
+
 import { FormGroupState } from 'ngrx-forms';
 @Component({
   selector: 'app-contact',
@@ -46,6 +46,7 @@ export class ContactComponent implements OnInit {
   httpclient: any;
   name: Observable<string>;
   lastName = '';
+  saved: boolean = false;
 
   constructor(
     private accountService: AccountService,
@@ -63,6 +64,7 @@ export class ContactComponent implements OnInit {
       birthDate: new FormControl('', Validators.required),
       emailAddress: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
+      discount: new FormControl('', Validators.required),
     });
     this.loadList(this.http);
     this.store$ = this.store.select<any>('CRM');
@@ -73,7 +75,7 @@ export class ContactComponent implements OnInit {
       key: 'id',
       byKey(key) {
         return http
-          .get<any>(`${environment.accountAddress}/accountReport/${key}`)
+          .get<any>(`${environment.accountAddress}/Account/${key}`)
           .toPromise();
       },
       load(loadOptions: any) {
@@ -137,6 +139,7 @@ export class ContactComponent implements OnInit {
               Validators.required
             ),
             phone: new FormControl(value.phone, Validators.required),
+            discount: new FormControl(value.discount, Validators.required),
           });
         }
         this.ref.markForCheck();
@@ -154,6 +157,7 @@ export class ContactComponent implements OnInit {
       phone: this.contactForm.value.phone,
       emailAddress: this.contactForm.value.emailAddress,
       birthDate: this.contactForm.value.birthDate,
+      discount: this.contactForm.value.discount,
     };
 
     var selectedAccountId = this.contactForm.value.accountId.accountId;
@@ -166,6 +170,8 @@ export class ContactComponent implements OnInit {
           contact: contact,
         })
       );
+
+      this.saved = true;
     } else {
       this.store$.dispatch(
         fromAction.updateContactItemStart({
@@ -174,6 +180,8 @@ export class ContactComponent implements OnInit {
           contact: contact,
         })
       );
+
+      this.saved = true;
     }
   }
 }

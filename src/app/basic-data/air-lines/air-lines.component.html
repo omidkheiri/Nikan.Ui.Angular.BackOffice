@@ -10,6 +10,7 @@
       <div class="widget widget-chart-one" style="padding: 20px">
         <div class="widget-heading">
           <dx-data-grid
+            #grid
             [dataSource]="dataSource"
             [showBorders]="true"
             [remoteOperations]="true"
@@ -20,6 +21,13 @@
             (onExporting)="onExporting($event)"
             keyExpr="Id"
           >
+            <dxo-paging [pageSize]="2" [enabled]="true"> </dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50]"
+              [showNavigationButtons]="true"
+            >
+            </dxo-pager>
             <dxo-editing
               [allowUpdating]="true"
               [allowAdding]="true"

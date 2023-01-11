@@ -10,11 +10,18 @@
           class="form-control"
           id="BankTitle"
           name="BankTitle"
+          #BankTitle
           placeholder="عنوان بانک"
           required
           ngModel
         />
-        <div class="invalid-feedback show" style="display: none"></div>
+        <div
+          *ngIf="submited && !BankTitle.value"
+          class="invalid-feedback"
+          style="display: block"
+        >
+          شماره حساب الزامی است
+        </div>
       </div>
     </div>
     <div class="col-md-6">
@@ -26,11 +33,18 @@
           class="form-control"
           id="BankAccountId"
           name="BankAccountId"
+          #BankAccountId
           placeholder="شماره حساب"
           style="text-align: left"
           ngModel
         />
-        <div class="invalid-feedback show" style="display: none"></div>
+        <div
+          *ngIf="submited && !BankAccountId.value"
+          class="invalid-feedback"
+          style="display: block"
+        >
+          شماره حساب الزامی است
+        </div>
       </div>
     </div>
     <div class="col-md-6">
@@ -42,12 +56,19 @@
           class="form-control"
           id="TraceNumber"
           name="TraceNumber"
+          #TraceNumber
           placeholder="کد پیگیری"
           required
           ngModel
           style="text-align: left"
         />
-        <div class="invalid-feedback show" style="display: none"></div>
+        <div
+          *ngIf="submited && !TraceNumber.value"
+          class="invalid-feedback"
+          style="display: block"
+        >
+          کد پیگیری الزامی است
+        </div>
       </div>
     </div>
     <div class="col-md-6">
@@ -58,10 +79,17 @@
           class="form-control"
           id="RefrenceId"
           name="RefrenceId"
+          #RefrenceId
           ngModel
           placeholder="کد مرجع"
         />
-        <div class="invalid-feedback show" style="display: none"></div>
+        <div
+          *ngIf="submited && !RefrenceId.value"
+          class="invalid-feedback"
+          style="display: block"
+        >
+          کد مرجع الزامی است
+        </div>
       </div>
     </div>
     <div class="col-md-6">
@@ -72,11 +100,17 @@
           class="form-control"
           id="Amount"
           name="Amount"
+          #Amount
           placeholder="مبلغ"
           [ngModel]="reserveRecord.remainig"
-          [min]="reserveRecord.remainig"
         />
-        <div class="invalid-feedback show" style="display: none"></div>
+        <div
+          *ngIf="submited && !DateIssue.value"
+          class="invalid-feedback"
+          style="display: block"
+        >
+          مبلغ الزامی است
+        </div>
       </div>
     </div>
     <div class="col-md-6">
@@ -84,11 +118,19 @@
         >تاریخ پرداخت</label
       ><dx-date-box
         id="DateIssue"
+        #DateIssue
         name="DateIssue"
         ngModel
+        [max]="Date"
         placeholder="تاریخ پرداخت"
       ></dx-date-box>
-      <div class="invalid-feedback show" style="display: none"></div>
+      <div
+        *ngIf="submited && !DateIssue.value"
+        class="invalid-feedback"
+        style="display: block"
+      >
+        ثبت تاریخ الزامی است
+      </div>
     </div>
     <div class="col-md-6">
       <button type="submit" class="btn btn-dark m-3">ذخیره</button>
@@ -96,3 +138,5 @@
     </div>
   </div>
 </form>
+
+<dx-toast [visible]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>

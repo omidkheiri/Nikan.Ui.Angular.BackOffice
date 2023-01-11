@@ -97,9 +97,12 @@
             />
             <div class="invalid-feedback show" style="display: none"></div>
           </div>
+
           <button type="submit" class="btn btn-primary mt-3">ذخیره</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<dx-toast [visible]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>

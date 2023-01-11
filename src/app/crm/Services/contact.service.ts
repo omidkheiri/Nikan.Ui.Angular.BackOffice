@@ -23,4 +23,9 @@ export class ContactService {
   getContactIdObs(): Observable<string> {
     return this.contactId.asObservable();
   }
+  getAccount(contactId: string) {
+    return this.http.get<any>(
+      `${environment.FinancialAddress}/FinancialAccount/${contactId}/Credit`
+    );
+  }
 }

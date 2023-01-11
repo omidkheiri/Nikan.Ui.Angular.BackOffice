@@ -20,6 +20,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   id: string = '';
   account$: Subscription | any;
   account: Account | any;
+  saved: boolean = false;
 
   constructor(
     private router: Router,
@@ -61,12 +62,11 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     if (
       location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
     ) {
-      console.log('asdasdasdadasdasd');
-
       this.store.dispatch(saveAccountStarted({ payload: form.value }));
     } else {
       this.store.dispatch(updateAccountStarted({ payload: form.value }));
     }
+    this.saved = true;
   }
   onIntro() {
     this.router.navigate(['intro'], { relativeTo: this.route });

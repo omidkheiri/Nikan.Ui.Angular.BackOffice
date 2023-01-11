@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ofType } from '@ngrx/effects';
 import { ActionsSubject, Store } from '@ngrx/store';
 import ArrayStore from 'devextreme/data/array_store';
@@ -13,7 +13,7 @@ import { AccountService } from '../../../../Services/account.service';
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css'],
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnInit, OnChanges {
   data: any;
   account: any;
   id$: any;
@@ -28,19 +28,28 @@ export class ServicesComponent implements OnInit {
   ) {
     this.store.select<any>('CRM').subscribe((d) => {
       if (d.serviceline.locations.length > 0) {
+        console.log(d.serviceline.locations);
+
         this.data = new ArrayStore({
           data: d.serviceline.locations,
           key: 'Id',
         });
       }
       if (d.serviceline.serviceLines.length > 0) {
+        console.log(d.serviceline.serviceLines);
         this.serviceLines = d.serviceline.serviceLines;
       }
+    });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.accountService.getAccountIdObs().subscribe((accountid) => {
+      this.accountId = accountid;
     });
   }
 
   ngOnInit(): void {
     this.accountService.getAccountIdObs().subscribe((accountid) => {
+      this.accountId = accountid;
       this.store.dispatch(fromAction.loadLocations({ payload: accountid }));
 
       this.store.dispatch(fromAction.loadServiceLines({ payload: accountid }));
@@ -48,7 +57,16 @@ export class ServicesComponent implements OnInit {
   }
 
   onfilterByLocation($event: any) {}
-  onDeleteItem(id: any) {}
+  onDeleteItem(id: any) {
+    console.log(id);
+
+    this.store.dispatch(
+      fromAction.deleteServiceLines({
+        AccountId: this.accountId,
+        ServiceLineId: id,
+      })
+    );
+  }
 
   openUpdateing(id: any) {
     this.router.navigate(['edit', id]);

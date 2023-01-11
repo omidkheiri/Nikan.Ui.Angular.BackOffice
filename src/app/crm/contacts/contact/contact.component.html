@@ -25,6 +25,7 @@
                   formControlName="accountId"
                 >
                 </dx-select-box>
+                <div class="invalid-feedback show" style="display: none"></div>
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
@@ -97,6 +98,20 @@
                 />
                 <div class="invalid-feedback show" style="display: none"></div>
               </div>
+              <div class="form-group col-md-6">
+                <label for="input" style="text-align: right; width: 100%"
+                  >درصد تخفیف</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  id="Phone"
+                  dir="ltr"
+                  placeholder="درصد تخفیف"
+                  formControlName="discount"
+                  style="text-align: left"
+                />
+                <div class="invalid-feedback show" style="display: none"></div>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary mt-3">دخیره</button>
           </form>
@@ -105,3 +120,5 @@
     </div>
   </div>
 </div>
+
+<dx-toast [visible]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>

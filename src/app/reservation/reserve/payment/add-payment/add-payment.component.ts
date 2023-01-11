@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Subscription } from 'rxjs';
+import { catchError, map, Subscription, tap } from 'rxjs';
+import { ReserveService } from 'src/app/reservation/service/reserve.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,13 +12,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-payment.component.css'],
 })
 export class AddPaymentComponent implements OnInit {
+  Date = new Date();
   @Input('reserveRecord') reserveRecord: any;
   @Output() paymentEvent = new EventEmitter<string>();
-  constructor(
-    private httpClient: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  submited: boolean = false;
+  saved: boolean;
+  constructor(private service: ReserveService) {}
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
@@ -26,15 +26,13 @@ export class AddPaymentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form);
-
+    this.submited = true;
     if (!form.valid) {
       return;
     }
-
-    this.httpClient
-      .post(
-        `${environment.FinancialAddress}/BankPayment/${this.reserveRecord.contactId}`,
-        {
+    try {
+      this.service
+        .addPayment(this.reserveRecord.contactId, {
           bankTitle: form.value.BankTitle,
           bankAccountId: form.value.BankAccountId,
           traceNumber: form.value.TraceNumber,
@@ -44,19 +42,14 @@ export class AddPaymentComponent implements OnInit {
           dateIssue: form.value.DateIssue,
           contactId: this.reserveRecord.contactId,
           reserveId: this.reserveRecord.id,
-        }
-      )
+        })
+        .subscribe((a: any) => {
+          this.saved = true;
 
-      .subscribe(
-        (a: any) => {
-          this.paymentEvent.emit(a);
-        },
-
-        (error) => {
-          console.log(error);
-
-          this.paymentEvent.emit('asdasd');
-        }
-      );
+          this.paymentEvent.emit('a');
+        });
+    } catch (err: any) {
+      console.log(err);
+    }
   }
 }

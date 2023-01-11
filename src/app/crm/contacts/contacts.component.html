@@ -20,6 +20,13 @@
             (onExporting)="onExporting($event)"
             keyExpr="Id"
           >
+            <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50]"
+              [showNavigationButtons]="true"
+            >
+            </dxo-pager>
             <dxo-filter-row
               [visible]="true"
               [applyFilter]="true"
@@ -35,17 +42,17 @@
               direction="rtl"
               alignment="center"
               dataField="accountNumber"
-              caption="{{ 'Contact.List.AccountNumber' | translate }}"
+              caption="شناسه سازمان"
               dataType="string"
               width="120"
-            >
-            </dxi-column>
+            ></dxi-column>
+
             <dxi-column
               direction="rtl"
               alignment="right"
               dataField="accountTitle"
               dataType="string"
-              caption="{{ 'Contact.List.AccountTitle' | translate }}"
+              caption="عنوان سازمان"
             ></dxi-column>
 
             <dxi-column
@@ -75,10 +82,10 @@
               caption="{{ 'Contact.List.Phone' | translate }}"
             ></dxi-column>
             <dxi-column
-              width="50"
               dataField="birthDate"
               dataType="date"
-              caption="{{ 'Contact.List.BirthDate' | translate }}"
+              [format]="'yyyy/MM/dd'"
+              caption="تاریخ تولد"
             ></dxi-column>
 
             <dxi-column

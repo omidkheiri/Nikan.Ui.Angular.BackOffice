@@ -14,6 +14,7 @@
                   <p
                     class="user-work"
                     data-occupation="reserveRecord.reserveNumber"
+                    style="border-bottom: 1px solid"
                   >
                     {{ reserveRecord.reserveNumber }}
                   </p>
@@ -21,19 +22,19 @@
               </div>
               <div class="user-location">
                 <p class="info-title">نام مشتری</p>
-                <p class="usr-email-addr">
+                <p class="usr-email-addr" style="border-bottom: 1px solid">
                   {{ reserveRecord.contactFullName }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">شماره موبایل</p>
-                <p class="usr-location">
+                <p class="usr-location" style="border-bottom: 1px solid">
                   {{ reserveRecord.contactPhone }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">محل ارائه سرویس</p>
-                <p class="usr-ph-no">
+                <p class="usr-ph-no" style="border-bottom: 1px solid">
                   {{ reserveRecord.locationTitle }}
                 </p>
               </div>
@@ -41,8 +42,9 @@
                 <div class="user-meta-info">
                   <p class="user-name text-center">شماره پرواز</p>
                   <p
-                    class="user-work"
+                    class="user-work text-info"
                     data-occupation="reserveRecord.reserveNumber"
+                    style="border-bottom: 1px solid"
                   >
                     {{ reserveRecord.flightInfo.airlineName }}
                     <strong> {{ reserveRecord.flightInfo.flightName }}</strong>
@@ -51,11 +53,14 @@
               </div>
               <div class="user-location">
                 <p class="info-title">تاریخ پرواز</p>
-                <p class="usr-email-addr" style="direction: ltr">
+                <p
+                  class="usr-email-addr text-info"
+                  style="direction: ltr; border-bottom: 1px solid"
+                >
                   {{
                     reserveRecord.flightInfo.flightDate
                       | date : "yyyy-MM-dd HH:mm"
-                  }}{{ "---" }}
+                  }}{{ "-" }}
                   {{
                     reserveRecord.flightInfo.flightType === 0
                       ? "ورودی"
@@ -65,13 +70,13 @@
               </div>
               <div class="user-location">
                 <p class="info-title">فرودگاه مبدا</p>
-                <p class="usr-location">
+                <p class="user-location" style="border-bottom: 1px solid">
                   {{ reserveRecord.flightInfo.arrivalAirport }}
                 </p>
               </div>
-              <div class="user-phone">
+              <div class="user-location">
                 <p class="info-title">فرودگاه مقصد</p>
-                <p class="usr-ph-no">
+                <p class="user-location" style="border-bottom: 1px solid">
                   {{ reserveRecord.flightInfo.departureAirport }}
                 </p>
               </div>
@@ -106,20 +111,31 @@
               <div class="user-location">
                 <p class="info-title">جمع</p>
                 <p class="usr-email-addr">
-                  {{ reserveRecord.total }}
+                  {{ reserveRecord.total | number }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">تخفیف</p>
                 <p class="usr-location">
-                  {{ reserveRecord.discountValue }}
+                  {{ reserveRecord.discountValue | number }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">مالیات</p>
                 <p class="usr-ph-no">
-                  {{ reserveRecord.taxTotal }}
+                  {{ reserveRecord.taxTotal | number }}
                 </p>
+              </div>
+              <div class="user-profile">
+                <div class="user-location">
+                  <p class="user-name text-center">پرداخت شده</p>
+                  <p
+                    class="user-work text-success"
+                    data-occupation="reserveRecord.reserveNumber"
+                  >
+                    {{ reserveRecord.paid | number }}
+                  </p>
+                </div>
               </div>
               <div class="user-profile">
                 <div class="user-location">
@@ -128,20 +144,20 @@
                     class="user-work"
                     data-occupation="reserveRecord.reserveNumber"
                   >
-                    {{ reserveRecord.billable }}
+                    {{ reserveRecord.billable | number }}
                   </p>
                 </div>
               </div>
               <div class="user-location">
                 <p class="info-title">باقی مانده</p>
                 <p class="usr-email-addr text-danger" style="direction: ltr">
-                  {{ reserveRecord.remainig }}
+                  {{ reserveRecord.remainig | number }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">موجودی حساب</p>
-                <p class="usr-email-addr text-danger" style="direction: ltr">
-                  {{ account ? account.balance : 0 }}
+                <p class="usr-email-addr text-info" style="direction: ltr">
+                  {{ account ? (account.balance | number) : (0 | number) }}
                 </p>
               </div>
               <div class="user-location">
@@ -186,6 +202,9 @@
           id="gridContainer"
           [dataSource]="reserveRecord.financialPayments"
           keyExpr="dateIssue"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
           [columns]="[
             'traceNumber',
             'amount',
@@ -195,15 +214,21 @@
           ]"
           [showBorders]="true"
         >
-          <dxi-column dataField="amount" [width]="200"></dxi-column>
+          <dxi-column
+            dataField="amount"
+            caption="مبلغ"
+            format="currency"
+            [width]="200"
+          ></dxi-column>
           <dxi-column
             dataField="dateIssue"
             [format]="'yyyy-MM-dd HH:mm'"
             [width]="200"
+            caption="تاریخ"
             dataType="date"
             dir="ltr"
           ></dxi-column>
-          <dxi-column dataField="description"></dxi-column>
+          <dxi-column caption="توضیحات" dataField="description"></dxi-column>
         </dx-data-grid>
       </div>
     </div>
@@ -222,19 +247,65 @@
           id="gridContainer"
           [dataSource]="reserveRecord.reserveItems"
           keyExpr="id"
-          [columns]="[
-            'serviceLineTitle',
-            'serviceQty',
-            'unitPrice',
-            'serviceTotal',
-            'discountPercent',
-            'discountValue',
-            'serviceTotalAfterDiscount',
-            'taxValue',
-            'serviceAdvanceTotal'
-          ]"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
           [showBorders]="true"
         >
+          <dxi-column caption="عنوان" dataField="serviceLineTitle"></dxi-column>
+          <dxi-column caption="تعداد" dataField="serviceQty"></dxi-column>
+          <dxi-column
+            caption="مبلغ واحد"
+            dataField="unitPrice"
+            format="currency"
+          ></dxi-column>
+          <dxi-column
+            caption="جمع کل"
+            dataField="serviceTotal"
+            format="currency"
+          ></dxi-column>
+          <dxi-column
+            caption=" توضیحات"
+            cellTemplate="cellTemp"
+            dataField="id"
+          ></dxi-column>
+          <dxi-column
+            dataField="discountPercent"
+            dataType="number"
+            caption="درصد تخفیف"
+          ></dxi-column>
+          <dxi-column
+            dataField="discountValue"
+            format="currency"
+            caption="مبلغ تخفیف"
+            dataType="number"
+          ></dxi-column>
+          <dxi-column
+            dataField="serviceTotalAfterDiscount"
+            dataType="number"
+            caption="پس از تخفیف"
+            format="currency"
+          ></dxi-column>
+          <dxi-column
+            caption="VAT"
+            dataField="taxValue"
+            format="currency"
+            dataType="number"
+          ></dxi-column>
+          <dxi-column
+            caption="جمع"
+            dataField="serviceAdvanceTotal"
+            dataType="number"
+            format="currency"
+          ></dxi-column>
+          <div *dxTemplate="let d of 'cellTemp'">
+            {{
+              d.data.passenger
+                ? d.data.passenger.name + " " + d.data.passenger.lastName
+                : ""
+            }}
+            {{ d.data.attedance ? d.data.attedance.name : "" }}
+          </div>
         </dx-data-grid>
       </div>
     </div>
@@ -251,8 +322,11 @@
   [showCloseButton]="true"
   container=".dx-viewport"
   [visible]="visible"
-  ><app-add-payment
-    (paymentEvent)="recivePayment($event)"
-    [reserveRecord]="reservevalue"
-  ></app-add-payment
-></dx-popup>
+>
+  <dx-scroll-view width="100%" height="100%">
+    <app-add-payment
+      (paymentEvent)="recivePayment($event)"
+      [reserveRecord]="reservevalue"
+    ></app-add-payment>
+  </dx-scroll-view>
+</dx-popup>

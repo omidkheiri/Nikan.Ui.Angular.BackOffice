@@ -22,6 +22,13 @@
             showScrollbar="true"
             useNative="false"
           >
+            <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50]"
+              [showNavigationButtons]="true"
+            >
+            </dxo-pager>
             <dxo-filter-row
               [visible]="true"
               [applyFilter]="true"
@@ -34,7 +41,7 @@
             ></dxo-search-panel>
 
             <dxi-column
-              width="120"
+              width="150"
               dataField="reserveStatus"
               dataType="string"
               caption="وضعیت"
@@ -73,7 +80,7 @@
               caption="{{ 'eservePage.List.FlightDate' | translate }}"
             ></dxi-column>
             <dxi-column
-              width="200"
+              width="150"
               dataField="contactFullName"
               dataType="string"
               caption="{{ 'ReservePage.List.CustomerName' | translate }}"
@@ -149,13 +156,12 @@
 
             <dxi-column
               dataField="remainig"
-              [width]="200"
+              [width]="150"
               allowSorting="false"
-              caption="p"
+              caption="باقیمانده"
             ></dxi-column>
             <dxi-column
               dataField="Id"
-              [width]="100"
               allowSorting="false"
               caption="ویرایش"
               cellTemplate="cellTemplate"
@@ -170,7 +176,7 @@
             <dxo-scrolling mode="infinite"></dxo-scrolling>
 
             <div *dxTemplate="let data of 'reserveStatusId'">
-              <span [class]="getStyle(data.value)">
+              <span style="font-size: 10px" [class]="getStyle(data.value)">
                 {{ getStatus(data.value) }}</span
               >
             </div>

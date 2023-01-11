@@ -114,10 +114,22 @@ export class PassengerFromComponent implements OnInit {
       );
     }
   }
+  namePattern = true;
+  lastNamePattern = true;
 
   onSubmit(f: NgForm) {
+    console.log(f.form);
+
     this.submited = true;
     if (!f.form.valid) {
+      var nameError = f.form.controls['name'].errors;
+      if (nameError && nameError!['pattern']) {
+        this.namePattern = false;
+      }
+      var lastNameError = f.form.controls['lastName'].errors;
+      if (lastNameError && lastNameError!['pattern']) {
+        this.lastNamePattern = false;
+      }
       return;
     }
     let newId = uuid.v4();

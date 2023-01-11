@@ -7,4 +7,5 @@ export interface ServiceLine {
   financialCode: string | any;
   financialTitle: string | any;
   noneNative: boolean | any;
+  commession: number | any;
 }

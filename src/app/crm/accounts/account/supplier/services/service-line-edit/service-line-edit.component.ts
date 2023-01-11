@@ -28,11 +28,15 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
     financialTitle: new FormControl('', [Validators.required]),
     noneNative: new FormControl(false, Validators.required),
     serviceLineStatus: new FormControl(0, Validators.required),
+    commession: new FormControl(0, Validators.required),
   });
   editMode: any;
   id: any;
+  loading = false;
   accountId: any;
   servicelineStor$: any;
+  submited = false;
+  errorMessage = '';
   constructor(
     private store: Store<fromStore.CrmModuleState>,
     private _location: Location,
@@ -51,10 +55,24 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.servicelineStor$ = null;
+
+    this.store.dispatch(fromAction.loadLocations({ payload: this.accountId }));
+
+    this.store.dispatch(
+      fromAction.loadServiceLines({ payload: this.accountId })
+    );
   }
 
   ngOnInit(): void {
     this.servicelineStor$.subscribe((sub: any) => {
+      this.loading = sub.serviceline.loaderIndicator;
+      this.errorMessage = sub.serviceline.errorMassage;
+
+      if (!this.loading && !this.errorMessage && this.submited) {
+        this.submited = false;
+        this.oncancel();
+      }
+
       if (sub.serviceline.locations.length > 0) {
         this.serviceLocations = new ArrayStore({
           data: sub.serviceline.locations,
@@ -79,6 +97,8 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
     this.initForm();
   }
   SubmitFrom() {
+    this.submited = true;
+    console.log(this.serviceLineForm.controls.serviceLocationId.valid);
     if (!this.serviceLineForm.valid) {
       return;
     }
@@ -91,6 +111,7 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
       financialCode: this.serviceLineForm.value.financialCode,
       financialTitle: this.serviceLineForm.value.financialTitle,
       noneNative: this.serviceLineForm.value.noneNative,
+      commession: this.serviceLineForm.value.commession,
     };
     if (this.editMode) {
       this.store.dispatch(
@@ -108,7 +129,8 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
         })
       );
     }
-    this.oncancel();
+    this.loading = true;
+    this.errorMessage = '';
   }
 
   private initForm() {
@@ -145,6 +167,10 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
             ),
             serviceLineStatus: new FormControl(
               serviceLine.serviceLineStatus,
+              Validators.required
+            ),
+            commession: new FormControl(
+              sl.serviceline.currentServiceLine.commission,
               Validators.required
             ),
           });
