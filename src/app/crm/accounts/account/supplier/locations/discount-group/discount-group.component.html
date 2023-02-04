@@ -1,0 +1,43 @@
+<p style="
+text-align: right;
+">گروه های تخفیفهای {{this.location?this.location.title:""}}</p>
+
+<dx-data-grid
+id="gridContainer"
+[dataSource]="dataSource"
+keyExpr="Id"
+[showBorders]="true"
+
+[showColumnLines]="true"
+[showRowLines]="true"
+[rowAlternationEnabled]="true"
+[hoverStateEnabled]="true"
+showScrollbar="true"
+useNative="false"
+
+
+(onSelectionChanged)="RowChanged($event)"
+>
+<dxo-selection mode="single"></dxo-selection>
+<dxo-paging [enabled]="false"></dxo-paging>
+<dxo-editing
+  mode="form"
+  [allowUpdating]="true"
+  [allowAdding]="true"
+  [allowDeleting]="true"
+>
+</dxo-editing>
+
+<dxi-column caption="عنوان گروه" dataField="title">
+
+    <dxo-form-item
+    [colSpan]="2"
+   
+   
+  >
+  </dxo-form-item>
+
+</dxi-column>
+
+
+</dx-data-grid>

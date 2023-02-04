@@ -28,6 +28,8 @@ export class LocationsComponent implements OnInit {
       .select<any>('CRM')
       .pipe(map((locations) => locations))
       .subscribe((location: any) => {
+        console.log(location.location.locations);
+        
         this.locations = location.location.locations;
       });
   }

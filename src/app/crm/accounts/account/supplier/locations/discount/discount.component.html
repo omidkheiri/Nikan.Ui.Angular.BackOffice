@@ -1,0 +1,23 @@
+<dx-popup
+  [width]="'100vw'"
+  [height]="'100vh'"
+  [showTitle]="true"
+  title="Discount"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [visible]="true"
+  (onHiding)="onHide()"
+>
+  <div *dxTemplate="let data of 'content'">
+    <div class="row">
+      <div class="col-md-3">
+        <app-discount-group (DiscountGroupEmiter)="DiscountGroupSelected($event)" [location]="currentLocation"></app-discount-group>
+      </div>
+      <div class="col-md-9">
+        <app-service-line-dicount [DiscountGroup]="DiscountGroup"></app-service-line-dicount>
+      </div>
+    </div>
+  </div>
+</dx-popup>

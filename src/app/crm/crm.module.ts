@@ -45,6 +45,9 @@ import { ContactComponent } from './contacts/contact/contact.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactReservesComponent } from './contacts/contact-detail/contact-reserves/contact-reserves.component';
 import { ContactAccountComponent } from './contacts/contact-detail/contact-account/contact-account.component';
+import { DiscountGroupComponent } from './accounts/account/supplier/locations/discount-group/discount-group.component';
+import { ServiceLineDicountComponent } from './accounts/account/supplier/locations/service-line-dicount/service-line-dicount.component';
+import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,9 @@ import { ContactAccountComponent } from './contacts/contact-detail/contact-accou
     ContactDetailComponent,
     ContactReservesComponent,
     ContactAccountComponent,
+    DiscountGroupComponent,
+    ServiceLineDicountComponent,
+    DiscountComponent,
   ],
   imports: [
     FormsModule,

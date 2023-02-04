@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, act, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, exhaustMap, map, mergeMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocationItem } from '../../model/location.model';
@@ -9,6 +9,111 @@ import * as LocationActions from './location.action';
 import { Moment } from 'jalali-moment';
 @Injectable()
 export class LocationEffect {
+
+
+
+
+  addDiscountGroupServiceLine$=createEffect(()=>{
+    return this.actions$.pipe(
+      ofType(LocationActions.addDiscountGroupServiceLine),
+      mergeMap((action)=>{
+       
+        
+        return this.http
+        .post<any>(
+          `${environment.serviceLocationAddress}/ServiceLine/${action.ServiceLocationId}/DiscountGroup/${action.DiscountGroupId}`
+          ,action.ServiceLineDiscount
+          ,
+          { headers: { 'Content-Type': 'application/json' } }
+        )
+        .pipe(
+         
+          map((location) => {
+            return LocationActions.loadLocations({
+              payload: action.accoutnId
+            });
+          }),
+         
+          catchError((error) => {
+            return EMPTY;
+          })
+        );
+    }))})
+
+
+  deleteLocationDiscount$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LocationActions.removeDiscountGroup),
+      exhaustMap((action) => {
+      
+       return this.http.delete<any>(
+          `${environment.serviceLocationAddress}/ServiceLocation/${action.ServiceLocationId}/DiscountGroup/${action.groupId}`     ,
+          { headers: { 'Content-Type': 'application/json' } }
+        )
+        .pipe(
+         
+          map(() => {
+            return LocationActions.loadLocations({
+              payload: action.accoutnId
+            });
+          }),
+         
+          catchError((error) => {
+            return EMPTY;
+          })
+        );
+      })
+    );
+  });
+  addDiscountGroup$=createEffect(()=>{
+    return this.actions$.pipe(
+      ofType(LocationActions.addDiscountGroup),
+      mergeMap((action)=>{
+        return this.http
+        .post<any>(
+          `${environment.serviceLocationAddress}/DiscountGroup`,action.DiscountGroup
+          ,
+          { headers: { 'Content-Type': 'application/json' } }
+        )
+        .pipe(
+         
+          map((location) => {
+            return LocationActions.loadLocations({
+              payload: action.accoutnId
+            });
+          }),
+         
+          catchError((error) => {
+            return EMPTY;
+          })
+        );
+    }))})
+    updateDiscountGroup$=createEffect(()=>{
+      return this.actions$.pipe(
+        ofType(LocationActions.updateDiscountGroup),
+        mergeMap((action)=>{
+          return this.http
+          .put<any>(
+            `${environment.serviceLocationAddress}/ServiceLocation/DiscountGroup/${action.groupId}`,action.DiscountGroup
+            ,
+            { headers: { 'Content-Type': 'application/json' } }
+          )
+          .pipe(
+           
+            map((location) => {
+              return LocationActions.loadLocations({
+                payload: action.accoutnId
+              });
+            }),
+           
+            catchError((error) => {
+              return EMPTY;
+            })
+          );
+      }))})
+
+  
+    
   loadLocation$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationActions.loadLocations),

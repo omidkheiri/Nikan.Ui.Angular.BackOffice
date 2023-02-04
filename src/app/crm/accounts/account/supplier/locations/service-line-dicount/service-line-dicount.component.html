@@ -1,0 +1,45 @@
+<p style="
+text-align: right;
+">تخفیفها {{DiscountGroup? DiscountGroup.title:""}}</p>
+<dx-data-grid
+id="gridContainer"
+[dataSource]="dataSource"
+keyExpr="serviceLineId"
+[showBorders]="true"
+[showColumnLines]="true"
+[showRowLines]="true"
+[rowAlternationEnabled]="true"
+[hoverStateEnabled]="true"
+>
+<dxo-paging [enabled]="false"></dxo-paging>
+<dxo-editing
+  mode="form"
+  [allowUpdating]="true"
+  [allowAdding]="true"
+  
+>
+</dxo-editing>
+<dxi-column
+
+dataField="serviceLineId"
+caption="سرویس"
+
+width="350"
+>
+<dxo-lookup
+  [dataSource]="ServiceLineSource"
+  displayExpr="title"
+  valueExpr="id"
+>
+</dxo-lookup>
+<dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+<dxi-column
+ dataType="number"
+ caption="درصد تخفیف" 
+ dataField="discountPercents">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+
+
+</dx-data-grid>

@@ -21,6 +21,7 @@ import { ContactComponent } from './contacts/contact/contact.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactReservesComponent } from './contacts/contact-detail/contact-reserves/contact-reserves.component';
 import { ContactAccountComponent } from './contacts/contact-detail/contact-account/contact-account.component';
+import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 
 const routes: Routes = [
   {
@@ -72,10 +73,14 @@ const routes: Routes = [
                 path: 'locations',
                 component: LocationsComponent,
                 children: [
-                  { path: 'edit', component: EditLocationComponent },
+              
                   {
                     path: 'edit/:locationId',
                     component: EditLocationComponent,
+                  },
+                  {
+                    path: 'discountGroup/:locationId',
+                    component: DiscountComponent,
                   },
                 ],
               },
