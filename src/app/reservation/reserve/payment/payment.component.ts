@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PaymentService } from './payment.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class PaymentComponent implements OnInit {
   id: any;
   account: any;
   reservevalue: any;
-  constructor(private route: ActivatedRoute, private service: PaymentService) {
+  constructor(private router:Router, private route: ActivatedRoute, private service: PaymentService) {
     this.route.params.subscribe((params: any) => {
       this.id = params.reserveId;
     });
@@ -49,5 +49,11 @@ export class PaymentComponent implements OnInit {
         this.account = data;
       });
     });
+  }
+  navtoPrint(e:any){
+
+this.router.navigate([`/dashboard/reserve/Payment/${e}/print/${e}`])
+
+
   }
 }

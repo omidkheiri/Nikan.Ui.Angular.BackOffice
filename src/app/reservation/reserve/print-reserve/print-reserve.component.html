@@ -1,0 +1,26 @@
+
+
+<dx-popup
+  [width]="'100vw'"
+  [height]="'100vh'"
+  [showTitle]="true"
+  title="Report"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [visible]="true"
+  (onHidden)="close()"
+>
+  <div *dxTemplate="let data of 'content'">
+    <div class="">
+      <div class="row">
+        <div id="flFormsGrid" class="col-lg-12 p-0">
+          <dx-report-viewer [reportUrl]="reportUrl" height="800px">
+            <dxrv-request-options [invokeAction]="invokeAction" [host]="hostUrl"></dxrv-request-options>
+          </dx-report-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>

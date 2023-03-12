@@ -1,0 +1,109 @@
+<form #f="ngForm" (ngSubmit)="SubmitFrom(f)"  >
+<div class="row" >
+ 
+
+<div class="col-md-6 form-group">
+    <label style="width: 100%;text-align: right;">محل ارائه سرویس:</label>
+  
+        <dx-select-box 
+        name="LocationId" ngModel required #LocationId="ngModel"
+        (onValueChanged)="locationSelected($event)"
+        [dataSource]="data"
+        displayExpr="title"
+        valueExpr="id"
+        [searchEnabled]="true"
+      ></dx-select-box>
+      <div *ngIf="submitted&& !LocationId.valid">
+        <p class="text-danger
+        ">محل ارائه سرویس لارم است</p>  </div>
+</div>
+<div class="col-md-6 form-group">
+    <label  style="width: 100%;text-align: right;direction: rtl;"> گروه تخفیف:</label>
+     
+        <dx-select-box 
+        name="GroupId" ngModel required #GroupId="ngModel"
+        [dataSource]="discountGroups"
+        displayExpr="title"
+        valueExpr="id"
+        [searchEnabled]="true"
+
+      ></dx-select-box>
+  <div *ngIf="submitted&& !GroupId.valid">
+    <p class="text-danger
+    ">گروه تخفیف را انتخاب کنید</p>  </div>
+</div>
+</div>
+<div class="col">
+    <button type="submit" class="btn btn-dark" > <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-save"
+        >
+          <path
+            d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+          ></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+      </div></button>
+</div>
+</form> 
+<div class="row mt-3" >
+  
+    <div class="col-md-12" >
+
+        <dx-data-grid 
+
+[dataSource]="countactDiscountGroups"
+[showBorders]="true"
+[remoteOperations]="true"
+[showColumnLines]="true"
+[showRowLines]="true"
+[rowAlternationEnabled]="true"
+[hoverStateEnabled]="true"
+(onRowRemoved)="groupRemoved($event)"
+showScrollbar="true"
+keyExpr="locationId"
+useNative="false">
+
+
+<dxi-column
+      dataField="locationId"
+      caption="محل ارائه سرویس"
+   cellTemplate="locationNameCellTemplate"
+    >
+    
+    </dxi-column>
+    <dxi-column dataField="groupId" caption="گروه سرویس" cellTemplate="getGroupTitleCellTemplate">
+     
+    </dxi-column>
+    <dxi-column width="50" caption="" dataField="groupId"  cellTemplate="deleteRow">
+     
+    </dxi-column>
+    
+    <div *dxTemplate="let data of 'locationNameCellTemplate'">
+      {{getGroupName(data)}}
+    </div>
+    <div *dxTemplate="let data of 'getGroupTitleCellTemplate'">
+      {{getGroupTitle(data)}}
+    </div>
+    <div *dxTemplate="let data of 'deleteRow'">
+   <button type="button" style="background-color: transparent;border: none;
+   ;"  (click)="groupRemoved(data)"> <svg _ngcontent-yjr-c391="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline _ngcontent-yjr-c391="" points="3 6 5 6 21 6"></polyline><path _ngcontent-yjr-c391="" d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line _ngcontent-yjr-c391="" x1="10" y1="11" x2="10" y2="17"></line><line _ngcontent-yjr-c391="" x1="14" y1="11" x2="14" y2="17"></line></svg>  </button>
+    </div>
+
+</dx-data-grid>
+
+</div>
+</div>
+
+
+

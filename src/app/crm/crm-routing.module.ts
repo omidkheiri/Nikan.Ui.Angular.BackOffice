@@ -22,6 +22,7 @@ import { ContactDetailComponent } from './contacts/contact-detail/contact-detail
 import { ContactReservesComponent } from './contacts/contact-detail/contact-reserves/contact-reserves.component';
 import { ContactAccountComponent } from './contacts/contact-detail/contact-account/contact-account.component';
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
+import { ContactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
 
 const routes: Routes = [
   {
@@ -73,7 +74,10 @@ const routes: Routes = [
                 path: 'locations',
                 component: LocationsComponent,
                 children: [
-              
+                  {
+                    path: 'edit',
+                    component: EditLocationComponent,
+                  },
                   {
                     path: 'edit/:locationId',
                     component: EditLocationComponent,
@@ -103,7 +107,12 @@ const routes: Routes = [
           { path: 'contactform', component: ContactComponent },
           { path: 'contactreserves', component: ContactReservesComponent },
           { path: 'contactaccounts', component: ContactAccountComponent },
-        ],
+          { path: 'discounts', component: ContactDiscountGroupComponent },
+
+
+
+          
+            ],
       },
     ],
   },

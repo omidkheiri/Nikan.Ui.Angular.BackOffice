@@ -36,3 +36,11 @@ export const loadContact = createAction(
   '[conatct page] get contact',
   props<{ contactId: string }>()
 );
+export const addContactDiscountGroup = createAction(
+  '[conatct page] add contact discount group',
+  props<{CompanyId:string, ContactId: string,AccountId: string,ContactDiscountGroup:any }>()
+);
+export const removeContactDiscountGroup = createAction(
+  '[conatct page] remove contact discount group',
+  props<{CompanyId:string, ContactId: string,AccountId: string,locationid:string }>()
+);

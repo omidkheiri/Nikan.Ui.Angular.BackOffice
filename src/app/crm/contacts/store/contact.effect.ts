@@ -74,5 +74,43 @@ export class ContactEffect {
       })
     );
   });
+
+
+  addContactDiscounr$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.addContactDiscountGroup),
+      exhaustMap((action) => {
+        console.log("action==>",action);
+        
+        return this.http
+          .post<any>(
+            `${environment.accountAddress}/Account/${action.AccountId}/Contact/${action.ContactId}/AddDiscountGroup`,action.ContactDiscountGroup
+          )
+          .pipe(
+            map((contact: any) =>
+              fromAction.loadContactStart({accountId:action.AccountId,contactId : action.ContactId })
+            )
+          );
+      })
+    );
+  });
+  removeContactDiscounr$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.removeContactDiscountGroup),
+      exhaustMap((action) => {
+        console.log("action==>",action);
+        
+        return this.http
+          .delete<any>(
+            `${environment.accountAddress}/Account/${action.AccountId}/Contact/${action.ContactId}/RemoveDiscountGroup/${action.locationid}`         )
+          .pipe(
+            map((contact: any) =>
+              fromAction.loadContactStart({accountId:action.AccountId,contactId : action.ContactId })
+            )
+          );
+      })
+    );
+  });
+
   constructor(private http: HttpClient, private actions$: Actions) {}
 }

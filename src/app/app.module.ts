@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -83,8 +83,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
       LocationEffect,
       ServiceLineEffect,
       ContactEffect,
-    ]),
-    TranslateModule.forRoot({
+    ]), TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { reserveReducers, selectCrmModuleState } from './store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DxReportViewerModule } from 'devexpress-reporting-angular';
 import { reserveReducer } from './store/reserve.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { reserveEffect } from './store/reserve.effect';
@@ -38,6 +39,7 @@ import { SuiteComponent } from './reserve/suite/suite.component';
 import { SuiteItemComponent } from './reserve/suite-item/suite-item.component';
 import { PaymentComponent } from './reserve/payment/payment.component';
 import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.component';
+import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.c
     SuiteItemComponent,
     PaymentComponent,
     AddPaymentComponent,
+    PrintReserveComponent,
   ],
   imports: [
     FormsModule,
@@ -75,6 +78,7 @@ import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.c
     DxScrollViewModule,
     DxDataGridModule,
     ReservationRoutingModule,
+    DxReportViewerModule,
     StoreModule.forFeature('reserve', reserveReducers),
     TranslateModule.forRoot({
       loader: {

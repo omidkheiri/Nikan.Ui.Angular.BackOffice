@@ -10,4 +10,5 @@ export const environment = {
   serviceLineAddress: `http://gaitway.ribbonid.com/V1/Company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
   ReserveAddress: `http://gaitway.ribbonid.com/V1/company/5eb7d5c9-a5c0-4045-8d2f-ae37b14cb320`,
   FinancialAddress: `http://gaitway.ribbonid.com/V1/company/9cd2d2c2-8f14-4ebb-98ac-52228567e40a`,
+  PrintUrl: `http://print.ribbonid.com`,
 };

@@ -14,7 +14,6 @@ import {
   DxDropDownBoxModule,
   DxPopupModule,
   DxSelectBoxModule,
-  DxToastComponent,
   DxToastModule,
 } from 'devextreme-angular';
 import {
@@ -48,6 +47,7 @@ import { ContactAccountComponent } from './contacts/contact-detail/contact-accou
 import { DiscountGroupComponent } from './accounts/account/supplier/locations/discount-group/discount-group.component';
 import { ServiceLineDicountComponent } from './accounts/account/supplier/locations/service-line-dicount/service-line-dicount.component';
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
+import { ContactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +74,7 @@ import { DiscountComponent } from './accounts/account/supplier/locations/discoun
     DiscountGroupComponent,
     ServiceLineDicountComponent,
     DiscountComponent,
+    ContactDiscountGroupComponent,
   ],
   imports: [
     FormsModule,
