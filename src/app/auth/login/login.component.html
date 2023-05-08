@@ -8,54 +8,13 @@
 <h1 class="">ورود</h1>
 <p class="">برای ادامه وارد شوید.</p>
 
-<div *ngIf="errorMessage" class="alert custom-alert-1 mb-4" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      data-dismiss="alert"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-x close"
-    >
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  </button>
-  <div class="media">
-    <div class="alert-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="feather feather-alert-triangle"
-      >
-        <path
-          d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-        ></path>
-        <line x1="12" y1="9" x2="12" y2="13"></line>
-        <line x1="12" y1="17" x2="12" y2="17"></line>
-      </svg>
-    </div>
-    <div class="media-body">
-      <div class="alert-text">
-        <span>{{ errorMessage }}</span>
-      </div>
-    </div>
-  </div>
-</div>
 
+<p class="text-danger" *ngIf="error">
+  {{error}}
+ </p>
+ <div *ngIf="isLoading" style="text-align: center">
+   <app-loading-spinner></app-loading-spinner>
+ </div>
 <form
   class="text-left"
   style="direction: rtl"
@@ -89,6 +48,11 @@
         ngModel
         required
       />
+      <div *ngIf="submitted && f.form.controls['username'].errors">
+
+        <div *ngIf="f.form.controls['username'].errors['required']" class="text-danger">Email required.</div>
+        <div *ngIf="f.form.controls['username'].errors['email']" class="text-danger">Invalid Email .</div>
+        </div>
     </div>
 
     <div
@@ -120,14 +84,15 @@
       <input
         id="password"
         name="password"
-        type="password"
+        [type]="passwordInputType?'password':'text'"
         class="form-control"
         placeholder="Password"
         required
         minlength="7"
         ngModel
       />
-      <svg
+      <!-- <div style="display: block;height: 25px;" (click)="showPassword">
+      <svg 
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -143,6 +108,12 @@
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
         <circle cx="12" cy="12" r="3"></circle>
       </svg>
+    </div> -->
+      <div *ngIf="submitted && f.form.controls['password'].errors">
+
+        <div *ngIf="f.form.controls['password'].errors['required']" class="text-danger">Password required.</div>
+      
+        </div>
     </div>
     <div class="d-sm-flex justify-content-between">
       <div class="field-wrapper">

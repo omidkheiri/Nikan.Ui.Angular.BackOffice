@@ -27,7 +27,7 @@ export class AuthService {
       .set('grant_type', 'password')
       .set('username', userName)
       .set('password', password)
-      .set('scope', ' ')
+      .set('scope', '   ')
       .set('client_id', environment.client_id)
       .set('client_secret', environment.client_secret);
     const headers = new HttpHeaders({
@@ -41,7 +41,7 @@ export class AuthService {
 
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
-      this.store.dispatch(AuthActions.Logout());
+     // this.store.dispatch(AuthActions.Logout());
     }, expirationDuration);
   }
 
@@ -50,5 +50,20 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
+  }
+  refreshToken(refresh_token: string): Observable<any> {
+    let body = new HttpParams()
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', refresh_token)
+      .set('scope', '   ')
+      .set('client_id', environment.client_id)
+      .set('client_secret', environment.client_secret);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    return this.http.post(environment.stsUrl, body.toString(), {
+      headers,
+    });
   }
 }

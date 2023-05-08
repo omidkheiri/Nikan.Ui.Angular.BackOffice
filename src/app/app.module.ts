@@ -29,7 +29,7 @@ import { ReservationComponent } from './reservation/reservation.component';
 import { JalaliPipe } from './Shared/jalali.pipe';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-
+import { appReducer } from './store/app.reducer';
 import { AccountEffect } from './crm/store/account.effect';
 import { AuthEffects } from './auth/store/auth.effects';
 import { LocationEffect } from './crm/store/location/location.effect';
@@ -75,7 +75,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     DxListModule,
     DxSelectBoxModule,
     DxNumberBoxModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([
       reserveEffect,
       AccountEffect,

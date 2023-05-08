@@ -21,7 +21,11 @@ export const authReducer = createReducer(
       payload.email,
       payload.userId,
       payload.token,
-      payload.expirationDate
+      payload.expirationDate,
+      payload.refresh_token,
+      payload.client_idel_timeout,
+      payload.scops,
+      payload.roles
     );
 
     return {

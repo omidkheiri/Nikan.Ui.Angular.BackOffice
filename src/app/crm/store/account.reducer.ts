@@ -27,5 +27,11 @@ export const accountReducer = createReducer(
     state,
     account: state.account,
     saved: saved,
-  }))
+  })),
+  on(AccuntAction.UpdateAccountFail, (state, { payload: data }) => ({
+    ...state,
+    saved: false,
+    error:data
+  })),
+  
 );

@@ -126,7 +126,7 @@
               "ReservePage.FlightInfoForm.ArrivalFlightTime" | translate
             }}</span> </label
           ><input
-            type="text"
+            type="text" (change)="updateFlightTime($event)"
             class="form-control"
             placeholder="ساعت ورود"
             formControlName="flightTime"

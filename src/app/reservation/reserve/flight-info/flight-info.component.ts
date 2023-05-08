@@ -207,4 +207,11 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
     //   })
     // );
   }
+  updateFlightTime($event:any){
+
+
+
+    console.log($event.target.value);
+    
+  }
 }

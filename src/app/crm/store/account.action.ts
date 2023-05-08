@@ -29,4 +29,5 @@ export const loadAccount = createAction(
   '[Account API] load account',
   props<{ payload: string }>()
 );
+export const UpdateAccountFail=createAction("[Account Page] update account failed",props<{payload:string}>())
 

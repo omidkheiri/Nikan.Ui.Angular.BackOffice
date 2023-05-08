@@ -16,6 +16,10 @@ export const AuthenticateSuccess = createAction(
       userId: string;
       token: string;
       expirationDate: Date;
+      refresh_token:string;
+      client_idel_timeout:number;
+      scops: string[];
+      roles: string[];
       redirect: boolean;
     };
   }>()

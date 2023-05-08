@@ -21,6 +21,9 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   account$: Subscription | any;
   account: Account | any;
   saved: boolean = false;
+  submitted: boolean;
+  isLoading: boolean;
+error="";
 
   constructor(
     private router: Router,
@@ -39,14 +42,24 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.account$.subscribe((state: any) => {
       this.account = state.account.account;
-
+    if(this.submitted){
+      this.isLoading=false;
+      this.submitted=false;
+      this.error="";
+    }
       if (state.account.saved) {
+       
         if (
           location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
         ) {
           this.router.navigate(['/dashboard/crm/accounts']);
           this.account = null;
         }
+      }
+      else{
+
+this.error=state.account.error;
+
       }
     });
 
@@ -56,6 +69,8 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
+    this.submitted=true;
+    this.isLoading=true;
     if (!form.valid) {
       return;
     }

@@ -48,6 +48,7 @@ import { DiscountGroupComponent } from './accounts/account/supplier/locations/di
 import { ServiceLineDicountComponent } from './accounts/account/supplier/locations/service-line-dicount/service-line-dicount.component';
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 import { ContactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
+import { SharedModule } from '../Shared/shared,module';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,7 @@ import { ContactDiscountGroupComponent } from './contacts/contact-detail/contact
     CommonModule,
     FormsModule,
     DxSelectBoxModule,
-    AngJsoneditorModule,
+    AngJsoneditorModule,SharedModule,
     StoreModule.forFeature('CRM', crmReducers),
     TranslateModule.forRoot({
       loader: {
