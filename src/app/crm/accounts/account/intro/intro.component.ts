@@ -45,7 +45,7 @@ export class IntroComponent implements OnInit {
     };
     this.httpClinet
       .put(
-        `${environment.accountAddress}/Accoutn/${this.accountId}/SetIntro`,
+        `${environment.accountAddress}/Account/${this.accountId}/SetIntro`,
         value
       )
       .subscribe(() => {

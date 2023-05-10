@@ -67,14 +67,14 @@
               caption="{{ 'Account.List.Phone' | translate }}"
             ></dxi-column>
             <dxi-column
-              width="50"
+              width="150"
               dataField="isSupplier"
               dataType="boolean"
               caption="{{ 'Account.List.IsSupplier' | translate }}"
               cellRender="checkBoxCell"
             ></dxi-column>
             <dxi-column
-              width="50"
+              width="150"
               dataField="isCustomer"
               dataType="boolean"
               caption="{{ 'Account.List.IsCustomer' | translate }}"
@@ -130,6 +130,24 @@
               <dxi-item name="columnChooserButton"></dxi-item>
               <dxi-item name="exportButton"></dxi-item>
               <dxi-item name="searchPanel"></dxi-item>
+              <!-- <dxi-item location="before">
+                <div *dxTemplate>
+                  <dx-button
+                    
+                 [text]="'تامین کننده ها'"
+                  
+                    (onClick)="filterSuppliers()"
+                  >
+                  </dx-button>
+                  <dx-button
+                    
+                  [text]="'مشتری ها'"
+                
+                  (onClick)="filterCustomers()"
+                >
+                </dx-button>
+                </div>
+              </dxi-item> -->
             </dxo-toolbar>
           </dx-data-grid>
         </div>

@@ -21,11 +21,11 @@ export const saveContactStart = createAction(
   props<{ accountId: string; contact: any }>()
 );
 export const loadAccountListStart = createAction(
-  '[contact page] load accoutn list',
+  '[contact page] load account list',
   props<{ searchTerm: string }>()
 );
 export const loadAccountListFinished = createAction(
-  '[contact page] load accoutn list finished',
+  '[contact page] load account list finished',
   props<{ accounts: any }>()
 );
 export const saveContactFinished = createAction(

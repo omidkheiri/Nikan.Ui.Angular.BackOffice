@@ -44,20 +44,23 @@ error="";
       this.account = state.account.account;
     if(this.submitted){
       this.isLoading=false;
-      this.submitted=false;
-      this.error="";
+     
+     
     }
-      if (state.account.saved) {
+      if (this.submitted&&state.account.saved) {
        
         if (
-          location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
+          location.pathname.toLocaleLowerCase().indexOf('accountform') >-1
         ) {
+          this.submitted=false;
           this.router.navigate(['/dashboard/crm/accounts']);
           this.account = null;
         }
       }
       else{
-
+        this.isLoading=false;
+        this.error="";
+if(state.account.error)
 this.error=state.account.error;
 
       }
@@ -70,10 +73,13 @@ this.error=state.account.error;
 
   onSubmit(form: NgForm) {
     this.submitted=true;
-    this.isLoading=true;
+    console.log(form);
+    
     if (!form.valid) {
       return;
     }
+    
+    this.isLoading=true;
     if (
       location.pathname.toLocaleLowerCase() === '/dashboard/crm/accountform'
     ) {

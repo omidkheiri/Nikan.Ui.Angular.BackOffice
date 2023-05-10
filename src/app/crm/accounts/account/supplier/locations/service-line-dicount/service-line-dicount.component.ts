@@ -57,7 +57,7 @@ if(this.DiscountGroup){
       
         
 this.store.dispatch(fromAction.addDiscountGroupServiceLine(
- {accoutnId:this.accountId,
+ {accountId:this.accountId,
    ServiceLocationId:this.DiscountGroup.serviceLocationId+'',
    DiscountGroupId:this.DiscountGroup.id,
     ServiceLineDiscount: 
@@ -68,7 +68,7 @@ this.store.dispatch(fromAction.addDiscountGroupServiceLine(
       update: (key, values) => {
 
         this.store.dispatch(fromAction.addDiscountGroupServiceLine(
-          {accoutnId:this.accountId,
+          {accountId:this.accountId,
             ServiceLocationId:this.DiscountGroup.serviceLocationId+'',
             DiscountGroupId:this.DiscountGroup.id,
              ServiceLineDiscount: 

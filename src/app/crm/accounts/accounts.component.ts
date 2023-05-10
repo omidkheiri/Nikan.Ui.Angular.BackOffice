@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Workbook } from 'exceljs';
@@ -11,12 +11,15 @@ import { environment } from 'src/environments/environment';
 import * as fromStore from '../store';
 import * as fromaction from 'src/app/crm/store/account.action';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { DxDataGridComponent } from 'devextreme-angular';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
 export class AccountsComponent implements OnInit {
+  @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
+   
   dataSource: any = {};
   constructor(
     httpClient: HttpClient,
@@ -26,44 +29,64 @@ export class AccountsComponent implements OnInit {
   ) {
     store.dispatch(fromaction.accountSaved({ payload: false }));
 
-    function isNotEmpty(value: any): boolean {
-      return value !== undefined && value !== null && value !== '';
-    }
-
-    this.dataSource = new CustomStore({
-      key: 'id',
-      load(loadOptions: any) {
-        let params: HttpParams = new HttpParams();
-        [
-          'skip',
-          'take',
-          'requireTotalCount',
-          'requireGroupCount',
-          'sort',
-          'filter',
-          'totalSummary',
-          'group',
-          'groupSummary',
-        ].forEach((i) => {
-          if (i in loadOptions && isNotEmpty(loadOptions[i])) {
-            params = params.set(i, JSON.stringify(loadOptions[i]));
-          }
-        });
-        return lastValueFrom(
-          httpClient.get(`${environment.baseAddress}/accountreport?${params}`)
-        )
-          .then((data: any) => ({
-            data: data.data,
-            totalCount: data.totalCount,
-            summary: data.summary,
-            groupCount: data.groupCount,
-          }))
-          .catch((error) => {
-            throw 'Data Loading Error';
-          });
-      },
-    });
+    this.createDataSource(httpClient,"all")
   }
+
+
+createDataSource(httpClient:any,type:string){
+
+  function isNotEmpty(value: any): boolean {
+    return value !== undefined && value !== null && value !== '';
+  }
+
+  this.dataSource = new CustomStore({
+    key: 'id',
+    load(loadOptions: any) {
+
+
+      let params: HttpParams = new HttpParams();
+      [
+        'skip',
+        'take',
+        'requireTotalCount',
+        'requireGroupCount',
+        'sort',
+        'filter',
+        'totalSummary',
+        'group',
+        'groupSummary',
+      ].forEach((i) => {
+        if (i in loadOptions && isNotEmpty(loadOptions[i])) {
+          params = params.set(i, JSON.stringify(loadOptions[i]));
+        }
+      });
+
+
+
+
+
+
+      return lastValueFrom(
+        httpClient.get(`${environment.baseAddress}/accountreport?${params}`)
+      )
+        .then((data: any) => ({
+          data: data.data,
+          totalCount: data.totalCount,
+          summary: data.summary,
+          groupCount: data.groupCount,
+        }))
+        .catch((error) => {
+          throw 'Data Loading Error';
+        });
+    },
+  });
+
+
+}
+
+
+
+
 
   ngOnInit(): void {}
   // navigate(data: any) {
@@ -91,4 +114,11 @@ export class AccountsComponent implements OnInit {
     });
     e.cancel = true;
   }
+  filterSuppliers(){
+
+    this.dataSource
+
+
+  }
+  filterCustomers(){}
 }

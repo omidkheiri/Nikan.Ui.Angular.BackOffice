@@ -24,7 +24,7 @@ export class AccountService {
   }
   putAccount(account: Account) {
     return this.http.put<Account>(
-      `${environment.accountAddress}/Accoutn/${account.id}`,
+      `${environment.accountAddress}/Account/${account.id}`,
       account
     );
   }

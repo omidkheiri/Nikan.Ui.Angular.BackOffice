@@ -49,19 +49,19 @@ ngOnChanges(changes: SimpleChanges) {
     insert: (values) => {
       console.log(values);
       
-this.store.dispatch(fromAction.addDiscountGroup({accoutnId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
       return  this.location.discountGroups
         // ...
     },
     update: (key, values) => {
       
-      this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accoutnId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+      this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
       return  this.location.discountGroups
         // ...
         
     },
     remove: (key) => {
-      this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accoutnId:this.accountId, ServiceLocationId: this.location.id }))
+      this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServiceLocationId: this.location.id }))
       return  this.location.discountGroups
         // ...
     }
@@ -83,19 +83,19 @@ this.store.dispatch(fromAction.addDiscountGroup({accoutnId:this.accountId, Disco
       insert: (values) => {
         console.log(values);
         
-this.store.dispatch(fromAction.addDiscountGroup({accoutnId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
         return  this.location.discountGroups
           // ...
       },
       update: (key, values) => {
         
-        this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accoutnId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+        this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
         return  this.location.discountGroups
           // ...
           
       },
       remove: (key) => {
-        this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accoutnId:this.accountId, ServiceLocationId: this.location.id }))
+        this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServiceLocationId: this.location.id }))
         return  this.location.discountGroups
           // ...
       }

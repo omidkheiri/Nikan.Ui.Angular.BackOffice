@@ -29,7 +29,10 @@
 
       <div class="widget-content">
 
-        <p class="text-danger" *ngIf="error">
+        <p class="text-danger" style="
+        margin-top: 30px;
+        text-align: center;
+    " *ngIf="error">
           {{error}}
          </p>
          <div *ngIf="isLoading" style="text-align: center">
@@ -57,10 +60,11 @@
               ngModel
               [ngModel]="account.title"
             />
-            <div *ngIf="submitted && f.form.controls['username'].errors">
+         
+            <div *ngIf="submitted && f.form.controls['Title'].errors">
 
-              <div *ngIf="f.form.controls['username'].errors['required']" class="text-danger">Email required.</div>
-              <div *ngIf="f.form.controls['username'].errors['email']" class="text-danger">Invalid Email .</div>
+              <div *ngIf="f.form.controls['Title'].errors['required']" class="text-danger">عنوان سازمان لازم است</div>
+            
               </div>
             <div class="invalid-feedback show" style="display: none"></div>
           </div>
@@ -79,7 +83,12 @@
               email
               required
             />
-            <div class="invalid-feedback show" style="display: none"></div>
+            <div *ngIf="submitted && f.form.controls['EmailAddress'].errors">
+
+              <div *ngIf="f.form.controls['EmailAddress'].errors['required']" class="text-danger">آدرس ایمیل لازم است</div>
+              <div *ngIf="f.form.controls['EmailAddress'].errors['email']" class="text-danger">آدرس ایمیل معتبر نیست</div>
+            
+              </div>
           </div>
           <div class="form-group">
             <label for="input" style="text-align: right; width: 100%"
@@ -92,10 +101,43 @@
               dir="ltr"
               placeholder="شماره تلفن"
               required
+              phone
+              maxlength="20"
               style="text-align: left"
               [ngModel]="account.phone"
             />
-            <div class="invalid-feedback show" style="display: none"></div>
+            <div *ngIf="submitted && f.form.controls['Phone'].errors">
+
+              <div *ngIf="f.form.controls['Phone'].errors['required']" class="text-danger">شماره تلفن لازم است</div>
+              <div *ngIf="f.form.controls['Phone'].errors['phone']" class="text-danger">شماره تلفن معتبر نیست</div>
+              <div *ngIf="f.form.controls['Phone'].errors['maxlength']" class="text-danger">شماره تلفن معتبر نیست</div>
+            
+              
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="input" style="text-align: right; width: 100%"
+              >شماره تلفن دوم</label
+            ><input
+              type="text"
+              class="form-control"
+              id="SecondPhone"
+              name="SecondPhone"
+              dir="ltr"
+              placeholder="شماره تلفن دوم"
+             
+              phone
+              maxlength="20"
+              style="text-align: left"
+              [ngModel]="account.secondPhone"
+            />
+            <div *ngIf="submitted && f.form.controls['SecondPhone'].errors">
+
+             <div *ngIf="f.form.controls['SecondPhone'].errors['phone']" class="text-danger">شماره تلفن معتبر نیست</div>
+              <div *ngIf="f.form.controls['SecondPhone'].errors['maxlength']" class="text-danger">شماره تلفن معتبر نیست</div>
+            
+              
+              </div>
           </div>
           <div class="form-group mb-">
             <label for="input" style="text-align: right; width: 100%"
@@ -106,9 +148,15 @@
               id="PostalAddress"
               name="PostalAddress"
               placeholder="آدرس پستی"
+              required
               [ngModel]="account.postalAddress"
             />
-            <div class="invalid-feedback show" style="display: none"></div>
+            <div *ngIf="submitted && f.form.controls['PostalAddress'].errors">
+
+              <div *ngIf="f.form.controls['PostalAddress'].errors['required']" class="text-danger">آدرس پستی لازم است</div>
+             
+              
+              </div>
           </div>
 
           <button type="submit" class="btn btn-primary mt-3">ذخیره</button>

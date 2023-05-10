@@ -73,7 +73,14 @@ export class AccountEffect {
           .pipe(
             map((account: Account) =>
               AccountAction.saveAccountFinished({ payload: account })
-            )
+            ), catchError((errorRes) => {
+              console.log(errorRes.error);
+              var errorMessage = handleError(errorRes);
+              return of(
+                AccountAction.UpdateAccountFail({ payload: errorMessage })
+              );
+            }
+          )
           )
       )
     )

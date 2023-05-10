@@ -30,7 +30,7 @@ export class LocationEffect {
          
           map((location) => {
             return LocationActions.loadLocations({
-              payload: action.accoutnId
+              payload: action.accountId
             });
           }),
          
@@ -54,7 +54,7 @@ export class LocationEffect {
          
           map(() => {
             return LocationActions.loadLocations({
-              payload: action.accoutnId
+              payload: action.accountId
             });
           }),
          
@@ -79,7 +79,7 @@ export class LocationEffect {
          
           map((location) => {
             return LocationActions.loadLocations({
-              payload: action.accoutnId
+              payload: action.accountId
             });
           }),
          
@@ -102,7 +102,7 @@ export class LocationEffect {
            
             map((location) => {
               return LocationActions.loadLocations({
-                payload: action.accoutnId
+                payload: action.accountId
               });
             }),
            

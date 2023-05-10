@@ -40,25 +40,25 @@ export const saveCurrentLocation = createAction(
 );
 export const addDiscountGroup = createAction(
   '[Location Discount Group Page] add Discount Group',
-  props<{accoutnId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+  props<{accountId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
 );
 export const updateDiscountGroup = createAction(
   '[Location Discount Group Page] update Discount Group',
-  props<{ accoutnId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+  props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
 );
 export const removeDiscountGroup = createAction(
   '[Location Discount Group Page] remove Discount Group',
-  props<{ accoutnId:string;groupId:string; ServiceLocationId: string}>()
+  props<{ accountId:string;groupId:string; ServiceLocationId: string}>()
 );
 export const addDiscountGroupServiceLine = createAction(
   '[Location Discount Group Page] add Discount Group Service Line',
-  props<{accoutnId:string;ServiceLocationId:string; DiscountGroupId:string ;ServiceLineDiscount:{ServiceLineId: string,DiscountPercents: number}}>()
+  props<{accountId:string;ServiceLocationId:string; DiscountGroupId:string ;ServiceLineDiscount:{ServiceLineId: string,DiscountPercents: number}}>()
 );
 // export const updateDiscountGroup = createAction(
 //   '[Location Discount Group Page] update Discount Group',
-//   props<{ accoutnId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+//   props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
 // );
 // export const removeDiscountGroup = createAction(
 //   '[Location Discount Group Page] remove Discount Group',
-//   props<{ accoutnId:string;groupId:string; ServiceLocationId: string}>()
+//   props<{ accountId:string;groupId:string; ServiceLocationId: string}>()
 // );
