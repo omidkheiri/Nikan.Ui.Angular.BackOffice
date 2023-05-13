@@ -20,7 +20,7 @@ export class LocationListComponent implements OnInit, MenuComponent {
       )
     )
       .then((data: any) => {
-        this.locations = data;
+        this.locations = data.filter((data:any)=>{return !data.doNotShowInReserveLocationList});
       })
       .catch((error) => {
         throw 'Data Loading Error';

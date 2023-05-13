@@ -23,7 +23,7 @@
         <div
           *ngIf="
             !locationForm.controls.title.valid &&
-            locationForm.controls.title.touched
+            (locationForm.controls.title.touched || this.submitted)
           "
           class="invalid-feedback show"
           style="display: block"
@@ -36,7 +36,8 @@
           }}
         </div>
       </div>
-      <div class="form-group mb-4">
+      <div class="row">
+      <div class="form-group mb-4 col-6">
         <label for="input" style="text-align: right; width: 100%">آدرس</label
         ><input
           type="text"
@@ -45,9 +46,23 @@
           placeholder="آدرس"
           formControlName="address"
         />
-        <div class="invalid-feedback show" style="display: block"></div>
+        <div
+        *ngIf="
+          !locationForm.controls.address.valid &&
+          (locationForm.controls.address.touched || this.submitted)
+        "
+        class="invalid-feedback show"
+        style="display: block"
+      >
+        {{
+          locationForm.controls.address.errors &&
+          locationForm.controls.address.errors["required"]
+            ? "اجباری"
+            : ""
+        }}
       </div>
-      <div class="form-group mb-4">
+      </div>
+      <div class="form-group mb-4 col-6">
         <label for="input" style="text-align: right; width: 100%"
           >موقعیت جغرافیایی</label
         ><input
@@ -57,9 +72,24 @@
           placeholder="موقعیت جغرافیایی"
           formControlName="location"
         />
-        <div class="invalid-feedback show" style="display: block"></div>
+        <div
+        *ngIf="
+          !locationForm.controls.location.valid &&
+          (locationForm.controls.location.touched || this.submitted)
+        "
+        class="invalid-feedback show"
+        style="display: block"
+      >
+        {{
+          locationForm.controls.location.errors &&
+          locationForm.controls.location.errors["required"]
+            ? "اجباری"
+            : ""
+        }}
       </div>
-      <div class="form-group mb-4">
+      </div>
+  
+      <div class="form-group mb-4 col-6">
         <label for="from">آخرین زمان مجاز</label>
         <dx-date-box
           pickerType="rollers"
@@ -68,8 +98,40 @@
           displayFormat="yyyy-MM-dd"
         ></dx-date-box>
 
-        <div class="invalid-feedback show" style="display: block"></div>
+        <div
+        *ngIf="
+          !locationForm.controls.maxAcceptDate.valid &&
+          (locationForm.controls.maxAcceptDate.touched || this.submitted)
+        "
+        class="invalid-feedback show"
+        style="display: block"
+      >
+        {{
+          locationForm.controls.maxAcceptDate.errors &&
+          locationForm.controls.maxAcceptDate.errors["required"]
+            ? "اجباری"
+            : ""
+        }}
       </div>
+      </div>
+      <div class="form-group col-md-4 col-6">
+        <label>&nbsp;</label>
+        <div class="">
+          <input
+            type="checkbox"
+            class=""
+            id="status"
+            style="height: 24px; width: 25px"
+            formControlName="doNotShowInReserveLocationList"
+          /><label
+            class=""
+            for="status"
+            style="text-align: right; float: right"
+            >عدم نمایش در لیست محل ارائه سرویس</label
+          >
+        </div>
+      </div>
+    </div>
       <div class="row">
         <div class="form-group col-md-4 mb-4">
           <label for="from">بافر ورودی</label><label for="input"></label
@@ -80,7 +142,21 @@
             formControlName="arrivalBufferTime"
             min="0"
           />
-          <div class="invalid-feedback show" style="display: block"></div>
+          <div
+          *ngIf="
+            !locationForm.controls.arrivalBufferTime.valid &&
+            (locationForm.controls.arrivalBufferTime.touched || this.submitted)
+          "
+          class="invalid-feedback show"
+          style="display: block"
+        >
+          {{
+            locationForm.controls.arrivalBufferTime.errors &&
+            locationForm.controls.arrivalBufferTime.errors["required"]
+              ? "اجباری"
+              : ""
+          }}
+        </div>
         </div>
         <div class="form-group col-md-4 mb-4">
           <label for="from">بافر خروجی</label><label for="input"></label
@@ -91,7 +167,21 @@
             formControlName="departureBufferTime"
             min="0"
           />
-          <div class="invalid-feedback show" style="display: block"></div>
+          <div
+          *ngIf="
+            !locationForm.controls.departureBufferTime.valid &&
+            (locationForm.controls.departureBufferTime.touched || this.submitted)
+          "
+          class="invalid-feedback show"
+          style="display: block"
+        >
+          {{
+            locationForm.controls.departureBufferTime.errors &&
+            locationForm.controls.departureBufferTime.errors["required"]
+              ? "اجباری"
+              : ""
+          }}
+        </div>
         </div>
         <div class="form-group col-md-4 mb-4">
           <label for="from">بافر ترنسفر</label><label for="input"></label
@@ -102,8 +192,24 @@
             formControlName="transferBufferTime"
             min="0"
           />
-          <div class="invalid-feedback show" style="display: block"></div>
+          <div
+          *ngIf="
+            !locationForm.controls.transferBufferTime.valid &&
+            (locationForm.controls.transferBufferTime.touched || this.submitted)
+          "
+          class="invalid-feedback show"
+          style="display: block"
+        >
+          {{
+            locationForm.controls.transferBufferTime.errors &&
+            locationForm.controls.transferBufferTime.errors["required"]
+              ? "اجباری"
+              : ""
+          }}
         </div>
+        </div>
+       
+        
       </div>
 
       <button

@@ -38,7 +38,9 @@ export class EditLocationComponent implements OnInit, OnDestroy {
     arrivalBufferTime: new FormControl(0, Validators.required),
     departureBufferTime: new FormControl(0, Validators.required),
     transferBufferTime: new FormControl(0, Validators.required),
+    doNotShowInReserveLocationList:new FormControl(0)
   });
+  submitted: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +73,7 @@ export class EditLocationComponent implements OnInit, OnDestroy {
       arrivalBufferTime: new FormControl(0, Validators.required),
       departureBufferTime: new FormControl(0, Validators.required),
       transferBufferTime: new FormControl(0, Validators.required),
+      doNotShowInReserveLocationList:new FormControl(0)
     });
   }
 
@@ -82,6 +85,7 @@ export class EditLocationComponent implements OnInit, OnDestroy {
     });
   }
   SubmitFrom() {
+    this.submitted=true
     if (!this.locationForm.valid) {
       return;
     }
@@ -124,7 +128,7 @@ export class EditLocationComponent implements OnInit, OnDestroy {
             transferBufferTime: new FormControl(
               location.transferBufferTime,
               Validators.required
-            ),
+            ),doNotShowInReserveLocationList:new FormControl(  location.doNotShowInReserveLocationList)
           });
         });
     }
