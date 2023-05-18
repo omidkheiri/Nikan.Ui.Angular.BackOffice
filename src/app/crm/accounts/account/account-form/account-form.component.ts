@@ -85,7 +85,7 @@ this.error=state.account.error;
     ) {
       this.store.dispatch(saveAccountStarted({ payload: form.value }));
     } else {
-      this.store.dispatch(updateAccountStarted({ payload: form.value }));
+      this.store.dispatch(updateAccountStarted({id:this.account.id, payload: form.value }));
     }
     this.saved = true;
   }

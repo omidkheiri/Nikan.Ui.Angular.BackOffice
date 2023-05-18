@@ -22,9 +22,9 @@ export class AccountService {
       `${environment.accountAddress}/account/${id}`
     );
   }
-  putAccount(account: Account) {
+  putAccount(id:string,account: Account) {
     return this.http.put<Account>(
-      `${environment.accountAddress}/Account/${account.id}`,
+      `${environment.accountAddress}/Account/${id}`,
       account
     );
   }

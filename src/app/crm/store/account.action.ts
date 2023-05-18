@@ -15,7 +15,7 @@ export const accountUpdated = createAction(
 );
 export const updateAccountStarted = createAction(
   '[Account Page] update account started',
-  props<{ payload: Account }>()
+  props<{id:string, payload: Account }>()
 );
 export const saveAccountStarted = createAction(
   '[Account Page] save account started',

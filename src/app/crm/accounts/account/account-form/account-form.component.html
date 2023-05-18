@@ -40,12 +40,7 @@
          </div>
 
         <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-bottom: 20px">
-          <input
-            type="hidden"
-            name="id"
-            [ngModel]="account.id"
-            [value]="account.id"
-          />
+        
           <div class="form-group mb-4">
             <label for="input" style="text-align: right; width: 100%"
               >عنوان</label

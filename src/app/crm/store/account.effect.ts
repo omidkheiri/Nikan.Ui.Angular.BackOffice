@@ -49,7 +49,7 @@ export class AccountEffect {
       ofType(AccountAction.updateAccountStarted),
       exhaustMap((action) =>
         this.accountService
-          .putAccount(action.payload)
+          .putAccount(action.id, action.payload)
           .pipe(
             map((account: Account) =>
               AccountAction.saveAccountFinished({ payload: account })
