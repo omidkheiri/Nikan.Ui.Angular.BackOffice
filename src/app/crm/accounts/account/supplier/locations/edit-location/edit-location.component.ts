@@ -2,11 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, subscribeOn } from 'rxjs';
+import { lastValueFrom, map, Observable, subscribeOn } from 'rxjs';
 import { LocationItem } from 'src/app/crm/model/location.model';
 import { Location } from '@angular/common';
 import * as fromAction from 'src/app/crm/store/location/location.action';
 import * as fromStore from '../../../../../store';
+import { environment } from 'src/environments/environment';
+import { HttpBackend, HttpClient } from '@angular/common/http';
+import CustomStore from 'devextreme/data/custom_store';
 @Component({
   selector: 'app-edit-location',
   templateUrl: './edit-location.component.html',
@@ -38,11 +41,14 @@ export class EditLocationComponent implements OnInit, OnDestroy {
     arrivalBufferTime: new FormControl(0, Validators.required),
     departureBufferTime: new FormControl(0, Validators.required),
     transferBufferTime: new FormControl(0, Validators.required),
-    doNotShowInReserveLocationList:new FormControl(0)
+    doNotShowInReserveLocationList:new FormControl(0),
+    airportId:new FormControl('',null)
+
   });
   submitted: boolean;
+  airportNamesDataSource: CustomStore<any, any>;
 
-  constructor(
+  constructor(private http:HttpClient,
     private route: ActivatedRoute,
     private store: Store<fromStore.CrmModuleState>,
     private _location: Location
@@ -56,6 +62,43 @@ export class EditLocationComponent implements OnInit, OnDestroy {
       this.store.dispatch(
         fromAction.loadingCurrentLocation({ payload: this.id })
       );
+    });
+    
+    this.airportNamesDataSource = new CustomStore({
+      key: 'id',
+      byKey(key) {
+        return http
+          .get<any>(
+            `${environment.flightAddress}/Airport?skip=0&take=200&requireTotalCount=true&filter=[["id","=","${key}"]]`
+          )
+          .pipe(
+            map((data) => {
+              return data.data[0];
+            })
+          )
+          .toPromise();
+      },
+      load(loadOptions: any) {
+        var filter = `skip=0&take=200&requireTotalCount=true`;
+        if (loadOptions.searchValue) {
+          filter =
+            filter +
+            `&filter=[["name","contains","${loadOptions.searchValue}"]]`;
+        }
+
+        return lastValueFrom(
+          http.get(`${environment.flightAddress}/Airport?${filter}`)
+        )
+          .then((data: any) => ({
+            data: data.data,
+            totalCount: data.totalCount,
+            summary: data.summary,
+            groupCount: data.groupCount,
+          }))
+          .catch((error) => {
+            throw 'Data Loading Error';
+          });
+      },
     });
   }
   ngOnDestroy(): void {
@@ -73,7 +116,8 @@ export class EditLocationComponent implements OnInit, OnDestroy {
       arrivalBufferTime: new FormControl(0, Validators.required),
       departureBufferTime: new FormControl(0, Validators.required),
       transferBufferTime: new FormControl(0, Validators.required),
-      doNotShowInReserveLocationList:new FormControl(0)
+      doNotShowInReserveLocationList:new FormControl(0),
+      airportId:new FormControl('',null)
     });
   }
 
@@ -128,13 +172,15 @@ export class EditLocationComponent implements OnInit, OnDestroy {
             transferBufferTime: new FormControl(
               location.transferBufferTime,
               Validators.required
-            ),doNotShowInReserveLocationList:new FormControl(  location.doNotShowInReserveLocationList)
+            ),doNotShowInReserveLocationList:new FormControl(  location.doNotShowInReserveLocationList),
+            airportId:new FormControl(location.airportId,null)
           });
         });
     }
   }
   oncancel() {
-    this.store.dispatch(fromAction.loadLocations({ payload: this.accountId }));
+  
     this._location.back();
+    this.store.dispatch(fromAction.loadLocations({ payload: this.accountId }));
   }
 }

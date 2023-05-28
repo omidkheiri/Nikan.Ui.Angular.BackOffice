@@ -19,7 +19,7 @@ export class LocationsComponent implements OnInit {
   account$: Subscription | any;
   locations: LocationItem[] = [];
 
-  constructor(
+  constructor(private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.CrmModuleState>,
     private AccountService: AccountService
@@ -31,6 +31,14 @@ export class LocationsComponent implements OnInit {
       
         this.locations = location.location.locations;
       });
+  }
+
+  removeLocation(id:any){
+    var a=this.router.url.split('/')[4];
+
+this.store.dispatch(fromAction.deleteLocation({payload:{locationId:id,accountId:a}}))
+
+
   }
 
   ngOnInit(): void {

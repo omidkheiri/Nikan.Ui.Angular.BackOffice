@@ -1,0 +1,100 @@
+<div class="layout-px-spacing">
+    <div class="page-header">
+      <div class="page-title">
+        <h3>{{ "Airport.List.PageTitle" | translate }}</h3>
+      </div>
+    </div>
+  
+    <div class="row layout-top-spacing">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-one" style="padding: 20px">
+          <div class="widget-heading">
+            <dx-data-grid
+              #grid
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [remoteOperations]="true"
+              [showColumnLines]="true"
+              [showRowLines]="true"
+              [rowAlternationEnabled]="true"
+              [hoverStateEnabled]="true"
+              (onExporting)="onExporting($event)"
+              keyExpr="Id"
+            >
+              <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[10, 20, 50]"
+                [showNavigationButtons]="true"
+              >
+              </dxo-pager>
+              <dxo-editing
+                [allowUpdating]="true"
+                [allowAdding]="true"
+                [allowDeleting]="true"
+                mode="row"
+              >
+              </dxo-editing>
+  
+              <dxo-filter-row
+                [visible]="true"
+                [applyFilter]="true"
+              ></dxo-filter-row>
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-search-panel
+                [visible]="true"
+                [width]="240"
+                placeholder="Search..."
+              ></dxo-search-panel>
+  
+              <dxi-column
+                direction="rtl"
+                alignment="center"
+                dataField="name"
+                caption="{{ 'Airport.List.Name' | translate }}"
+                dataType="string"
+                width="200"
+              ></dxi-column>
+              <dxi-column
+                direction="rtl"
+                alignment="right"
+                dataField="city"
+                dataType="string"
+                caption="{{ 'Airport.List.City' | translate }}"
+              ></dxi-column>
+  
+              <dxo-paging defaultPageSize="12"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                allowedPageSizes="allowedPageSizes"
+              ></dxo-pager>
+  
+              <dxo-editing
+                [allowUpdating]="true"
+                [allowAdding]="true"
+                [allowDeleting]="true"
+                mode="row"
+              >
+              </dxo-editing>
+              <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+  
+              <dxo-export
+                [enabled]="true"
+                [allowExportSelectedData]="true"
+              ></dxo-export>
+  
+              <dxo-toolbar>
+                <dxi-item name="searchPanel"></dxi-item>
+  
+                <dxi-item name="addRowButton"></dxi-item>
+  
+                <dxi-item name="columnChooserButton"></dxi-item>
+                <dxi-item name="exportButton"></dxi-item>
+              </dxo-toolbar>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

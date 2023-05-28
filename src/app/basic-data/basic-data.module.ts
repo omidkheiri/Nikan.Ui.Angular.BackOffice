@@ -18,12 +18,14 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicDataRoutingModule } from './basic-data-routing.module';
 import { FlightNumberFromComponent } from './flight-numbers/flight-number-from/flight-number-from.component';
+import { AirportComponent } from './airport/airport.component';
 @NgModule({
   declarations: [
     FlightNumbersComponent,
     FlightNumberFromComponent,
     AirLinesComponent,
     FlightNumberFromComponent,
+    AirportComponent,
   ],
   imports: [
     FormsModule,

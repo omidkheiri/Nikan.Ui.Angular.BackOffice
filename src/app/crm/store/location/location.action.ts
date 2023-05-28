@@ -10,12 +10,12 @@ export const loadLocations = createAction(
   '[Locations API] load Locations',
   props<{ payload: string }>()
 );
-export const locationlistUpdated = createAction(
+export const locationListUpdated = createAction(
   '[Locations page] location list updated'
 );
 export const deleteLocation = createAction(
   '[Locations API] delete location',
-  props<{ payload: string }>()
+  props<{payload:{ locationId: string,accountId:string }}>()
 );
 
 export const loadCurrentLocation = createAction(

@@ -5,6 +5,7 @@ import { AirLinesComponent } from './air-lines/air-lines.component';
 import { BasicDataComponent } from './basic-data.component';
 import { FlightNumberFromComponent } from './flight-numbers/flight-number-from/flight-number-from.component';
 import { FlightNumbersComponent } from './flight-numbers/flight-numbers.component';
+import { AirportComponent } from './airport/airport.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'airLines',
         component: AirLinesComponent,
+      },
+      {
+        path: 'airports',
+        component: AirportComponent,
       },
     ],
   },

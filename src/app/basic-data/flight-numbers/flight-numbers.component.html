@@ -57,15 +57,15 @@
 
             <dxi-column
               width="200"
-              dataField="flightInfo.arrivalCity"
+              dataField="arrivalAirport.name"
               dataType="string"
-              caption="{{ 'FlightNumber.List.ArrivalCity' | translate }}"
+              caption="{{ 'FlightNumber.List.ArrivalAirport' | translate }}"
             ></dxi-column>
             <dxi-column
               width="200"
-              dataField="flightInfo.departureCity"
+              dataField="departureAirport.name"
               dataType="string"
-              caption="{{ 'FlightNumber.List.DepartureCity' | translate }}"
+              caption="{{ 'FlightNumber.List.DepartureAirport' | translate }}"
             ></dxi-column>
             <dxi-column
               dataField="flightDate"
@@ -75,14 +75,14 @@
               cellRender="checkBoxCell"
             ></dxi-column>
             <dxi-column
-              dataField="flightInfo.departureTime"
+              dataField="departureTime"
               dataType="string"
               caption="{{ 'FlightNumber.List.DepartureTime' | translate }}"
               cellRender="checkBoxCell"
             ></dxi-column>
 
             <dxi-column
-              dataField="flightInfo.arrivalTime"
+              dataField="arrivalTime"
               allowSorting="false"
               caption="{{ 'FlightNumber.List.ArrivalTime' | translate }}"
             ></dxi-column>

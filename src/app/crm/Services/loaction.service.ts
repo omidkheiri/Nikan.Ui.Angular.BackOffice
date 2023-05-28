@@ -19,9 +19,9 @@ export class LocationService {
       `${environment.serviceLocationAddress}/ServiceLocation/${id}`
     );
   }
-  deleteLocation(id: any) {
+  deleteLocation(payload: any) {
     return this.http.delete(
-      `${environment.serviceLocationAddress}/ServiceLocation/${id}`
+      `${environment.serviceLocationAddress}/Account/${payload.accountId}/ServiceLocation/${payload.locationId}`
     );
   }
 }

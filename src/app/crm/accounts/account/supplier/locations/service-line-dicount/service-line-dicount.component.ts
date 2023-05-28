@@ -30,11 +30,10 @@ export class ServiceLineDicountComponent implements OnInit , OnChanges{
 
 if(this.DiscountGroup){
     
-  console.log("====>",this.DiscountGroup);
       this.ServiceLineSource=   new CustomStore({
         key: 'ID',
         loadMode: 'raw', // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
-        load: () => {
+        load: (loadOptions) => {
 
           
             return lastValueFrom(this.http.get(`${environment.serviceLineAddress}/ServiceLine/Location/${this.DiscountGroup.serviceLocationId}`))

@@ -86,8 +86,8 @@
             "PageTitle": "فهرست پروازها",
             "AirlineName": "نام ایرلاین",
             "FlightName": "شماره پرواز",
-            "ArrivalCity": "شهر مقصد",
-            "DepartureCity": "شهر مبدا",
+            "ArrivalAirport": "فرودگاه مقصد",
+            "DepartureAirport": "فرودگاه مبدا",
             "FlightDate": "تاریخ پرواز",
             "DepartureTime": "زمان شروع پرواز",
             "ArrivalTime": "زمان پایان پرواز",
@@ -131,6 +131,14 @@
             "IconUrl": "آدرس آیکون"
         }
     },
+    "Airport": {
+        "List": {
+            "PageTitle": "فهرست فرودگاه ها",
+            "Name": "نام فرودگاه",
+            "City": "نام شهر "
+        }
+    },
+    
     "ServiceLocation": {
         "List": {
             "PageTitle": "محل ارائه سرویس",

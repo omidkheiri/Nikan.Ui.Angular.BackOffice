@@ -12,7 +12,8 @@
   <div *dxTemplate="let data of 'content'">
     <form [formGroup]="locationForm" (ngSubmit)="SubmitFrom()">
       <div class="form-group mb-4">
-        <label for="input" style="text-align: right; width: 100%">عنوان</label
+        <label for="input" style="text-align: right; width: 100%">عنوان   <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          ">*</span></label
         ><input
           type="text"
           class="form-control"
@@ -38,7 +39,8 @@
       </div>
       <div class="row">
       <div class="form-group mb-4 col-6">
-        <label for="input" style="text-align: right; width: 100%">آدرس</label
+        <label for="input" style="text-align: right; width: 100%">آدرس <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          ">*</span></label
         ><input
           type="text"
           class="form-control"
@@ -64,7 +66,8 @@
       </div>
       <div class="form-group mb-4 col-6">
         <label for="input" style="text-align: right; width: 100%"
-          >موقعیت جغرافیایی</label
+          >موقعیت جغرافیایی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          ">*</span></label
         ><input
           type="text"
           class="form-control"
@@ -88,9 +91,26 @@
         }}
       </div>
       </div>
-  
-      <div class="form-group mb-4 col-6">
-        <label for="from">آخرین زمان مجاز</label>
+      <div class="form-group col-md-4">
+        <label for="input" style="text-align: right; width: 100%"
+          >فرودگاه  </label
+        >   <dx-select-box
+        [dataSource]="airportNamesDataSource"
+        displayExpr="name"
+        valueExpr="id"
+        [searchEnabled]="true"
+        name="airportId"
+        id="airportId"
+        formControlName="airportId"
+       
+      >
+      </dx-select-box>
+    
+ 
+      </div>
+      <div class="form-group mb-4 col-4">
+        <label for="from">آخرین زمان مجاز <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          ">*</span></label>
         <dx-date-box
           pickerType="rollers"
           formControlName="maxAcceptDate"
@@ -114,7 +134,7 @@
         }}
       </div>
       </div>
-      <div class="form-group col-md-4 col-6">
+      <div class="form-group col-md-4 col-4">
         <label>&nbsp;</label>
         <div class="">
           <input
@@ -134,7 +154,8 @@
     </div>
       <div class="row">
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر ورودی</label><label for="input"></label
+          <label for="from">بافر ورودی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+            ">*</span></label><label for="input"></label
           ><input
             type="number"
             class="form-control"
@@ -159,7 +180,8 @@
         </div>
         </div>
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر خروجی</label><label for="input"></label
+          <label for="from">بافر خروجی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+            ">*</span></label><label for="input"></label
           ><input
             type="number"
             class="form-control"
@@ -184,7 +206,8 @@
         </div>
         </div>
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر ترنسفر</label><label for="input"></label
+          <label for="from">بافر ترنسفر <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+            ">*</span></label><label for="input"></label
           ><input
             type="number"
             class="form-control"
