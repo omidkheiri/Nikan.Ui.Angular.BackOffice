@@ -53,7 +53,7 @@ export class FlightNumberFromComponent implements OnInit {
     arrivalTime: new FormControl('', Validators.required),
       departureTime: new FormControl('', Validators.required),
     flightName: new FormControl('', Validators.required),
-    flightDate: new FormControl('', Validators.required),
+    flightDate: new FormControl(''),
 
     airlineName: new FormControl('', Validators.required),
     status: new FormControl(false, Validators.required),
@@ -112,7 +112,7 @@ export class FlightNumberFromComponent implements OnInit {
           arrivalTime: new FormControl(data.arrivalTime,Validators.required),
           departureTime: new FormControl( data.departureTime, Validators.required ),
           flightName: new FormControl(data.flightName, Validators.required),
-          flightDate: new FormControl(data.flightDate, Validators.required),
+          flightDate: new FormControl(data.flightDate),
           airlineName: new FormControl(data.airlineName, Validators.required),
           status: new FormControl(data.status, Validators.required),
           scheduled: new FormControl(data.scheduled, Validators.required),

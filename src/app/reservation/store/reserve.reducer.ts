@@ -36,9 +36,9 @@ const initialState: State = {
 };
 export const reserveReducer = createReducer(
   initialState,
-  on(fromAction.SetLocation, (state, { location: loaction }) => ({
+  on(fromAction.SetLocation, (state, { location: location }) => ({
     ...state,
-    LocationId: loaction,
+    LocationId: location,
   })),
   on(fromAction.SetFlightInfo, (state, { FlightInfo: flightInfo }) => {
     return {

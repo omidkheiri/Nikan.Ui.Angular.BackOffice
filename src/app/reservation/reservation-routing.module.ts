@@ -18,11 +18,11 @@ const routes: Routes = [
       { path: 'ReserveList', component: ReserveListComponent },
 
       {
-        path: 'Reserve/:locationId',
+        path: 'Reserve',
         component: ReserveComponent,
       },
       {
-        path: 'Reserve/:locationId/:reserveId',
+        path: 'Reserve/:reserveId',
         component: ReserveComponent,
       },
 

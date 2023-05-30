@@ -23,14 +23,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
     private store: Store<fromStore.ReserveModuleState>
   ) {
     this.store$ = store.select<any>('reserve');
-    this.store$.subscribe((sub) => {
-      this.reserveNumber = sub.reserve.reserveNumber;
-      this.Status = sub.reserve.reserveStatus;
-      this.location = sub.reserve.LocationId;
-      this.item = sub.reserve.ReserveItem.find((r: any) => {
-        return r.serviceTypeId === 4;
-      });
-    });
+ 
   }
   ngOnDestroy(): void {
     localStorage.removeItem(`reserve_${this.id}`);
@@ -86,8 +79,31 @@ export class ReserveComponent implements OnInit, OnDestroy {
     return;
   }
   ngOnInit(): void {
+
+
+
+    this.store$.subscribe((sub) => {
+      this.reserveNumber = sub.reserve.reserveNumber;
+      this.Status = sub.reserve.reserveStatus;
+      
+      this.store.dispatch(fromAction.LoadLocation({ locationId: sub.reserve.LocationId }));
+      if(sub.reserve.LocationId&&sub.reserve.LocationId.id){
+      this.location = sub.reserve.LocationId;
+      }
+      this.item = sub.reserve.ReserveItem.find((r: any) => {
+        return r.serviceTypeId === 4;
+      });
+    });
+
+
+
+
+
+
+
+
     this.route.params.subscribe((params: any) => {
-      this.id = params.locationId;
+    
       if (params.reserveId) {
         this.reserveId = params.reserveId;
         this.store.dispatch(fromAction.SetReserveMode({ mode: 'edit' }));
@@ -95,30 +111,17 @@ export class ReserveComponent implements OnInit, OnDestroy {
         this.store.dispatch(fromAction.SetReserveMode({ mode: 'new' }));
       }
 
-      var item = localStorage.getItem(`reserve_${this.id}`);
-      if (item) {
-        var s = JSON.parse(item);
-        if (this.reserveId && s.id !== this.reserveId) {
-          localStorage.removeItem(`reserve_${this.id}`);
-
-          fromAction.LoadReserveFromApi(this.reserveId);
-        } else {
-          localStorage.removeItem(`reserve_${this.id}`);
-          this.store.dispatch(fromAction.ClearReserve());
-          this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
-        }
-      } else {
         if (this.reserveId) {
           this.store.dispatch(
             fromAction.LoadReserveFromApi({ reserveId: this.reserveId })
           );
-          this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+          
         } else {
           localStorage.removeItem(`reserve_${this.id}`);
           this.store.dispatch(fromAction.ClearReserve());
           this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
         }
-      }
+      
       this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
     });
   }

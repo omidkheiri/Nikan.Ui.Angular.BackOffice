@@ -71,14 +71,20 @@
 
     <form [formGroup]="flightInfoForm">
       <div class="row">
-        <div class="col">
+
+
+
+
+        <div class="col" style="
+        text-align: right;
+    ">
           <label
             >{{ "ReservePage.FlightInfoForm.FlightDate" | translate }}
           </label>
 
           <dx-date-box
             [min]="min"
-            [max]="max"
+          
             type="date"
             [displayFormat]="'yyyy/MM/dd'"
             [showClearButton]="true"
@@ -86,9 +92,31 @@
             formControlName="flightDate"
           ></dx-date-box>
         </div>
-        <div class="col">
+
+
+
+
+        <div class="col" style="
+        text-align: right;
+    ">
+          <label for="input"
+            >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}
+          </label>
+          <dx-select-box
+            [dataSource]="flightNumberSource"
+            displayExpr="flightName"
+            [showDataBeforeSearch]="true"
+           
+            [searchEnabled]="true"
+            formControlName="flightName"
+            (onSelectionChanged)="flightNumberChanged($event)"
+          ></dx-select-box>
+        </div>
+        <div class="col" style="
+        text-align: right;
+    ">
           <label for="input">{{
-            "ReservePage.FlightInfoForm.FlightType" | translate
+            "ReservePage.FlightInfoForm.flightType" | translate
           }}</label>
 
           <dx-select-box
@@ -97,42 +125,54 @@
             valueExpr="value"
             name="flightType"
             id="flightType"
-            #flighttype
+            #flightType
             formControlName="flightType"
-            (onSelectionChanged)="flightTypeChenged($event)"
+            (onSelectionChanged)="flightTypeChanged($event)"
           ></dx-select-box>
         </div>
-        <div class="col">
-          <label for="input"
-            >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}
-          </label>
+
+
+
+
+        <div class="col" style="
+        text-align: right;
+    ">
+          <label for="input">محل ارائه سروریس</label>
+
           <dx-select-box
-            [dataSource]="flightnumberSource"
-            displayExpr="flightName"
-            [showDataBeforeSearch]="true"
-            [searchEnabled]="true"
-            formControlName="flightName"
-            (onSelectionChanged)="flightNumberChanged($event)"
+            [dataSource]="locations"
+            displayExpr="title"
+            valueExpr="id"
+            name="locationId"
+            id="locationId"
+          
+            formControlName="locationId"
+            (onSelectionChanged)="locationChanged($event)"
           ></dx-select-box>
         </div>
-        <div class="col">
+
+     
+        <div class="col" style="
+        text-align: right;
+    ">
           <label
             for="input"
             style="text-align: left; direction: ltr; width: 100%"
-            ><span *ngIf="flighttype.value === 1">{{
+            ><span *ngIf="flightType.value === 1">{{
               "ReservePage.FlightInfoForm.DepartureFlightTime" | translate
             }}</span>
-            <span *ngIf="flighttype.value === 0">{{
+            <span *ngIf="flightType.value === 0">{{
               "ReservePage.FlightInfoForm.ArrivalFlightTime" | translate
             }}</span> </label
           ><input
-            type="text" (change)="updateFlightTime($event)"
+            type="text" (onchange)="updateFlightTime($event)"
             class="form-control"
             placeholder="ساعت ورود"
             formControlName="flightTime"
           />
         </div>
-      </div>
+</div>
+
     </form>
   </div>
 </div>

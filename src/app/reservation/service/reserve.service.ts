@@ -41,7 +41,7 @@ export class ReserveService {
         this.reserveDate
           ? Moment(this.reserveDate.getValue()).format('YYYY-MM-DD')
           : null
-      }&FlightType=${this.flightType.getValue()}`
+      }`
     );
   }
 
