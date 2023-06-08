@@ -2,8 +2,11 @@
     "textAlign": "left",
     "direction": "ltr",
     "HeaderMenus": {
+        "HomePage":"Home",
         "Accounts": "Accounts",
+        "Contact":"Contacts",
         "Reserves": "Reserves",
+        "Settings":"Settings",
         "NewReserve": "New Reserver",
         "NewAccount": "New Account",
         "NewContact": "New Contact",
@@ -43,6 +46,7 @@
         "CustomerMenu": "Customer",
         "HomeMenu": "Intro",
         "Intro": {
+            "PageTitle": "Accounts:",
             "Title": "Intro",
             "Palceholder": "Write an Intro"
         },
@@ -82,7 +86,11 @@
             "flightType": "Flight Type",
             "Scheduled": "Scheduled",
             "Status": "Status",
-            "Link": "Link"
+            "Link": "Link",
+            "ArrivalAirport":"Arrival Airport",
+            "DepartureAirport":"Departure Airport",
+            "DepartureTime":"Departure Time",
+            "ArrivalTime":"Departure Time"
         },
         "FormElement": {
             "Status": "Status",
@@ -111,7 +119,7 @@
     },
     "Airline": {
         "List": {
-            "PageTitle": "Airine Name List",
+            "PageTitle": "Airline Name List",
             "Name": "Airline Name",
             "IconUrl": "Airline Name"
         }
@@ -138,7 +146,7 @@
     },
     "ServiceLine": {
         "List": {
-            "PageTitle": "  Service",
+            "PageTitle": "Service",
             "Title": "Services"
         },
         "FormElement": {
@@ -182,6 +190,19 @@
     },
     "ReservePage": {
         "LocationHeaderTitle": "Service Location",
+        "List": {
+            "PageTitle": "Page Title",
+            "FlightNumber": "Flight Number",
+            "FlightDate": "Flight Date",
+            "Approved": "Approved",
+            "Payment": "Payment",
+            "CustomerName": "Customer Name",
+            "CustomerId": "Customer Id",
+            "LocationTitle": "Location Title",
+            "ContactPhone": "Contact Phone",
+            "Remaining": "Remaining",
+            "ReserveNumber": "Reserve Number"
+        },
         "FlightInfoForm": {
             "DepartureInfo": "Departure Info",
             "َArrivalInfo": "َArrival Info",

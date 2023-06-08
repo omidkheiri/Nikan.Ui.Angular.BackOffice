@@ -2,11 +2,11 @@
   <div class="widget-content widget-content-area">
     <div
       *ngIf="flightInfo"
-      class="row layout-top-spacing"
+      class="row "
       style="direction: rtl"
     >
       <div class="col-lg-12 col-12 layout-spacing">
-        <div class="row">
+        <div class="row m-2">
           <div class="col">
             <span
               >Airline: <b>{{ flightInfo.airlineName }}</b></span
@@ -28,12 +28,33 @@
         <div class="row">
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
-              <p style="text-align: center">اطلاعات حرکت</p>
-              <p class="d-inline">{{ flightInfo.departureCity }}</p>
-              <small
+              <p style="text-align: center;font-size: 11px;">اطلاعات حرکت</p>
+              <nav class="" style="direction: rtl; text-align: right;">
+                <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">محل ارائه سرویس :<strong>{{ DepartureLocation.title }}</strong> </p></div>
+
+                <!-- <ol class="breadcrumb">
+                
+                  <li
+                    style="margin-right: 30px"
+                    *ngIf="reserveNumber"
+                    class="breadcrumb-item"
+                  >
+                    کد رزرو <strong class="text-danger">{{ reserveNumber }}</strong>
+                  </li> -->
+                  <!-- <li style="margin-right: 30px" *ngIf="Status" class="breadcrumb-item">
+                    <strong [class]="getStyle(Status)">{{ getStatus(Status) }}</strong>
+                  </li> 
+                </ol> -->
+              </nav>
+              <p style="
+              text-align: right;
+              width: 100%;
+         font-size: 10px;
+          ">{{ flightInfo.departureCity }}</p>
+              <p
                 >{{ flightInfo.departureAirport
                 }}<span><code> time </code></span
-                ><b>{{ flightInfo.departureTime }}</b></small
+                ><b>{{ flightInfo.departureTime }}</b></p
               >
             </blockquote>
           </div>
@@ -57,12 +78,17 @@
           </div>
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
-              <p style="text-align: center">اطلاعات ورود</p>
-              <p class="d-inline">{{ flightInfo.arrivalAirport }}</p>
-              <small
+              <p style="text-align: center;font-size: 11px;">اطلاعات ورود</p>
+              <div *ngIf="ArrivalLocation" ><p style="font-size: 10px;text-align: right;">محل ارائه سرویس :<strong>{{ ArrivalLocation.title }}</strong> </p></div>
+
+              <p style="
+              text-align: right;
+              width: 100%;
+              font-size: 10px;
+          ">{{ flightInfo.arrivalAirport }}</p>
+              <p
                 >{{ flightInfo.arrivalCity }}<span><code> time </code></span
-                ><b>{{ flightInfo.arrivalTime }}</b></small
-              >
+                ><b>{{ flightInfo.arrivalTime }}</b></p>
             </blockquote>
           </div>
         </div>
@@ -76,7 +102,7 @@
 
 
         <div class="col" style="
-        text-align: right;
+        text-align: right;font-size: 12px;
     ">
           <label
             >{{ "ReservePage.FlightInfoForm.FlightDate" | translate }}
@@ -97,7 +123,7 @@
 
 
         <div class="col" style="
-        text-align: right;
+        text-align: right;font-size: 12px;
     ">
           <label for="input"
             >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}
@@ -112,7 +138,7 @@
             (onSelectionChanged)="flightNumberChanged($event)"
           ></dx-select-box>
         </div>
-        <div class="col" style="
+        <!-- <div class="col" style="
         text-align: right;
     ">
           <label for="input">{{
@@ -129,18 +155,18 @@
             formControlName="flightType"
             (onSelectionChanged)="flightTypeChanged($event)"
           ></dx-select-box>
-        </div>
+        </div> -->
 
 
 
 
-        <div class="col" style="
+        <!-- <div class="col" style="
         text-align: right;
     ">
           <label for="input">محل ارائه سروریس</label>
 
           <dx-select-box
-            [dataSource]="locations"
+            [dataSource]="ArrivalLocations"
             displayExpr="title"
             valueExpr="id"
             name="locationId"
@@ -170,9 +196,41 @@
             placeholder="ساعت ورود"
             formControlName="flightTime"
           />
-        </div>
+        </div> -->
 </div>
 
     </form>
+  
+    
+<div class="row mt-3" *ngIf="this.flightInfo">
+
+<div class="col-6" style="direction: rtl;">
+  <p style="
+  text-align: justify;font-size: 12px;
+">محل ارائه سرویس در مبدا</p>
+  <app-location-options [id]="'Departure'" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
+
+
+  
+  
+  </div>
+<div class="col-6">
+<p style="
+text-align: justify;font-size: 12px;
+">محل ارائه سرویس در مقصد</p>
+ <app-location-options [Type]="'Arrival'" [id]="'Arrival'" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
   </div>
 </div>

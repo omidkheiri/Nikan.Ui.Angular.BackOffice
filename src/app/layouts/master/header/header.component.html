@@ -26,7 +26,7 @@
 
     <div class="nav-logo align-self-center">
       <a class="navbar-brand" href="/"
-        ><img alt="logo" src="assets/img/Logo-Varan.png" />
+        ><img alt="logo" src="assets/img/cip.png" />
         <span class="navbar-brand-name"></span
       ></a>
     </div>
@@ -39,7 +39,7 @@
             <li class="nav-item theme-logo">
               <a href="/">
                 <img
-                  src="assets/img/Logo-Varan.png"
+                  src="assets/img/cip.png"
                   class="navbar-logo"
                   alt="logo"
                 />
@@ -77,7 +77,7 @@
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                   </svg>
 
-                  <span>صفحه اصلی </span>
+                  <span>{{ "HeaderMenus.HomePage" | translate }}</span>
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@
                     <line x1="1" y1="14" x2="4" y2="14"></line>
                   </svg>
 
-                  <span>تنظیمات</span>
+                  <span>{{ "HeaderMenus.Settings" | translate }}</span>  
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -225,17 +225,17 @@
               >
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/flights'">
-                    شماره پروازها
+                  Flight Numbers
                   </a>
                 </li>
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/airLines'">
-                    ایرلاین ها
+                AirLines
                   </a>
                 </li>
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/airports'">
-                  فرودگاه ها
+             Airports
                   </a>
                 </li>
               </ul>
@@ -268,7 +268,7 @@
                     ></path>
                   </svg>
 
-                  <span>رزروها</span>
+                  <span>{{ "HeaderMenus.Reserves" | translate }}</span> 
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -320,7 +320,7 @@
                     <line x1="8" y1="12" x2="16" y2="12"></line>
                   </svg>
 
-                  <span>رزرو جدید</span>
+                  <span>{{ "HeaderMenus.NewReserve" | translate }}</span> 
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,9 @@
 <div class="page-header">
   <div class="row" style="width: 100%">
-    <div class="col-md-6"><h3 style="text-align: right">وضعیت حساب</h3></div>
+    <div class="col-md-6"><h3 style="text-align: right">Account Status</h3></div>
     <div class="col-md-6">
       <h3 class="text-success" style="text-align: left">
-        تراز {{ account.balance | number : "1.0-0" }}
+        Balance {{ account.balance | number : "1.0-0" }}
       </h3>
     </div>
   </div>
@@ -37,7 +37,7 @@
         width="200"
         dataField="created"
         dataType="date"
-        caption="تاریخ"
+        caption="Date"
         format="yyyy-MM-dd HH:mm"
         [sortIndex]="0"
         sortOrder="desc"
@@ -46,7 +46,7 @@
         direction="rtl"
         alignment="center"
         dataField="credit"
-        caption="واریز"
+        caption="Deposit"
         dataType="string"
       ></dxi-column>
       <dxi-column
@@ -54,42 +54,38 @@
         alignment="right"
         dataField="debit"
         dataType="string"
-        caption="برداشت"
+        caption="Withdrawal"
       ></dxi-column>
       <dxi-column
         direction="rtl"
         alignment="right"
         dataField="balance"
         dataType="string"
-        caption="تراز"
+        caption="Balance"
       ></dxi-column>
 
       <dxi-column
         dataField="transaction.bank.title"
-        caption="بانک"
+        caption="Bank"
       ></dxi-column>
       <dxi-column
         dataField="transaction.bank.accountNumber"
-        caption="شماره حساب"
+        caption="Bank Account Number"
       ></dxi-column>
       <dxi-column
         width="150"
         dataType="date"
         dataField="transaction.dateIssue"
         format="yyyy-MM-dd HH:mm"
-        caption="تاریخ تراکنش"
+        caption="Transaction Date"
       ></dxi-column>
 
       <dxi-column
         dataField="transaction.amount"
         dataType="currency"
-        caption="مبلغ تراکنش"
+        caption="transaction Amount"
       ></dxi-column>
-      <dxi-column
-        dataField="transaction.description"
-        dataType="currency"
-        caption="مبلغ تراکنش"
-      ></dxi-column>
+      
 
       <dxo-load-panel [enabled]="false"></dxo-load-panel>
       <dxo-scrolling mode="infinite"></dxo-scrolling>

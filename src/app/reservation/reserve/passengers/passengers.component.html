@@ -4,7 +4,86 @@
       <div class="widget-header">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <p style="text-align: right">مسافرین</p>
+            <p style="text-align: right">مسافرین ورود</p>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content widget-content-area">
+        <app-passenger-from #passengerForm></app-passenger-from>
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="this.passenger"
+          keyExpr="id"
+          [showBorders]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          (onRowRemoved)="ItemRemoved($event)"
+        >
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-editing mode="row" [allowDeleting]="true" [useIcons]="true">
+          </dxo-editing>
+          <!-- name?: string;
+          lastName?: string;
+          gender?: number;
+          nationalCode?: string;
+          passportNumber?: string;
+          passportExpireDate?: string;
+          visa?: boolean;
+          wheelchair?: boolean; -->
+          <dxi-column
+            caption="اقای/خانم"
+            [customizeText]="priceColumn_customizeText"
+            dataField="gender"
+            [width]="100"
+          >
+          </dxi-column>
+
+          <dxi-column caption="نام" dataField="name"></dxi-column>
+          <dxi-column caption="نام خانوادگی" dataField="lastName"></dxi-column>
+          <dxi-column
+            [width]="100"
+            dataType="boolean"
+            dataField="LOM"
+          ></dxi-column>
+          <dxi-column
+            [width]="100"
+            dataType="boolean"
+            dataField="visa"
+          ></dxi-column>
+          <dxi-column
+            [width]="100"
+            dataType="boolean"
+            caption="ویلچر"
+            dataField="wheelchair"
+          ></dxi-column>
+          <dxi-column
+            caption=""
+            cellTemplate="cellTemp"
+            [width]="50"
+          ></dxi-column>
+          <dxi-column type="buttons" [width]="50">
+            <dxi-button name="delete"></dxi-button>
+          </dxi-column>
+
+          <div *dxTemplate="let d of 'cellTemp'">
+            <button
+              style="border: 0; background: none; font-size: 15px"
+              class="dx-link dx-icon-edit dx-link-icon"
+              (click)="passengerForm.editPassenger(d)"
+            ></button>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row layout-top-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-header">
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+            <p style="text-align: right">مسافرین خروج</p>
           </div>
         </div>
       </div>

@@ -1,7 +1,11 @@
 <div class="layout-px-spacing">
   <div class="page-header">
     <div class="page-title">
-      <h3>{{ "Contact.List.PageTitle" | translate }}</h3>
+      <h3>
+        Contact
+        <!-- {{ "Contact.List.PageTitle" | translate }} -->
+      
+      </h3>
     </div>
   </div>
 
@@ -42,7 +46,7 @@
               direction="rtl"
               alignment="center"
               dataField="accountNumber"
-              caption="شناسه سازمان"
+              caption="َAccountId"
               dataType="string"
               width="120"
             ></dxi-column>
@@ -52,7 +56,7 @@
               alignment="right"
               dataField="accountTitle"
               dataType="string"
-              caption="عنوان سازمان"
+              caption="Account Title"
             ></dxi-column>
 
             <dxi-column
@@ -85,7 +89,7 @@
               dataField="birthDate"
               dataType="date"
               [format]="'yyyy/MM/dd'"
-              caption="تاریخ تولد"
+              caption="DOB"
             ></dxi-column>
 
             <dxi-column
@@ -93,7 +97,7 @@
               width="50"
               allowSorting="false"
               cellTemplate="cellTemplate"
-              caption="{{ 'Account.List.Link' | translate }}"
+              caption=""
             ></dxi-column>
 
             <dxo-paging defaultPageSize="12"></dxo-paging>

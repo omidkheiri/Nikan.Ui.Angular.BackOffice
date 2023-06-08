@@ -2053,6 +2053,7 @@ code {
     color: #3b3f5c;
     vertical-align: bottom;
     margin-left: 6px;
+        margin-right: 6px;
     stroke-width: 1.2px;
   }
   .topbar-nav.header nav#topbar ul.menu-categories li.menu a > div span {

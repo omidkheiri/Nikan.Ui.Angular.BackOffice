@@ -12,13 +12,13 @@
   <div *dxTemplate="let data of 'content'">
     <form [formGroup]="locationForm" (ngSubmit)="SubmitFrom()">
       <div class="form-group mb-4">
-        <label for="input" style="text-align: right; width: 100%">عنوان   <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+        <label for="input" style="text-align: right; width: 100%">Title   <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
           ">*</span></label
         ><input
           type="text"
           class="form-control"
           id="title"
-          placeholder="عنوان"
+          placeholder="Title"
           formControlName="title"
         />
         <div
@@ -32,20 +32,20 @@
           {{
             locationForm.controls.title.errors &&
             locationForm.controls.title.errors["required"]
-              ? "اجباری"
+              ? "Required"
               : ""
           }}
         </div>
       </div>
       <div class="row">
       <div class="form-group mb-4 col-6">
-        <label for="input" style="text-align: right; width: 100%">آدرس <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+        <label for="input" style="text-align: right; width: 100%">Address <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
           ">*</span></label
         ><input
           type="text"
           class="form-control"
           id="address"
-          placeholder="آدرس"
+          placeholder="Address"
           formControlName="address"
         />
         <div
@@ -59,20 +59,20 @@
         {{
           locationForm.controls.address.errors &&
           locationForm.controls.address.errors["required"]
-            ? "اجباری"
+            ? "Required"
             : ""
         }}
       </div>
       </div>
       <div class="form-group mb-4 col-6">
         <label for="input" style="text-align: right; width: 100%"
-          >موقعیت جغرافیایی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          >Location <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
           ">*</span></label
         ><input
           type="text"
           class="form-control"
           id="location"
-          placeholder="موقعیت جغرافیایی"
+          placeholder="Location"
           formControlName="location"
         />
         <div
@@ -86,14 +86,14 @@
         {{
           locationForm.controls.location.errors &&
           locationForm.controls.location.errors["required"]
-            ? "اجباری"
+            ? "Required"
             : ""
         }}
       </div>
       </div>
       <div class="form-group col-md-4">
         <label for="input" style="text-align: right; width: 100%"
-          >فرودگاه  </label
+          >Airport  </label
         >   <dx-select-box
         [dataSource]="airportNamesDataSource"
         displayExpr="name"
@@ -129,7 +129,7 @@
         {{
           locationForm.controls.maxAcceptDate.errors &&
           locationForm.controls.maxAcceptDate.errors["required"]
-            ? "اجباری"
+            ? "Required"
             : ""
         }}
       </div>
@@ -147,14 +147,14 @@
             class=""
             for="status"
             style="text-align: right; float: right"
-            >عدم نمایش در لیست محل ارائه سرویس</label
+            >Don't display in List</label
           >
         </div>
       </div>
     </div>
       <div class="row">
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر ورودی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          <label for="from"> Arrival Buffer <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
             ">*</span></label><label for="input"></label
           ><input
             type="number"
@@ -174,13 +174,13 @@
           {{
             locationForm.controls.arrivalBufferTime.errors &&
             locationForm.controls.arrivalBufferTime.errors["required"]
-              ? "اجباری"
+              ? "Required"
               : ""
           }}
         </div>
         </div>
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر خروجی <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          <label for="from">Departure Buffer  <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
             ">*</span></label><label for="input"></label
           ><input
             type="number"
@@ -200,13 +200,13 @@
           {{
             locationForm.controls.departureBufferTime.errors &&
             locationForm.controls.departureBufferTime.errors["required"]
-              ? "اجباری"
+              ? "Required"
               : ""
           }}
         </div>
         </div>
         <div class="form-group col-md-4 mb-4">
-          <label for="from">بافر ترنسفر <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+          <label for="from">Transfer Buffer <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
             ">*</span></label><label for="input"></label
           ><input
             type="number"
@@ -226,7 +226,7 @@
           {{
             locationForm.controls.transferBufferTime.errors &&
             locationForm.controls.transferBufferTime.errors["required"]
-              ? "اجباری"
+              ? "Required"
               : ""
           }}
         </div>

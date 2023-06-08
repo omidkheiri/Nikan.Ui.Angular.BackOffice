@@ -1,4 +1,4 @@
-<h4>معرفی</h4>
+<h4>Intro</h4>
 
 <textarea
   id="textarea"
@@ -7,7 +7,7 @@
   rows="10"
   #intro
   [value]="introValue"
-  placeholder="یک معرفی برای این سازمان بنویسید"
+  placeholder="Write something"
 ></textarea>
 <button (click)="saveIntro(intro)" class="btn btn-primary mt-3">
   <svg
@@ -30,4 +30,4 @@
   </svg>
 </button>
 
-<dx-toast [(visible)]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>
+<dx-toast [(visible)]="saved" type="success" [message]="'Saved'"> </dx-toast>

@@ -1,0 +1,17 @@
+<div class="card" *ngFor="let l of Locations">
+   
+    <input type="radio" (change)="handleChange($event)"  [name]="'Location'+Type" [id]="l.id"  >
+    <label [for]="l.id">
+       <h5>{{l.title}}</h5>
+      
+    </label>
+  </div>
+  <div class="card cancel" >
+   
+    <input type="radio" (change)="handleChange($event)"  [name]="'Location'+Type" [id]="0"  >
+    <label [for]="0">
+       <h5>ندارد</h5>
+      
+    </label>
+  </div>
+ 

@@ -40,6 +40,7 @@ import { SuiteItemComponent } from './reserve/suite-item/suite-item.component';
 import { PaymentComponent } from './reserve/payment/payment.component';
 import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.component';
 import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.component';
+import { LocationOptionsComponent } from './reserve/flight-info/location-options/location-options.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.com
     PaymentComponent,
     AddPaymentComponent,
     PrintReserveComponent,
+    LocationOptionsComponent,
   ],
   imports: [
     FormsModule,

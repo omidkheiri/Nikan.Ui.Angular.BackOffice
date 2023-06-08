@@ -1,7 +1,10 @@
 <div class="layout-px-spacing">
   <div class="page-header">
     <div class="page-title">
-      <h3>{{ "Account.List.PageTitle" | translate }}</h3>
+      <h3> Accounts
+        <!-- {{ "Account.List.PageTitle" | translate }} -->
+
+      </h3>
     </div>
   </div>
 
@@ -44,7 +47,7 @@
               width="150"
               dataField="reserveStatus"
               dataType="string"
-              caption="وضعیت"
+              caption="Status"
               cellTemplate="reserveStatusId"
             ></dxi-column>
             <dxi-column
@@ -77,7 +80,7 @@
               dataField="flightDate"
               dataType="date"
               format="yyyy-MM-dd HH:mm"
-              caption="{{ 'eservePage.List.FlightDate' | translate }}"
+              caption="{{ 'ReservePage.List.FlightDate' | translate }}"
             ></dxi-column>
             <dxi-column
               width="150"
@@ -158,12 +161,12 @@
               dataField="remainig"
               [width]="150"
               allowSorting="false"
-              caption="باقیمانده"
+              caption="Remaining"
             ></dxi-column>
             <dxi-column
               dataField="Id"
               allowSorting="false"
-              caption="ویرایش"
+              caption="Edit"
               cellTemplate="cellTemplate"
             ></dxi-column>
 

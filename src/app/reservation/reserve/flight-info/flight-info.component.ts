@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -28,7 +31,7 @@ import DataSource from 'devextreme/data/data_source';
   styleUrls: ['./flight-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlightInfoComponent implements OnInit, OnDestroy {
+export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnChanges {
   flightInfoForm = new FormGroup({
     flightDate: new FormControl(new Date(), Validators.required),
     flightType: new FormControl(null, Validators.required),
@@ -53,7 +56,8 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
   flightInfoView = false;
   flightInfo: any;
   reserveState: any;
-  locations: DataSource;
+  ArrivalLocations: DataSource|any;
+  DepartureLocations: DataSource|any;
   constructor(
     private ref: ChangeDetectorRef,
     private service: ReserveService,
@@ -70,6 +74,7 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
 
     this.loadList(http, service);
   }
+
   ngOnDestroy(): void {
     this.reserveState = null;
   }
@@ -100,24 +105,10 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
 
 
 
-
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         this.flightInfo = sub.reserve.FlightInfo;
+
+
+        
 
         this.flightInfoForm = new FormGroup({
           flightDate: new FormControl(
@@ -140,6 +131,30 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
       }
       this.ref.markForCheck();
     });
+
+
+    // lastValueFrom(
+    //   this.http.get(
+    //     `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+    //   )
+    // )
+    //   .then((data: any) => {
+      
+       
+    //       this.locations = data
+    //     }
+    //   )
+    //   .catch((error) => {
+    //     throw 'Data Loading Error';
+    //   });
+
+
+
+
+
+
+
+
   }
 
   loadList(http: HttpClient, service: ReserveService) {
@@ -164,7 +179,7 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
   //-------------------------------------------------
   flightNumberChanged($event: any) {
     var item = $event.selectedItem;
-    // this.service.setflightTypeObs('');
+ 
     let flightdate1 = this.flightInfoForm.controls.flightDate;
     this.flightInfo = {
       id: item.id,
@@ -187,78 +202,49 @@ export class FlightInfoComponent implements OnInit, OnDestroy {
     // var flightInfo = {
     //   FlightInfo: flight,
     // };
-    this.store.dispatch(fromAction.SetFlightInfo({FlightInfo:  this.flightInfo}));
-
-    // this.store.dispatch(
-    //   fromAction.SaveState({
-    //     state: this.reserveState,
-    //   })
-    // );
-
-
-
-  }
-  flightTypeChanged($event: any) {
-
-
-
-
-    if(!$event.selectedItem){
-     return;
-    }
-
-
-
-    var type = $event.selectedItem.value;
-    var flight=JSON.parse(JSON.stringify(this.flightInfo));
-    flight.flightType=type;
-
-
-
-    this.service.setflightTypeObs(type + '');
+   
 
     lastValueFrom(
       this.http.get(
         `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
       )
     )
-      .then((data: any) => {
+      .then((data1: any) => {
       
-        console.log(data,this.flightInfo);
-
-        this.flightInfoForm.controls.flightTime.setValue(
-          type + 0 === 0 ? this.flightInfo.arrivalTime : this.flightInfo.departureTime
-        );
-        this.flightInfoForm.controls.locationId.setValue(
-          ''
-        );
-
-        if (type + '' === '0') {
-          this.locations = data.filter((data: any) => {
+      
+     
+       
+          this.ArrivalLocations = data1.filter((data: any) => {
             return (
-              !data.doNotShowInReserveLocationList &&
+              !data.doNotShow && data.airportId&&
               data.airportId.toLocaleLowerCase() ===
                 this.flightInfo.arrivalAirportId.toLocaleLowerCase()
             );
           });
-        } else {
-          this.locations = data.filter((data: any) => {
+          this.DepartureLocations=data1.filter((data: any) => {
             return (
-              !data.doNotShowInReserveLocationList &&
+              !data.doNotShow && data.airportId&&
               data.airportId.toLocaleLowerCase() ===
                 this.flightInfo.departureAirportId.toLocaleLowerCase()
             );
           });
         }
-      })
+      )
       .catch((error) => {
         throw 'Data Loading Error';
       });
 
+      this.store.dispatch(fromAction.SetFlightInfo({FlightInfo:  this.flightInfo}));
+
+ 
 
 
 
   }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log();
+  }
+  
 
   flightDate($event: any) {
 
@@ -313,4 +299,31 @@ this.store.dispatch(fromAction.SetLocation({location: event.selectedItem}));
 this.store.dispatch(fromAction.LoadLocation( {locationId: event.selectedItem.id}))
 
   }
+
+
+
+
+  ngAfterViewInit(): void {
+   
+}
+DepartureLocation:any;
+
+onDepartureLocation(e:any){
+
+
+console.log(e);
+this.DepartureLocation=this.DepartureLocations.find((data:any)=>{return data.id==e});
+
+}
+ArrivalLocation:any;
+onArrivalLocation(e:any){
+
+
+  console.log(e);
+  this.ArrivalLocation=this.ArrivalLocations.find((data:any)=>{return data.id==e});
+  
+  
+  }
+
+
 }

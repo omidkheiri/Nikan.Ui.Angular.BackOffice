@@ -5,7 +5,7 @@
         <div class="widget-header">
           <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-              <h4 class="invalid-feedback" style="display: block">پروفایل</h4>
+              <h4 class="invalid-feedback" style="display: block">Profile</h4>
             </div>
           </div>
         </div>
@@ -14,7 +14,7 @@
             <div class="form-row mb-4">
               <div class="form-group col-md-12">
                 <label for="input" style="text-align: right; width: 100%"
-                  >نام سازمان
+                  >Account Name
                 </label>
                 <dx-select-box
                   [dataSource]="dataSource"
@@ -29,7 +29,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
-                  >نام</label
+                  >Name</label
                 ><input
                   type="text"
                   class="form-control"
@@ -43,13 +43,13 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
-                  >نام خانوادگی</label
+                  >Last Name</label
                 ><input
                   type="text"
                   class="form-control"
                   id="lastName"
                   dir="ltr"
-                  placeholder="نام خانوادگی"
+                  placeholder="Last Name"
                   formControlName="lastName"
                   style="text-align: left"
                 />
@@ -59,7 +59,7 @@
             <div class="form-row mb-4">
               <div class="form-group col-md-12">
                 <label for="AccountId" style="text-align: right; width: 100%"
-                  >تاریخ تولد</label
+                  >DOB</label
                 >
                 <dx-date-box
                   pickerType="calendar"
@@ -71,14 +71,14 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
-                  >آدرس ایمیل</label
+                  >Email</label
                 ><input
                   type="text"
                   class="form-control"
                   id="EmailAddress"
                   dir="ltr"
                   formControlName="emailAddress"
-                  placeholder="آدرس ایمیل"
+                  placeholder="Email"
                   value=""
                   style="text-align: left"
                 />
@@ -86,13 +86,13 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
-                  >شماره موبایل</label
+                  >Mobile</label
                 ><input
                   type="text"
                   class="form-control"
                   id="Phone"
                   dir="ltr"
-                  placeholder="شماره موبایل"
+                  placeholder="Mobile"
                   formControlName="phone"
                   style="text-align: left"
                 />
@@ -100,20 +100,20 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input" style="text-align: right; width: 100%"
-                  >درصد تخفیف</label
+                  >Discount</label
                 ><input
                   type="text"
                   class="form-control"
                   id="Phone"
                   dir="ltr"
-                  placeholder="درصد تخفیف"
+                  placeholder="Discount"
                   formControlName="discount"
                   style="text-align: left"
                 />
                 <div class="invalid-feedback show" style="display: none"></div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">دخیره</button>
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
           </form>
         </div>
       </div>
