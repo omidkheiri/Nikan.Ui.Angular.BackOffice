@@ -1,6 +1,6 @@
 <p style="
 text-align: right;
-">تخفیفها {{DiscountGroup? DiscountGroup.title:""}}</p>
+">Discounts: {{DiscountGroup? DiscountGroup.title:""}}</p>
 <dx-data-grid
 id="gridContainer"
 [dataSource]="dataSource"
@@ -22,7 +22,7 @@ keyExpr="serviceLineId"
 <dxi-column
 
 dataField="serviceLineId"
-caption="سرویس"
+caption="Services"
 
 width="350"
 >
@@ -36,7 +36,7 @@ width="350"
 </dxi-column>
 <dxi-column
  dataType="number"
- caption="درصد تخفیف" 
+ caption="Discount percents" 
  dataField="discountPercents">
     <dxi-validation-rule type="required"></dxi-validation-rule>
 </dxi-column>
