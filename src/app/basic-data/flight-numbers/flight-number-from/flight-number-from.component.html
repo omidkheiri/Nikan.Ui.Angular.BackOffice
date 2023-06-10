@@ -10,14 +10,15 @@
   [visible]="true"
 >
   <div *dxTemplate="let data of 'content'">
-    <div class="">
+    <dx-scroll-view width="100%" height="100%">
+    <div class="p-3">
       <div class="row">
         <div id="flFormsGrid" class="col-lg-12 layout-spacing">
           <form [formGroup]="flightForm" (submit)="onSubmit()">
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label for="input" style="text-align: right; width: 100%"
-                  >نام ایرلاین <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                  >َAirLine <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                   ">*</span></label
                 >
                 <dx-select-box
@@ -31,27 +32,25 @@
                 >
                 </dx-select-box>
                 <div *ngIf="submitted&& !this.flightForm.controls.airlineName.valid " class="invalid-feedback show" style="display: block">
-  نام ایرلاین لازم است
-                </div>
+  Airline Required                </div>
               </div>
               <div class="form-group col-md-4">
                 <label for="input" style="text-align: right; width: 100%"
-                  >شماره پرواز <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                  >Flight Number <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                   ">*</span></label
                 ><input
                   type="text"
                   class="form-control"
                   id="flightName"
                   name="flightName"
-                  placeholder="شماره پرواز"
+                  placeholder="Flight Number"
                   formControlName="flightName"
                 />
                 <div *ngIf="submitted&& !this.flightForm.controls.flightName.valid " class="invalid-feedback show" style="display: block">
-                  شماره پرواز لازم است
-                                </div>
+                  Flight Number Required                                </div>
               </div>
               <div class="form-group col-md-4">
-                <label for="from">تاریخ پرواز</label>
+                <label for="from">Flight Date</label>
                 <dx-date-box
                   pickerType="calendar"
                   formControlName="flightDate"
@@ -78,7 +77,7 @@
                     class=""
                     for="Scheduled"
                     style="text-align: right; float: right"
-                    >پرواز روتین</label
+                    >Routine Flight</label
                   >
                 </div>
               </div>
@@ -95,13 +94,13 @@
                     class=""
                     for="status"
                     style="text-align: right; float: right"
-                    >پرواز فعال است</label
+                    >Is Active</label
                   >
                 </div>
               </div>
               <div class="form-group col-md-4">
                 <label for="input" style="text-align: right; width: 100%"
-                  >نوع پرواز <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                  >Flight Type <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                   ">*</span></label
                 >
 
@@ -114,12 +113,12 @@
                   formControlName="flightType"
                 ></dx-select-box>
                 <div *ngIf="submitted&& !this.flightForm.controls.flightType.valid " class="invalid-feedback show" style="display: block">
-                  نوع پرواز لازم است
+                Fight Type required
                                 </div>
               </div>
               <div class="form-group col-md-4">
                 <label for="input" style="text-align: right; width: 100%"
-                  >محدوده پرواز <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                  >Flight region <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                   ">*</span></label
                 >
                 <dx-select-box
@@ -131,7 +130,7 @@
                   formControlName="flightSources"
                 ></dx-select-box>
                 <div *ngIf="submitted&& !this.flightForm.controls.flightType.valid " class="invalid-feedback show" style="display: block">
-                  نوع پرواز لازم است
+              Flight Type
                                 </div>
               </div>
             </div>
@@ -140,7 +139,7 @@
               <div class="form-row mb-4">
                 <div class="form-group col-md-8">
                   <label for="input" style="text-align: right; width: 100%"
-                    >فرودگاه مبدا <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                    >Departure Airport <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                     ">*</span></label
                   >   <dx-select-box
                   [dataSource]="airportNamesDataSource"
@@ -155,7 +154,7 @@
                 </dx-select-box>
               
                 <div *ngIf="submitted&& !this.flightForm.controls.departureAirportId.valid " class="invalid-feedback show" style="display: block">
-                  فرودگاه مبدا لازم است
+              Departure Airport required
                                 </div>
                 </div>
              
@@ -163,7 +162,7 @@
                   <label
                     for="input"
                     style="text-align: left; direction: ltr; width: 100%"
-                    >ساعت حرکت 00:00 <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                    >Departure time 00:00 <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                     ">*</span></label
                   ><input
                     type="time"
@@ -175,14 +174,14 @@
                     formControlName="departureTime"
                   />
                   <div *ngIf="submitted&& !this.flightForm.controls.departureTime.valid " class="invalid-feedback show" style="display: block">
-                    ساعت حرکت لازم است
+                    Departure time required
                                   </div>
                 </div>
               </div>
               <div class="form-row mb-4">
                 <div class="form-group col-md-8">
                   <label for="input" style="text-align: right; width: 100%"
-                    >فرودگاه مقصد <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                    >Arrival Airport <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                     ">*</span></label
                   >
 
@@ -199,13 +198,13 @@
                 </dx-select-box>
 
                 <div *ngIf="submitted&& !this.flightForm.controls.departureAirportId.valid " class="invalid-feedback show" style="display: block">
-                  فرودگاه مقصد لازم است
+               Arrival Airport required
                                 </div>
                   <div *ngIf="submitted&& this.flightForm.value.arrivalAirportId===this.flightForm.value.departureAirportId"
                     class="invalid-feedback show"
                     style="display: block;"
                   >
-                فرودگاه مبدا و مقصد یکی است
+              Arrival is equal Departure airport
                 
                 </div>
                 </div>
@@ -214,19 +213,19 @@
                   <label
                     for="input"
                     style="text-align: left; direction: ltr; width: 100%"
-                    >ساعت ورود 00:00 <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
+                    >Arrival time 00:00 <span class="invalid-feedback show" style="display: block; float: right;width: fit-content;
                     ">*</span></label
                   ><input
                     type="time"
                     class="form-control"
                     id="arrivalTime"
-                    placeholder="ساعت ورود 00:00"
+                    placeholder="Arrival Time 00:00"
                     value=""
                     style="text-align: left"
                     formControlName="arrivalTime"
                   />
                   <div *ngIf="submitted&& !this.flightForm.controls.arrivalTime.valid " class="invalid-feedback show" style="display: block">
-                    ساعت ورود لازم است
+                 Arrival time Required
                                   </div>
                 </div>
               </div>
@@ -278,5 +277,6 @@
         </div>
       </div>
     </div>
+  </dx-scroll-view>
   </div>
 </dx-popup>

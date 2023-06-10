@@ -8,8 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ReservationComponent implements OnInit {
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('fa');
-    translate.use('fa');
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit(): void {}

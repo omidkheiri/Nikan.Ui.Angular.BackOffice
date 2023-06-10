@@ -213,6 +213,9 @@
             "ArrivalFlightTime": "Arrival Flight Time",
             "FlightTimeMessage": "Flight Time Message"
         },
+        "Attendee":{"Attendee":{"List":{"Gender":"Gender"
+        
+        }}},
         "Passenger": {
             "Genders": {
                 "Male": "Male",

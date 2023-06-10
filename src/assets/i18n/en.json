@@ -1,258 +1,270 @@
 {
-    "textAlign": "left",
-    "direction": "ltr",
-    "HeaderMenus": {
-        "HomePage":"Home",
-        "Accounts": "Accounts",
-        "Contact":"Contacts",
-        "Reserves": "Reserves",
-        "Settings":"Settings",
-        "NewReserve": "New Reserver",
-        "NewAccount": "New Account",
-        "NewContact": "New Contact",
-        "Flights": "Flights",
-        "AirLineNames": "AirLines"
+  "textAlign": "left",
+  "direction": "ltr",
+  "HeaderMenus": {
+    "HomePage": "Home",
+    "Accounts": "Accounts",
+    "Contact": "Contacts",
+    "Reserves": "Reserves",
+    "Settings": "Settings",
+    "NewReserve": "New Reserver",
+    "NewAccount": "New Account",
+    "NewContact": "New Contact",
+    "Flights": "Flights",
+    "AirLineNames": "AirLines"
+  },
+  "Contact": {
+    "List": {
+      "PageTitle": "Page Title",
+      "contactNumber": "ID",
+      "Name": "Name ",
+      "LastName": "Lats Name ",
+      "EmailAddress": "Email Address",
+      "Phone": "Phone",
+      "َAccountTitle": "َAccount Title ",
+      "Link": "Links"
     },
-    "Contact": {
-        "List": {
-            "PageTitle": "Page Title",
-            "contactNumber": "ID",
-            "Name": "Name ",
-            "LastName": "Lats Name ",
-            "EmailAddress": "Email Address",
-            "Phone": "Phone",
-            "َAccountTitle": "َAccount Title ",
-            "Link": "Links"
-        },
-        "FormElement": {
-            "FormTitle": "Add New Contact",
-            "AccountId": "َAccount",
-            "Name": "Name",
-            "LastName": "Last Name",
-            "Phone": "Phone",
-            "EmailAddress": "Email Address",
-            "BirthDate": "Birth Date",
-            "NameRequiredMessage": "Name Required",
-            "LastNameRequiredMessage": "LastName Required",
-            "PhoneRequiredMessage": "Phone Required",
-            "PhoneFormatMessage": "Phone is not valid",
-            "EmailFormatMessage": "Email Address is not valid",
-            "SaveContact": "Save"
-        }
-    },
-    "Account": {
-        "DashboardTitle": "Dashboard",
-        "SupplierMenu": "Supplier",
-        "CustomerMenu": "Customer",
-        "HomeMenu": "Intro",
-        "Intro": {
-            "PageTitle": "Accounts:",
-            "Title": "Intro",
-            "Palceholder": "Write an Intro"
-        },
-        "List": {
-            "PageTitle": "َAccounts:",
-            "AccountNumber": "No.",
-            "Title": "Title",
-            "EmailAddress": "Email Address",
-            "Phone": "Phone ",
-            "IsCustomer": "Customer",
-            "IsSupplier": "Supplier",
-            "Link": "Link"
-        },
-        "FormElement": {
-            "FormTitle": "َAdd new Account",
-            "Title": "Title",
-            "Phone": "Phone Number ",
-            "EmailAddress": "Email Address",
-            "PostalAddress": "Postal Address",
-            "SaveAccount": "Save",
-            "EmailRequiredMessage": "Email Address Required",
-            "EmailFormatMessage": "Email Address is not valid",
-            "TitleRequiredMessage": "Please fill Title",
-            "PhoneRequiredMessage": "Please fill Phone",
-            "PhoneFormatMessage": "Phone Is not valid"
-        }
-    },
-    "FlightNumber": {
-        "List": {
-            "PageTitle": "Flight Number List",
-            "AirlineName": "Airline Name",
-            "FlightName": "Flight Name",
-            "ArrivalCity": "Arrival City",
-            "DepartureCity": "Departure City",
-            "FlightDate": "Flight Date",
-            "FlightTimeOnly": "Flight Time Only",
-            "flightType": "Flight Type",
-            "Scheduled": "Scheduled",
-            "Status": "Status",
-            "Link": "Link",
-            "ArrivalAirport":"Arrival Airport",
-            "DepartureAirport":"Departure Airport",
-            "DepartureTime":"Departure Time",
-            "ArrivalTime":"Departure Time"
-        },
-        "FormElement": {
-            "Status": "Status",
-            "AirlineName": "Airline Name",
-            "AirlineNameRequiredMessage": "Airline Name Required",
-            "FlightNumber": "Flight Number",
-            "FlightDate": "Flight سDate",
-            "FlightNumberRequiredMessage": "Flight Number Required",
-            "flightType": "Flight Type",
-            "flightTypeRequiredMessage": "Flight Type Required",
-            "Scheduled": "Scheduled",
-            "DepartureAirport": "Departure Airport",
-            "DepartureAirportRequiredMessage": "Departure Airport Required",
-            "DepartureCity": "DepartureCity",
-            "DepartureCityRequiredMessage": "Departure City Required",
-            "DepartureTime": "Departure Time",
-            "DepartureTimeRequiredMessage": "Departure Time Required",
-            "ArrivalAirport": "Arrival Airport",
-            "ArrivalAirportRequiredMessage": "Arrival Airport Required",
-            "ArrivalCity": "Arrival City",
-            "ArrivalCityRequiredMessage": "Arrival City Required",
-            "ArrivalTime": "Arrival Time",
-            "ArrivalTimeRequiredMessage": "Arrival Time Required",
-            "SaveFlightNumber": "Save"
-        }
-    },
-    "Airline": {
-        "List": {
-            "PageTitle": "Airline Name List",
-            "Name": "Airline Name",
-            "IconUrl": "Airline Name"
-        }
-    },
-    "ServiceLocation": {
-        "List": {
-            "PageTitle": "Service Location",
-            "Title": "Service Location"
-        },
-        "FormElement": {
-            "FormTitle": "Location Form",
-            "Title": "Title",
-            "Address": "Address",
-            "Location": "Location",
-            "MaxAllowtedDate": "Max Allowted Date",
-            "SaveAccount": "Save",
-            "TitleRequiredMessage": "Title Required",
-            "AddressRequiredMessage": "Address Required",
-            "LocationRequiredMessage": "Location Required",
-            "ErrorResponse_500-1": "Invalid Data",
-            "ErrorResponse_500-2": "Duplicate Recored",
-            "ErrorResponse_500-3": "Not Found "
-        }
-    },
-    "ServiceLine": {
-        "List": {
-            "PageTitle": "Service",
-            "Title": "Services"
-        },
-        "FormElement": {
-            "FormTitle": "New Service",
-            "Title": "Title",
-            "Status": "Status",
-            "TaxInclude": "Tax Include",
-            "ServiceLocationId": "Service Location",
-            "ServiceTypeId": "Service Type",
-            "FinancialCode": "Financial Code",
-            "FinancialTitle": "Financial Title",
-            "SaveAccount": "Save",
-            "TitleRequiredMessage": "Title Required",
-            "StatusRequiredMessage": "Status Required",
-            "TaxIncludeRequiredMessage": "Tax Include Required",
-            "ServiceLocationIdRequiredMessage": "Service Location Required",
-            "ServiceTypeIdRequiredMessage": "Service Type Required",
-            "FinancialCodeRequiredMessage": "Financial Code Required",
-            "FinancialTitleRequiredMessage": "Financial Title Required",
-            "ErrorResponse_500-1": "Invalid Data",
-            "ErrorResponse_500-2": "Duplicate Recored",
-            "ErrorResponse_500-3": "Not Found",
-            "Type": "Type",
-            "Location": "Location",
-            "Price": "Price"
-        }
-    },
-    "LoginPage": {
-        "FormElement": {
-            "FormTitle": "Sign in",
-            "Title": "Log in to your account to continue.",
-            "UserName": "User Name",
-            "Password": "Password",
-            "ForgetPassword": "Forgot Password",
-            "NotRegisterd": "Not registered?",
-            "CreateAnAccount": "Create An Account",
-            "UserNamePlaceHolder": "User Name",
-            "PasswordPlaceHolder": "Password",
-            "LogIn": "Log in"
-        }
-    },
-    "ReservePage": {
-        "LocationHeaderTitle": "Service Location",
-        "List": {
-            "PageTitle": "Page Title",
-            "FlightNumber": "Flight Number",
-            "FlightDate": "Flight Date",
-            "Approved": "Approved",
-            "Payment": "Payment",
-            "CustomerName": "Customer Name",
-            "CustomerId": "Customer Id",
-            "LocationTitle": "Location Title",
-            "ContactPhone": "Contact Phone",
-            "Remaining": "Remaining",
-            "ReserveNumber": "Reserve Number"
-        },
-        "FlightInfoForm": {
-            "DepartureInfo": "Departure Info",
-            "َArrivalInfo": "َArrival Info",
-            "FlightDate": "Flight Date",
-            "flightType": "Flight Type",
-            "FlightNumber": "Flight Number",
-            "DepartureFlightTime": "Departure Flight Time ",
-            "ArrivalFlightTime": "Arrival Flight Time",
-            "FlightTimeMessage": "Flight Time Message"
-        },
-        "Passenger": {
-            "Genders": {
-                "Male": "Male",
-                "Female": "Female"
-            },
-            "FormElement": {
-                "Name": "Name",
-                "LastName": "LastName",
-                "Gender": "Gender",
-                "NationalCode": "National Code",
-                "PassportNumber": "Passport Number",
-                "PassportExpireDate": "Passport Expire Date",
-                "MobileNumber": "Mobile Number",
-                "EmailAddress": "Email Address",
-                "BirthDate": "Birth Date",
-                "Age": "Age",
-                "Nationality": "Nationality",
-                "GenderRequired": "Gender Required",
-                "NameRequired": "Name Required",
-                "LastNameRequired": "Last Name Required",
-                "NationalityRequired": "Nationality Required",
-                "NameFromatErrorMessage": "Name Fromat Error Message",
-                "Visa": "Visa",
-                "Wheelchair": "Wheelchair",
-                "SaveThis": "Save This",
-                "MobileNumberRequired": "Mobile Number Required",
-                "EmailAddressRequired": "Email Address Required",
-                "PassportNumberRequired": "Passport Number Required",
-                "NationalCodeRequired": "National Code Required",
-                "LOM": "LOM"
-            }
-        }
-    },
-    "SupplierPanel": {
-        "Menu": {
-            "Home": "Home",
-            "Reserves": "Reserves",
-            "Contacts": "Contacts",
-            "Services": "Services",
-            "ServiceLocations": "ServiceLocations"
-        }
+    "FormElement": {
+      "FormTitle": "Add New Contact",
+      "AccountId": "َAccount",
+      "Name": "Name",
+      "LastName": "Last Name",
+      "Phone": "Phone",
+      "EmailAddress": "Email Address",
+      "BirthDate": "Birth Date",
+      "NameRequiredMessage": "Name Required",
+      "LastNameRequiredMessage": "LastName Required",
+      "PhoneRequiredMessage": "Phone Required",
+      "PhoneFormatMessage": "Phone is not valid",
+      "EmailFormatMessage": "Email Address is not valid",
+      "SaveContact": "Save"
     }
+  },
+  "Account": {
+    "DashboardTitle": "Dashboard",
+    "SupplierMenu": "Supplier",
+    "CustomerMenu": "Customer",
+    "HomeMenu": "Intro",
+    "Intro": {
+      "PageTitle": "Accounts:",
+      "Title": "Intro",
+      "Palceholder": "Write an Intro"
+    },
+    "List": {
+      "PageTitle": "َAccounts:",
+      "AccountNumber": "No.",
+      "Title": "Title",
+      "EmailAddress": "Email Address",
+      "Phone": "Phone ",
+      "IsCustomer": "Customer",
+      "IsSupplier": "Supplier",
+      "Link": "Link"
+    },
+    "FormElement": {
+      "FormTitle": "َAdd new Account",
+      "Title": "Title",
+      "Phone": "Phone Number ",
+      "EmailAddress": "Email Address",
+      "PostalAddress": "Postal Address",
+      "SaveAccount": "Save",
+      "EmailRequiredMessage": "Email Address Required",
+      "EmailFormatMessage": "Email Address is not valid",
+      "TitleRequiredMessage": "Please fill Title",
+      "PhoneRequiredMessage": "Please fill Phone",
+      "PhoneFormatMessage": "Phone Is not valid"
+    }
+  },
+  "FlightNumber": {
+    "List": {
+      "PageTitle": "Flight Number List",
+      "AirlineName": "Airline Name",
+      "FlightName": "Flight Name",
+      "ArrivalCity": "Arrival City",
+      "DepartureCity": "Departure City",
+      "FlightDate": "Flight Date",
+      "FlightTimeOnly": "Flight Time Only",
+      "flightType": "Flight Type",
+      "Scheduled": "Scheduled",
+      "Status": "Status",
+      "Link": "Link",
+      "ArrivalAirport": "Arrival Airport",
+      "DepartureAirport": "Departure Airport",
+      "DepartureTime": "Departure Time",
+      "ArrivalTime": "Departure Time"
+    },
+    "FormElement": {
+      "Status": "Status",
+      "AirlineName": "Airline Name",
+      "AirlineNameRequiredMessage": "Airline Name Required",
+      "FlightNumber": "Flight Number",
+      "FlightDate": "Flight سDate",
+      "FlightNumberRequiredMessage": "Flight Number Required",
+      "flightType": "Flight Type",
+      "flightTypeRequiredMessage": "Flight Type Required",
+      "Scheduled": "Scheduled",
+      "DepartureAirport": "Departure Airport",
+      "DepartureAirportRequiredMessage": "Departure Airport Required",
+      "DepartureCity": "DepartureCity",
+      "DepartureCityRequiredMessage": "Departure City Required",
+      "DepartureTime": "Departure Time",
+      "DepartureTimeRequiredMessage": "Departure Time Required",
+      "ArrivalAirport": "Arrival Airport",
+      "ArrivalAirportRequiredMessage": "Arrival Airport Required",
+      "ArrivalCity": "Arrival City",
+      "ArrivalCityRequiredMessage": "Arrival City Required",
+      "ArrivalTime": "Arrival Time",
+      "ArrivalTimeRequiredMessage": "Arrival Time Required",
+      "SaveFlightNumber": "Save"
+    }
+  },
+  "Airline": {
+    "List": {
+      "PageTitle": "Airline Name List",
+      "Name": "Airline Name",
+      "IconUrl": "Airline Name"
+    }
+  },
+  "ServiceLocation": {
+    "List": {
+      "PageTitle": "Service Location",
+      "Title": "Service Location"
+    },
+    "FormElement": {
+      "FormTitle": "Location Form",
+      "Title": "Title",
+      "Address": "Address",
+      "Location": "Location",
+      "MaxAllowtedDate": "Max Allowted Date",
+      "SaveAccount": "Save",
+      "TitleRequiredMessage": "Title Required",
+      "AddressRequiredMessage": "Address Required",
+      "LocationRequiredMessage": "Location Required",
+      "ErrorResponse_500-1": "Invalid Data",
+      "ErrorResponse_500-2": "Duplicate Recored",
+      "ErrorResponse_500-3": "Not Found "
+    }
+  },
+  "ServiceLine": {
+    "List": {
+      "PageTitle": "Service",
+      "Title": "Services"
+    },
+    "FormElement": {
+      "FormTitle": "New Service",
+      "Title": "Title",
+      "Status": "Status",
+      "TaxInclude": "Tax Include",
+      "ServiceLocationId": "Service Location",
+      "ServiceTypeId": "Service Type",
+      "FinancialCode": "Financial Code",
+      "FinancialTitle": "Financial Title",
+      "SaveAccount": "Save",
+      "TitleRequiredMessage": "Title Required",
+      "StatusRequiredMessage": "Status Required",
+      "TaxIncludeRequiredMessage": "Tax Include Required",
+      "ServiceLocationIdRequiredMessage": "Service Location Required",
+      "ServiceTypeIdRequiredMessage": "Service Type Required",
+      "FinancialCodeRequiredMessage": "Financial Code Required",
+      "FinancialTitleRequiredMessage": "Financial Title Required",
+      "ErrorResponse_500-1": "Invalid Data",
+      "ErrorResponse_500-2": "Duplicate Recored",
+      "ErrorResponse_500-3": "Not Found",
+      "Type": "Type",
+      "Location": "Location",
+      "Price": "Price"
+    }
+  },
+  "LoginPage": {
+    "FormElement": {
+      "FormTitle": "Sign in",
+      "Title": "Log in to your account to continue.",
+      "UserName": "User Name",
+      "Password": "Password",
+      "ForgetPassword": "Forgot Password",
+      "NotRegisterd": "Not registered?",
+      "CreateAnAccount": "Create An Account",
+      "UserNamePlaceHolder": "User Name",
+      "PasswordPlaceHolder": "Password",
+      "LogIn": "Log in"
+    }
+  },
+  "ReservePage": {
+    "LocationHeaderTitle": "Service Location",
+    "List": {
+      "PageTitle": "Page Title",
+      "FlightNumber": "Flight Number",
+      "FlightDate": "Flight Date",
+      "Approved": "Approved",
+      "Payment": "Payment",
+      "CustomerName": "Customer Name",
+      "CustomerId": "Customer Id",
+      "LocationTitle": "Location Title",
+      "ContactPhone": "Contact Phone",
+      "Remaining": "Remaining",
+      "ReserveNumber": "Reserve Number"
+    },
+    "FlightInfoForm": {
+      "DepartureInfo": "Departure Info",
+      "َArrivalInfo": "َArrival Info",
+      "FlightDate": "Flight Date",
+      "flightType": "Flight Type",
+      "FlightNumber": "Flight Number",
+      "DepartureFlightTime": "Departure Flight Time ",
+      "ArrivalFlightTime": "Arrival Flight Time",
+      "FlightTimeMessage": "Flight Time Message"
+    },
+
+    "Attendee": {
+      "List": {
+  
+         
+            "Gender": "Gender",
+            "Name": "Name",
+            "LastName": "Last Name"
+          
+        
+      }
+    },
+    "Passenger": {
+      "Genders": {
+        "Male": "Male",
+        "Female": "Female"
+      },
+      "FormElement": {
+        "Name": "Name",
+        "LastName": "LastName",
+        "Gender": "Gender",
+        "NationalCode": "National Code",
+        "PassportNumber": "Passport Number",
+        "PassportExpireDate": "Passport Expire Date",
+        "MobileNumber": "Mobile Number",
+        "EmailAddress": "Email Address",
+        "BirthDate": "Birth Date",
+        "Age": "Age",
+        "Nationality": "Nationality",
+        "GenderRequired": "Gender Required",
+        "NameRequired": "Name Required",
+        "LastNameRequired": "Last Name Required",
+        "NationalityRequired": "Nationality Required",
+        "NameFromatErrorMessage": "Name Fromat Error Message",
+        "Visa": "Visa",
+        "Wheelchair": "Wheelchair",
+        "SaveThis": "Save This",
+        "MobileNumberRequired": "Mobile Number Required",
+        "EmailAddressRequired": "Email Address Required",
+        "PassportNumberRequired": "Passport Number Required",
+        "NationalCodeRequired": "National Code Required",
+        "LOM": "LOM"
+      }
+    }
+  },
+  "SupplierPanel": {
+    "Menu": {
+      "Home": "Home",
+      "Reserves": "Reserves",
+      "Contacts": "Contacts",
+      "Services": "Services",
+      "ServiceLocations": "ServiceLocations"
+    }
+  }
 }

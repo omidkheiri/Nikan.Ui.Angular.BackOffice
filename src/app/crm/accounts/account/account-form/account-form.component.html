@@ -87,14 +87,14 @@
           </div>
           <div class="form-group">
             <label for="input" style="text-align: left; width: 100%"
-              >شماره تلفن</label
+              >Phone</label
             ><input
               type="text"
               class="form-control"
               id="Phone"
               name="Phone"
               dir="ltr"
-              placeholder="شماره تلفن"
+              placeholder="Phone"
               required
               phone
               maxlength="20"
@@ -103,10 +103,9 @@
             />
             <div *ngIf="submitted && f.form.controls['Phone'].errors">
 
-              <div *ngIf="f.form.controls['Phone'].errors['required']" class="text-danger">شماره تلفن لازم است</div>
-              <div *ngIf="f.form.controls['Phone'].errors['phone']" class="text-danger">شماره تلفن معتبر نیست</div>
-              <div *ngIf="f.form.controls['Phone'].errors['maxlength']" class="text-danger">شماره تلفن معتبر نیست</div>
-            
+              <div *ngIf="f.form.controls['Phone'].errors['required']" class="text-danger">Phone</div>
+              <div *ngIf="f.form.controls['Phone'].errors['required']" class="text-danger">Phone</div>
+              <div *ngIf="f.form.controls['Phone'].errors['required']" class="text-danger">Phone</div>
               
               </div>
           </div>

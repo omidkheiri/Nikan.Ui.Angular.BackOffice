@@ -12,6 +12,8 @@ import {
   DxDataGridModule,
   DxBulletModule,
   DxTemplateModule,
+  DxSchedulerModule,
+  DxScrollViewModule,
 } from 'devextreme-angular';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -39,7 +41,7 @@ import { AirportComponent } from './airport/airport.component';
     DxSelectBoxModule,
     DxDataGridModule,
     DxBulletModule,
-    DxTemplateModule,
+    DxTemplateModule, DxScrollViewModule,
     CommonModule,
   ],
 })

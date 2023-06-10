@@ -3,7 +3,7 @@
     <div
       *ngIf="flightInfo"
       class="row "
-      style="direction: rtl"
+      style="direction: ltr"
     >
       <div class="col-lg-12 col-12 layout-spacing">
         <div class="row m-2">
@@ -28,9 +28,9 @@
         <div class="row">
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
-              <p style="text-align: center;font-size: 11px;">اطلاعات حرکت</p>
+              <p style="text-align: center;font-size: 11px;">Departure Info</p>
               <nav class="" style="direction: rtl; text-align: right;">
-                <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">محل ارائه سرویس :<strong>{{ DepartureLocation.title }}</strong> </p></div>
+                <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">Location :<strong>{{ DepartureLocation.title }}</strong> </p></div>
 
                 <!-- <ol class="breadcrumb">
                 
@@ -78,8 +78,8 @@
           </div>
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
-              <p style="text-align: center;font-size: 11px;">اطلاعات ورود</p>
-              <div *ngIf="ArrivalLocation" ><p style="font-size: 10px;text-align: right;">محل ارائه سرویس :<strong>{{ ArrivalLocation.title }}</strong> </p></div>
+              <p style="text-align: center;font-size: 11px;">Arrival Info</p>
+              <div *ngIf="ArrivalLocation" ><p style="font-size: 10px;text-align: right;">Location :<strong>{{ ArrivalLocation.title }}</strong> </p></div>
 
               <p style="
               text-align: right;
@@ -102,7 +102,7 @@
 
 
         <div class="col" style="
-        text-align: right;font-size: 12px;
+        text-align: left;font-size: 12px;
     ">
           <label
             >{{ "ReservePage.FlightInfoForm.FlightDate" | translate }}
@@ -123,7 +123,7 @@
 
 
         <div class="col" style="
-        text-align: right;font-size: 12px;
+        text-align: left;font-size: 12px;
     ">
           <label for="input"
             >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}

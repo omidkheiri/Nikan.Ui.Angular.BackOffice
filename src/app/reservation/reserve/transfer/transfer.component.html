@@ -4,7 +4,7 @@
       <div class="widget-heading">
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <p>خدمات ترانسفر</p>
+            <p>Transfers</p>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
           </dxo-editing>
 
           <dxi-column
-            caption="نوع ترنسفر"
+            caption="Type"
             dataField="serviceLineId"
             [width]="200"
           >
@@ -57,15 +57,15 @@
               [dataSource]="TransferServiceList"
             ></dxo-lookup>
           </dxi-column>
-          <dxi-column caption="آدرس" dataField="address"></dxi-column>
+          <dxi-column caption="Address" dataField="address"></dxi-column>
 
           <dxi-column
-            caption="زمان مراجعه"
+            caption="Time"
             [width]="100"
             dataField="time"
           ></dxi-column>
           <dxi-column
-            caption="شماره موبایل"
+            caption="Mobile"
             dataField="mobileNumber"
             [width]="120"
           ></dxi-column>
@@ -74,7 +74,7 @@
             dataField="description"
             [width]="170"
             [visible]="false"
-            caption="توضیحات"
+            caption="Description"
           ></dxi-column>
         </dx-data-grid>
       </div>

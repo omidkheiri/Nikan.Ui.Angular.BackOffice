@@ -2,11 +2,11 @@
   <dx-toast
     [(visible)]="reserveNumber"
     type="success"
-    [message]="'رزرو ثبت شد  ' + reserveNumber"
+    [message]="'Saved  ' + reserveNumber"
   >
   </dx-toast>
 
-  <label for="input" style="text-align: right; width: 100%">نام مشتری </label>
+  <label for="input" style="text-align: right; width: 100%">Customer Name </label>
 
   <dx-lookup
     (onValueChanged)="setSerlectedCustomer($event)"
@@ -91,7 +91,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <small style="font-size: 10px">جمع کل بدون مالیات و تخفیف</small>
+        <small style="font-size: 10px">Total Tax Free</small>
       </div>
       <div
         class="col-md-12 pr-5 pl-5"
