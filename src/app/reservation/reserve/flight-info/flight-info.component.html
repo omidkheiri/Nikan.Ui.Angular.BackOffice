@@ -29,7 +29,7 @@
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
               <p style="text-align: center;font-size: 11px;">Departure Info</p>
-              <nav class="" style="direction: rtl; text-align: right;">
+              <nav class="" style="direction: ltr; text-align: right;">
                 <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">Location :<strong>{{ DepartureLocation.title }}</strong> </p></div>
 
                 <!-- <ol class="breadcrumb">
@@ -204,10 +204,10 @@
     
 <div class="row mt-3" *ngIf="this.flightInfo">
 
-<div class="col-6" style="direction: rtl;">
+<div class="col-6" style="direction: ltr;">
   <p style="
   text-align: justify;font-size: 12px;
-">محل ارائه سرویس در مبدا</p>
+">ِDeparture Location</p>
   <app-location-options [id]="'Departure'" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
 
 
@@ -217,7 +217,7 @@
 <div class="col-6">
 <p style="
 text-align: justify;font-size: 12px;
-">محل ارائه سرویس در مقصد</p>
+">Arrival Location</p>
  <app-location-options [Type]="'Arrival'" [id]="'Arrival'" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
 
 
