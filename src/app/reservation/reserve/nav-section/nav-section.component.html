@@ -9,9 +9,9 @@
   <label for="input" style="text-align: right; width: 100%">Customer Name </label>
 
   <dx-lookup
-    (onValueChanged)="setSerlectedCustomer($event)"
+    (onValueChanged)="setSelectedCustomer($event)"
     [dataSource]="dataSource"
-    [displayExpr]="dispalyCustomer"
+    [displayExpr]="displayCustomer"
     [value]="contactId ? contactId : ''"
   >
     <dxo-drop-down-options [hideOnOutsideClick]="true" [showTitle]="false">

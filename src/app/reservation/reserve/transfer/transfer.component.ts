@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReserveItem, Transfer, TransferModel } from '../models/reserve.model';
+import { ReserveItem, Transfer } from '../models/reserve.model';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
@@ -12,7 +12,7 @@ import ArrayStore from 'devextreme/data/array_store';
 })
 export class TransferComponent implements OnInit {
   lookupData = ['Not Started', 'Need Assistance', 'In Progress'];
-  Transfers: TransferModel[];
+  Transfers: Transfer[];
   TransferServiceList: [];
   store$: any;
   transfersSource: [];
@@ -35,6 +35,7 @@ export class TransferComponent implements OnInit {
     let itemForSave: ReserveItem = {
       id: item.id,
       attendee: {
+        id: item.attendee.id,
         gender: item.attendee.gender,
         name: item.attendee.name,
         lastName: item.attendee.lastName,
@@ -53,6 +54,14 @@ export class TransferComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: this.transferPricelLine.serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
 
     this.store.dispatch(
@@ -107,6 +116,14 @@ export class TransferComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: transferPriceLine.serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      attendee: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
 
     this.store.dispatch(

@@ -11,7 +11,7 @@ export class ReserveService {
   constructor(private http: HttpClient) {}
 
   private reserveDate = new BehaviorSubject(new Date());
-  setreserveDateObs(reserveDate: Date) {
+  setReserveDateObs(reserveDate: Date) {
     this.reserveDate.next(reserveDate);
   }
   getreserveDateObs(): Observable<Date> {
@@ -19,7 +19,7 @@ export class ReserveService {
   }
 
   private reserveCustomerAccountId = new BehaviorSubject('');
-  setreserveCustomerIdObs(reserveCustomerAccountId: string) {
+  setReserveCustomerIdObs(reserveCustomerAccountId: string) {
     this.reserveCustomerAccountId.next(reserveCustomerAccountId);
   }
   getreserveCustomerIdObs(): Observable<string> {

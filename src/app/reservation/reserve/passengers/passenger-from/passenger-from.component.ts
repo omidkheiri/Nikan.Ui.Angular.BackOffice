@@ -16,7 +16,7 @@ import * as uuid from 'uuid';
 export class PassengerFromComponent implements OnInit {
   max = new Date();
   @ViewChild('f') form: NgForm;
-  submited = false;
+  submitted = false;
 
   serviceListSource: ArrayStore;
   selectedPassengerType: any;
@@ -120,7 +120,7 @@ export class PassengerFromComponent implements OnInit {
   onSubmit(f: NgForm) {
     console.log(f.form);
 
-    this.submited = true;
+    this.submitted = true;
     if (!f.form.valid) {
       var nameError = f.form.controls['name'].errors;
       if (nameError && nameError!['pattern']) {
@@ -135,13 +135,13 @@ export class PassengerFromComponent implements OnInit {
     let newId = uuid.v4();
     let visa: Visa | undefined = undefined;
     if (f.form.value.visa) {
-      visa = { relatedPassengerID: newId };
+      visa = { relatedPassengerId: newId };
     }
 
     let wheelchair: Visa | undefined = undefined;
 
     if (f.form.value.wheelchair) {
-      wheelchair = { relatedPassengerID: newId };
+      wheelchair = { relatedPassengerId: newId };
     }
 
     if (this.editMode) {
@@ -179,9 +179,16 @@ export class PassengerFromComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal:
-        this.selectedPassengerType.serviceLinePrices[0].price,
+      serviceAdvanceTotal: this.selectedPassengerType.serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      visa: null,
+      transfer: null,
+      attendee: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
     if (this.editMode) {
       this.store.dispatch(
@@ -191,14 +198,14 @@ export class PassengerFromComponent implements OnInit {
       this.store.dispatch(fromAction.SaveReserveItem({ ReserveItem: item }));
     }
     if (item.passenger?.visa) {
-      this.addVisaTolist(item);
+      this.addVisaToList(item);
     } else {
       this.removeVisaFromList(item);
     }
     if (item.passenger?.wheelchair) {
-      this.addwheelchairTolist(item);
+      this.addWheelchairToList(item);
     } else {
-      this.removewheelchairFromList(item);
+      this.removeWheelchairFromList(item);
     }
     this.store.dispatch(
       fromAction.SaveState({
@@ -211,12 +218,12 @@ export class PassengerFromComponent implements OnInit {
     this.form.reset();
   }
 
-  addVisaTolist(passenger: ReserveItem) {
+  addVisaToList(passenger: ReserveItem) {
     let newId = uuid.v4();
     let item: ReserveItem = {
       id: newId,
       visa: {
-        relatedPassengerID: passenger.id ? passenger.id : '',
+        relatedPassengerId: passenger.id ? passenger.id : '',
       },
 
       serviceLineId: this.serviceListVisa[0].id,
@@ -232,6 +239,14 @@ export class PassengerFromComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: this.serviceListVisa[0].serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      transfer: null,
+      attendee: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
     this.store.dispatch(
       fromAction.UpdateVisaReserveItem({ ReserveItem: item })
@@ -240,7 +255,7 @@ export class PassengerFromComponent implements OnInit {
 
   removeVisaFromList(item: ReserveItem) {
     var i = this.passengers.find((data: any) => {
-      return data.visa && data.visa.relatedPassengerID === item.id;
+      return data.visa && data.visa.relatedPassengerId === item.id;
     });
 
     if (i) {
@@ -250,12 +265,12 @@ export class PassengerFromComponent implements OnInit {
     }
   }
 
-  addwheelchairTolist(passenger: ReserveItem) {
+  addWheelchairToList(passenger: ReserveItem) {
     let newId = uuid.v4();
     let item: ReserveItem = {
       id: newId,
       wheelchair: {
-        relatedPassengerID: passenger.id ? passenger.id : '',
+        relatedPassengerId: passenger.id ? passenger.id : '',
       },
 
       serviceLineId: this.serviceListWheelchair[0].id,
@@ -269,18 +284,25 @@ export class PassengerFromComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal:
-        this.serviceListWheelchair[0].serviceLinePrices[0].price,
+      serviceAdvanceTotal: this.serviceListWheelchair[0].serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      attendee: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
     this.store.dispatch(
-      fromAction.UpdateWhellchairReserveItem({ ReserveItem: item })
+      fromAction.UpdateWheelchairReserveItem({ ReserveItem: item })
     );
   }
 
-  removewheelchairFromList(item: ReserveItem) {
+  removeWheelchairFromList(item: ReserveItem) {
     var i = this.passengers.find((data: any) => {
-      return data.wheelchair && data.wheelchair.relatedPassengerID === item.id;
+      return data.wheelchair && data.wheelchair.relatedPassengerId === item.id;
     });
 
     if (i) {

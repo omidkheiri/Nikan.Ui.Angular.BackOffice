@@ -50,6 +50,7 @@ export class AttendeesComponent implements OnInit {
     let itemForSave: ReserveItem = {
       id: item.id,
       attendee: {
+        id: item.attendee.id,
         gender: item.attendee.gender,
         name: item.attendee.name,
         lastName: item.attendee.lastName,
@@ -68,6 +69,14 @@ export class AttendeesComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
 
     this.store.dispatch(
@@ -84,6 +93,7 @@ export class AttendeesComponent implements OnInit {
     let itemForSave: ReserveItem = {
       id: item.key,
       attendee: {
+        id: item.newData.attendee.id,
         gender: item.newData.attendee.gender
           ? item.newData.attendee.gender
           : item.oldData.attendee.gender,
@@ -108,6 +118,14 @@ export class AttendeesComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null
     };
 
     this.store.dispatch(

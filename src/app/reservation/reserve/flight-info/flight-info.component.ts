@@ -31,13 +31,16 @@ import DataSource from 'devextreme/data/data_source';
   styleUrls: ['./flight-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnChanges {
+export class FlightInfoComponent
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges
+{
   flightInfoForm = new FormGroup({
     flightDate: new FormControl(new Date(), Validators.required),
-    flightType: new FormControl(null, Validators.required),
+    flightType: new FormControl('', Validators.required),
     flightName: new FormControl('', Validators.required),
     flightTime: new FormControl('', Validators.required),
-    locationId:new FormControl('', Validators.required),
+    arrivalLocationId: new FormControl('', Validators.required),
+    departureLocationId: new FormControl('', Validators.required),
   });
 
   min: Date = new Date();
@@ -51,13 +54,13 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
   flightTypes = [
     { value: 0, label: 'Arrival' },
     { value: 1, label: 'Departure' },
-    // ...
+  
   ];
   flightInfoView = false;
   flightInfo: any;
   reserveState: any;
-  ArrivalLocations: DataSource|any;
-  DepartureLocations: DataSource|any;
+  ArrivalLocations: DataSource | any;
+  DepartureLocations: DataSource | any;
   constructor(
     private ref: ChangeDetectorRef,
     private service: ReserveService,
@@ -80,7 +83,7 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
   }
 
   ngOnInit(): void {
-    // this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+   
     this.store$.subscribe((sub) => {
       this.reserveState = sub.reserve;
       if (!sub.reserve.ServiceLine) {
@@ -102,36 +105,31 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
         this.max = sub.reserve.LocationId.maxAcceptDate;
       }
       if (sub.reserve && sub.reserve.FlightInfo) {
-
-
-
         this.flightInfo = sub.reserve.FlightInfo;
 
-
-        
-
-        this.flightInfoForm = new FormGroup({
-          flightDate: new FormControl(
-            this.flightInfo.flightDate,
-            Validators.required
-          ),
-          flightType: new FormControl(
-            this.flightInfo.flightType,
-            Validators.required
-          ),
-          flightName: new FormControl(this.flightInfo.id, Validators.required),
-          locationId: new FormControl(sub.reserve.LocationId.id, Validators.required),
-          flightTime: new FormControl(
-            this.flightInfo.flightType === 0
-              ? this.flightInfo.arrivalTime
-              : this.flightInfo.departureTime,
-            Validators.required
-          ),
-        });
+        // this.flightInfoForm = new FormGroup({
+        //   flightDate: new FormControl(
+        //     this.flightInfo.flightDate,
+        //     Validators.required
+        //   ),
+        //   flightType: new FormControl(
+        //     this.flightInfo.flightType,
+        //     Validators.required
+        //   ),
+        //   flightName: new FormControl(this.flightInfo.id, Validators.required),
+        //   locationId: new FormControl(sub.reserve.LocationId.id,Validators.required),
+        //   flightTime: new FormControl(
+        //     this.flightInfo.flightType === 0
+        //       ? this.flightInfo.arrivalTime
+        //       : this.flightInfo.departureTime,
+        //     Validators.required
+        //   ),
+        //   arrivalLocationId: new FormControl('', Validators.required),
+        //   departureLocationId: new FormControl('', Validators.required),
+        // });
       }
       this.ref.markForCheck();
     });
-
 
     // lastValueFrom(
     //   this.http.get(
@@ -139,22 +137,13 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
     //   )
     // )
     //   .then((data: any) => {
-      
-       
+
     //       this.locations = data
     //     }
     //   )
     //   .catch((error) => {
     //     throw 'Data Loading Error';
     //   });
-
-
-
-
-
-
-
-
   }
 
   loadList(http: HttpClient, service: ReserveService) {
@@ -176,33 +165,32 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
     });
   }
 
-  //-------------------------------------------------
+  
   flightNumberChanged($event: any) {
     var item = $event.selectedItem;
- 
-    let flightdate1 = this.flightInfoForm.controls.flightDate;
+
+    let flightDate1 = this.flightInfoForm.controls.flightDate;
     this.flightInfo = {
       id: item.id,
       flightName: item.flightName,
-      flightDate: flightdate1.value,
+      flightDate: flightDate1.value,
       airlineName: item.airlineName,
       status: item.status,
       scheduled: item.scheduled,
-      flightType: "",
+      flightType: '',
       flightSource: item.flightSource,
       departureAirport: item.departureAirport.name,
       departureCity: item.departureAirport.city,
       arrivalAirport: item.arrivalAirport.name,
-      arrivalCity:  item.arrivalAirport.city,
+      arrivalCity: item.arrivalAirport.city,
       arrivalTime: item.arrivalTime,
       departureTime: item.departureTime,
-      departureAirportId:item.departureAirportId,
-      arrivalAirportId:item.arrivalAirportId,
+      departureAirportId: item.departureAirportId,
+      arrivalAirportId: item.arrivalAirportId,
     };
     // var flightInfo = {
     //   FlightInfo: flight,
     // };
-   
 
     lastValueFrom(
       this.http.get(
@@ -210,52 +198,42 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
       )
     )
       .then((data1: any) => {
-      
-      
-     
-       
-          this.ArrivalLocations = data1.filter((data: any) => {
-            return (
-              !data.doNotShow && data.airportId&&
-              data.airportId.toLocaleLowerCase() ===
-                this.flightInfo.arrivalAirportId.toLocaleLowerCase()
-            );
-          });
-          this.DepartureLocations=data1.filter((data: any) => {
-            return (
-              !data.doNotShow && data.airportId&&
-              data.airportId.toLocaleLowerCase() ===
-                this.flightInfo.departureAirportId.toLocaleLowerCase()
-            );
-          });
-        }
-      )
+        this.ArrivalLocations = data1.filter((data: any) => {
+          return (
+            !data.doNotShow &&
+            data.airportId &&
+            data.airportId.toLocaleLowerCase() ===
+              this.flightInfo.arrivalAirportId.toLocaleLowerCase()
+          );
+        });
+        this.DepartureLocations = data1.filter((data: any) => {
+          return (
+            !data.doNotShow &&
+            data.airportId &&
+            data.airportId.toLocaleLowerCase() ===
+              this.flightInfo.departureAirportId.toLocaleLowerCase()
+          );
+        });
+      })
       .catch((error) => {
         throw 'Data Loading Error';
       });
 
-      this.store.dispatch(fromAction.SetFlightInfo({FlightInfo:  this.flightInfo}));
-
- 
-
-
-
+    this.store.dispatch(
+      fromAction.SetFlightInfo({ FlightInfo: this.flightInfo })
+    );
   }
   ngOnChanges(changes: SimpleChanges) {
     console.log();
   }
-  
 
   flightDate($event: any) {
+    var flight = JSON.parse(JSON.stringify(this.flightInfo));
+    flight.flightDate = $event.value;
 
+    this.store.dispatch(fromAction.SetFlightInfo({ FlightInfo: flight }));
 
-    var flight=JSON.parse(JSON.stringify(this.flightInfo));
-    flight. flightDate= $event.value;
-    
-    this.store.dispatch(fromAction.SetFlightInfo({FlightInfo:flight}));
-
-
-    this.service.setreserveDateObs($event.value);
+    this.service.setReserveDateObs($event.value);
     // var flightInfo = { ...this.reserveState.FlightInfo };
     // if (flightInfo) {
     //   flightInfo.flightDate = $event.value;
@@ -286,44 +264,35 @@ export class FlightInfoComponent implements OnInit, OnDestroy,AfterViewInit,OnCh
   updateFlightTime($event: any) {
     console.log($event.target.value);
   }
-  locationChanged(event:any){
+  locationChanged(event: any) {
+    console.log(event.selectedItem);
+    var flight = JSON.parse(JSON.stringify(this.flightInfo));
+    flight.locationId = event.selectedItem.id;
+    flight.flightType = this.flightInfoForm.controls.flightType.value;
 
-
-console.log(event.selectedItem);
-var flight=JSON.parse(JSON.stringify(this.flightInfo));
-flight.locationId=event.selectedItem.id;
-flight.flightType=this.flightInfoForm.controls.flightType.value;
-
-this.store.dispatch(fromAction.SetFlightInfo({FlightInfo:flight}));
-this.store.dispatch(fromAction.SetLocation({location: event.selectedItem}));
-this.store.dispatch(fromAction.LoadLocation( {locationId: event.selectedItem.id}))
-
+    this.store.dispatch(fromAction.SetFlightInfo({ FlightInfo: flight }));
+    this.store.dispatch(
+      fromAction.SetLocation({ location: event.selectedItem })
+    );
+    this.store.dispatch(
+      fromAction.LoadLocation({ locationId: event.selectedItem.id })
+    );
   }
 
+  ngAfterViewInit(): void {}
+  DepartureLocation: any;
 
-
-
-  ngAfterViewInit(): void {
-   
-}
-DepartureLocation:any;
-
-onDepartureLocation(e:any){
-
-
-console.log(e);
-this.DepartureLocation=this.DepartureLocations.find((data:any)=>{return data.id==e});
-
-}
-ArrivalLocation:any;
-onArrivalLocation(e:any){
-
-
-  console.log(e);
-  this.ArrivalLocation=this.ArrivalLocations.find((data:any)=>{return data.id==e});
-  
-  
+  onDepartureLocation(e: any) {
+    console.log(e);
+    this.DepartureLocation = this.DepartureLocations.find((data: any) => {
+      return data.id == e;
+    });
   }
-
-
+  ArrivalLocation: any;
+  onArrivalLocation(e: any) {
+    console.log(e);
+    this.ArrivalLocation = this.ArrivalLocations.find((data: any) => {
+      return data.id == e;
+    });
+  }
 }

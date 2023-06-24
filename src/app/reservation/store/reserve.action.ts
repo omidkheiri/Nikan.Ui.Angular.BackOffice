@@ -10,11 +10,11 @@ export const SetStateFromStorage = createAction(
   props<{ oldState: any }>()
 );
 export const LoadLocation = createAction(
-  '[Loaction Api] Load Location',
+  'Location',
   props<{ locationId: string }>()
 );
 export const SetLocation = createAction(
-  '[Loaction Api] set Location',
+  'Location',
   props<{ location: any }>()
 );
 
@@ -57,8 +57,8 @@ export const DeleteReserveItem = createAction(
   '[Reserve Component] Delete Reserve Item',
   props<{ Id: string }>()
 );
-export const UpdateWhellchairReserveItem = createAction(
-  '[Reserve Component] Update Whellchair Reserve Item',
+export const UpdateWheelchairReserveItem = createAction(
+  '[Reserve Component] Update Wheelchair Reserve Item',
   props<{ ReserveItem: ReserveItem }>()
 );
 export const UpdateVisaReserveItem = createAction(

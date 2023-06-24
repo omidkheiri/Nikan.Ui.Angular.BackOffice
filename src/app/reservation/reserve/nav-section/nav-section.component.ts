@@ -113,7 +113,7 @@ export class NavSectionComponent implements OnInit {
     });
     this.store$ = store.select<any>('reserve');
   }
-  setSerlectedCustomer(item: any) {
+  setSelectedCustomer(item: any) {
     let newId = uuid.v4();
     if (item.value.contactId) {
       this.store.dispatch(
@@ -132,7 +132,7 @@ export class NavSectionComponent implements OnInit {
       );
     }
   }
-  dispalyCustomer(item: any) {
+  displayCustomer(item: any) {
     return item && `${item.name} ${item.lastName} -> ${item.phone}`;
   }
 
@@ -171,7 +171,7 @@ export class NavSectionComponent implements OnInit {
       this.formMode = sub.reserve.formMode;
       this.reserve = sub.reserve;
       this.contactId = sub.reserve.contactId;
-      this.service.setreserveCustomerIdObs(sub.reserve.contactAccountId);
+      this.service.setReserveCustomerIdObs(sub.reserve.contactAccountId);
       if (sub.reserve.ReserveItem) {
         if (sub.reserve.ServiceLine) {
           this.items = [];

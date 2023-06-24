@@ -34,16 +34,22 @@ export class PetServiceComponent implements OnInit {
       unitPrice: this.PetPriceList[0].serviceLinePrices[0].price,
       serviceQty: $event.value,
       serviceTypeId: this.PetPriceList[0].serviceTypeId,
-      serviceTotal:
-        this.PetPriceList[0].serviceLinePrices[0].price * $event.value,
+      serviceTotal: this.PetPriceList[0].serviceLinePrices[0].price * $event.value,
       discountPercent: 0,
       discountValue: 0,
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal:
-        this.PetPriceList[0].serviceLinePrices[0].price * $event.value,
+      serviceAdvanceTotal: this.PetPriceList[0].serviceLinePrices[0].price * $event.value,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      attendee: null,
+      wheelchair: null,
+      suite: null,
+      meetingRoom: null
     };
 
     this.store.dispatch(

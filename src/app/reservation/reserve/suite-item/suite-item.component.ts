@@ -40,6 +40,14 @@ export class SuiteItemComponent implements OnInit {
       taxValue: 0,
       serviceAdvanceTotal: this.Id.serviceLinePrices[0].price * $event.value,
       serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      attendee: null,
+      wheelchair: null,
+      meetingRoom: null,
+      pet: null
     };
 
     this.store.dispatch(

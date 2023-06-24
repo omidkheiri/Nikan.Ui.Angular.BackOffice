@@ -4,7 +4,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 import { ReserveItem } from '../reserve/models/reserve.model';
 import * as fromAction from './reserve.action';
 export interface State {
-  LocationId: any;
+  reserver: any;
   FlightInfo: any;
   ServiceLine: any;
   ReserveItem: ReserveItem[];
@@ -20,7 +20,7 @@ export interface State {
 }
 
 const initialState: State = {
-  LocationId: null,
+  reserver:null,
   FlightInfo: null,
   ServiceLine: null,
   ReserveItem: [],
@@ -122,7 +122,7 @@ export const reserveReducer = createReducer(
       const Items: any = state.ReserveItem.filter((p: any) => {
         return (
           !p.visa ||
-          p.visa.relatedPassengerID !== reserveItem.visa?.relatedPassengerID
+          p.visa.relatedPassengerId !== reserveItem.visa?.relatedPassengerId
         );
       });
       Items.push(reserveItem);
@@ -133,13 +133,13 @@ export const reserveReducer = createReducer(
     }
   ),
   on(
-    fromAction.UpdateWhellchairReserveItem,
+    fromAction.UpdateWheelchairReserveItem,
     (state, { ReserveItem: reserveItem }) => {
       const Items: any = state.ReserveItem.filter((p: any) => {
         return (
           !p.wheelchair ||
-          p.wheelchair.relatedPassengerID !==
-            reserveItem.wheelchair?.relatedPassengerID
+          p.wheelchair.relatedPassengerId !==
+            reserveItem.wheelchair?.relatedPassengerId
         );
       });
       Items.push(reserveItem);
@@ -176,7 +176,6 @@ export const reserveReducer = createReducer(
       ...state,
       LocationId: reserve.locationId,
       FlightInfo: reserve.flightInfo,
-
       ReserveItem: reserve.reserveItems,
       contactId: reserve.contactId,
       contactFullName: reserve.contactFullName,
