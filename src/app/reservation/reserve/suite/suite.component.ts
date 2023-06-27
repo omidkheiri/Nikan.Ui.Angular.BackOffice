@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import ArrayStore from 'devextreme/data/array_store';
-import { ReserveItem } from '../models/reserve.model';
+import { ReserveItem } from "../models/ReserveItem";
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
 @Component({

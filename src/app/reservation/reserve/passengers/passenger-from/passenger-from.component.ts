@@ -6,7 +6,8 @@ import ArrayStore from 'devextreme/data/array_store';
 import { Observable } from 'rxjs';
 import * as fromStore from '../../../store';
 import * as fromAction from '../../../store/reserve.action';
-import { ReserveItem, Visa } from '../../models/reserve.model';
+import { ReserveItem } from '../../models/ReserveItem';
+import { Visa } from '../../models/Visa';
 import * as uuid from 'uuid';
 @Component({
   selector: 'app-passenger-from',
@@ -14,6 +15,8 @@ import * as uuid from 'uuid';
   styleUrls: ['./passenger-from.component.css'],
 })
 export class PassengerFromComponent implements OnInit {
+  @Input() type: string;
+  @Input() locationId: string;
   max = new Date();
   @ViewChild('f') form: NgForm;
   submitted = false;
@@ -34,6 +37,7 @@ export class PassengerFromComponent implements OnInit {
   id: string;
   serviceListVisa: any;
   serviceListWheelchair: any;
+
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
     this.genderSource = new ArrayStore({
@@ -44,25 +48,76 @@ export class PassengerFromComponent implements OnInit {
 
   ngOnInit(): void {
     this.store$.subscribe((sub) => {
+      var items = sub.reserve.trip.reserveRecords.find((data: any) => {
+        return data.locationId === this.locationId;
+      });
       this.currentState = sub.reserve;
-      if (sub.reserve && sub.reserve.ServiceLine) {
-        this.serviceList = sub.reserve.ServiceLine.filter((data: any) => {
-          return data.serviceTypeId === 1;
-        });
-        this.serviceListVisa = sub.reserve.ServiceLine.filter((data: any) => {
-          return data.serviceTypeId === 5;
-        });
-        this.serviceListWheelchair = sub.reserve.ServiceLine.filter(
+      if (
+        this.type === 'Departure' &&
+        sub.reserve &&
+        sub.reserve.departureServiceLine
+      ) {
+        this.serviceList = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 1;
+          }
+        );
+        this.serviceListVisa = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 5;
+          }
+        );
+        this.serviceListWheelchair = sub.reserve.departureServiceLine.filter(
           (data: any) => {
             return data.serviceTypeId === 8;
           }
         );
 
-        this.passengers = sub.reserve.ReserveItem;
+        if (items) {
+          this.passengers = items.reserveItem;
+        }
         this.serviceListSource = new ArrayStore({
           key: 'id',
           data: this.serviceList,
         });
+      }
+      if(
+        this.type === 'Arrival' &&
+        sub.reserve &&
+        sub.reserve.arrivalServiceLine
+      ) {
+        this.serviceList = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 1;
+          }
+        );
+        this.serviceListVisa = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 5;
+          }
+        );
+        this.serviceListWheelchair = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 8;
+          }
+        );
+
+        if (items) {
+          this.passengers = items.reserveItem;
+        }
+        this.serviceListSource = new ArrayStore({
+          key: 'id',
+          data: this.serviceList,
+        });
+      }
+
+      if (this.submitted) {
+        this.submitted = false;
+        this.store.dispatch(
+          fromAction.SaveState({
+            state: this.currentState,
+          })
+        );
       }
     });
   }
@@ -179,7 +234,8 @@ export class PassengerFromComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.selectedPassengerType.serviceLinePrices[0].price,
+      serviceAdvanceTotal:
+        this.selectedPassengerType.serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       visa: null,
@@ -188,14 +244,23 @@ export class PassengerFromComponent implements OnInit {
       wheelchair: null,
       suite: null,
       meetingRoom: null,
-      pet: null
+      pet: null,
     };
     if (this.editMode) {
       this.store.dispatch(
-        fromAction.UpdateReserveItem({ Id: newId, ReserveItem: item })
+        fromAction.UpdateReserveItem({
+          LocationId: this.locationId,
+          Id: newId,
+          ReserveItem: item,
+        })
       );
     } else {
-      this.store.dispatch(fromAction.SaveReserveItem({ ReserveItem: item }));
+      this.store.dispatch(
+        fromAction.SaveReserveItem({
+          LocationId: this.locationId,
+          ReserveItem: item,
+        })
+      );
     }
     if (item.passenger?.visa) {
       this.addVisaToList(item);
@@ -207,11 +272,7 @@ export class PassengerFromComponent implements OnInit {
     } else {
       this.removeWheelchairFromList(item);
     }
-    this.store.dispatch(
-      fromAction.SaveState({
-        state: this.currentState,
-      })
-    );
+
     f.form.reset();
   }
   closeForm() {
@@ -246,7 +307,7 @@ export class PassengerFromComponent implements OnInit {
       wheelchair: null,
       suite: null,
       meetingRoom: null,
-      pet: null
+      pet: null,
     };
     this.store.dispatch(
       fromAction.UpdateVisaReserveItem({ ReserveItem: item })
@@ -254,14 +315,16 @@ export class PassengerFromComponent implements OnInit {
   }
 
   removeVisaFromList(item: ReserveItem) {
-    var i = this.passengers.find((data: any) => {
-      return data.visa && data.visa.relatedPassengerId === item.id;
-    });
+    if (this.passengers) {
+      var i = this.passengers.find((data: any) => {
+        return data.visa && data.visa.relatedPassengerId === item.id;
+      });
 
-    if (i) {
-      this.store.dispatch(
-        fromAction.DeleteReserveItem({ Id: i.id ? i.id : '' })
-      );
+      if (i) {
+        this.store.dispatch(
+          fromAction.DeleteReserveItem({LocationId:this.locationId, Id: i.id ? i.id : '' })
+        );
+      }
     }
   }
 
@@ -284,7 +347,8 @@ export class PassengerFromComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.serviceListWheelchair[0].serviceLinePrices[0].price,
+      serviceAdvanceTotal:
+        this.serviceListWheelchair[0].serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       passenger: null,
@@ -293,7 +357,7 @@ export class PassengerFromComponent implements OnInit {
       attendee: null,
       suite: null,
       meetingRoom: null,
-      pet: null
+      pet: null,
     };
     this.store.dispatch(
       fromAction.UpdateWheelchairReserveItem({ ReserveItem: item })
@@ -301,14 +365,18 @@ export class PassengerFromComponent implements OnInit {
   }
 
   removeWheelchairFromList(item: ReserveItem) {
-    var i = this.passengers.find((data: any) => {
-      return data.wheelchair && data.wheelchair.relatedPassengerId === item.id;
-    });
+    if (this.passengers) {
+      var i = this.passengers.find((data: any) => {
+        return (
+          data.wheelchair && data.wheelchair.relatedPassengerId === item.id
+        );
+      });
 
-    if (i) {
-      this.store.dispatch(
-        fromAction.DeleteReserveItem({ Id: i.id ? i.id : '' })
-      );
+      if (i) {
+        this.store.dispatch(
+          fromAction.DeleteReserveItem({LocationId:this.locationId, Id: i.id ? i.id : '' })
+        );
+      }
     }
   }
 }

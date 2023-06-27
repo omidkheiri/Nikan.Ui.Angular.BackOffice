@@ -8,11 +8,22 @@
       ></div>
 
       <app-flight-info></app-flight-info>
-      <app-passengers></app-passengers>
-      <app-attendees></app-attendees>
-      <app-transfer></app-transfer>
-      <app-pet-service [item]="item"></app-pet-service>
-      <!-- <app-suite></app-suite> -->
+
+    <div *ngIf="this.trip&&this.trip.flightInfo&&this.trip.flightInfo.departureLocationId">
+      
+      <app-passengers [type]="'Departure'"  [locationId]="this.trip.flightInfo.departureLocationId"></app-passengers>
+      <app-attendees [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-attendees>
+      <app-transfer [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-transfer>
+      <app-pet-service [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-pet-service>
+    </div>
+    <div *ngIf="this.trip&&this.trip.flightInfo&&this.trip.flightInfo.arrivalLocationId" >
+      
+      <app-passengers [type]="'Arrival'"    [locationId]="this.trip.flightInfo.arrivalLocationId"></app-passengers>
+      <app-attendees [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-attendees>
+      <app-transfer [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-transfer>
+      <app-pet-service [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-pet-service>
+    </div>
+    
     </div>
   </div>
 </div>

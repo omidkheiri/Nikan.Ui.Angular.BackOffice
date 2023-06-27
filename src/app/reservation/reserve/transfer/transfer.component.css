@@ -1,8 +1,17 @@
-::ng-deep #data-grid{
-    min-height: 700px;
-  }
-  
-  .dx-text-content-alignment-right{
-    float: right;
-  }
+::ng-deep #data-grid {
+  min-height: 700px;
+}
 
+.dx-text-content-alignment-right {
+  float: right;
+}
+
+.departure {
+  padding: 20px;
+  background: #edf8f8;
+}
+
+.arrival {
+  padding: 20px;
+  background: #f8eded;
+}

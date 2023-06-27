@@ -1,13 +1,15 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { Action } from 'rxjs/internal/scheduler/Action';
-import { ReserveItem } from '../reserve/models/reserve.model';
+import { ReserveItem } from '../reserve/models/ReserveItem';
 import * as fromAction from './reserve.action';
+import { Trip } from '../reserve/models/Trip';
 export interface State {
-  reserver: any;
-  FlightInfo: any;
-  ServiceLine: any;
-  ReserveItem: ReserveItem[];
+  trip: Trip | any;
+
+  arrivalServiceLine: any;
+  departureServiceLine: any;
+
   contactId: string;
   contactFullName: string;
   contactPhone: string;
@@ -20,10 +22,10 @@ export interface State {
 }
 
 const initialState: State = {
-  reserver:null,
-  FlightInfo: null,
-  ServiceLine: null,
-  ReserveItem: [],
+  trip: null,
+  arrivalServiceLine: null,
+  departureServiceLine: null,
+
   contactId: '',
   contactFullName: '',
   contactPhone: '',
@@ -41,71 +43,188 @@ export const reserveReducer = createReducer(
     LocationId: location,
   })),
   on(fromAction.SetFlightInfo, (state, { FlightInfo: flightInfo }) => {
+    var trip = state.trip;
+
     return {
       ...state,
-      FlightInfo: flightInfo,
+      trip: { ...trip, flightInfo: flightInfo },
     };
   }),
-  on(fromAction.SetServiceLine, (state, { ServiceLine: serviceLines }) => ({
-    ...state,
-    ServiceLine: serviceLines,
-  })),
-  on(fromAction.SaveReserveItem, (state, { ReserveItem: ReserveItem }) => ({
-    ...state,
-    ReserveItem: [...state.ReserveItem, ReserveItem],
-  })),
+  on(fromAction.SetArrivalLocation, (state, { oldLocationValue:oldLocationValue, FlightInfo: flightInfo }) => {
+    var trip =JSON.parse(JSON.stringify(state.trip)) 
+    if(!trip.reserveRecords){
+    
+    trip.reserveRecords=[];
+    
+    }
+    
+    var currentReserveRecord: any = [];
+    if (flightInfo.arrivalLocationId) {
+      currentReserveRecord = trip.reserveRecords.filter((p: any) => {
+        return p.locationId !== flightInfo.oldLocationValue;
+      });
+      currentReserveRecord.push({locationId:flightInfo.arrivalLocationId,reserveItem:[]})
+    }else{
+      currentReserveRecord = trip.reserveRecords.filter((p: any) => {
+        return p.locationId !== flightInfo.oldLocationValue;
+      });
+    }
+
+    return {
+      ...state,
+      trip: {
+        ...trip,
+        flightInfo: flightInfo,
+        reserveRecords: currentReserveRecord,
+      },
+    };
+  }),
+  on(fromAction.SetDepartureLocation, (state, {oldLocationValue:oldLocationValue, FlightInfo: flightInfo }) => {
+  
+ var trip =JSON.parse(JSON.stringify(state.trip)) 
+if(!trip.reserveRecords){
+
+trip.reserveRecords=[];
+
+}
+
+
+   
+    var currentReserveRecord: any = [];
+    if (flightInfo.departureLocationId) {
+      currentReserveRecord = trip.reserveRecords.filter((p: any) => {
+        return p.locationId !== flightInfo.oldLocationValue;
+      });
+      currentReserveRecord.push({locationId:flightInfo.departureLocationId,reserveItem:[]})
+    }else{
+      currentReserveRecord = trip.reserveRecords.filter((p: any) => {
+        return p.locationId !== flightInfo.oldLocationValue;
+      });
+    }
+
+
+    return {
+      ...state,
+      trip: {
+        ...trip,
+        flightInfo: flightInfo,
+        reserveRecords: currentReserveRecord,
+      },
+    };
+  }),
+  on(
+    fromAction.setArrivalServiceLine,
+    (state, { ServiceLine: serviceLines }) => ({
+      ...state,
+      arrivalServiceLine: serviceLines,
+    })
+  ),
+  on(
+    fromAction.setDepartureServiceLine,
+    (state, { ServiceLine: serviceLines }) => ({
+      ...state,
+      departureServiceLine: serviceLines,
+    })
+  ),
+  on(
+    fromAction.SaveReserveItem,
+    (state, { LocationId: LocationId, ReserveItem: ReserveItem }) => {
+      var trip = JSON.parse(JSON.stringify(state.trip));
+      if (trip.reserveRecords.length > 0) {
+        var currentReserveRecord: any = trip.reserveRecords.find((p: any) => {
+          return p.locationId === LocationId;
+        });
+
+        if (currentReserveRecord) {
+          currentReserveRecord.reserveItem.push(ReserveItem);
+        } else {
+          var items = [];
+          items.push(ReserveItem);
+
+          trip.reserveRecords.push({
+            locationId: LocationId,
+            reserveItem: items,
+          });
+        }
+        return {
+          ...state,
+          trip: trip,
+        };
+      } else {
+        var items = [];
+        items.push(ReserveItem);
+
+        trip.reserveRecords.push({
+          locationId: LocationId,
+          reserveItem: items,
+        });
+
+        return {
+          ...state,
+          trip: trip,
+        };
+      }
+    }
+  ),
   on(
     fromAction.UpdateReserveItem,
-    (state, { Id: Id, ReserveItem: ReserveItem }) => {
-      const Items: any = state.ReserveItem.filter((p: any) => {
+    (state, { LocationId: LocationId, Id: Id, ReserveItem: ReserveItem }) => {
+      var trip = JSON.parse(JSON.stringify(state.trip));
+      var reserveRecord = trip.reserveRecords.find((p: any) => {
+        return p.locationId === LocationId;
+      });
+
+      var Items = reserveRecord.reserveItem.filter((p: any) => {
         return p.id !== Id;
       });
       Items.push(ReserveItem);
+      reserveRecord.reserveItem = Items;
+      return {
+        ...state,
+        trip: trip,
+      };
+    }
+  ),
+
+  // on(fromAction.UpdatePet, (state, {LocationId: LocationId, Id: Id, ReserveItem: ReserveItem }) => {
+  //   // const Items: any = state.ReserveItem.filter((p: any) => {
+  //   //   return p.serviceLineId !== Id;
+  //   // });
+  //   // Items.push(ReserveItem);
+  //   return {
+  //     ...state,
+  //     ReserveItem: Items,
+  //   };
+  // }),
+
+  on(
+    fromAction.DeleteReserveItem,
+    (state, { LocationId: LocationId, Id: Id }) => {
+      var trip = JSON.parse(JSON.stringify(state.trip));
+      var reserveRecord = trip.reserveRecords.find((p: any) => {
+        return p.locationId === LocationId;
+      });
+
+      var Items = reserveRecord.reserveItem.filter((p: any) => {
+        return p.id !== Id;
+      });
+
+      reserveRecord.reserveItem = Items;
+
       return {
         ...state,
         ReserveItem: Items,
       };
     }
   ),
-  on(fromAction.UpdateSuite, (state, { Id: Id, ReserveItem: ReserveItem }) => {
-    const Items: any = state.ReserveItem.filter((p: any) => {
-      return p.serviceLineId !== Id;
-    });
-    Items.push(ReserveItem);
-    return {
-      ...state,
-      ReserveItem: Items,
-    };
-  }),
-  on(fromAction.UpdatePet, (state, { Id: Id, ReserveItem: ReserveItem }) => {
-    const Items: any = state.ReserveItem.filter((p: any) => {
-      return p.serviceLineId !== Id;
-    });
-    Items.push(ReserveItem);
-    return {
-      ...state,
-      ReserveItem: Items,
-    };
-  }),
-
-  on(fromAction.DeleteReserveItem, (state, { Id: Id }) => {
-    const Items = state.ReserveItem.filter((p: any) => {
-      return p.id !== Id;
-    });
-
-    return {
-      ...state,
-      ReserveItem: Items,
-    };
-  }),
 
   on(fromAction.SetStateFromStorage, (state, { oldState: state1 }) => {
     return {
       ...state,
-      LocationId: state1.LocationId,
-      FlightInfo: state1.FlightInfo,
+      trip: state1.trip,
+     
       ServiceLine: state1.ServiceLine,
-      ReserveItem: state1.ReserveItem,
+    
       contactId: state1.contactId,
       contactFullName: state1.contactFullName,
       contactPhone: state1.contactPhone,
@@ -116,39 +235,39 @@ export const reserveReducer = createReducer(
     };
   }),
 
-  on(
-    fromAction.UpdateVisaReserveItem,
-    (state, { ReserveItem: reserveItem }) => {
-      const Items: any = state.ReserveItem.filter((p: any) => {
-        return (
-          !p.visa ||
-          p.visa.relatedPassengerId !== reserveItem.visa?.relatedPassengerId
-        );
-      });
-      Items.push(reserveItem);
-      return {
-        ...state,
-        ReserveItem: Items,
-      };
-    }
-  ),
-  on(
-    fromAction.UpdateWheelchairReserveItem,
-    (state, { ReserveItem: reserveItem }) => {
-      const Items: any = state.ReserveItem.filter((p: any) => {
-        return (
-          !p.wheelchair ||
-          p.wheelchair.relatedPassengerId !==
-            reserveItem.wheelchair?.relatedPassengerId
-        );
-      });
-      Items.push(reserveItem);
-      return {
-        ...state,
-        ReserveItem: Items,
-      };
-    }
-  ),
+  // on(
+  //   fromAction.UpdateVisaReserveItem,
+  //   (state, { ReserveItem: reserveItem }) => {
+  //     const Items: any = state.ReserveItem.filter((p: any) => {
+  //       return (
+  //         !p.visa ||
+  //         p.visa.relatedPassengerId !== reserveItem.visa?.relatedPassengerId
+  //       );
+  //     });
+  //     Items.push(reserveItem);
+  //     return {
+  //       ...state,
+  //       ReserveItem: Items,
+  //     };
+  //   }
+  // ),
+  // on(
+  //   fromAction.UpdateWheelchairReserveItem,
+  //   (state, { ReserveItem: reserveItem }) => {
+  //     const Items: any = state.ReserveItem.filter((p: any) => {
+  //       return (
+  //         !p.wheelchair ||
+  //         p.wheelchair.relatedPassengerId !==
+  //           reserveItem.wheelchair?.relatedPassengerId
+  //       );
+  //     });
+  //     Items.push(reserveItem);
+  //     return {
+  //       ...state,
+  //       ReserveItem: Items,
+  //     };
+  //   }
+  // ),
   on(
     fromAction.SetCustomerId,
     (
@@ -161,29 +280,35 @@ export const reserveReducer = createReducer(
         clientReserveId: clientReserveId,
       }
     ) => {
+
+
+      var trip = JSON.parse(JSON.stringify(state.trip));
+     
+
+         trip.ContactId= contactId;
+         trip.contactFullName= contactFullName;
+         trip.contactPhone= contactPhone;
+         trip.contactAccountId= accountId;
+         trip.clientReserveId= clientReserveId;
+
+
       return {
         ...state,
-        contactId: contactId,
-        contactFullName: contactFullName,
-        contactPhone: contactPhone,
-        contactAccountId: accountId,
-        clientReserveId: clientReserveId,
+       trip:trip 
       };
     }
   ),
   on(fromAction.SetReserveFromApi, (state, { reserve: reserve }) => {
     return {
       ...state,
-      LocationId: reserve.locationId,
-      FlightInfo: reserve.flightInfo,
-      ReserveItem: reserve.reserveItems,
+ 
       contactId: reserve.contactId,
       contactFullName: reserve.contactFullName,
       contactPhone: reserve.contactPhone,
       contactAccountId: reserve.contactAccountId,
       clientReserveId: reserve.clientReserveId,
       id: reserve.id,
-      reserveNumber: reserve.reserveNumber,
+      trip:reserve
     };
   }),
   on(fromAction.ClearReserve, () => {
@@ -195,5 +320,8 @@ export const reserveReducer = createReducer(
       ...state,
       formMode: mode,
     };
+  }),
+  on(fromAction.addFakeTrip, (state) => {
+    return { ...state, trip: {} };
   })
 );

@@ -24,9 +24,9 @@ export class reserveEffect {
     );
   });
 
-  loadServiceLine$ = createEffect(() => {
+  loadArrivalServiceLine$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromAction.LoadServiceLineInReserve),
+      ofType(fromAction.LoadArrivalServiceLineInReserve),
       exhaustMap((action) => {
         return this.http
           .get<any>(
@@ -36,7 +36,25 @@ export class reserveEffect {
           )
           .pipe(
             map((location: any) =>
-              fromAction.SetServiceLine({ ServiceLine: location })
+              fromAction.setArrivalServiceLine({ ServiceLine: location })
+            )
+          );
+      })
+    );
+  });
+  loadDepartureServiceLine$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.LoadDepartureServiceLineInReserve),
+      exhaustMap((action) => {
+        return this.http
+          .get<any>(
+            `${environment.serviceLineAddress}/ServiceLine/Location/${
+              action.locationId
+            }?DateTime=${Moment(action.flightDate).format('yyyy/MM/DD')}`
+          )
+          .pipe(
+            map((location: any) =>
+              fromAction.setDepartureServiceLine({ ServiceLine: location })
             )
           );
       })
@@ -49,11 +67,7 @@ export class reserveEffect {
         ofType(fromAction.SaveState),
         tap((action: any) => {
           localStorage.setItem(
-            `reserve_${
-              action.state.LocationId.id
-                ? action.state.LocationId.id
-                : action.state.LocationId
-            }`,
+            `reserve`,
             JSON.stringify(action.state)
           );
         })
@@ -66,16 +80,17 @@ export class reserveEffect {
       ofType(fromAction.LoadReserveFromApi),
       exhaustMap((action) => {
         return this.http
-          .get<any>(`${environment.ReserveAddress}/Reserve/${action.reserveId}`)
+          .get<any>(`${environment.ReserveAddress}/Trip/${action.reserveId}`)
           .pipe(
             switchMap((reserve) => {
               return [
                 fromAction.SetReserveFromApi({ reserve: reserve }),
-                fromAction.LoadServiceLineInReserve({
-                  locationId: reserve.locationId,
-                  flightDate: reserve.flightInfo.flightDate,
-                }),
-                fromAction.LoadLocation({ locationId: reserve.locationId }),
+
+                // fromAction.LoadServiceLineInReserve({
+                //   locationId: reserve.locationId,
+                //   flightDate: reserve.flightInfo.flightDate,
+                // }),
+                // fromAction.LoadLocation({ locationId: reserve.locationId }),
               ];
             })
           );

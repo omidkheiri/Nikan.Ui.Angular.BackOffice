@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
     private store: Store<fromAuth.AuthModuleState>,
     private loggingService: LoggingService
   ) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.setDefaultLang('fa');
+    translate.use('fa');
   }
   ngOnInit(): void {
     this.store.dispatch(authAction.AutoLogin());

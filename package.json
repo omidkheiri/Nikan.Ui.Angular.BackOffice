@@ -22,6 +22,7 @@
     "@maaxgr/ang-jsoneditor": "^14.0.0",
     "@ngrx/effects": "^14.3.2",
     "@ngrx/store": "^14.3.2",
+    "@ngrx/store-devtools": "^16.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "ang-jsoneditor": "^2.0.0",

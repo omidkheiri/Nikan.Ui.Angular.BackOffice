@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
-import { ReserveItem } from '../models/reserve.model';
+import { ReserveItem } from "../models/ReserveItem";
 @Component({
   selector: 'app-suite-item',
   templateUrl: './suite-item.component.html',

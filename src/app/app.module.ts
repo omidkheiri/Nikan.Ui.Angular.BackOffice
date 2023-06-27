@@ -38,6 +38,8 @@ import { ServiceLineEffect } from './crm/accounts/account/supplier/services/stor
 import { LocationListComponent } from './layouts/master/location-list/location-list.component';
 import { MenuDirective } from './layouts/master/header/shared/menu.directive';
 import { reserveEffect } from './reservation/store/reserve.effect';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 export const metaReducers: MetaReducer<any>[] = [debug];
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -76,6 +78,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     DxSelectBoxModule,
     DxNumberBoxModule,
     StoreModule.forRoot(appReducer),
+
     EffectsModule.forRoot([
       reserveEffect,
       AccountEffect,

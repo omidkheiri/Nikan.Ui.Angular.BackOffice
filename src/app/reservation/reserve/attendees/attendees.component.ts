@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ReserveItem } from '../models/reserve.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { ReserveItem } from '../models/ReserveItem';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
@@ -10,15 +10,18 @@ import ArrayStore from 'devextreme/data/array_store';
   styleUrls: ['./attendees.component.css'],
 })
 export class AttendeesComponent implements OnInit {
-  Attendance: ReserveItem[];
+  @Input() locationId: string;
+  @Input() type: string;
+  Attendance: ReserveItem[] | any = [];
   store$: any;
   genderSource: ArrayStore;
-  attendancePricelLine: any;
+  attendancePriceLine: any;
   genderTypes = [
     { value: '0', label: 'خانم' },
     { value: '1', label: 'آقا' },
   ];
   currentState: any;
+  state: any;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.genderSource = new ArrayStore({
       key: 'value',
@@ -26,8 +29,8 @@ export class AttendeesComponent implements OnInit {
     });
     this.store$ = store.select<any>('reserve');
   }
-  onSaved(saveedData: any) {
-    let item = saveedData.changes[0];
+  onSaved(savedData: any) {
+    let item = savedData.changes[0];
 
     if (item.type === 'insert') {
       this.saveNew(item.data);
@@ -36,13 +39,14 @@ export class AttendeesComponent implements OnInit {
   ItemRemoved(item: any) {
     this.store.dispatch(
       fromAction.DeleteReserveItem({
+        LocationId: this.locationId,
         Id: item.key,
       })
     );
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.state,
       })
     );
   }
@@ -56,18 +60,18 @@ export class AttendeesComponent implements OnInit {
         lastName: item.attendee.lastName,
       },
 
-      serviceLineId: this.attendancePricelLine.id,
-      serviceLineTitle: this.attendancePricelLine.title,
-      unitPrice: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceLineId: this.attendancePriceLine[0].id,
+      serviceLineTitle: this.attendancePriceLine[0].title,
+      unitPrice: this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceQty: 1,
-      serviceTypeId: this.attendancePricelLine.serviceTypeId,
-      serviceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceTypeId: this.attendancePriceLine[0].serviceTypeId,
+      serviceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
       discountPercent: 0,
       discountValue: 0,
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceAdvanceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       passenger: null,
@@ -76,16 +80,19 @@ export class AttendeesComponent implements OnInit {
       wheelchair: null,
       suite: null,
       meetingRoom: null,
-      pet: null
+      pet: null,
     };
 
     this.store.dispatch(
-      fromAction.SaveReserveItem({ ReserveItem: itemForSave })
+      fromAction.SaveReserveItem({
+        LocationId: this.locationId,
+        ReserveItem: itemForSave,
+      })
     );
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.state,
       })
     );
   }
@@ -105,18 +112,18 @@ export class AttendeesComponent implements OnInit {
           : item.oldData.attendee.lastName,
       },
 
-      serviceLineId: this.attendancePricelLine.id,
-      serviceLineTitle: this.attendancePricelLine.title,
-      unitPrice: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceLineId: this.attendancePriceLine[0].id,
+      serviceLineTitle: this.attendancePriceLine[0].title,
+      unitPrice: this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceQty: 1,
-      serviceTypeId: this.attendancePricelLine.serviceTypeId,
-      serviceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceTypeId: this.attendancePriceLine[0].serviceTypeId,
+      serviceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
       discountPercent: 0,
       discountValue: 0,
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.attendancePricelLine.serviceLinePrices[0].price,
+      serviceAdvanceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       passenger: null,
@@ -125,11 +132,12 @@ export class AttendeesComponent implements OnInit {
       wheelchair: null,
       suite: null,
       meetingRoom: null,
-      pet: null
+      pet: null,
     };
 
     this.store.dispatch(
       fromAction.UpdateReserveItem({
+        LocationId: this.locationId,
         Id: itemForSave.id ? itemForSave.id : '',
         ReserveItem: itemForSave,
       })
@@ -137,24 +145,43 @@ export class AttendeesComponent implements OnInit {
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.state,
       })
     );
   }
   ngOnInit(): void {
     this.store$.subscribe((sub: any) => {
-      this.currentState = sub.reserve;
-      if (sub.reserve.ReserveItem) {
-        this.Attendance = sub.reserve.ReserveItem.filter((r: any) => {
+      this.state = sub.reserve;
+
+      this.currentState = sub.reserve.trip.reserveRecords.find((data: any) => {
+        return data.locationId == this.locationId;
+      });
+      if (this.currentState && this.currentState.reserveItem) {
+        this.Attendance = this.currentState.reserveItem.filter((r: any) => {
           return r.serviceTypeId === 2;
         });
-        if (sub.reserve.ServiceLine) {
-          this.attendancePricelLine = sub.reserve.ServiceLine.filter(
-            (r: any) => {
-              return r.serviceTypeId === 2;
-            }
-          )[0];
-        }
+      }
+      if (
+        this.type === 'Departure' &&
+        sub.reserve &&
+        sub.reserve.departureServiceLine
+      ) {
+        this.attendancePriceLine = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 2;
+          }
+        );
+      }
+      if (
+        this.type === 'Arrival' &&
+        sub.reserve &&
+        sub.reserve.arrivalServiceLine
+      ) {
+        this.attendancePriceLine = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 2;
+          }
+        );
       }
     });
   }

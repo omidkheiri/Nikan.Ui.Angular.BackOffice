@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import * as fromStore from '../store';
 import * as fromAction from '../store/reserve.action';
+import { Trip } from './models/Trip';
+import { from } from 'jalali-moment';
 @Component({
   selector: 'app-reserve',
   templateUrl: './reserve.component.html',
@@ -18,6 +20,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
   item: any;
   reserveNumber: any;
   Status: any;
+  trip: Trip|any;
   constructor(
     private route: ActivatedRoute,
     private store: Store<fromStore.ReserveModuleState>
@@ -26,7 +29,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
  
   }
   ngOnDestroy(): void {
-    localStorage.removeItem(`reserve_${this.id}`);
+    localStorage.removeItem(`reserve`);
   }
   getStyle(item: any) {
     switch (item) {
@@ -82,22 +85,35 @@ export class ReserveComponent implements OnInit, OnDestroy {
 
 
 
+
+
+
     this.store$.subscribe((sub) => {
+console.log(sub.reserve);
+
+this.trip=sub.reserve.trip;
+
       this.reserveNumber = sub.reserve.reserveNumber;
       this.Status = sub.reserve.reserveStatus;
       
-      this.store.dispatch(fromAction.LoadLocation({ locationId: sub.reserve.LocationId }));
+     
       if(sub.reserve.LocationId&&sub.reserve.LocationId.id){
       this.location = sub.reserve.LocationId;
       }
-      this.item = sub.reserve.ReserveItem.find((r: any) => {
-        return r.serviceTypeId === 4;
-      });
+      // this.item = sub.reserve.ReserveItem.find((r: any) => {
+      //   return r.serviceTypeId === 4;
+      // });
     });
 
 
+if(localStorage.getItem("reserve")){
+console.log(localStorage.getItem("reserve"));
+var reserve=localStorage.getItem("reserve")+"";
 
 
+  this.store.dispatch(fromAction.SetStateFromStorage({oldState:JSON.parse(reserve)}));
+
+}
 
 
 
@@ -117,12 +133,12 @@ export class ReserveComponent implements OnInit, OnDestroy {
           );
           
         } else {
-          localStorage.removeItem(`reserve_${this.id}`);
+          localStorage.removeItem(`reserve`);
           this.store.dispatch(fromAction.ClearReserve());
-          this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+          //this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
         }
       
-      this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+    //  this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
     });
   }
 }

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { FlightInfo, ReserveItem } from '../reserve/models/reserve.model';
+import { FlightInfo } from "../reserve/models/FlightInfo";
+import { ReserveItem } from "../reserve/models/ReserveItem";
 
 export const LoadStateFromStorage = createAction(
   '[Reserve Page] Load State From Storage',
@@ -27,22 +28,39 @@ export const SetFlightInfo = createAction(
   '[FlightInfo Component] set FlightInfo',
   props<{ FlightInfo: any }>()
 );
+export const SetArrivalLocation = createAction(
+  '[FlightInfo Component] Set Arrival Location',
+  props<{oldLocationValue:string, FlightInfo: any }>()
+);
+export const SetDepartureLocation = createAction(
+  '[FlightInfo Component] Set Departure Location',
+  props<{oldLocationValue:string, FlightInfo: any }>()
+);
 
-export const SetServiceLine = createAction(
-  '[FlightInfo Component] set ServiceLine',
+
+export const setDepartureServiceLine = createAction(
+  '[Reserve DepartureServiceLine Component] set Departure ServiceLine',
   props<{ ServiceLine: any }>()
 );
-export const LoadServiceLineInReserve = createAction(
-  '[FlightInfo Component] load ServiceLine',
+export const setArrivalServiceLine = createAction(
+  '[Reserve ArrivalServiceLine Component] set Arrival ServiceLine',
+  props<{ ServiceLine: any }>()
+);
+export const LoadDepartureServiceLineInReserve = createAction(
+  '[FlightInfo Component] load Departure ServiceLine',
+  props<{ locationId: string; flightDate: any }>()
+);
+export const LoadArrivalServiceLineInReserve = createAction(
+  '[FlightInfo Component] Load Arrival ServiceLine In Reserve',
   props<{ locationId: string; flightDate: any }>()
 );
 export const SaveReserveItem = createAction(
   '[Reserve Component] Save Reserve Item',
-  props<{ ReserveItem: ReserveItem }>()
+  props<{LocationId:string, ReserveItem: ReserveItem }>()
 );
 export const UpdateReserveItem = createAction(
   '[Reserve Component] Update Reserve Item',
-  props<{ Id: string; ReserveItem: ReserveItem }>()
+  props<{LocationId:string; Id: string; ReserveItem: ReserveItem }>()
 );
 export const UpdateSuite = createAction(
   '[Reserve Component] Update Suite',
@@ -50,12 +68,12 @@ export const UpdateSuite = createAction(
 );
 export const UpdatePet = createAction(
   '[Reserve Component] Update Pet',
-  props<{ Id: string; ReserveItem: ReserveItem }>()
+  props<{LocationId:string, Id: string; ReserveItem: ReserveItem }>()
 );
 
 export const DeleteReserveItem = createAction(
   '[Reserve Component] Delete Reserve Item',
-  props<{ Id: string }>()
+  props<{LocationId:string; Id: string }>()
 );
 export const UpdateWheelchairReserveItem = createAction(
   '[Reserve Component] Update Wheelchair Reserve Item',
@@ -87,4 +105,7 @@ export const ClearReserve = createAction('[Reserve Component] Clear Reserve');
 export const SetReserveMode = createAction(
   '[Reserve Component] SetReserveMode',
   props<{ mode: string }>()
+);
+export const  addFakeTrip=createAction(
+  '[Reserve Component] addFakeTrip'
 );

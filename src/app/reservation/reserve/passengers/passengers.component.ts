@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
-import { ReserveItem } from '../models/reserve.model';
+import { ReserveItem } from "../models/ReserveItem";
 @Component({
   selector: 'app-passengers',
   templateUrl: './passengers.component.html',
@@ -10,10 +10,16 @@ import { ReserveItem } from '../models/reserve.model';
 })
 export class PassengersComponent implements OnInit {
   @ViewChild('passengerForm') passengerForm: Component;
+  @Input() locationId:string;
+  @Input() type:string;
   store$: any;
   passenger: ReserveItem[];
+  reserveRecord: any;
+  PassengerServiceList: any;
   currentState: any;
-  PasssengerServiceList: any;
+  serviceList: any;
+  serviceListVisa: any;
+  serviceListWheelchair: any;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
   }
@@ -27,9 +33,10 @@ export class PassengersComponent implements OnInit {
   cloneIconClick(event: any) {}
   ngOnInit(): void {
     this.store$.subscribe((sub: any) => {
-      this.currentState = sub.reserve;
-      if (sub.reserve.ReserveItem) {
-        this.passenger = sub.reserve.ReserveItem.filter((r: any) => {
+
+      this.reserveRecord = sub.reserve.trip.reserveRecords.find((data:any)=>{return data.locationId==this.locationId});
+      if (this.reserveRecord&&this.reserveRecord.reserveItem) {
+        this.passenger = this.reserveRecord.reserveItem.filter((r: any) => {
           return r.serviceTypeId === 1;
         }).map((data: any) => ({
           id: data.id,
@@ -45,34 +52,74 @@ export class PassengersComponent implements OnInit {
           nationality: data.passenger.nationality,
         }));
       }
-      if (sub.reserve.ServiceLine) {
-        this.PasssengerServiceList = sub.reserve.ServiceLine.filter(
-          (r: any) => {
-            return r.serviceTypeId === 1;
+      this.currentState = sub.reserve;
+      if (
+        this.type === 'Departure' &&
+        sub.reserve &&
+        sub.reserve.departureServiceLine
+      ) {
+        this.serviceList = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 1;
           }
         );
+        this.serviceListVisa = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 5;
+          }
+        );
+        this.serviceListWheelchair = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 8;
+          }
+        );
+
+      
+      }
+      if(
+        this.type === 'Arrival' &&
+        sub.reserve &&
+        sub.reserve.arrivalServiceLine
+      ){
+        this.serviceList = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 1;
+          }
+        );
+        this.serviceListVisa = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 5;
+          }
+        );
+        this.serviceListWheelchair = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 8;
+          }
+        );
+
+       
       }
     });
   }
   ItemRemoved(item: any) {
-    this.store.dispatch(
-      fromAction.DeleteReserveItem({
-        Id: item.key,
-      })
-    );
+    // this.store.dispatch(
+    //   fromAction.DeleteReserveItem({
+    //     Id: item.key,
+    //   })
+    // );
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.reserveRecord,
       })
     );
   }
   delete(id: any) {
-    this.store.dispatch(fromAction.DeleteReserveItem({ Id: id }));
+    this.store.dispatch(fromAction.DeleteReserveItem({LocationId: this.locationId ,Id: id }));
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.reserveRecord,
       })
     );
   }

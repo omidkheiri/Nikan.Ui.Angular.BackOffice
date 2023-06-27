@@ -130,12 +130,12 @@ export class ReserveListComponent implements OnInit {
   }
   onNavigateToReserve(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Reserve/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Reserve/${item.data.tripId}`,
     ]);
   }
   onNavigateToPayment(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Payment/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Payment/${item.data.tripId}`,
     ]);
   }
 }

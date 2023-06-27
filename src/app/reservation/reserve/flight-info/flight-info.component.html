@@ -1,7 +1,7 @@
-<div class="statbox widget box">
+<div class="statbox widget box" *ngIf="flightInfoForm">
   <div class="widget-content widget-content-area">
     <div
-      *ngIf="flightInfo"
+      *ngIf="trip&&trip.flightInfo"
       class="row "
       style="direction: ltr"
     >
@@ -9,18 +9,18 @@
         <div class="row m-2">
           <div class="col">
             <span
-              >Airline: <b>{{ flightInfo.airlineName }}</b></span
+              >Airline: <b>{{ trip.flightInfo.airlineName }}</b></span
             >
           </div>
           <div class="col">
             <span
-              >Flight Name: <b>{{ flightInfo.flightName }}</b></span
+              >Flight Name: <b>{{ trip.flightInfo.flightName }}</b></span
             >
           </div>
           <div class="col">
             <span
               >Flight Date:<b>{{
-                flightInfo.flightDate | date : "yyyy/MM/dd"
+                trip.flightInfo.flightDate | date : "yyyy/MM/dd"
               }}</b></span
             >
           </div>
@@ -32,29 +32,17 @@
               <nav class="" style="direction: ltr; text-align: right;">
                 <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">Location :<strong>{{ DepartureLocation.title }}</strong> </p></div>
 
-                <!-- <ol class="breadcrumb">
-                
-                  <li
-                    style="margin-right: 30px"
-                    *ngIf="reserveNumber"
-                    class="breadcrumb-item"
-                  >
-                    کد رزرو <strong class="text-danger">{{ reserveNumber }}</strong>
-                  </li> -->
-                  <!-- <li style="margin-right: 30px" *ngIf="Status" class="breadcrumb-item">
-                    <strong [class]="getStyle(Status)">{{ getStatus(Status) }}</strong>
-                  </li> 
-                </ol> -->
+             
               </nav>
               <p style="
               text-align: right;
               width: 100%;
          font-size: 10px;
-          ">{{ flightInfo.departureCity }}</p>
+          ">{{ trip.flightInfo.departureCity }}</p>
               <p
-                >{{ flightInfo.departureAirport
+                >{{ trip.flightInfo.departureAirport
                 }}<span><code> time </code></span
-                ><b>{{ flightInfo.departureTime }}</b></p
+                ><b>{{ trip.flightInfo.departureTime }}</b></p
               >
             </blockquote>
           </div>
@@ -85,10 +73,10 @@
               text-align: right;
               width: 100%;
               font-size: 10px;
-          ">{{ flightInfo.arrivalAirport }}</p>
+          ">{{ trip.flightInfo.arrivalAirport }}</p>
               <p
-                >{{ flightInfo.arrivalCity }}<span><code> time </code></span
-                ><b>{{ flightInfo.arrivalTime }}</b></p>
+                >{{ trip.flightInfo.arrivalCity }}<span><code> time </code></span
+                ><b>{{ trip.flightInfo.arrivalTime }}</b></p>
             </blockquote>
           </div>
         </div>
@@ -101,7 +89,7 @@
 
 
 
-        <div class="col" style="
+        <div class="col-6" style="
         text-align: left;font-size: 12px;
     ">
           <label
@@ -122,9 +110,9 @@
 
 
 
-        <div class="col" style="
+        <div class="col-6" style="
         text-align: left;font-size: 12px;
-    ">
+    " *ngIf="flightInfoForm.controls.flightDate.value" >
           <label for="input"
             >{{ "ReservePage.FlightInfoForm.FlightNumber" | translate }}
           </label>
@@ -135,80 +123,24 @@
            
             [searchEnabled]="true"
             formControlName="flightName"
+           
             (onSelectionChanged)="flightNumberChanged($event)"
           ></dx-select-box>
         </div>
-        <!-- <div class="col" style="
-        text-align: right;
-    ">
-          <label for="input">{{
-            "ReservePage.FlightInfoForm.flightType" | translate
-          }}</label>
-
-          <dx-select-box
-            [dataSource]="flightTypeSource"
-            displayExpr="label"
-            valueExpr="value"
-            name="flightType"
-            id="flightType"
-            #flightType
-            formControlName="flightType"
-            (onSelectionChanged)="flightTypeChanged($event)"
-          ></dx-select-box>
-        </div> -->
-
-
-
-
-        <!-- <div class="col" style="
-        text-align: right;
-    ">
-          <label for="input">محل ارائه سرویس</label>
-
-          <dx-select-box
-            [dataSource]="ArrivalLocations"
-            displayExpr="title"
-            valueExpr="id"
-            name="locationId"
-            id="locationId"
-          
-            formControlName="locationId"
-            (onSelectionChanged)="locationChanged($event)"
-          ></dx-select-box>
-        </div>
-
-     
-        <div class="col" style="
-        text-align: right;
-    ">
-          <label
-            for="input"
-            style="text-align: left; direction: ltr; width: 100%"
-            ><span *ngIf="flightType.value === 1">{{
-              "ReservePage.FlightInfoForm.DepartureFlightTime" | translate
-            }}</span>
-            <span *ngIf="flightType.value === 0">{{
-              "ReservePage.FlightInfoForm.ArrivalFlightTime" | translate
-            }}</span> </label
-          ><input
-            type="text" (onchange)="updateFlightTime($event)"
-            class="form-control"
-            placeholder="ساعت ورود"
-            formControlName="flightTime"
-          />
-        </div> -->
+       
 </div>
 
     </form>
   
     
-<div class="row mt-3" *ngIf="this.flightInfo">
+<div class="row mt-3" *ngIf="trip&&trip.flightInfo">
 
 <div class="col-6" style="direction: ltr;">
   <p style="
   text-align: justify;font-size: 12px;
-">ِDeparture Location</p>
-  <app-location-options [id]="'Departure'" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
+">Departure Location</p>
+
+  <app-location-options [id]="'Departure'" [Value]="departureLocation" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
 
 
   
@@ -218,7 +150,8 @@
 <p style="
 text-align: justify;font-size: 12px;
 ">Arrival Location</p>
- <app-location-options [Type]="'Arrival'" [id]="'Arrival'" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
+
+ <app-location-options [Type]="'Arrival'" [id]="'Arrival'" [Value]="arrivalLocation" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
 
 
 </div>

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
-import { ReserveItem } from '../models/reserve.model';
+import { ReserveItem } from "../models/ReserveItem";
 @Component({
   selector: 'app-pet-service',
   templateUrl: './pet-service.component.html',
@@ -10,21 +10,25 @@ import { ReserveItem } from '../models/reserve.model';
 })
 export class PetServiceComponent implements OnInit {
   @Input('item') item: any;
-
+  @Input() locationId:string;
+  @Input() type:string;
   store$: any;
   currentState: any;
   PetPriceList: any;
   petNumber = 0;
+  state: any;
+  save: boolean=false;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
   }
 
   PetNo: any;
   updatePet($event: any) {
+    
     if (!this.PetPriceList) {
       return;
     }
-
+    this.save=true;
     let itemForSave: ReserveItem = {
       id: this.PetPriceList[0].id,
       pet: { qty: $event.value },
@@ -52,16 +56,19 @@ export class PetServiceComponent implements OnInit {
       meetingRoom: null
     };
 
+
     this.store.dispatch(
-      fromAction.UpdatePet({
+      fromAction.UpdateReserveItem({LocationId:this.locationId,
         Id: this.PetPriceList[0].id,
         ReserveItem: itemForSave,
       })
+
     );
+    
 
     this.store.dispatch(
       fromAction.SaveState({
-        state: this.currentState,
+        state: this.state,
       })
     );
   }
@@ -69,12 +76,52 @@ export class PetServiceComponent implements OnInit {
   ngOnInit(): void {
     this.PetNo = this.item;
     this.store$.subscribe((sub: any) => {
-      this.currentState = sub.reserve;
-      if (sub.reserve.ServiceLine) {
-        this.PetPriceList = sub.reserve.ServiceLine.filter((r: any) => {
+     
+     
+      this.state = sub.reserve;
+    
+      this.currentState = sub.reserve.trip.reserveRecords.find((data: any) => {
+        return data.locationId == this.locationId;
+      });
+      if (this.currentState && this.currentState.reserveItem) {
+        this.PetNo = this.currentState.reserveItem.find((r: any) => {
           return r.serviceTypeId === 4;
         });
+        console.log("HHHHHHHHHHHHH",this.PetNo);
+        if(!this.save){
+        this.petNumber=this.PetNo?this.PetNo.pet.qty:0;
+        }
       }
+
+
+
+      if (
+        this.type === 'Departure' &&
+        sub.reserve &&
+        sub.reserve.departureServiceLine
+      ) {
+        this.PetPriceList = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 4;
+          }
+        );
+      }
+      if (
+        this.type === 'Arrival' &&
+        sub.reserve &&
+        sub.reserve.arrivalServiceLine
+      ) {
+        this.PetPriceList = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 4;
+          }
+        );
+      }
+
+    
+
+
+
     });
   }
 }
