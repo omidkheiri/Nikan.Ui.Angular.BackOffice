@@ -3,7 +3,7 @@
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div
-      *ngIf="reserveRecord && reserveRecord.reserveNumber"
+      *ngIf="trip && trip.tripCode"
       class="widget widget-table-two"
     >
       <div class="widget-content searchable-container list">
@@ -12,7 +12,7 @@
             <div class="item-content">
               <div class="user-location">
                 <div class="user-meta-info">
-                  <button (click)="navtoPrint(reserveRecord.id)"  class="btn btn-primary">
+                  <button (click)="navtoPrint(trip.id)"  class="btn btn-primary">
                     <div class="icon-container">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -42,29 +42,29 @@
                   <p class="user-name text-center">کد</p>
                   <p
                     class="user-work"
-                    data-occupation="reserveRecord.reserveNumber"
+                    data-occupation="trip.reserveNumber"
                     style="border-bottom: 1px solid"
                   >
-                    {{ reserveRecord.reserveNumber }}
+                    {{ trip.reserveNumber }}
                   </p>
                 </div>
               </div>
               <div class="user-location">
                 <p class="info-title">نام مشتری</p>
                 <p class="usr-email-addr" style="border-bottom: 1px solid">
-                  {{ reserveRecord.contactFullName }}
+                  {{ trip.contactFullName }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">شماره موبایل</p>
                 <p class="usr-location" style="border-bottom: 1px solid">
-                  {{ reserveRecord.contactPhone }}
+                  {{ trip.contactPhone }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">محل ارائه سرویس</p>
                 <p class="usr-ph-no" style="border-bottom: 1px solid">
-                  {{ reserveRecord.locationTitle }}
+                  {{ trip.locationTitle }}
                 </p>
               </div>
               <div class="user-profile">
@@ -72,11 +72,11 @@
                   <p class="user-name text-center">شماره پرواز</p>
                   <p
                     class="user-work text-info"
-                    data-occupation="reserveRecord.reserveNumber"
+                    data-occupation="trip.reserveNumber"
                     style="border-bottom: 1px solid"
                   >
-                    {{ reserveRecord.flightInfo.airlineName }}
-                    <strong> {{ reserveRecord.flightInfo.flightName }}</strong>
+                    {{ trip.flightInfo.airlineName }}
+                    <strong> {{ trip.flightInfo.flightName }}</strong>
                   </p>
                 </div>
               </div>
@@ -87,11 +87,11 @@
                   style="direction: ltr; border-bottom: 1px solid"
                 >
                   {{
-                    reserveRecord.flightInfo.flightDate
+                    trip.flightInfo.flightDate
                       | date : "yyyy-MM-dd HH:mm"
                   }}{{ "-" }}
                   {{
-                    reserveRecord.flightInfo.flightType === 0
+                    trip.flightInfo.flightType === 0
                       ? "ورودی"
                       : "خروجی"
                   }}
@@ -100,13 +100,13 @@
               <div class="user-location">
                 <p class="info-title">فرودگاه مبدا</p>
                 <p class="user-location" style="border-bottom: 1px solid">
-                  {{ reserveRecord.flightInfo.arrivalAirport }}
+                  {{ trip.flightInfo.arrivalAirport }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">فرودگاه مقصد</p>
                 <p class="user-location" style="border-bottom: 1px solid">
-                  {{ reserveRecord.flightInfo.departureAirport }}
+                  {{ trip.flightInfo.departureAirport }}
                 </p>
               </div>
             </div>
@@ -125,34 +125,34 @@
       <div class="widget-content searchable-container list">
         <div class="searchable-items list">
           <div class="items">
-            <div class="item-content">
+            <div class="item-content" *ngIf="trip">
               <!-- <div class="user-profile">
                 <div class="user-meta-info">
                   <p class="user-name text-center">کد</p>
                   <p
                     class="user-work"
-                    data-occupation="reserveRecord.reserveNumber"
+                    data-occupation="trip.reserveNumber"
                   >
-                    {{ reserveRecord.reserveNumber }}
+                    {{ trip.reserveNumber }}
                   </p>
                 </div>
               </div> -->
               <div class="user-location">
                 <p class="info-title">جمع</p>
                 <p class="usr-email-addr">
-                  {{ reserveRecord.total | number }}
+                  {{ trip.total | number }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">تخفیف</p>
                 <p class="usr-location">
-                  {{ reserveRecord.discountValue | number }}
+                  {{ trip.discountValue | number }}
                 </p>
               </div>
               <div class="user-location">
                 <p class="info-title">مالیات</p>
                 <p class="usr-ph-no">
-                  {{ reserveRecord.taxTotal | number }}
+                  {{ trip.taxTotal | number }}
                 </p>
               </div>
               <div class="user-profile">
@@ -160,9 +160,9 @@
                   <p class="user-name text-center">پرداخت شده</p>
                   <p
                     class="user-work text-success"
-                    data-occupation="reserveRecord.reserveNumber"
+                    data-occupation="trip.reserveNumber"
                   >
-                    {{ reserveRecord.paid | number }}
+                    {{ trip.paid | number }}
                   </p>
                 </div>
               </div>
@@ -171,16 +171,16 @@
                   <p class="user-name text-center">قابل پرداخت</p>
                   <p
                     class="user-work"
-                    data-occupation="reserveRecord.reserveNumber"
+                    data-occupation="trip.reserveNumber"
                   >
-                    {{ reserveRecord.billable | number }}
+                    {{ trip.billable | number }}
                   </p>
                 </div>
               </div>
               <div class="user-location">
                 <p class="info-title">باقی مانده</p>
                 <p class="usr-email-addr text-danger" style="direction: ltr">
-                  {{ reserveRecord.remainig | number }}
+                  {{ trip.remaining | number }}
                 </p>
               </div>
               <div class="user-location">
@@ -191,7 +191,7 @@
               </div>
               <div class="user-location">
                 <button
-                  *ngIf="reserveRecord.remainig > 0"
+                  *ngIf="trip.remaining > 0"
                   (click)="AddPayment()"
                   class="btn btn-dark"
                 >
@@ -200,11 +200,11 @@
               </div>
               <div class="user-location">
                 <button
-                  (click)="PayfromAccount()"
+                  (click)="PayFromAccount()"
                   *ngIf="
                     account &&
-                    account.balance >= reserveRecord.remainig &&
-                    reserveRecord.remainig > 0
+                    account.balance >= trip.remaining &&
+                    trip.remaining > 0
                   "
                   class="btn btn-dark"
                 >
@@ -226,10 +226,10 @@
         <h5 style="text-align: right">پرداختها</h5>
       </div>
 
-      <div class="widget-content">
+      <div class="widget-content" *ngIf="trip&& trip.financialPayments">
         <dx-data-grid
           id="gridContainer"
-          [dataSource]="reserveRecord.financialPayments"
+          [dataSource]="trip.financialPayments"
           keyExpr="dateIssue"
           [showColumnLines]="true"
           [showRowLines]="true"
@@ -266,15 +266,20 @@
 
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div class="widget widget-table-two" style="padding: 20px">
+    <div class="widget widget-table-two" style="padding: 20px" *ngIf="trip &&trip.reserveRecords">
       <div class="widget-heading">
         <h5 style="text-align: right">جزئیات رزرو</h5>
       </div>
 
-      <div class="widget-content">
+
+
+      <div *ngFor="let reserveRecord of trip.reserveRecords" class="widget-content">
+<hr/>
+      <p> Service Location: {{ getLocationTitle(reserveRecord.locationId)}}</p>
+
         <dx-data-grid
           id="gridContainer"
-          [dataSource]="reserveRecord.reserveItems"
+          [dataSource]="reserveRecord.reserveItem"
           keyExpr="id"
           [showColumnLines]="true"
           [showRowLines]="true"
@@ -341,7 +346,7 @@
   </div>
 </div>
 <dx-popup
-  *ngIf="reservevalue"
+  *ngIf="tripValue"
   [width]="'40vw'"
   [height]="'60vh'"
   [showTitle]="true"
@@ -355,7 +360,7 @@
   <dx-scroll-view width="100%" height="100%">
     <app-add-payment
       (paymentEvent)="recivePayment($event)"
-      [reserveRecord]="reservevalue"
+      [trip]="tripValue"
     ></app-add-payment>
   </dx-scroll-view>
 </dx-popup>

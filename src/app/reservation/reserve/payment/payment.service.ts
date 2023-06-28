@@ -12,7 +12,7 @@ export class PaymentService {
 
   getReserve(item: string) {
     return this.httpClient.get<any>(
-      `${environment.ReserveAddress}/reserve/${item}`
+      `${environment.ReserveAddress}/trip/${item}`
     );
   }
   getAccount(contactId: string) {

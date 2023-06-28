@@ -77,14 +77,14 @@
         ><input
           type="text"
           class="form-control"
-          id="RefrenceId"
-          name="RefrenceId"
-          #RefrenceId
+          id="ReferenceId"
+          name="ReferenceId"
+          #ReferenceId
           ngModel
           placeholder="کد مرجع"
         />
         <div
-          *ngIf="submited && !RefrenceId.value"
+          *ngIf="submited && !ReferenceId.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -102,7 +102,7 @@
           name="Amount"
           #Amount
           placeholder="مبلغ"
-          [ngModel]="reserveRecord.remainig"
+          [ngModel]="trip.remainig"
         />
         <div
           *ngIf="submited && !DateIssue.value"

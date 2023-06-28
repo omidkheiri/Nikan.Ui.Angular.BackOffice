@@ -78,21 +78,25 @@ export class FlightInfoComponent
   ngOnInit(): void {
     this.store$.subscribe((sub) => {
       this.trip = sub.reserve.trip;
+
+      if (sub.reserve.trip.flightInfo.flightDate) {
+        this.flightInfoForm.controls.flightDate.setValue(
+          sub.reserve.trip.flightInfo.flightDate
+        );
+      }
+      if (sub.reserve.trip.flightInfo.flightName) {
+        this.flightInfoForm.controls.flightName.setValue(
+          sub.reserve.trip.flightInfo.id
+        );
+      }
+      
       if (
         !sub.reserve.arrivalServiceLine ||
         !sub.reserve.departureServiceLine
       ) {
         if (sub.reserve.trip && sub.reserve.trip.flightInfo) {
-          if (sub.reserve.trip.flightInfo.flightDate) {
-            this.flightInfoForm.controls.flightDate.setValue(
-              sub.reserve.trip.flightInfo.flightDate
-            );
-          }
-          if (sub.reserve.trip.flightInfo.flightName) {
-            this.flightInfoForm.controls.flightName.setValue(
-              sub.reserve.trip.flightInfo.id
-            );
-          }
+       
+         
 
           if (sub.reserve.trip.flightInfo.arrivalLocationId) {
            
