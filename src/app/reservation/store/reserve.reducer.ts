@@ -213,7 +213,7 @@ trip.reserveRecords=[];
 
       return {
         ...state,
-        ReserveItem: Items,
+        trip: trip,
       };
     }
   ),
@@ -283,7 +283,9 @@ trip.reserveRecords=[];
 
 
       var trip = JSON.parse(JSON.stringify(state.trip));
-     
+     if(!trip){
+      trip={};
+     }
 
          trip.ContactId= contactId;
          trip.contactFullName= contactFullName;

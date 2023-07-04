@@ -11,17 +11,17 @@
 
     <div *ngIf="this.trip&&this.trip.flightInfo&&this.trip.flightInfo.departureLocationId">
       
-      <app-passengers [type]="'Departure'"  [locationId]="this.trip.flightInfo.departureLocationId"></app-passengers>
-      <app-attendees [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-attendees>
-      <app-transfer [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-transfer>
-      <app-pet-service [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-pet-service>
+      <app-passengers   *ngIf="hasDeparturePassenger"          [type]="'Departure'"  [locationId]="this.trip.flightInfo.departureLocationId"></app-passengers>
+      <app-attendees    *ngIf="hasDepartureAttendance"          [type]="'Departure'"   [locationId]="this.trip.flightInfo.departureLocationId"></app-attendees>
+      <app-transfer     *ngIf="hasDepartureTransfer"          [type]="'Departure'"    [locationId]="this.trip.flightInfo.departureLocationId"></app-transfer>
+      <app-pet-service  *ngIf="hasDeparturePet"             [type]="'Departure'" [locationId]="this.trip.flightInfo.departureLocationId"></app-pet-service>
     </div>
     <div *ngIf="this.trip&&this.trip.flightInfo&&this.trip.flightInfo.arrivalLocationId" >
       
-      <app-passengers [type]="'Arrival'"    [locationId]="this.trip.flightInfo.arrivalLocationId"></app-passengers>
-      <app-attendees [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-attendees>
-      <app-transfer [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-transfer>
-      <app-pet-service [type]="'Arrival'" [locationId]="this.trip.flightInfo.arrivalLocationId"></app-pet-service>
+      <app-passengers   *ngIf="hasArrivalPassenger"    [type]="'Arrival'"    [locationId]="this.trip.flightInfo.arrivalLocationId"></app-passengers>
+      <app-attendees    *ngIf="hasArrivalAttendance"   [type]="'Arrival'"     [locationId]="this.trip.flightInfo.arrivalLocationId"></app-attendees>
+      <app-transfer     *ngIf="hasArrivalTransfer"     [type]="'Arrival'"      [locationId]="this.trip.flightInfo.arrivalLocationId"></app-transfer>
+      <app-pet-service  *ngIf="hasArrivalPet"          [type]="'Arrival'"   [locationId]="this.trip.flightInfo.arrivalLocationId"></app-pet-service>
     </div>
     
     </div>

@@ -20,13 +20,22 @@ export class ReserveComponent implements OnInit, OnDestroy {
   item: any;
   reserveNumber: any;
   Status: any;
-  trip: Trip|any;
+  trip: Trip | any;
+
+  hasArrivalPassenger = false;
+  hasArrivalAttendance = false;
+  hasArrivalTransfer = false;
+  hasArrivalPet = false;
+  hasDeparturePassenger = false;
+  hasDepartureAttendance = false;
+  hasDepartureTransfer = false;
+  hasDeparturePet = false;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store<fromStore.ReserveModuleState>
   ) {
     this.store$ = store.select<any>('reserve');
- 
   }
   ngOnDestroy(): void {
     localStorage.removeItem(`reserve`);
@@ -82,44 +91,29 @@ export class ReserveComponent implements OnInit, OnDestroy {
     return;
   }
   ngOnInit(): void {
-
-
-
-
-
-
     this.store$.subscribe((sub) => {
-console.log(sub.reserve);
-
-this.trip=sub.reserve.trip;
+ 
+      this.trip = sub.reserve.trip;
 
       this.reserveNumber = sub.reserve.reserveNumber;
       this.Status = sub.reserve.reserveStatus;
-      
-     
-      if(sub.reserve.LocationId&&sub.reserve.LocationId.id){
-      this.location = sub.reserve.LocationId;
+
+      this.checkServices(sub);
+      if (sub.reserve.LocationId && sub.reserve.LocationId.id) {
+        this.location = sub.reserve.LocationId;
       }
-      // this.item = sub.reserve.ReserveItem.find((r: any) => {
-      //   return r.serviceTypeId === 4;
-      // });
     });
 
+    if (localStorage.getItem('reserve')) {
+      console.log(localStorage.getItem('reserve'));
+      var reserve = localStorage.getItem('reserve') + '';
 
-if(localStorage.getItem("reserve")){
-console.log(localStorage.getItem("reserve"));
-var reserve=localStorage.getItem("reserve")+"";
-
-
-  this.store.dispatch(fromAction.SetStateFromStorage({oldState:JSON.parse(reserve)}));
-
-}
-
-
-
+      this.store.dispatch(
+        fromAction.SetStateFromStorage({ oldState: JSON.parse(reserve) })
+      );
+    }
 
     this.route.params.subscribe((params: any) => {
-    
       if (params.reserveId) {
         this.reserveId = params.reserveId;
         this.store.dispatch(fromAction.SetReserveMode({ mode: 'edit' }));
@@ -127,18 +121,104 @@ var reserve=localStorage.getItem("reserve")+"";
         this.store.dispatch(fromAction.SetReserveMode({ mode: 'new' }));
       }
 
-        if (this.reserveId) {
-          this.store.dispatch(
-            fromAction.LoadReserveFromApi({ reserveId: this.reserveId })
-          );
-          
-        } else {
-          localStorage.removeItem(`reserve`);
-          this.store.dispatch(fromAction.ClearReserve());
-          //this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
-        }
-      
-    //  this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+      if (this.reserveId) {
+        this.store.dispatch(
+          fromAction.LoadReserveFromApi({ reserveId: this.reserveId })
+        );
+      } else {
+        localStorage.removeItem(`reserve`);
+        this.store.dispatch(fromAction.ClearReserve());
+        //this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
+      }
+
+      //  this.store.dispatch(fromAction.LoadLocation({ locationId: this.id }));
     });
+  }
+  checkServices(sub: any) {
+    if (
+      sub.reserve.departureServiceLine &&
+      sub.reserve.departureServiceLine.length > 0
+    ) {
+      if (
+        sub.reserve.departureServiceLine.find((data: any) => {
+          return data.serviceTypeId === 1;
+        })
+      ) {
+        this.hasDeparturePassenger = true;
+      } else {
+        this.hasDeparturePassenger = false;
+      }
+
+      if (
+        sub.reserve.departureServiceLine.find((data: any) => {
+          return data.serviceTypeId === 2;
+        })
+      ) {
+        this.hasDepartureAttendance = true;
+      } else {
+        this.hasDepartureAttendance = false;
+      }
+      if (
+        sub.reserve.departureServiceLine.find((data: any) => {
+          return data.serviceTypeId === 3;
+        })
+      ) {
+        this.hasDepartureTransfer = true;
+      } else {
+        this.hasDepartureTransfer = false;
+      }
+      if (
+        sub.reserve.departureServiceLine.find((data: any) => {
+          return data.serviceTypeId === 4;
+        })
+      ) {
+        this.hasDeparturePet = true;
+      } else {
+        this.hasDeparturePet = false;
+      }
+    }
+
+    if (
+      sub.reserve.arrivalServiceLine &&
+      sub.reserve.arrivalServiceLine.length > 0
+    ) {
+      if (
+        sub.reserve.arrivalServiceLine.find((data: any) => {
+          return data.serviceTypeId === 1;
+        })
+      ) {
+        this.hasArrivalPassenger = true;
+      } else {
+        this.hasArrivalPassenger = false;
+      }
+
+      if (
+        sub.reserve.arrivalServiceLine.find((data: any) => {
+          return data.serviceTypeId === 2;
+        })
+      ) {
+        this.hasArrivalAttendance = true;
+      } else {
+        this.hasArrivalAttendance = false;
+      }
+      if (
+        sub.reserve.arrivalServiceLine.find((data: any) => {
+          return data.serviceTypeId === 3;
+        })
+      ) {
+        this.hasArrivalTransfer = true;
+      } else {
+        this.hasArrivalTransfer = false;
+      }
+      if (
+        sub.reserve.arrivalServiceLine.find((data: any) => {
+          return data.serviceTypeId === 4;
+        })
+      ) {
+        this.hasArrivalPet = true;
+      } else {
+        this.hasArrivalPet = false;
+      }
+    }
   }
 }

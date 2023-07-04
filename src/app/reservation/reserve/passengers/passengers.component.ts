@@ -102,11 +102,11 @@ export class PassengersComponent implements OnInit {
     });
   }
   ItemRemoved(item: any) {
-    // this.store.dispatch(
-    //   fromAction.DeleteReserveItem({
-    //     Id: item.key,
-    //   })
-    // );
+    this.store.dispatch(
+      fromAction.DeleteReserveItem({LocationId:this.locationId,
+        Id: item.key,
+      })
+    );
 
     this.store.dispatch(
       fromAction.SaveState({
