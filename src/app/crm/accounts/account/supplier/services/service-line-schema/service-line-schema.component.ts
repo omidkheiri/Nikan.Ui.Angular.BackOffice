@@ -32,7 +32,7 @@ export class ServiceLineSchemaComponent implements OnInit, OnDestroy {
       this.id = params['serviceLineId'];
     });
     this.accountService
-      .getAccountIdObs()
+      .getaccountIdObs()
       .subscribe((accountId) => (this.accountId = accountId));
 
     this.servicelineStor$ = this.store.select<any>('CRM');
@@ -40,7 +40,7 @@ export class ServiceLineSchemaComponent implements OnInit, OnDestroy {
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code', 'text', 'tree', 'view'];
     this.accountService
-      .getAccountIdObs()
+      .getaccountIdObs()
       .subscribe((accountId) => (this.accountId = accountId));
   }
   submit() {

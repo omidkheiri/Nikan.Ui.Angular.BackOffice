@@ -27,7 +27,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.account$ = this.store.select<any>('CRM');
     this.route.params.subscribe((params: any) => {
       this.store.dispatch(loadAccount({ payload: params.accountId }));
-      AccountService.setAccountIdObs(params.accountId);
+      AccountService.setaccountIdObs(params.accountId);
     });
   }
   ngOnDestroy(): void {

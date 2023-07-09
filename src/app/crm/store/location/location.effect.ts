@@ -21,7 +21,7 @@ export class LocationEffect {
         
         return this.http
         .post<any>(
-          `${environment.serviceLocationAddress}/ServiceLine/${action.ServiceLocationId}/DiscountGroup/${action.DiscountGroupId}`
+          `${environment.serviceLocationAddress}/ServiceLine/${action.ServicelocationId}/DiscountGroup/${action.DiscountGroupId}`
           ,action.ServiceLineDiscount
           ,
           { headers: { 'Content-Type': 'application/json' } }
@@ -47,7 +47,7 @@ export class LocationEffect {
       exhaustMap((action) => {
       
        return this.http.delete<any>(
-          `${environment.serviceLocationAddress}/ServiceLocation/${action.ServiceLocationId}/DiscountGroup/${action.groupId}`     ,
+          `${environment.serviceLocationAddress}/ServiceLocation/${action.ServicelocationId}/DiscountGroup/${action.groupId}`     ,
           { headers: { 'Content-Type': 'application/json' } }
         )
         .pipe(
@@ -126,7 +126,7 @@ export class LocationEffect {
         // ${payload}
         return this.http
           .get<any>(
-            `${environment.serviceLocationAddress}/ServiceLocation?AccountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+            `${environment.serviceLocationAddress}/ServiceLocation?accountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
           )
           .pipe(
             map((location) => ({

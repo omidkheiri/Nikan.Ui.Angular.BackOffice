@@ -42,8 +42,8 @@ this.store.dispatch(fromAction.deleteLocation({payload:{locationId:id,accountId:
   }
 
   ngOnInit(): void {
-    this.AccountService.getAccountIdObs().subscribe((accountid) => {
-      this.store.dispatch(fromAction.loadLocations({ payload: accountid }));
+    this.AccountService.getaccountIdObs().subscribe((accountId) => {
+      this.store.dispatch(fromAction.loadLocations({ payload: accountId }));
     });
   }
 }

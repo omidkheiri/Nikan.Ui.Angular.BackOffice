@@ -9,10 +9,10 @@ import { Account } from '../model/account.model';
 })
 export class AccountService {
   private accountId = new BehaviorSubject('');
-  setAccountIdObs(accountId: string) {
+  setaccountIdObs(accountId: string) {
     this.accountId.next(accountId);
   }
-  getAccountIdObs(): Observable<string> {
+  getaccountIdObs(): Observable<string> {
     return this.accountId.asObservable();
   }
   constructor(private http: HttpClient) {}

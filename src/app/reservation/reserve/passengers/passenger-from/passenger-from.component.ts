@@ -122,6 +122,7 @@ export class PassengerFromComponent implements OnInit {
     });
   }
   editPassenger(id: any) {
+    
     this.editMode = true;
     this.id = id.row.key;
     let selectedItem: ReserveItem = this.passengers.filter((p: any) => {
@@ -151,10 +152,11 @@ export class PassengerFromComponent implements OnInit {
           selectedItem.passenger?.passportNumber
         );
       }
-
+if(this.form.form.controls['birthDate']){
       this.form.form.controls['birthDate'].setValue(
         selectedItem.passenger?.birthDate
       );
+}
       this.form.form.controls['visa'].setValue(selectedItem.passenger?.visa);
       this.form.form.controls['wheelchair'].setValue(
         selectedItem.passenger?.wheelchair
@@ -249,7 +251,7 @@ export class PassengerFromComponent implements OnInit {
     if (this.editMode) {
       this.store.dispatch(
         fromAction.UpdateReserveItem({
-          LocationId: this.locationId,
+          locationId: this.locationId,
           Id: newId,
           ReserveItem: item,
         })
@@ -257,7 +259,7 @@ export class PassengerFromComponent implements OnInit {
     } else {
       this.store.dispatch(
         fromAction.SaveReserveItem({
-          LocationId: this.locationId,
+          locationId: this.locationId,
           ReserveItem: item,
         })
       );
@@ -310,7 +312,7 @@ export class PassengerFromComponent implements OnInit {
       pet: null,
     };
     this.store.dispatch(
-      fromAction.UpdateVisaReserveItem({ ReserveItem: item })
+      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
     );
   }
 
@@ -322,7 +324,7 @@ export class PassengerFromComponent implements OnInit {
 
       if (i) {
         this.store.dispatch(
-          fromAction.DeleteReserveItem({LocationId:this.locationId, Id: i.id ? i.id : '' })
+          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
         );
       }
     }
@@ -360,7 +362,7 @@ export class PassengerFromComponent implements OnInit {
       pet: null,
     };
     this.store.dispatch(
-      fromAction.UpdateWheelchairReserveItem({ ReserveItem: item })
+      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
     );
   }
 
@@ -374,7 +376,7 @@ export class PassengerFromComponent implements OnInit {
 
       if (i) {
         this.store.dispatch(
-          fromAction.DeleteReserveItem({LocationId:this.locationId, Id: i.id ? i.id : '' })
+          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
         );
       }
     }

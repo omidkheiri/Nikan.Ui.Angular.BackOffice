@@ -19,8 +19,8 @@
           </div>
           <div class="col">
             <span
-              >Flight Date:<b>{{
-                trip.flightInfo.flightDate | date : "yyyy/MM/dd"
+              >Departure Date:<b>{{
+                trip.flightInfo.flightDate | date : "yyyy-MM-dd"
               }}</b></span
             >
           </div>
@@ -30,7 +30,7 @@
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
               <p style="text-align: center;font-size: 11px;">Departure Info</p>
               <nav class="" style="direction: ltr; text-align: right;">
-                <div *ngIf="DepartureLocation" ><p style="font-size: 10px;">Location :<strong>{{ DepartureLocation.title }}</strong> </p></div>
+                <div *ngIf="DepartureLocation" ><p style="font-size: 10px;"><strong>{{ DepartureLocation.title }}</strong> </p></div>
 
              
               </nav>
@@ -42,7 +42,7 @@
               <p
                 >{{ trip.flightInfo.departureAirport
                 }}<span><code> time </code></span
-                ><b>{{ trip.flightInfo.departureTime }}</b></p
+                ><b>{{ trip.flightInfo.departureTime }}</b> - <span style="font-size: 8px;" class="text-danger">{{trip.flightInfo.flightDate|date:"yyy-MM-dd"}}</span></p
               >
             </blockquote>
           </div>
@@ -67,7 +67,7 @@
           <div class="col">
             <blockquote class="blockquote" style="padding: 5px; margin: 0px">
               <p style="text-align: center;font-size: 11px;">Arrival Info</p>
-              <div *ngIf="ArrivalLocation" ><p style="font-size: 10px;text-align: right;">Location :<strong>{{ ArrivalLocation.title }}</strong> </p></div>
+              <div *ngIf="ArrivalLocation" ><p style="font-size: 10px;text-align: right;"><strong>{{ ArrivalLocation.title }}</strong> </p></div>
 
               <p style="
               text-align: right;
@@ -76,7 +76,7 @@
           ">{{ trip.flightInfo.arrivalAirport }}</p>
               <p
                 >{{ trip.flightInfo.arrivalCity }}<span><code> time </code></span
-                ><b>{{ trip.flightInfo.arrivalTime }}</b></p>
+                ><b>{{ trip.flightInfo.arrivalTime }}</b> - <span style="font-size: 8px;" class="text-danger">{{arrivalDate()|date:"yyy-MM-dd"}}</span></p>
             </blockquote>
           </div>
         </div>

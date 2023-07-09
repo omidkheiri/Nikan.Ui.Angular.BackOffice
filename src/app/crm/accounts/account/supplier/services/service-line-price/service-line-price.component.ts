@@ -37,7 +37,7 @@ export class ServiceLinePriceComponent implements OnInit {
       this.id = params['serviceLineId'];
     });
     this.accountService
-      .getAccountIdObs()
+      .getaccountIdObs()
       .subscribe((accountId) => (this.accountId = accountId));
 
     this.servicelineStor$ = this.store.select<any>('CRM');

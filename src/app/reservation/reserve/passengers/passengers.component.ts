@@ -103,7 +103,7 @@ export class PassengersComponent implements OnInit {
   }
   ItemRemoved(item: any) {
     this.store.dispatch(
-      fromAction.DeleteReserveItem({LocationId:this.locationId,
+      fromAction.DeleteReserveItem({locationId:this.locationId,
         Id: item.key,
       })
     );
@@ -115,7 +115,7 @@ export class PassengersComponent implements OnInit {
     );
   }
   delete(id: any) {
-    this.store.dispatch(fromAction.DeleteReserveItem({LocationId: this.locationId ,Id: id }));
+    this.store.dispatch(fromAction.DeleteReserveItem({locationId: this.locationId ,Id: id }));
 
     this.store.dispatch(
       fromAction.SaveState({

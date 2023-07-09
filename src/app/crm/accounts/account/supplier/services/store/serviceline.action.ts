@@ -15,7 +15,7 @@ export const loadServiceLines = createAction(
 );
 export const deleteServiceLines = createAction(
   '[serviceline page] delete service line',
-  props<{ AccountId: string; ServiceLineId: string }>()
+  props<{ accountId: string; ServiceLineId: string }>()
 );
 export const setServiceLines = createAction(
   '[serviceline page] set service lines',

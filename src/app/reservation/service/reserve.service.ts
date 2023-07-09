@@ -18,12 +18,12 @@ export class ReserveService {
     return this.reserveDate.asObservable();
   }
 
-  private reserveCustomerAccountId = new BehaviorSubject('');
-  setReserveCustomerIdObs(reserveCustomerAccountId: string) {
-    this.reserveCustomerAccountId.next(reserveCustomerAccountId);
+  private reserveCustomeraccountId = new BehaviorSubject('');
+  setReserveCustomerIdObs(reserveCustomeraccountId: string) {
+    this.reserveCustomeraccountId.next(reserveCustomeraccountId);
   }
   getreserveCustomerIdObs(): Observable<string> {
-    return this.reserveCustomerAccountId.asObservable();
+    return this.reserveCustomeraccountId.asObservable();
   }
 
   private flightType = new BehaviorSubject('0');

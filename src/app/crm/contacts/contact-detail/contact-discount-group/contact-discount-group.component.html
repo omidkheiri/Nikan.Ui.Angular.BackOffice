@@ -6,14 +6,14 @@
     <label style="width: 100%;text-align: right;">محل ارائه سرویس:</label>
   
         <dx-select-box 
-        name="LocationId" ngModel required #LocationId="ngModel"
+        name="locationId" ngModel required #locationId="ngModel"
         (onValueChanged)="locationSelected($event)"
         [dataSource]="data"
         displayExpr="title"
         valueExpr="id"
         [searchEnabled]="true"
       ></dx-select-box>
-      <div *ngIf="submitted&& !LocationId.valid">
+      <div *ngIf="submitted&& !locationId.valid">
         <p class="text-danger
         ">محل ارائه سرویس لارم است</p>  </div>
 </div>

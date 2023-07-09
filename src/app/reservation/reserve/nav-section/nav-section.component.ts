@@ -9,6 +9,7 @@ import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
 import * as uuid from 'uuid';
 import { Router } from '@angular/router';
+import notify from 'devextreme/ui/notify';
 @Component({
   selector: '.navSection',
   templateUrl: './nav-section.component.html',
@@ -137,29 +138,64 @@ export class NavSectionComponent implements OnInit {
   }
 
   saveReserve() {
+
+
     if (this.formMode === 'new') {
       this.httpClient
         .post(`${environment.ReserveAddress}/Trip`, this.reserve.trip)
         .subscribe((data: any) => {
-          // this.router.navigate([
-          //   `/dashboard/reserve/Reserve/${data.id}/${data.locationId.id}`,
-          // ]);
+          
+          this.router.navigate([
+            `/dashboard/reserve/Reserve/${data.id}`,
+          ]);
           this.reserveNumber = data.reserveNumber;
+          notify(
+            {
+              message: "Reserve saved successfully",
+              height: 45,
+              width: 325,
+              minWidth: 325,
+              position: {
+                my: 'right bottom',
+                at: 'right bottom',
+              },
+            },
+            'success',
+            4500
+          );
+
+
+
         });
     }
     if (this.formMode === 'edit') {
       this.httpClient
         .put(
           `${environment.ReserveAddress}/Trip/${this.reserve.id}`,
-          this.reserve
+          this.reserve.trip
         )
         .subscribe((data: any) => {
           this.reserveNumber = data.reserveNumber;
+          notify(
+            {
+              message: "Reserve saved successfully",
+              height: 45,
+              width: 325,
+              minWidth: 325,
+              position: {
+                my: 'right bottom',
+                at: 'right bottom',
+              },
+            },
+            'success',
+            4500
+          );
         });
     }
   }
 
   ngOnInit(): void {
+
     this.store$.subscribe((sub: any) => {
 
       this.items = [];
@@ -186,6 +222,7 @@ if(recordElement.locationId===sub.reserve.trip.flightInfo.departureLocationId){
 }
 
        
+console.log(serviceLine);
 
 
 
@@ -266,7 +303,7 @@ if(recordElement.locationId===sub.reserve.trip.flightInfo.departureLocationId){
         this.savedisabled = !(
       
           this.sum>0&&
-          sub.reserve.trip.ContactId
+          sub.reserve.trip.contactId
         );
 
     });

@@ -16,7 +16,7 @@ export class LocationListComponent implements OnInit, MenuComponent {
   constructor(private httpClient: HttpClient, private router: Router) {
     lastValueFrom(
       httpClient.get(
-        `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+        `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
       )
     )
       .then((data: any) => {

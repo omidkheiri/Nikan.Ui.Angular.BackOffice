@@ -40,7 +40,7 @@ export const reserveReducer = createReducer(
   initialState,
   on(fromAction.SetLocation, (state, { location: location }) => ({
     ...state,
-    LocationId: location,
+    locationId: location,
   })),
   on(fromAction.SetFlightInfo, (state, { FlightInfo: flightInfo }) => {
     var trip = state.trip;
@@ -128,11 +128,11 @@ trip.reserveRecords=[];
   ),
   on(
     fromAction.SaveReserveItem,
-    (state, { LocationId: LocationId, ReserveItem: ReserveItem }) => {
+    (state, { locationId: locationId, ReserveItem: ReserveItem }) => {
       var trip = JSON.parse(JSON.stringify(state.trip));
       if (trip.reserveRecords.length > 0) {
         var currentReserveRecord: any = trip.reserveRecords.find((p: any) => {
-          return p.locationId === LocationId;
+          return p.locationId === locationId;
         });
 
         if (currentReserveRecord) {
@@ -142,7 +142,7 @@ trip.reserveRecords=[];
           items.push(ReserveItem);
 
           trip.reserveRecords.push({
-            locationId: LocationId,
+            locationId: locationId,
             reserveItem: items,
           });
         }
@@ -155,7 +155,7 @@ trip.reserveRecords=[];
         items.push(ReserveItem);
 
         trip.reserveRecords.push({
-          locationId: LocationId,
+          locationId: locationId,
           reserveItem: items,
         });
 
@@ -168,10 +168,10 @@ trip.reserveRecords=[];
   ),
   on(
     fromAction.UpdateReserveItem,
-    (state, { LocationId: LocationId, Id: Id, ReserveItem: ReserveItem }) => {
+    (state, { locationId: locationId, Id: Id, ReserveItem: ReserveItem }) => {
       var trip = JSON.parse(JSON.stringify(state.trip));
       var reserveRecord = trip.reserveRecords.find((p: any) => {
-        return p.locationId === LocationId;
+        return p.locationId === locationId;
       });
 
       var Items = reserveRecord.reserveItem.filter((p: any) => {
@@ -186,7 +186,7 @@ trip.reserveRecords=[];
     }
   ),
 
-  // on(fromAction.UpdatePet, (state, {LocationId: LocationId, Id: Id, ReserveItem: ReserveItem }) => {
+  // on(fromAction.UpdatePet, (state, {locationId: locationId, Id: Id, ReserveItem: ReserveItem }) => {
   //   // const Items: any = state.ReserveItem.filter((p: any) => {
   //   //   return p.serviceLineId !== Id;
   //   // });
@@ -199,10 +199,10 @@ trip.reserveRecords=[];
 
   on(
     fromAction.DeleteReserveItem,
-    (state, { LocationId: LocationId, Id: Id }) => {
+    (state, { locationId: locationId, Id: Id }) => {
       var trip = JSON.parse(JSON.stringify(state.trip));
       var reserveRecord = trip.reserveRecords.find((p: any) => {
-        return p.locationId === LocationId;
+        return p.locationId === locationId;
       });
 
       var Items = reserveRecord.reserveItem.filter((p: any) => {
@@ -287,7 +287,7 @@ trip.reserveRecords=[];
       trip={};
      }
 
-         trip.ContactId= contactId;
+         trip.contactId= contactId;
          trip.contactFullName= contactFullName;
          trip.contactPhone= contactPhone;
          trip.contactAccountId= accountId;

@@ -17,7 +17,7 @@ import * as fromAccountAction from '../../../store/account.action';
   templateUrl: './contact-discount-group.component.html',
   styleUrls: ['./contact-discount-group.component.css'],
 })
-export class ContactDiscountGroupComponent implements OnInit {
+export class contactDiscountGroupComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false })
   dataGrid: DxDataGridComponent;
   conatctId: any;
@@ -33,8 +33,8 @@ export class ContactDiscountGroupComponent implements OnInit {
   submitted: boolean;
   store$: any;
   storeData: any;
-  AccountId: string;
-  ContactId: string;
+  accountId: string;
+  contactId: string;
   constructor(
     private accountService: AccountService,
     private contactService: ContactService,
@@ -47,13 +47,13 @@ export class ContactDiscountGroupComponent implements OnInit {
 
 
     this.store$ = this.store.select<any>('CRM');
-    this.accountService.getAccountIdObs().subscribe((a) => {
-      console.log("a =>",a);
-      this.AccountId = a;
+    this.accountService.getaccountIdObs().subscribe((a) => {
+     
+      this.accountId = a;
       this.store$.dispatch(fromAccountAction.loadAccount({ payload: a }));
 
-      this.contactService.getContactIdObs().subscribe((b) => {
-        console.log("b =>",b);
+      this.contactService.getcontactIdObs().subscribe((b) => {
+      
         
         this.conatctId = b;
        
@@ -62,7 +62,7 @@ export class ContactDiscountGroupComponent implements OnInit {
 
     this.store$.dispatch(
       fromAction.loadContactStart({
-        accountId: this.AccountId,
+        accountId: this.accountId,
         contactId: this.conatctId,
       })
     );
@@ -107,10 +107,10 @@ export class ContactDiscountGroupComponent implements OnInit {
     
     this.store$.dispatch(
       fromAction.addContactDiscountGroup({
-        ContactId: this.conatctId,
-        AccountId: this.AccountId,
-        CompanyId: this.conatctId,
-        ContactDiscountGroup: e.form.value,
+        contactId: this.conatctId,
+        accountId: this.accountId,
+        companyId: this.conatctId,
+        contactDiscountGroup: e.form.value,
       })
     );
   }
@@ -135,10 +135,10 @@ console.log(e);
 
 this.store$.dispatch(
   fromAction.removeContactDiscountGroup({
-    ContactId: this.conatctId,
-    AccountId: this.AccountId,
-    CompanyId: this.conatctId,
-    locationid: e.data.locationId,
+    contactId: this.conatctId,
+    accountId: this.accountId,
+    companyId: this.conatctId,
+    locationId: e.data.locationId,
   })
 );
   }

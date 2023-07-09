@@ -36,12 +36,11 @@ if(this.DiscountGroup){
         load: (loadOptions) => {
 
           
-            return lastValueFrom(this.http.get(`${environment.serviceLineAddress}/ServiceLine/Location/${this.DiscountGroup.serviceLocationId}`))
+            return lastValueFrom(this.http.get(`${environment.serviceLineAddress}/ServiceLine/Location/${this.DiscountGroup.servicelocationId}`))
                 .catch(() => { throw 'Data loading error' });
         }
     });
-    console.log("===>",this.DiscountGroup);
-     
+    
    
     this.dataSource =new DataSource({
       
@@ -57,7 +56,7 @@ if(this.DiscountGroup){
         
 this.store.dispatch(fromAction.addDiscountGroupServiceLine(
  {accountId:this.accountId,
-   ServiceLocationId:this.DiscountGroup.serviceLocationId+'',
+   ServicelocationId:this.DiscountGroup.servicelocationId+'',
    DiscountGroupId:this.DiscountGroup.id,
     ServiceLineDiscount: 
     { ServiceLineId:values.serviceLineId+''  , DiscountPercents :values.discountPercents +0 }}))
@@ -68,7 +67,7 @@ this.store.dispatch(fromAction.addDiscountGroupServiceLine(
 
         this.store.dispatch(fromAction.addDiscountGroupServiceLine(
           {accountId:this.accountId,
-            ServiceLocationId:this.DiscountGroup.serviceLocationId+'',
+            ServicelocationId:this.DiscountGroup.servicelocationId+'',
             DiscountGroupId:this.DiscountGroup.id,
              ServiceLineDiscount: 
              { ServiceLineId:key+''  , 
@@ -88,8 +87,8 @@ this.store.dispatch(fromAction.addDiscountGroupServiceLine(
 
   ngOnInit(): void {
    
-    this.AccountService.getAccountIdObs().subscribe((accountid) => {
-      this.accountId= accountid; });
+    this.AccountService.getaccountIdObs().subscribe((accountId) => {
+      this.accountId= accountId; });
       
    
     

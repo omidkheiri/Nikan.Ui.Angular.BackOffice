@@ -80,15 +80,14 @@ export class ContactEffect {
     return this.actions$.pipe(
       ofType(fromAction.addContactDiscountGroup),
       exhaustMap((action) => {
-        console.log("action==>",action);
-        
+      
         return this.http
           .post<any>(
-            `${environment.accountAddress}/Account/${action.AccountId}/Contact/${action.ContactId}/AddDiscountGroup`,action.ContactDiscountGroup
+            `${environment.accountAddress}/Account/${action.accountId}/Contact/${action.contactId}/AddDiscountGroup`,action.contactDiscountGroup
           )
           .pipe(
             map((contact: any) =>
-              fromAction.loadContactStart({accountId:action.AccountId,contactId : action.ContactId })
+              fromAction.loadContactStart({accountId:action.accountId,contactId : action.contactId })
             )
           );
       })
@@ -98,14 +97,13 @@ export class ContactEffect {
     return this.actions$.pipe(
       ofType(fromAction.removeContactDiscountGroup),
       exhaustMap((action) => {
-        console.log("action==>",action);
-        
+       
         return this.http
           .delete<any>(
-            `${environment.accountAddress}/Account/${action.AccountId}/Contact/${action.ContactId}/RemoveDiscountGroup/${action.locationid}`         )
+            `${environment.accountAddress}/Account/${action.accountId}/Contact/${action.contactId}/RemoveDiscountGroup/${action.locationId}`         )
           .pipe(
             map((contact: any) =>
-              fromAction.loadContactStart({accountId:action.AccountId,contactId : action.ContactId })
+              fromAction.loadContactStart({accountId:action.accountId,contactId : action.contactId })
             )
           );
       })

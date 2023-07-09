@@ -42,17 +42,17 @@ export class ServicesComponent implements OnInit, OnChanges {
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.accountService.getAccountIdObs().subscribe((accountid) => {
-      this.accountId = accountid;
+    this.accountService.getaccountIdObs().subscribe((accountId) => {
+      this.accountId = accountId;
     });
   }
 
   ngOnInit(): void {
-    this.accountService.getAccountIdObs().subscribe((accountid) => {
-      this.accountId = accountid;
-      this.store.dispatch(fromAction.loadLocations({ payload: accountid }));
+    this.accountService.getaccountIdObs().subscribe((accountId) => {
+      this.accountId = accountId;
+      this.store.dispatch(fromAction.loadLocations({ payload: accountId }));
 
-      this.store.dispatch(fromAction.loadServiceLines({ payload: accountid }));
+      this.store.dispatch(fromAction.loadServiceLines({ payload: accountId }));
     });
   }
 
@@ -62,7 +62,7 @@ export class ServicesComponent implements OnInit, OnChanges {
 
     this.store.dispatch(
       fromAction.deleteServiceLines({
-        AccountId: this.accountId,
+        accountId: this.accountId,
         ServiceLineId: id,
       })
     );

@@ -38,9 +38,9 @@ export const loadContact = createAction(
 );
 export const addContactDiscountGroup = createAction(
   '[conatct page] add contact discount group',
-  props<{CompanyId:string, ContactId: string,AccountId: string,ContactDiscountGroup:any }>()
+  props<{companyId:string, contactId: string,accountId: string,contactDiscountGroup:any }>()
 );
 export const removeContactDiscountGroup = createAction(
   '[conatct page] remove contact discount group',
-  props<{CompanyId:string, ContactId: string,AccountId: string,locationid:string }>()
+  props<{companyId:string, contactId: string,accountId: string,locationId:string }>()
 );

@@ -22,7 +22,7 @@ export const loadCurrentLocation = createAction(
   '[Edit Location Page] set Location',
   props<{ payload: LocationItem }>()
 );
-export const setAccountId = createAction(
+export const setaccountId = createAction(
   '[Edit Location Page] set accountId',
   props<{ payload: string }>()
 );
@@ -40,25 +40,25 @@ export const saveCurrentLocation = createAction(
 );
 export const addDiscountGroup = createAction(
   '[Location Discount Group Page] add Discount Group',
-  props<{accountId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+  props<{accountId:string; DiscountGroup:{Title: string,Description: string,ServicelocationId: string,} }>()
 );
 export const updateDiscountGroup = createAction(
   '[Location Discount Group Page] update Discount Group',
-  props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+  props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServicelocationId: string,} }>()
 );
 export const removeDiscountGroup = createAction(
   '[Location Discount Group Page] remove Discount Group',
-  props<{ accountId:string;groupId:string; ServiceLocationId: string}>()
+  props<{ accountId:string;groupId:string; ServicelocationId: string}>()
 );
 export const addDiscountGroupServiceLine = createAction(
   '[Location Discount Group Page] add Discount Group Service Line',
-  props<{accountId:string;ServiceLocationId:string; DiscountGroupId:string ;ServiceLineDiscount:{ServiceLineId: string,DiscountPercents: number}}>()
+  props<{accountId:string;ServicelocationId:string; DiscountGroupId:string ;ServiceLineDiscount:{ServiceLineId: string,DiscountPercents: number}}>()
 );
 // export const updateDiscountGroup = createAction(
 //   '[Location Discount Group Page] update Discount Group',
-//   props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServiceLocationId: string,} }>()
+//   props<{ accountId:string;groupId:string; DiscountGroup:{Title: string,Description: string,ServicelocationId: string,} }>()
 // );
 // export const removeDiscountGroup = createAction(
 //   '[Location Discount Group Page] remove Discount Group',
-//   props<{ accountId:string;groupId:string; ServiceLocationId: string}>()
+//   props<{ accountId:string;groupId:string; ServicelocationId: string}>()
 // );

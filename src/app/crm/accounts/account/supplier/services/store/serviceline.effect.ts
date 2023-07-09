@@ -38,7 +38,7 @@ export class ServiceLineEffect {
       exhaustMap((action) => {
         return this.http
           .get<any>(
-            `${environment.serviceLocationAddress}/ServiceLocation?AccountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+            `${environment.serviceLocationAddress}/ServiceLocation?accountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
           )
 
           .pipe(
@@ -55,12 +55,12 @@ export class ServiceLineEffect {
       exhaustMap((action) => {
         return this.http
           .delete<any>(
-            `${environment.serviceLocationAddress}/Account/${action.AccountId}/ServiceLine/${action.ServiceLineId}`
+            `${environment.serviceLocationAddress}/Account/${action.accountId}/ServiceLine/${action.ServiceLineId}`
           )
 
           .pipe(
             map((locations: any) =>
-              fromAction.loadServiceLines({ payload: action.AccountId })
+              fromAction.loadServiceLines({ payload: action.accountId })
             )
           );
       })
@@ -73,7 +73,7 @@ export class ServiceLineEffect {
       exhaustMap((action) => {
         return this.http
           .get<any>(
-            `${environment.serviceLineAddress}/ServiceLine?AccountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+            `${environment.serviceLineAddress}/ServiceLine?accountId=${action.payload}&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
           )
           .pipe(
             map((serviceLines: any) =>

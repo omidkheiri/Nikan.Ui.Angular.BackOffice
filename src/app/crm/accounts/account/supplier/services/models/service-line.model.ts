@@ -2,7 +2,7 @@ export interface ServiceLine {
   title: string | any;
   serviceLineStatus: number | any;
   taxInclude: number | any;
-  serviceLocationId: string | any;
+  servicelocationId: string | any;
   serviceTypeId: number | any;
   financialCode: string | any;
   financialTitle: string | any;

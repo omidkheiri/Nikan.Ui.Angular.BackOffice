@@ -120,10 +120,10 @@ export class FlightInfoComponent
 
       if (
         sub.reserve &&
-        sub.reserve.LocationId &&
-        sub.reserve.LocationId.maxAcceptDate
+        sub.reserve.locationId &&
+        sub.reserve.locationId.maxAcceptDate
       ) {
-        this.max = sub.reserve.LocationId.maxAcceptDate;
+        this.max = sub.reserve.locationId.maxAcceptDate;
       }
 
       this.ref.markForCheck();
@@ -158,7 +158,7 @@ export class FlightInfoComponent
 
     this.http
       .get(
-        `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+        `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
       ).subscribe((data1: any) => {
         var flightInfo = {
           id: item.id,
@@ -263,5 +263,35 @@ export class FlightInfoComponent
         FlightInfo: flightInfo,
       })
     );
+  }
+  arrivalDate():Date{
+   
+    if(!this.trip.flightInfo.flightDate){
+      return new Date;
+    }
+ var arrivalHHTime= Number(this.trip.flightInfo.arrivalTime.split(":")[0]);
+ var arrivalMMTime= Number(this.trip.flightInfo.arrivalTime.split(":")[1]);
+ var date:Date =  this.trip.flightInfo.flightDate; 
+ console.log("date:",date);
+  
+ var  arrivalDateTime = new Date(date);
+ arrivalDateTime.setHours(arrivalHHTime,arrivalMMTime);
+ var DepartureHHTime= Number(this.trip.flightInfo.departureTime.split(":")[0]);
+ var DepartureMMTime= Number(this.trip.flightInfo.departureTime.split(":")[1]);
+ var departureDateTime=new Date(date  );
+departureDateTime.setHours(DepartureHHTime,DepartureMMTime);
+
+if(arrivalDateTime<departureDateTime){
+
+  try{
+  arrivalDateTime.setDate(date.getDate() + 1);
+  }catch{}
+
+
+}
+console.log(this.trip.flightInfo.flightDate);
+
+return arrivalDateTime;
+
   }
 }

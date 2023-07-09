@@ -32,8 +32,7 @@ ngOnChanges(changes: SimpleChanges) {
   if(this.selectedrow&&this.selectedrow.id&&this.location){
 
    
-    console.log("===>",this.selectedrow,this.location);
-   
+    
   var a=  this.location.discountGroups.find((data:any)=>{return data.id===this.selectedrow.id})
       this.DiscountGroupEmiter.emit(a);
     
@@ -49,19 +48,19 @@ ngOnChanges(changes: SimpleChanges) {
     insert: (values) => {
       console.log(values);
       
-this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServicelocationId: this.location.id }}))
       return  this.location.discountGroups
         // ...
     },
     update: (key, values) => {
       
-      this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+      this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServicelocationId: this.location.id }}))
       return  this.location.discountGroups
         // ...
         
     },
     remove: (key) => {
-      this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServiceLocationId: this.location.id }))
+      this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServicelocationId: this.location.id }))
       return  this.location.discountGroups
         // ...
     }
@@ -69,8 +68,8 @@ this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, Disco
 
 }
   ngOnInit(): void {
-    this.AccountService.getAccountIdObs().subscribe((accountid) => {
-     this.accountId= accountid; });
+    this.AccountService.getaccountIdObs().subscribe((accountId) => {
+     this.accountId= accountId; });
     
    
     this.dataSource =new DataSource({
@@ -83,19 +82,19 @@ this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, Disco
       insert: (values) => {
         console.log(values);
         
-this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+this.store.dispatch(fromAction.addDiscountGroup({accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServicelocationId: this.location.id }}))
         return  this.location.discountGroups
           // ...
       },
       update: (key, values) => {
         
-        this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServiceLocationId: this.location.id }}))
+        this.store.dispatch(fromAction.updateDiscountGroup({groupId:key, accountId:this.accountId, DiscountGroup: { Title: values.title, Description: "string", ServicelocationId: this.location.id }}))
         return  this.location.discountGroups
           // ...
           
       },
       remove: (key) => {
-        this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServiceLocationId: this.location.id }))
+        this.store.dispatch(fromAction.removeDiscountGroup({groupId:key, accountId:this.accountId, ServicelocationId: this.location.id }))
         return  this.location.discountGroups
           // ...
       }

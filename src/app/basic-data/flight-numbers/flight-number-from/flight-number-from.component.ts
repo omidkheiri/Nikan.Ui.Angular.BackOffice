@@ -106,7 +106,7 @@ export class FlightNumberFromComponent implements OnInit {
   initForm() {
     this.http
       .get<any>(`${environment.flightAddress}/FlightNumber/${this.flightId}`)
-      .subscribe((data: any) => { console.log("====>",data);
+      .subscribe((data: any) => { 
       
         this.flightForm = new FormGroup({
           arrivalTime: new FormControl(data.arrivalTime,Validators.required),

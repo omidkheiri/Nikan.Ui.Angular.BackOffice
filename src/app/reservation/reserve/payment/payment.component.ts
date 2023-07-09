@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
     });
     this.http
     .get(
-      `${environment.serviceLocationAddress}/ServiceLocation?AccountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+      `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
     ).subscribe((data1: any) => {
    
 

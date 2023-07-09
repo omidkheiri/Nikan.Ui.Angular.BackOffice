@@ -34,7 +34,7 @@ export class ContactsComponent implements OnInit {
     console.log((this.router.url + '').toLowerCase());
 
     if ((this.router.url + '').toLowerCase() !== '/dashboard/crm/contacts') {
-      accountService.getAccountIdObs().subscribe((data: string) => {
+      accountService.getaccountIdObs().subscribe((data: string) => {
         this.accountId = data;
         autofilter = ['accountId', '=', this.accountId];
       });
@@ -104,8 +104,8 @@ export class ContactsComponent implements OnInit {
     this.router.navigate(['/dashboard/crm/Contactform']);
   }
   LoadContact(data: any) {
-    this.accountService.setAccountIdObs(data.data.accountId);
-    this.contactService.setContactIdObs(data.data.contactId);
+    this.accountService.setaccountIdObs(data.data.accountId);
+    this.contactService.setcontactIdObs(data.data.contactId);
     this.router.navigate([
       '/dashboard/crm/Contact',
       data.data.accountId,

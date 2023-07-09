@@ -58,7 +58,7 @@ export class PetServiceComponent implements OnInit {
 
 
     this.store.dispatch(
-      fromAction.UpdateReserveItem({LocationId:this.locationId,
+      fromAction.UpdateReserveItem({locationId:this.locationId,
         Id: this.PetPriceList[0].id,
         ReserveItem: itemForSave,
       })
@@ -87,7 +87,7 @@ export class PetServiceComponent implements OnInit {
         this.PetNo = this.currentState.reserveItem.find((r: any) => {
           return r.serviceTypeId === 4;
         });
-        console.log("HHHHHHHHHHHHH",this.PetNo);
+        
         if(!this.save){
         this.petNumber=this.PetNo?this.PetNo.pet.qty:0;
         }

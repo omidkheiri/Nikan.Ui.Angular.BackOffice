@@ -38,7 +38,7 @@ export class AddPaymentComponent implements OnInit {
       this.service
         .addPayment(this.trip.contactId, {
           bankTitle: form.value.BankTitle,
-          bankAccountId: form.value.BankAccountId,
+          bankaccountId: form.value.BankaccountId,
           traceNumber: form.value.TraceNumber,
           referenceId: form.value.ReferenceId,
           tripCode: this.trip.tripCode,

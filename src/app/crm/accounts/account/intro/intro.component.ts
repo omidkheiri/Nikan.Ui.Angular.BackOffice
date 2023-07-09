@@ -32,7 +32,7 @@ export class IntroComponent implements OnInit {
 
       this.introValue = data.account.account.intro;
     });
-    this.AccountService.getAccountIdObs().subscribe(
+    this.AccountService.getaccountIdObs().subscribe(
       (accountId) => (this.accountId = accountId)
     );
   }

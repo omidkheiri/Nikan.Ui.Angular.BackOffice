@@ -56,11 +56,11 @@ export const LoadArrivalServiceLineInReserve = createAction(
 );
 export const SaveReserveItem = createAction(
   '[Reserve Component] Save Reserve Item',
-  props<{LocationId:string, ReserveItem: ReserveItem }>()
+  props<{locationId:string, ReserveItem: ReserveItem }>()
 );
 export const UpdateReserveItem = createAction(
   '[Reserve Component] Update Reserve Item',
-  props<{LocationId:string; Id: string; ReserveItem: ReserveItem }>()
+  props<{locationId:string; Id: string; ReserveItem: ReserveItem }>()
 );
 export const UpdateSuite = createAction(
   '[Reserve Component] Update Suite',
@@ -68,12 +68,12 @@ export const UpdateSuite = createAction(
 );
 export const UpdatePet = createAction(
   '[Reserve Component] Update Pet',
-  props<{LocationId:string, Id: string; ReserveItem: ReserveItem }>()
+  props<{locationId:string, Id: string; ReserveItem: ReserveItem }>()
 );
 
 export const DeleteReserveItem = createAction(
   '[Reserve Component] Delete Reserve Item',
-  props<{LocationId:string; Id: string }>()
+  props<{locationId:string; Id: string }>()
 );
 export const UpdateWheelchairReserveItem = createAction(
   '[Reserve Component] Update Wheelchair Reserve Item',

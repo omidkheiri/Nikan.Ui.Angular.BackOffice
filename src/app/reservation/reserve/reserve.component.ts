@@ -30,6 +30,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
   hasDepartureAttendance = false;
   hasDepartureTransfer = false;
   hasDeparturePet = false;
+  serviceListLoaded: boolean=false;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,20 +93,20 @@ export class ReserveComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.store$.subscribe((sub) => {
- 
+
       this.trip = sub.reserve.trip;
 
       this.reserveNumber = sub.reserve.reserveNumber;
       this.Status = sub.reserve.reserveStatus;
 
       this.checkServices(sub);
-      if (sub.reserve.LocationId && sub.reserve.LocationId.id) {
-        this.location = sub.reserve.LocationId;
+      if (sub.reserve.locationId && sub.reserve.locationId.id) {
+        this.location = sub.reserve.locationId;
       }
     });
 
     if (localStorage.getItem('reserve')) {
-      console.log(localStorage.getItem('reserve'));
+     
       var reserve = localStorage.getItem('reserve') + '';
 
       this.store.dispatch(
@@ -139,6 +140,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
       sub.reserve.departureServiceLine &&
       sub.reserve.departureServiceLine.length > 0
     ) {
+      this.serviceListLoaded=true;
       if (
         sub.reserve.departureServiceLine.find((data: any) => {
           return data.serviceTypeId === 1;
@@ -182,6 +184,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
       sub.reserve.arrivalServiceLine &&
       sub.reserve.arrivalServiceLine.length > 0
     ) {
+      this.serviceListLoaded=true;
       if (
         sub.reserve.arrivalServiceLine.find((data: any) => {
           return data.serviceTypeId === 1;

@@ -108,11 +108,11 @@ export class ContactComponent implements OnInit {
     if (
       location.pathname.toLocaleLowerCase() !== '/dashboard/crm/contactform'
     ) {
-      this.accountService.getAccountIdObs().subscribe((a) => {
+      this.accountService.getaccountIdObs().subscribe((a) => {
         this.accountId = a;
         this.store$.dispatch(fromAccountAction.loadAccount({ payload: a }));
 
-        this.contactService.getContactIdObs().subscribe((b) => {
+        this.contactService.getcontactIdObs().subscribe((b) => {
           this.conatctId = b;
           this.editmode = true;
         });
@@ -160,13 +160,13 @@ export class ContactComponent implements OnInit {
       discount: this.contactForm.value.discount,
     };
 
-    var selectedAccountId = this.contactForm.value.accountId.accountId;
+    var selectedaccountId = this.contactForm.value.accountId.accountId;
     if (
       location.pathname.toLocaleLowerCase() === '/dashboard/crm/contactform'
     ) {
       this.store$.dispatch(
         fromAction.saveContactStart({
-          accountId: selectedAccountId,
+          accountId: selectedaccountId,
           contact: contact,
         })
       );

@@ -56,7 +56,6 @@ this.currentLocation= data.location.locations.find((d:any)=>{return d.id===this.
 this.location.back();
   }
   DiscountGroupSelected(e:any){
-console.log("XXXXXXXXXXXXXXXXXXXXXXX",e);
 
 this.DiscountGroup=e;
 

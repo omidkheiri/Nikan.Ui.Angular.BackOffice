@@ -17,10 +17,10 @@ export class ContactService {
   }
   private contactId = new BehaviorSubject('');
   constructor(private http: HttpClient) {}
-  setContactIdObs(accountId: string) {
+  setcontactIdObs(accountId: string) {
     this.contactId.next(accountId);
   }
-  getContactIdObs(): Observable<string> {
+  getcontactIdObs(): Observable<string> {
     return this.contactId.asObservable();
   }
   getAccount(contactId: string) {

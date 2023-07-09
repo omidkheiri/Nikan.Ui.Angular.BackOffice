@@ -39,7 +39,7 @@ export class AttendeesComponent implements OnInit {
   ItemRemoved(item: any) {
     this.store.dispatch(
       fromAction.DeleteReserveItem({
-        LocationId: this.locationId,
+        locationId: this.locationId,
         Id: item.key,
       })
     );
@@ -85,7 +85,7 @@ export class AttendeesComponent implements OnInit {
 
     this.store.dispatch(
       fromAction.SaveReserveItem({
-        LocationId: this.locationId,
+        locationId: this.locationId,
         ReserveItem: itemForSave,
       })
     );
@@ -137,7 +137,7 @@ export class AttendeesComponent implements OnInit {
 
     this.store.dispatch(
       fromAction.UpdateReserveItem({
-        LocationId: this.locationId,
+        locationId: this.locationId,
         Id: itemForSave.id ? itemForSave.id : '',
         ReserveItem: itemForSave,
       })
