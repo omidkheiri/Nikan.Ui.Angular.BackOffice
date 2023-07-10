@@ -225,21 +225,22 @@
                 class="submenu list-unstyled animated fadeInUp collapse show"
                 id="app"
                 data-parent="#topAccordion"
-                style=""
+              
               >
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/flights'">
-                  Flight Numbers
+                    {{ "HeaderMenus.Flights" | translate }}   
                   </a>
                 </li>
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/airLines'">
-                AirLines
+                    {{ "HeaderMenus.AirLineNames" | translate }}   
                   </a>
                 </li>
                 <li>
                   <a [routerLink]="'/dashboard/basicdata/airports'">
-             Airports
+                    {{ "HeaderMenus.Airports" | translate }}   
+             
                   </a>
                 </li>
               </ul>

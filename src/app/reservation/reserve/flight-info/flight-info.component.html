@@ -135,6 +135,15 @@
     
 <div class="row mt-3" *ngIf="trip&&trip.flightInfo">
 
+  <div class="col-6">
+    <p style="
+    text-align: justify;font-size: 12px;
+    ">Arrival Location</p>
+    
+     <app-location-options [Type]="'Arrival'" [id]="'Arrival'" [Value]="arrivalLocation" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
+    
+    
+    </div>
 <div class="col-6" style="direction: ltr;">
   <p style="
   text-align: justify;font-size: 12px;
@@ -146,15 +155,7 @@
   
   
   </div>
-<div class="col-6">
-<p style="
-text-align: justify;font-size: 12px;
-">Arrival Location</p>
 
- <app-location-options [Type]="'Arrival'" [id]="'Arrival'" [Value]="arrivalLocation" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
-
-
-</div>
 </div>
 
 
