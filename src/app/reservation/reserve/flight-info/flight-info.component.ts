@@ -240,6 +240,7 @@ export class FlightInfoComponent
     flightInfo.departureLocationId = this.DepartureLocation
       ? this.DepartureLocation.id
       : '';
+      flightInfo.flightDate=this.flightInfoForm.controls.flightDate.value;
     this.store.dispatch(
       fromAction.SetDepartureLocation({
         oldLocationValue: this.trip.flightInfo.departureLocationId,
@@ -257,6 +258,8 @@ export class FlightInfoComponent
     flightInfo.arrivalLocationId = this.ArrivalLocation
       ? this.ArrivalLocation.id
       : '';
+
+      flightInfo.flightDate=this.flightInfoForm.controls.flightDate.value;
     this.store.dispatch(
       fromAction.SetArrivalLocation({
         oldLocationValue: this.trip.flightInfo.arrivalLocationId,
