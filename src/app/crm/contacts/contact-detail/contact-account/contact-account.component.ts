@@ -134,7 +134,7 @@ export class ContactAccountComponent implements OnInit {
         return 'Submitted';
         break;
       case 2:
-        return 'Awaiting Payment';
+        return 'Pay Waiting';
         break;
       case 3:
         return 'Paid';
