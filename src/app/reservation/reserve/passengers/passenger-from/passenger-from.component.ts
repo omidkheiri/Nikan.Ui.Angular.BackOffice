@@ -37,6 +37,7 @@ export class PassengerFromComponent implements OnInit {
   id: string;
   serviceListVisa: any;
   serviceListWheelchair: any;
+  serviceListLOM: any;
 
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
@@ -72,6 +73,11 @@ export class PassengerFromComponent implements OnInit {
             return data.serviceTypeId === 8;
           }
         );
+        this.serviceListLOM = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 9;
+          }
+        );
 
         if (items) {
           this.passengers = items.reserveItem;
@@ -101,7 +107,11 @@ export class PassengerFromComponent implements OnInit {
             return data.serviceTypeId === 8;
           }
         );
-
+        this.serviceListLOM = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 9;
+          }
+        );
         if (items) {
           this.passengers = items.reserveItem;
         }
@@ -161,6 +171,9 @@ if(this.form.form.controls['birthDate']){
       this.form.form.controls['wheelchair'].setValue(
         selectedItem.passenger?.wheelchair
       );
+      this.form.form.controls['lom'].setValue(
+        selectedItem.passenger?.lom
+      );
     }, 200);
   }
   setSelectedPassengerType($event: any) {
@@ -200,6 +213,11 @@ if(this.form.form.controls['birthDate']){
     if (f.form.value.wheelchair) {
       wheelchair = { relatedPassengerId: newId };
     }
+    let lom: Visa | undefined = undefined;
+    if (f.form.value.lom) {
+      lom = { relatedPassengerId: newId };
+    }
+
 
     if (this.editMode) {
       newId = this.id;
@@ -220,6 +238,7 @@ if(this.form.form.controls['birthDate']){
           ? f.form.value.passportExpireDate
           : '',
         visa: f.form.value.visa,
+        lom: f.form.value.lom,
         wheelchair: f.form.value.wheelchair,
         birthDate: f.form.value.birthDate,
         nationality: f.form.value.nationality ? f.form.value.nationality : 0,
@@ -273,6 +292,11 @@ if(this.form.form.controls['birthDate']){
       this.addWheelchairToList(item);
     } else {
       this.removeWheelchairFromList(item);
+    }
+    if (item.passenger?.lom) {
+      this.addLOMToList(item);
+    } else {
+      this.removeLOMFromList(item);
     }
 
     f.form.reset();
@@ -381,4 +405,61 @@ if(this.form.form.controls['birthDate']){
       }
     }
   }
+
+
+
+  addLOMToList(passenger: ReserveItem) {
+    let newId = uuid.v4();
+    let item: ReserveItem = {
+      id: newId,
+      wheelchair: {
+        relatedPassengerId: passenger.id ? passenger.id : '',
+      },
+
+      serviceLineId: this.serviceListLOM[0].id,
+      serviceLineTitle: this.serviceListLOM[0].title,
+      unitPrice: this.serviceListLOM[0].serviceLinePrices[0].price,
+      serviceQty: 1,
+      serviceTypeId: this.serviceListLOM[0].serviceTypeId,
+      serviceTotal: this.serviceListLOM[0].serviceLinePrices[0].price,
+      discountPercent: 0,
+      discountValue: 0,
+      serviceTotalAfterDiscount: 0,
+      taxPercent: 0,
+      taxValue: 0,
+      serviceAdvanceTotal:
+        this.serviceListLOM[0].serviceLinePrices[0].price,
+      serviceStatus: 1,
+      lom: null,
+      passenger: null,
+      visa: null,
+      transfer: null,
+      attendee: null,
+      suite: null,
+      meetingRoom: null,
+      pet: null,
+    };
+    this.store.dispatch(
+      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
+    );
+  }
+
+  removeLOMFromList(item: ReserveItem) {
+    if (this.passengers) {
+      var i = this.passengers.find((data: any) => {
+        return (
+          data.wheelchair && data.wheelchair.relatedPassengerId === item.id
+        );
+      });
+
+      if (i) {
+        this.store.dispatch(
+          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
+        );
+      }
+    }
+  }
+
+
+
 }

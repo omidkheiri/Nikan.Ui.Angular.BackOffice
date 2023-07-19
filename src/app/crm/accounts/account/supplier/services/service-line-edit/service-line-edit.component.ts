@@ -21,7 +21,7 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
   serviceLineForm = new FormGroup({
     title: new FormControl('', Validators.required),
     taxInclude: new FormControl(0, Validators.required),
-    servicelocationId: new FormControl('', Validators.required),
+    serviceLocationId: new FormControl('', Validators.required),
     serviceTypeId: new FormControl('', Validators.required),
     financialCode: new FormControl('', Validators.required),
     id: new FormControl(''),
@@ -98,7 +98,7 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
   }
   SubmitFrom() {
     this.submited = true;
-    console.log(this.serviceLineForm.controls.servicelocationId.valid);
+    console.log(this.serviceLineForm.controls.serviceLocationId.valid);
     if (!this.serviceLineForm.valid) {
       return;
     }
@@ -106,7 +106,7 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
       title: this.serviceLineForm.value.title,
       serviceLineStatus: this.serviceLineForm.value.serviceLineStatus ? 1 : 0,
       taxInclude: this.serviceLineForm.value.taxInclude,
-      servicelocationId: this.serviceLineForm.value.servicelocationId,
+      serviceLocationId: this.serviceLineForm.value.serviceLocationId,
       serviceTypeId: this.serviceLineForm.value.serviceTypeId,
       financialCode: this.serviceLineForm.value.financialCode,
       financialTitle: this.serviceLineForm.value.financialTitle,
@@ -145,8 +145,8 @@ export class ServiceLineEditComponent implements OnInit, OnDestroy {
               serviceLine.taxInclude,
               Validators.required
             ),
-            servicelocationId: new FormControl(
-              serviceLine.servicelocationId,
+            serviceLocationId: new FormControl(
+              serviceLine.serviceLocationId,
               Validators.required
             ),
             serviceTypeId: new FormControl(

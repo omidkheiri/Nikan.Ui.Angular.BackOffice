@@ -8,6 +8,7 @@ export interface Passenger {
   passportNumber: string;
   passportExpireDate: string;
   visa: boolean;
+  lom: boolean;
   wheelchair: boolean;
   birthDate: Date;
   nationality: number;

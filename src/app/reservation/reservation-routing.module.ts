@@ -7,6 +7,7 @@ import { ReserveListComponent } from './reserve-list/reserve-list.component';
 import { PaymentComponent } from './reserve/payment/payment.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.component';
+import { CompleteReserveComponent } from './reserve/payment/complete-reserve/complete-reserve.component';
 
 const routes: Routes = [
   {
@@ -27,9 +28,12 @@ const routes: Routes = [
       },
 
       {
-        path: 'Payment/:reserveId',
-        component: PaymentComponent,children:[{path:"print/:reserveId",component:PrintReserveComponent}]
-      },
+        path: 'Payment/:tripId',
+        component: PaymentComponent,children:[
+          {path:"print/:reserveId",component:PrintReserveComponent},
+          {path:"complete/:reserveId",component:CompleteReserveComponent}
+        ]
+      }
     ],
   },
 ];

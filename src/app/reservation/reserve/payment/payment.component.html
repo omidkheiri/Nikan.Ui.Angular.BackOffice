@@ -2,17 +2,14 @@
 
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div
-      *ngIf="trip && trip.tripCode"
-      class="widget widget-table-two"
-    >
+    <div *ngIf="trip && trip.tripCode" class="widget widget-table-two">
       <div class="widget-content searchable-container list">
         <div class="searchable-items list">
           <div class="items">
             <div class="item-content">
               <div class="user-location">
                 <div class="user-meta-info">
-                  <button (click)="navtoPrint(trip.id)"  class="btn btn-primary">
+                  <!-- <button (click)="navtoPrint(trip.id,trip.id)"  class="btn btn-primary">
                     <div class="icon-container">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -33,8 +30,7 @@
                         <rect x="6" y="14" width="12" height="8"></rect></svg>
                         <span class="icon-name"> Printe</span>
                     </div>
-                  </button>
-                 
+                  </button> -->
                 </div>
               </div>
               <div class="user-location">
@@ -86,15 +82,9 @@
                   class="usr-email-addr text-info"
                   style="direction: ltr; border-bottom: 1px solid"
                 >
-                  {{
-                    trip.flightInfo.flightDate
-                      | date : "yyyy-MM-dd HH:mm"
+                  {{ trip.flightInfo.flightDate | date : "yyyy-MM-dd HH:mm"
                   }}{{ "-" }}
-                  {{
-                    trip.flightInfo.flightType === 0
-                      ? "ورودی"
-                      : "خروجی"
-                  }}
+                  {{ trip.flightInfo.flightType === 0 ? "ورودی" : "خروجی" }}
                 </p>
               </div>
               <div class="user-location">
@@ -169,10 +159,7 @@
               <div class="user-profile">
                 <div class="user-location">
                   <p class="user-name text-center">قابل پرداخت</p>
-                  <p
-                    class="user-work"
-                    data-occupation="trip.reserveNumber"
-                  >
+                  <p class="user-work" data-occupation="trip.reserveNumber">
                     {{ trip.billable | number }}
                   </p>
                 </div>
@@ -226,7 +213,7 @@
         <h5 style="text-align: right">پرداختها</h5>
       </div>
 
-      <div class="widget-content" *ngIf="trip&& trip.financialPayments">
+      <div class="widget-content" *ngIf="trip && trip.financialPayments">
         <dx-data-grid
           id="gridContainer"
           [dataSource]="trip.financialPayments"
@@ -257,7 +244,10 @@
             dataType="date"
             dir="ltr"
           ></dxi-column>
-          <dxi-column caption="Description" dataField="description"></dxi-column>
+          <dxi-column
+            caption="Description"
+            dataField="description"
+          ></dxi-column>
         </dx-data-grid>
       </div>
     </div>
@@ -266,81 +256,173 @@
 
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div class="widget widget-table-two" style="padding: 20px" *ngIf="trip &&trip.reserveRecords">
+    <div
+      class="widget widget-table-two"
+      style="padding: 20px"
+      *ngIf="trip && trip.reserveRecords"
+    >
       <div class="widget-heading">
         <h5 style="text-align: right">جزئیات رزرو</h5>
       </div>
 
-
-
-      <div *ngFor="let reserveRecord of trip.reserveRecords" class="widget-content">
-<hr/>
-      <p> Service Location: {{ getLocationTitle(reserveRecord.locationId)}}</p>
-
-        <dx-data-grid
-          id="gridContainer"
-          [dataSource]="reserveRecord.reserveItem"
-          keyExpr="id"
-          [showColumnLines]="true"
-          [showRowLines]="true"
-          [rowAlternationEnabled]="true"
-          [showBorders]="true"
+      <div
+        *ngFor="let reserveRecord of trip.reserveRecords"
+        class="widget-content"
+      >
+        <hr />
+        <p
+          style="
+           /* margin-bottom: 20px; */direction: rtl;text-align: right;width: 100%;/* height: 40px; *//* padding-top: 10px; */
+          "
         >
-          <dxi-column caption="عنوان" dataField="serviceLineTitle"></dxi-column>
-          <dxi-column caption="تعداد" dataField="serviceQty"></dxi-column>
-          <dxi-column
-            caption="مبلغ واحد"
-            dataField="unitPrice"
-            format="currency"
-          ></dxi-column>
-          <dxi-column
-            caption="جمع کل"
-            dataField="serviceTotal"
-            format="currency"
-          ></dxi-column>
-          <dxi-column
-            caption=" Description"
-            cellTemplate="cellTemp"
-            dataField="id"
-          ></dxi-column>
-          <dxi-column
-            dataField="discountPercent"
-            dataType="number"
-            caption="درصد تخفیف"
-          ></dxi-column>
-          <dxi-column
-            dataField="discountValue"
-            format="currency"
-            caption="مبلغ تخفیف"
-            dataType="number"
-          ></dxi-column>
-          <dxi-column
-            dataField="serviceTotalAfterDiscount"
-            dataType="number"
-            caption="پس از تخفیف"
-            format="currency"
-          ></dxi-column>
-          <dxi-column
-            caption="VAT"
-            dataField="taxValue"
-            format="currency"
-            dataType="number"
-          ></dxi-column>
-          <dxi-column
-            caption="جمع"
-            dataField="serviceAdvanceTotal"
-            dataType="number"
-            format="currency"
-          ></dxi-column>
-          <div *dxTemplate="let d of 'cellTemp'">
-            {{
-              d.data.passenger
-                ? d.data.passenger.name + " " + d.data.passenger.lastName
-                : ""
-            }}
-            {{ d.data.attedance ? d.data.attedance.name : "" }}
+          محل ارائه خدمات: {{ getLocationTitle(reserveRecord.locationId) }}
+       
+          <span style="float: left;margin-top: -14px;">
+
+
+
+
+
+
+
+            <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;">
+              
+            <button (click)="navtoPrint(trip.id, reserveRecord.id)" class="btn btn-dark">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-printer"
+                >
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path
+                    d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+                  ></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span class="icon-name"> </span>
+              </div>
+            </button>
+
+            <button (click)="navToComplete(trip.id, reserveRecord.id)" class="btn btn-dark">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-check-circle"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span class="icon-name"> </span>
+              </div>
+            </button>
           </div>
-        </dx-data-grid>
+
+
+
+
+
+
+
+
+
+
+
+
+          </span>
+
+
+
+          <span  style="float: left; margin-left: 20px; margin-right: 20px;margin-top: -5px;">
+            کد رزرو:
+        <strong> {{reserveRecord.reserveId}}</strong> 
+</span>
+        </p>
+
+        <p style="direction: rtl; text-align: right; width: 100%">
+          <dx-data-grid
+            id="gridContainer"
+            [dataSource]="reserveRecord.reserveItem"
+            keyExpr="id"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [showBorders]="true"
+          >
+            <dxi-column
+              caption="عنوان"
+              dataField="serviceLineTitle"
+            ></dxi-column>
+            <dxi-column caption="تعداد" dataField="serviceQty"></dxi-column>
+            <dxi-column
+              caption="مبلغ واحد"
+              dataField="unitPrice"
+              format="currency"
+            ></dxi-column>
+            <dxi-column
+              caption="جمع کل"
+              dataField="serviceTotal"
+              format="currency"
+            ></dxi-column>
+            <dxi-column
+              caption=" Description"
+              cellTemplate="cellTemp"
+              dataField="id"
+            ></dxi-column>
+            <dxi-column
+              dataField="discountPercent"
+              dataType="number"
+              caption="درصد تخفیف"
+            ></dxi-column>
+            <dxi-column
+              dataField="discountValue"
+              format="currency"
+              caption="مبلغ تخفیف"
+              dataType="number"
+            ></dxi-column>
+            <dxi-column
+              dataField="serviceTotalAfterDiscount"
+              dataType="number"
+              caption="پس از تخفیف"
+              format="currency"
+            ></dxi-column>
+            <dxi-column
+              caption="VAT"
+              dataField="taxValue"
+              format="currency"
+              dataType="number"
+            ></dxi-column>
+            <dxi-column
+              caption="جمع"
+              dataField="serviceAdvanceTotal"
+              dataType="number"
+              format="currency"
+            ></dxi-column>
+            <div *dxTemplate="let d of 'cellTemp'">
+              {{
+                d.data.passenger
+                  ? d.data.passenger.name + " " + d.data.passenger.lastName
+                  : ""
+              }}
+              {{ d.data.attedance ? d.data.attedance.name : "" }}
+            </div>
+          </dx-data-grid>
+        </p>
       </div>
     </div>
   </div>
@@ -359,8 +441,35 @@
 >
   <dx-scroll-view width="100%" height="100%">
     <app-add-payment
-      (paymentEvent)="recivePayment($event)"
+      (paymentEvent)="receivePayment($event)"
       [trip]="tripValue"
     ></app-add-payment>
   </dx-scroll-view>
 </dx-popup>
+
+
+
+
+<dx-popup
+  *ngIf="tripValue"
+  [width]="'40vw'"
+  [height]="'60vh'"
+  [showTitle]="true"
+  title="ثبت کد رزرو"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [visible]="visible"
+>
+  <dx-scroll-view width="100%" height="100%">
+    <app-complete-reserve
+      (paymentEvent)="receivePayment($event)"
+      
+    ></app-complete-reserve>
+  </dx-scroll-view>
+</dx-popup>
+
+
+
+

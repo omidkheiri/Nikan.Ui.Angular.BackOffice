@@ -1,0 +1,54 @@
+
+
+<dx-popup
+  [width]="'40vw'"
+  [height]="'60vh'"
+  [showTitle]="true"
+  title="ثبت کد رزرو"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [visible]="true"
+  #popup
+
+  (onHiding)="navigatePayment()"
+>
+  <dx-scroll-view width="100%" height="100%">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-bottom: 20px">
+      <div class="row">
+      
+        <div class="col-md-12">
+          <div class="form-group mb-">
+            <label for="input" style="text-align: right; width: 100%">کد رزرو</label
+            ><input
+              type="text"
+              class="form-control"
+              id="ReserveId"
+              name="ReserveId"
+              #ReserveId
+              ngModel
+              placeholder="کد رزرو  "
+            />
+            <div
+              *ngIf="submitted && !ReserveId.value"
+              class="invalid-feedback"
+              style="display: block"
+            >
+             کد رزرو
+            </div>
+          </div>
+        </div>
+       
+  
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-dark m-3">ذخیره</button>
+          <button type="button" class="btn btn-warning m-3">لغو</button>
+        </div>
+      </div>
+    </form>
+    
+    <dx-toast [visible]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>
+    
+  </dx-scroll-view>
+</dx-popup>

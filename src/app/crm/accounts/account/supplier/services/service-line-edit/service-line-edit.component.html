@@ -23,11 +23,11 @@
           [dataSource]="serviceLocations"
           displayExpr="title"
           valueExpr="id"
-          formControlName="servicelocationId"
+          formControlName="serviceLocationId"
         ></dx-select-box>
         <div
           *ngIf="
-            submited && !this.serviceLineForm.controls.servicelocationId.valid
+            submited && !this.serviceLineForm.controls.serviceLocationId.valid
           "
           class="invalid-feedback"
           style="display: block"

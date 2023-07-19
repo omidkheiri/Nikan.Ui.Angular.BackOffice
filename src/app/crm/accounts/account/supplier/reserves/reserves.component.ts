@@ -30,7 +30,14 @@ export class ReservesComponent implements OnInit {
     }
     accountService.getaccountIdObs().subscribe((data: string) => {
       this.accountId = data;
-      autofilter = ['SupplierId', '=', this.accountId];
+      autofilter =   autofilter = [
+      
+        
+        [ "arrivalSupplierId", "=", this.accountId ],
+        "or",
+        [ "departureSupplierId", "=", this.accountId ]
+    
+] ;
     });
     this.dataSource = new DataSource({
       key: 'id',
@@ -140,14 +147,14 @@ export class ReservesComponent implements OnInit {
     }
     return;
   }
-  onNavigateToreserve(item: any) {
+  onNavigateToReserve(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Reserve/${item.data.locationId}/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Reserve/${item.data.tripId}`,
     ]);
   }
   onNavigateToPayment(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Payment/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Payment/${item.data.tripId}`,
     ]);
   }
 }

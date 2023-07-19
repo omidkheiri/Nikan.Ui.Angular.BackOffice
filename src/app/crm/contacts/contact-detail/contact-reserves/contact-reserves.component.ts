@@ -117,10 +117,10 @@ export class ContactReservesComponent implements OnInit {
         return 'badge badge-success';
         break;
       case 2:
-        return 'badge badge-success';
+        return 'badge badge-warning';
         break;
       case 3:
-        return 'badge badge-success';
+        return 'badge badge-info';
         break;
       case 4:
         return 'badge badge-success';
@@ -158,14 +158,16 @@ export class ContactReservesComponent implements OnInit {
     }
     return;
   }
-  onNavigateToreserve(item: any) {
+
+ 
+  onNavigateToReserve(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Reserve/${item.data.locationId}/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Reserve/${item.data.tripId}`,
     ]);
   }
   onNavigateToPayment(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Payment/${item.data.reserveUniqueId}`,
+      `/dashboard/reserve/Payment/${item.data.tripId}`,
     ]);
   }
 }

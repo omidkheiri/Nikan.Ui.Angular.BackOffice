@@ -19,7 +19,7 @@ export class PaymentComponent implements OnInit {
   constructor(private router:Router, private route: ActivatedRoute, private service: PaymentService,
     private http:HttpClient) {
     this.route.params.subscribe((params: any) => {
-      this.id = params.reserveId;
+      this.id = params.tripId;
     });
     this.http
     .get(
@@ -72,7 +72,7 @@ return  item.title;
       });
     });
   }
-  recivePayment(e: any) {
+  receivePayment(e: any) {
     this.visible = false;
     this.service.getReserve(this.id).subscribe((data: any) => {
       this.trip = data;
@@ -81,10 +81,15 @@ return  item.title;
       });
     });
   }
-  navtoPrint(e:any){
+  navtoPrint(tripId:any,e:any){
 
-this.router.navigate([`/dashboard/reserve/Payment/${e}/print/${e}`])
+this.router.navigate([`/dashboard/reserve/Payment/${tripId}/print/${e}`])
 
+
+  }
+  navToComplete(tripId:any,e:any){
+    
+this.router.navigate([`/dashboard/reserve/Payment/${tripId}/complete/${e}`])
 
   }
 }

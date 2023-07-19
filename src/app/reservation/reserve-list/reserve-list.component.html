@@ -27,13 +27,13 @@
             showScrollbar="true"
             useNative="false"
           >
-            <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
+            <!-- <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
             <dxo-pager
               [showPageSizeSelector]="true"
               [allowedPageSizes]="[10, 20, 50]"
               [showNavigationButtons]="true"
             >
-            </dxo-pager>
+            </dxo-pager> -->
             <dxo-filter-row
               [visible]="true"
               [applyFilter]="true"
@@ -74,7 +74,7 @@
               dataType="string"
               width="120"
               caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
-            ></dxi-column>
+            ></dxi-column> 
             <dxi-column
             direction="rtl"
             alignment="right"
@@ -129,6 +129,7 @@
               width="50"
               allowSorting="false"
               caption="P"
+              [visible]="false"
             ></dxi-column>
             <dxi-column
               dataField="attendance"
@@ -180,16 +181,17 @@
               [visible]="false"
             ></dxi-column>
 
-            <dxi-column
+            <!-- <dxi-column
               dataField="remainig"
               [width]="150"
               allowSorting="false"
               caption="Remaining"
-            ></dxi-column>
+            ></dxi-column> -->
             <dxi-column
               dataField="Id"
               allowSorting="false"
               caption="Edit"
+              [width]="80"
               cellTemplate="cellTemplate"
             ></dxi-column>
 

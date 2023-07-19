@@ -51,6 +51,12 @@ export class ReserveService {
       JSON.parse(JSON.stringify(value))
     );
   }
+  completeReserve(reserveId: string, reserveCode: any): Observable<any> {
+    return this.http.post(
+      `${environment.FinancialAddress}/Trip/Reserve/${reserveId}`,
+     {reserveId:reserveCode}
+    );
+  }
 
   getContact(contavtId: string) {
     return this.http.get<any>(

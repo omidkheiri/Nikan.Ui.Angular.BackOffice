@@ -6,177 +6,202 @@
 
 <div class="row layout-top-spacing">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+   
+
+
     <dx-data-grid
-      [dataSource]="dataSource"
-      [showBorders]="true"
-      [remoteOperations]="true"
-      [showColumnLines]="true"
-      [showRowLines]="true"
-      [rowAlternationEnabled]="true"
-      [hoverStateEnabled]="true"
-      (onExporting)="onExporting($event)"
-      keyExpr="Id"
-      showScrollbar="true"
-      useNative="false"
-    >
-      <dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-search-panel
-        [visible]="true"
-        [width]="240"
-        placeholder="Search..."
-      ></dxo-search-panel>
+   
+    [rtlEnabled]="true"
+            [dataSource]="dataSource"
+            [showBorders]="true"
+            [remoteOperations]="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [hoverStateEnabled]="true"
+            (onExporting)="onExporting($event)"
+           
 
-      <dxi-column
-        width="120"
-        dataField="reserveStatus"
-        dataType="string"
-        caption="Status"
-        cellTemplate="reserveStatusId"
-      ></dxi-column>
-      <dxi-column
-        direction="rtl"
-        alignment="center"
-        dataField="flightName"
-        caption="{{ 'ReservePage.List.FlightNumber' | translate }}"
-        dataType="string"
-        width="100"
-      ></dxi-column>
-      <dxi-column
-        direction="rtl"
-        alignment="right"
-        dataField="reserveNumber"
-        dataType="string"
-        width="120"
-        caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
-      ></dxi-column>
-      <dxi-column
-        direction="rtl"
-        alignment="right"
-        dataField="reserveId"
-        dataType="string"
-        caption="کد رزرو"
-        width="120"
-      ></dxi-column>
-
-      <dxi-column
-        width="150"
-        dataField="flightDate"
-        dataType="date"
-        format="yyyy-MM-dd HH:mm"
-        caption="{{ 'ReservePage.List.FlightDate' | translate }}"
-      ></dxi-column>
-      <dxi-column
-        width="200"
-        dataField="contactFullName"
-        dataType="string"
-        caption="{{ 'ReservePage.List.CustomerName' | translate }}"
-      ></dxi-column>
-      <dxi-column
-        width="150"
-        dataField="locationTitle"
-        dataType="string"
-        caption="{{ 'ReservePage.List.LocationTitle' | translate }}"
-      ></dxi-column>
-      <dxi-column
-        width="50"
-        dataField="payment"
-        caption="{{ 'ReservePage.List.Payment' | translate }}"
-        cellRender="checkBoxCell"
-      ></dxi-column>
-
-      <dxi-column
-        dataField="Id"
-        [width]="100"
-        allowSorting="false"
-        caption="ویرایش"
-        cellTemplate="cellTemplate"
-      ></dxi-column>
-
-      <!-- <dxo-paging defaultPageSize="12"></dxo-paging>
-              <dxo-pager
-                [showPageSizeSelector]="true"
-                allowedPageSizes="allowedPageSizes"
-              ></dxo-pager> -->
-      <dxo-load-panel [enabled]="false"></dxo-load-panel>
-      <dxo-scrolling mode="infinite"></dxo-scrolling>
-
-      <div *dxTemplate="let data of 'reserveStatusId'">
-        <span [class]="getStyle(data.value)"> {{ getStatus(data.value) }}</span>
-      </div>
-      <div *dxTemplate="let data of 'cellTemplate'">
-        <div class="inv-action">
-          <button
-            style="background: none; border: none"
-            (click)="onNavigateToreserve(data)"
+            
+         
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-settings"
-            >
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-              ></path>
-            </svg>
-          </button>
-          <button
-            style="background: none; border: none"
-            (click)="onNavigateToPayment(data)"
-          >
-            <svg
-              _ngcontent-vag-c402=""
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-dollar-sign"
-            >
-              <line
-                _ngcontent-vag-c402=""
-                x1="12"
-                y1="1"
-                x2="12"
-                y2="23"
-              ></line>
-              <path
-                _ngcontent-vag-c402=""
-                d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-      <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
-      <dxo-export
-        [enabled]="true"
-        [allowExportSelectedData]="true"
-      ></dxo-export>
-      <dxo-toolbar>
-        <dxi-item location="after">
-          <!-- <div *dxTemplate>
-                     (onClick)="AddAccount()" 
-                    <dx-button icon="plus"> </dx-button>
-                  </div> -->
-        </dxi-item>
-        <dxi-item name="columnChooserButton"></dxi-item>
-        <dxi-item name="exportButton"></dxi-item>
-        <dxi-item name="searchPanel"></dxi-item>
-      </dxo-toolbar>
-    </dx-data-grid>
+         
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+           
+            <dxo-filter-row
+              [visible]="true"
+              [applyFilter]="true"
+            ></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel
+              [visible]="true"
+              [width]="240"
+              placeholder="Search..."
+            ></dxo-search-panel>
+           
+            <dxi-column
+              width="80"
+              dataField="departureReserveStatus"
+              dataType="string"
+              caption="Departure Status"
+              cellTemplate="reserveStatusId"
+            ></dxi-column>
+            <dxi-column
+            width="80"
+            dataField="arrivalReserveStatus"
+            dataType="string"
+            caption="Arrival Status"
+            cellTemplate="reserveStatusId"
+          ></dxi-column>
+            <dxi-column
+              direction="rtl"
+              alignment="center"
+              dataField="flightName"
+              caption="{{ 'ReservePage.List.FlightNumber' | translate }}"
+              dataType="string"
+              width="100"
+            ></dxi-column>
+            <dxi-column
+              direction="rtl"
+              alignment="right"
+              dataField="departureReserveNumber"
+              dataType="string"
+              width="100"
+              caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
+            ></dxi-column>
+            <dxi-column
+            direction="rtl"
+            alignment="right"
+            dataField="arrivalReserveNumber"
+            dataType="string"
+            width="100"
+            caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
+          ></dxi-column>
+            <dxi-column
+              direction="rtl"
+              alignment="right"
+              dataField="tripCode"
+              dataType="string"
+              caption="Trip Code"
+              width="100"
+            ></dxi-column>
+
+            <dxi-column
+              width="120"
+              dataField="flightDate"
+              dataType="date"
+              format="yyyy-MM-dd HH:mm"
+              caption="{{ 'ReservePage.List.FlightDate' | translate }}"
+            ></dxi-column>
+           
+            <dxi-column
+              width="120"
+              dataField="arrivalLocationTitle"
+              dataType="string"
+              caption="{{ 'ReservePage.List.ArrivalLocationTitle' | translate }}"
+            ></dxi-column>
+            <dxi-column
+            width="120"
+            dataField="departureLocationTitle"
+            dataType="string"
+            caption="{{ 'ReservePage.List.ArrivalLocationTitle' | translate }}"
+          ></dxi-column>
+            <dxi-column
+            dataField="tripId"
+            allowSorting="false"
+            caption="Edit"
+            cellTemplate="cellTemplate"
+            width="80"
+          ></dxi-column>
+           
+         
+
+          <div *dxTemplate="let data of 'cellTemplate'">
+              
+            <div class="inv-action">
+              <button
+                style="background: none; border: none"
+                (click)="onNavigateToReserve(data)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-settings"
+                >
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                style="background: none; border: none"
+                (click)="onNavigateToPayment(data)"
+              >
+                <svg
+                  _ngcontent-vag-c402=""
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-dollar-sign"
+                >
+                  <line
+                    _ngcontent-vag-c402=""
+                    x1="12"
+                    y1="1"
+                    x2="12"
+                    y2="23"
+                  ></line>
+                  <path
+                    _ngcontent-vag-c402=""
+                    d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+
+            <div *dxTemplate="let data of 'reserveStatusId'">
+              <span style="font-size: 10px" [class]="getStyle(data.value)">
+                {{ getStatus(data.value) }}</span
+              >
+            </div>
+        
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+            <dxo-export
+              [enabled]="true"
+              [allowExportSelectedData]="true"
+            ></dxo-export>
+            <dxo-toolbar>
+              <dxi-item location="after">
+                <!-- <div *dxTemplate>
+                   (onClick)="AddAccount()" 
+                  <dx-button icon="plus"> </dx-button>
+                </div> -->
+              </dxi-item>
+              <dxi-item name="columnChooserButton"></dxi-item>
+              <dxi-item name="exportButton"></dxi-item>
+              <dxi-item name="searchPanel"></dxi-item>
+            </dxo-toolbar>
+          </dx-data-grid>
+
+
+
   </div>
 </div>

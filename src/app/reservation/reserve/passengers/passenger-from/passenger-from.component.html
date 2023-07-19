@@ -211,7 +211,7 @@
                     </div>
                   </div>
                   <hr class="col-md-12" style="margin: 0px" />
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-3" *ngIf="this.serviceListWheelchair&&this.serviceListWheelchair[0]">
                     <label>&nbsp;</label>
                     <div class="">
                       <input
@@ -233,7 +233,7 @@
                       </label>
                     </div>
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-3" *ngIf="this.serviceListVisa&&this.serviceListVisa[0]">
                     <label>&nbsp;</label>
                     <div class="">
                       <input
@@ -256,20 +256,20 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-3" *ngIf="this.serviceListLOM&&this.serviceListLOM[0]">
                     <label>&nbsp;</label>
                     <div class="">
                       <input
                         type="checkbox"
                         class=""
-                        id="LOM"
-                        name="LOM"
+                        id="lom"
+                        name="lom"
                         ngModel
-                        #LOM
+                        #lom
                         style="height: 25px; width: 25px"
                       /><label
                         class="pt-1"
-                        for="LOM"
+                        for="lom"
                         style="text-align: right; float: left; margin: 0px 10px"
                         >{{
                           "ReservePage.Passenger.FormElement.LOM" | translate

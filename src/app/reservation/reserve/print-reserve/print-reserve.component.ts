@@ -14,13 +14,16 @@ export class PrintReserveComponent implements OnInit {
   hostUrl=environment.PrintUrl;
   reportUrl: string = "ab481c1f-7084-4195-1b24-08db20ce58be";
   invokeAction: string = '/DXXRDV';
+  tripUrl: string;
   constructor(private route:ActivatedRoute,private router:Router) { 
+
 
 
 route.params.subscribe((data:any)=>{
 
 console.log(data);
-this.reportUrl=data.reserveId;
+ this.tripUrl=router.url.split('/')[4];
+this.reportUrl=this.tripUrl+"|"+data.reserveId;
   
 })
   }
@@ -32,8 +35,9 @@ this.reportUrl=data.reserveId;
   ngOnInit(): void {
   }
   close(){
+console.log();
 
-    this.router.navigate(['/dashboard/reserve/Payment/'+this.reportUrl])
+    this.router.navigate(['/dashboard/reserve/Payment/'+this.tripUrl])
 
   }
 }
