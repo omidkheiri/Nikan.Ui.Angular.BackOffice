@@ -8,6 +8,7 @@ import { PaymentComponent } from './reserve/payment/payment.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.component';
 import { CompleteReserveComponent } from './reserve/payment/complete-reserve/complete-reserve.component';
+import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
         path: 'Payment/:tripId',
         component: PaymentComponent,children:[
           {path:"print/:reserveId",component:PrintReserveComponent},
-          {path:"complete/:reserveId",component:CompleteReserveComponent}
+          {path:"complete/:reserveId",component:CompleteReserveComponent},
+          {path:"addPayment",component:AddPaymentComponent}
         ]
       }
     ],

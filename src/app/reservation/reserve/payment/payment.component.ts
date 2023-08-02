@@ -54,6 +54,9 @@ return  item.title;
   AddPayment() {
     this.tripValue = this.trip;
     this.visible = !this.visible;
+     
+     this.router.navigate([`/dashboard/reserve/Payment/${this.trip.id}/addPayment`])
+
   }
   PayFromAccount() {
     this.service.getReservePayment(this.id).subscribe((data: any) => {

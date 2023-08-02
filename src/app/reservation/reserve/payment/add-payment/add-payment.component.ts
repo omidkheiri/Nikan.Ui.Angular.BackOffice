@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, Subscription, tap } from 'rxjs';
 import { ReserveService } from 'src/app/reservation/service/reserve.service';
 import { environment } from 'src/environments/environment';
+import { PaymentService } from '../payment.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-payment',
@@ -14,23 +16,36 @@ import { environment } from 'src/environments/environment';
 })
 export class AddPaymentComponent implements OnInit {
   Date = new Date();
-  @Input('trip') trip: any;
+
   @Output() paymentEvent = new EventEmitter<string>();
-  submited: boolean = false;
+  submitted: boolean = false;
   saved: boolean;
   Locations: any;
-  constructor(private service: ReserveService,private http:HttpClient) {}
+  tripId: string;
+  trip: any;
+  constructor(
+    private service: ReserveService,
+    private http: HttpClient,
+    private paymentService: PaymentService,
+    private router: Router
+  ) {
+    var id = router.url.split('/');
+
+    this.tripId = id[4];
+  }
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
-    console.log(this.trip);
-
-
+    this.paymentService.getReserve(this.tripId).subscribe((data: any) => {
+      console.log(data);
+      
+      this.trip = data;
+    });
   }
 
   onSubmit(form: NgForm) {
     console.log(form);
-    this.submited = true;
+    this.submitted = true;
     if (!form.valid) {
       return;
     }
@@ -48,12 +63,17 @@ export class AddPaymentComponent implements OnInit {
           tripId: this.trip.id,
         })
         .subscribe((a: any) => {
-          this.saved = true;
+        //  this.router.navigate(['/dashboard/reserve/Payment/' + this.tripId]);
 
-          this.paymentEvent.emit('a');
+
+window.location.href = '/dashboard/reserve/Payment/' + this.tripId;
+
         });
     } catch (err: any) {
-      console.log(err);
+      Swal.fire({ text: JSON.stringify(err) });
     }
+  }
+  goBack() {
+    this.router.navigate(['/dashboard/reserve/Payment/' + this.tripId]);
   }
 }

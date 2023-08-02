@@ -1,4 +1,19 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-bottom: 20px">
+<dx-popup
+
+  [width]="'40vw'"
+  [height]="'60vh'"
+  [showTitle]="true"
+  title="ثبت کد رزرو"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [visible]="true"
+  (onHidden)="goBack()"
+>
+  <dx-scroll-view width="100%" height="100%">
+  
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-bottom: 20px" *ngIf="trip">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group mb-4">
@@ -16,7 +31,7 @@
           ngModel
         />
         <div
-          *ngIf="submited && !BankTitle.value"
+          *ngIf="submitted && !BankTitle.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -39,7 +54,7 @@
           ngModel
         />
         <div
-          *ngIf="submited && !BankaccountId.value"
+          *ngIf="submitted && !BankaccountId.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -63,7 +78,7 @@
           style="text-align: left"
         />
         <div
-          *ngIf="submited && !TraceNumber.value"
+          *ngIf="submitted && !TraceNumber.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -84,7 +99,7 @@
           placeholder="کد مرجع"
         />
         <div
-          *ngIf="submited && !ReferenceId.value"
+          *ngIf="submitted && !ReferenceId.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -102,10 +117,10 @@
           name="Amount"
           #Amount
           placeholder="مبلغ"
-          [ngModel]="trip.remainig"
+          [ngModel]="trip.remaining"
         />
         <div
-          *ngIf="submited && !DateIssue.value"
+          *ngIf="submitted && !DateIssue.value"
           class="invalid-feedback"
           style="display: block"
         >
@@ -125,7 +140,7 @@
         placeholder="تاریخ پرداخت"
       ></dx-date-box>
       <div
-        *ngIf="submited && !DateIssue.value"
+        *ngIf="submitted && !DateIssue.value"
         class="invalid-feedback"
         style="display: block"
       >
@@ -134,9 +149,12 @@
     </div>
     <div class="col-md-6">
       <button type="submit" class="btn btn-dark m-3">ذخیره</button>
-      <button type="button" class="btn btn-warning m-3">لغو</button>
+      <button type="button" class="btn btn-warning m-3" (click)="goBack()">لغو</button>
     </div>
   </div>
 </form>
+
+</dx-scroll-view>
+</dx-popup>
 
 <dx-toast [visible]="saved" type="success" [message]="'ذخیره شد'"> </dx-toast>
