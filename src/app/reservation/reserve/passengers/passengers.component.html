@@ -48,7 +48,7 @@
           dataType="boolean"
           dataField="LOM"
         ></dxi-column>
-        <dxi-column  *ngIf="this.serviceListVisa&&this.serviceListVisa[0]"
+        <dxi-column  *ngIf="this.serviceListVisa&&this.serviceListVisa[0]&&this.type==='Arrival'"
           [width]="100"
           dataType="boolean"
           dataField="visa"

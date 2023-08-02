@@ -4,6 +4,7 @@ import { PaymentService } from './payment.service';
 import { Trip } from '../models/Trip';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment',
@@ -91,8 +92,25 @@ this.router.navigate([`/dashboard/reserve/Payment/${tripId}/print/${e}`])
 
   }
   navToComplete(tripId:any,e:any){
+
+    console.log(this.trip);
     
+var reserveRecode=this.trip.reserveRecords.find((d:any)=>{
+
+
+return d.id===e
+
+})
+
+
+
+    if(reserveRecode&&reserveRecode.reserveStatusId!=3){
+
+Swal.fire({text:"ثبت کد رزرو تنها در حالت پرداخت شده ممکن است"})
+
+    }else{
 this.router.navigate([`/dashboard/reserve/Payment/${tripId}/complete/${e}`])
+    }
 
   }
 }

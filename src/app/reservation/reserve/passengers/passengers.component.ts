@@ -48,8 +48,9 @@ export class PassengersComponent implements OnInit {
           nationalCode: data.passenger.nationalCode,
           passportNumber: data.passenger.passportNumber,
           passportExpireDate: data.passenger.passportExpireDate,
-          visa: data.passenger.visa,
-          wheelchair: data.passenger.wheelchair,
+          visa: data.passenger.visa?data.passenger.visa:false,
+          wheelchair: data.passenger.wheelchair?data.passenger.wheelchair:false,
+          LOM:data.passenger.LOM?data.passenger.LOM:false,
           birthDate: data.passenger.birthDate,
           nationality: data.passenger.nationality,
         }));

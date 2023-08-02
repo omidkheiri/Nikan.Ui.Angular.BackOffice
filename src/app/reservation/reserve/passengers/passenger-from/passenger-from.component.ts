@@ -48,6 +48,8 @@ export class PassengerFromComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("",this.type);
+    
     this.store$.subscribe((sub) => {
       var items = sub.reserve.trip.reserveRecords.find((data: any) => {
         return data.locationId === this.locationId;

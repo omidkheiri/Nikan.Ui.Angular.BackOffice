@@ -19452,3 +19452,11 @@ padding-right: 15px;
       box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
       border-radius: 0;
   }
+  .dx-editor-cell.dx-editor-inline-block:not(.dx-command-select)::before {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    height: 0px;
+}
+.dx-widget {
+ 
+}
