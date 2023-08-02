@@ -53,8 +53,7 @@ this.tripId=id[4];
   }
   navigatePayment(){
 
-this.router.navigate(["/dashboard/reserve/Payment/"+this.tripId])
-
+window.location.replace('/dashboard/reserve/Payment/'+this.tripId);
 
   }
 }

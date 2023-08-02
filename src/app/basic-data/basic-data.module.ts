@@ -21,6 +21,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicDataRoutingModule } from './basic-data-routing.module';
 import { FlightNumberFromComponent } from './flight-numbers/flight-number-from/flight-number-from.component';
 import { AirportComponent } from './airport/airport.component';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     FlightNumbersComponent,
@@ -29,7 +30,7 @@ import { AirportComponent } from './airport/airport.component';
     FlightNumberFromComponent,
     AirportComponent,
   ],
-  imports: [
+  imports: [SharedModule,
     FormsModule,
     ReactiveFormsModule,
     BasicDataRoutingModule,

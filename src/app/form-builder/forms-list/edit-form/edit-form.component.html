@@ -1,0 +1,140 @@
+<dx-popup
+  [width]="600"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [title]="formTitle"
+  [dragEnabled]="false"
+ 
+  [showCloseButton]="true"
+  [visible]="true"
+  [hideOnOutsideClick]="false"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'" style="padding: 30px;">
+    <form (submit)="onFormSubmit($event)">
+      <div *ngIf="isLoading" style="text-align: center">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <div *ngIf="error">
+        <i
+          style="font-size: 21px; color: #0c837c"
+          class="fad fa-exclamation-square mr-5 ml-5"
+        ></i
+        ><span class="text-danger mb-5">{{ error }}</span>
+      </div>
+      <dx-form
+        [readOnly]="readonly"
+        [formData]="formTemplate"
+        labelLocation="top"
+        labelMode="float"
+      >
+        <dxi-item dataField="title">
+          <dxi-validation-rule type="required" message="Title is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="technicalName">
+          <dxi-validation-rule type="required" message="Technical Name is required">
+          </dxi-validation-rule>
+          <dxi-validation-rule
+            type="pattern"
+            pattern="^[a-zA-Z]+$"
+            message="The name should contain a-zA-Z no space ">
+     </dxi-validation-rule>
+    </dxi-item>
+    <dxi-item dataField="publicAccess" editorType="dxCheckBox">
+    
+</dxi-item>
+        <dxi-item
+          dataField="categoryId"
+          editorType="dxSelectBox"
+          [editorOptions]="{
+            dataSource: categorySource,
+            displayExpr: 'title',
+            searchEnabled: true,
+            valueExpr: 'id'
+          }"
+        >
+          <dxi-validation-rule type="required" message="Category is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item
+        dataField="displayType"
+        editorType="dxSelectBox"
+        [editorOptions]="{
+          dataSource: displayTypeSource,
+          displayExpr: 'title',
+          searchEnabled: true,
+          valueExpr: 'value'
+        }"
+      >
+        <dxi-validation-rule type="required" message="Display type is required">
+        </dxi-validation-rule>
+      </dxi-item>
+      <dxi-item *ngIf="editMode" [disabled]="editMode" dataField="entityTitle"></dxi-item>
+      <dxi-item *ngIf="!editMode"
+      dataField="entityTitle"
+      editorType="dxSelectBox"
+      [editorOptions]="{
+        dataSource: entityTitleSource,
+        displayExpr: 'title',
+        searchEnabled: true,
+        valueExpr: 'title'
+      }"
+    >
+      <dxi-validation-rule type="required" message="Display type is required">
+      </dxi-validation-rule>
+     
+    </dxi-item>
+        <dxi-item dataField="description"></dxi-item>
+        <dxi-item
+          *ngIf="editMode"
+          [disabled]="editMode"
+          itemType="group"
+          [colCount]="2"
+        >
+          <dxi-item [disabled]="editMode" dataField="addedBy"></dxi-item>
+          <dxi-item [disabled]="editMode" dataField="modifiedBy"></dxi-item>
+          <dxi-item
+            editorType="dxDateBox"
+            editorOptions="{format: 'yyyy-MM-dd HH:mm' }"
+            dataType="dateTime"
+            [disabled]="editMode"
+            dataField="created"
+          ></dxi-item>
+          <dxi-item
+            editorType="dxDateBox"
+            editorOptions="format: 'yyyy-MM-dd HH:mm'"
+            dataType="dateTime"
+            [disabled]="editMode"
+            format="yyyy-MM-dd HH:mm"
+            dataField="modified"
+          ></dxi-item>
+        </dxi-item>
+        <dxi-item
+          itemType="button"
+          horizontalAlignment="left"
+          [buttonOptions]="buttonOptions"
+        >
+        </dxi-item>
+      </dx-form>
+    </form>
+
+
+  </div>
+</dx-popup>

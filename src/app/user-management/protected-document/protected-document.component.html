@@ -1,0 +1,50 @@
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+  {{errorMessage}}
+</div>
+
+<div class="block">
+  <div class="row layout-top-spacing">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+      <div class="widget" style="padding: 20px">
+        <div class="widget-heading" style="display: block; height: 25px">
+          <h6
+            class="pt-10"
+            style="display: block; z-index: 1; position: absolute"
+          >
+            Protected Document
+          </h6>
+
+          <a
+            class="btn btn-primary pull-right"
+            style="float: right"
+            [routerLink]="'add'"
+            type="button"
+            >Add New Root Document</a
+          >
+        </div>
+        <div class="widget-body">
+          <hr />
+          <div class="row m-0" style="margin: 0">
+            <div class="col-3 p-10" style="background: #f4f4f4">
+              <h2 class="mb-10">Documents</h2>
+              <dx-tree-view
+              #treeView
+                [searchEnabled]="true"
+                searchMode="contains"
+                id="treeview"
+                [items]="documents"
+                keyExpr="id"
+                displayExpr="title"
+                itemsExpr="protectedDocuments"
+                (onItemClick)="selectItem($event)"
+              ></dx-tree-view>
+            </div>
+            <div class="col-9 p-10" style="background: #f4f4f4">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -48,7 +48,7 @@ import { DiscountGroupComponent } from './accounts/account/supplier/locations/di
 import { ServiceLineDicountComponent } from './accounts/account/supplier/locations/service-line-dicount/service-line-dicount.component';
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 import { contactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
-import { SharedModule } from '../Shared/shared,module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [

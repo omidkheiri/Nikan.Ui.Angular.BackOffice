@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import ArrayStore from 'devextreme/data/array_store';
 import CustomStore from 'devextreme/data/custom_store';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import * as fromStore from '../../store';
@@ -35,6 +35,8 @@ import { Trip } from '../models/Trip';
 export class FlightInfoComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges
 {
+  mode: string = '';
+
   flightInfoForm = new FormGroup({
     flightDate: new FormControl(null, Validators.required),
     flightType: new FormControl('', Validators.required),
@@ -43,8 +45,8 @@ export class FlightInfoComponent
     arrivalLocationId: new FormControl(''),
     departureLocationId: new FormControl(''),
   });
-  arrivalLocation:any;
-  departureLocation:any;
+  arrivalLocation: any;
+  departureLocation: any;
   min: Date = new Date();
   max: Date = new Date();
   id: string;
@@ -76,30 +78,36 @@ export class FlightInfoComponent
   }
 
   ngOnInit(): void {
+    this.getLocationList();
     this.store$.subscribe((sub) => {
+      this.mode = sub.reserve.formMode;
       this.trip = sub.reserve.trip;
 
-      if (sub.reserve.trip.flightInfo.flightDate) {
+      if (
+        sub.reserve.trip &&
+        sub.reserve.trip.flightInfo &&
+        sub.reserve.trip.flightInfo.flightDate
+      ) {
         this.flightInfoForm.controls.flightDate.setValue(
           sub.reserve.trip.flightInfo.flightDate
         );
       }
-      if (sub.reserve.trip.flightInfo.flightName) {
+      if (
+        sub.reserve.trip &&
+        sub.reserve.trip.flightInfo &&
+        sub.reserve.trip.flightInfo.flightName
+      ) {
         this.flightInfoForm.controls.flightName.setValue(
           sub.reserve.trip.flightInfo.id
         );
       }
-      
+
       if (
         !sub.reserve.arrivalServiceLine ||
         !sub.reserve.departureServiceLine
       ) {
         if (sub.reserve.trip && sub.reserve.trip.flightInfo) {
-       
-         
-
           if (sub.reserve.trip.flightInfo.arrivalLocationId) {
-           
             this.store.dispatch(
               fromAction.LoadArrivalServiceLineInReserve({
                 locationId: sub.reserve.trip.flightInfo.arrivalLocationId,
@@ -108,7 +116,7 @@ export class FlightInfoComponent
             );
           }
           if (sub.reserve.trip.flightInfo.departureLocationId) {
-           this.store.dispatch(
+            this.store.dispatch(
               fromAction.LoadDepartureServiceLineInReserve({
                 locationId: sub.reserve.trip.flightInfo.departureLocationId,
                 flightDate: sub.reserve.trip.flightInfo.flightDate,
@@ -125,12 +133,62 @@ export class FlightInfoComponent
       ) {
         this.max = sub.reserve.locationId.maxAcceptDate;
       }
+      this.arrivalLocation =
+        this.trip &&
+        this.trip.flightInfo &&
+        this.trip.flightInfo.arrivalLocationId
+          ? this.trip.flightInfo.arrivalLocationId
+          : '';
+      this.departureLocation =
+        this.trip &&
+        this.trip.flightInfo &&
+        this.trip.flightInfo.departureLocationId
+          ? this.trip.flightInfo.departureLocationId
+          : '';
 
       this.ref.markForCheck();
     });
-    console.log(this.trip);
   }
 
+  getLocationList() {
+    this.http
+      .get(
+        `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
+      )
+      .subscribe((data1: any) => {
+        this.ArrivalLocations = data1.filter((data: any) => {
+          return (
+            !data.doNotShow &&
+            data.airportId &&
+            data.airportId.toLocaleLowerCase() ===
+              this.trip.flightInfo.arrivalAirportId.toLocaleLowerCase()
+          );
+        });
+        this.DepartureLocations = data1.filter((data: any) => {
+          return (
+            !data.doNotShow &&
+            data.airportId &&
+            data.airportId.toLocaleLowerCase() ===
+              this.trip.flightInfo.departureAirportId.toLocaleLowerCase()
+          );
+        });
+
+        this.arrivalLocation =
+          this.trip &&
+          this.trip.flightInfo &&
+          this.trip.flightInfo.arrivalLocationId
+            ? this.trip.flightInfo.arrivalLocationId
+            : '';
+        this.departureLocation =
+          this.trip &&
+          this.trip.flightInfo &&
+          this.trip.flightInfo.departureLocationId
+            ? this.trip.flightInfo.departureLocationId
+            : '';
+      });
+  }
+
+ 
   loadList(http: HttpClient, service: ReserveService) {
     this.flightNumberSource = new CustomStore({
       key: 'id',
@@ -154,12 +212,12 @@ export class FlightInfoComponent
     var item = $event.selectedItem;
 
     let flightDate1 = this.flightInfoForm.controls.flightDate;
-  
 
     this.http
       .get(
         `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
-      ).subscribe((data1: any) => {
+      )
+      .subscribe((data1: any) => {
         var flightInfo = {
           id: item.id,
           flightName: item.flightName,
@@ -177,8 +235,18 @@ export class FlightInfoComponent
           departureTime: item.departureTime,
           departureAirportId: item.departureAirportId,
           arrivalAirportId: item.arrivalAirportId,
-          departureLocationId:this.trip&&this.trip.flightInfo&& this.trip.flightInfo.departureLocationId?this.trip.flightInfo.departureLocationId:"",
-          arrivalLocationId:  this.trip&&this.trip.flightInfo&&this.trip.flightInfo.arrivalLocationId?this.trip.flightInfo.arrivalLocationId:"",
+          departureLocationId:
+            this.trip &&
+            this.trip.flightInfo &&
+            this.trip.flightInfo.departureLocationId
+              ? this.trip.flightInfo.departureLocationId
+              : '',
+          arrivalLocationId:
+            this.trip &&
+            this.trip.flightInfo &&
+            this.trip.flightInfo.arrivalLocationId
+              ? this.trip.flightInfo.arrivalLocationId
+              : '',
         };
 
         this.ArrivalLocations = data1.filter((data: any) => {
@@ -198,11 +266,18 @@ export class FlightInfoComponent
           );
         });
 
-        this.arrivalLocation= this.trip&& this.trip.flightInfo&& this.trip.flightInfo.arrivalLocationId?this.trip.flightInfo.arrivalLocationId:'';
-        this.departureLocation=this.trip&&this.trip.flightInfo&&this.trip.flightInfo.departureLocationId?this.trip.flightInfo.departureLocationId:'';
-           
-
-
+        this.arrivalLocation =
+          this.trip &&
+          this.trip.flightInfo &&
+          this.trip.flightInfo.arrivalLocationId
+            ? this.trip.flightInfo.arrivalLocationId
+            : '';
+        this.departureLocation =
+          this.trip &&
+          this.trip.flightInfo &&
+          this.trip.flightInfo.departureLocationId
+            ? this.trip.flightInfo.departureLocationId
+            : '';
 
         this.store.dispatch(
           fromAction.SetFlightInfo({ FlightInfo: flightInfo })
@@ -240,7 +315,7 @@ export class FlightInfoComponent
     flightInfo.departureLocationId = this.DepartureLocation
       ? this.DepartureLocation.id
       : '';
-      flightInfo.flightDate=this.flightInfoForm.controls.flightDate.value;
+    flightInfo.flightDate = this.flightInfoForm.controls.flightDate.value;
     this.store.dispatch(
       fromAction.SetDepartureLocation({
         oldLocationValue: this.trip.flightInfo.departureLocationId,
@@ -259,7 +334,7 @@ export class FlightInfoComponent
       ? this.ArrivalLocation.id
       : '';
 
-      flightInfo.flightDate=this.flightInfoForm.controls.flightDate.value;
+    flightInfo.flightDate = this.flightInfoForm.controls.flightDate.value;
     this.store.dispatch(
       fromAction.SetArrivalLocation({
         oldLocationValue: this.trip.flightInfo.arrivalLocationId,
@@ -267,34 +342,33 @@ export class FlightInfoComponent
       })
     );
   }
-  arrivalDate():Date{
-   
-    if(!this.trip.flightInfo.flightDate){
-      return new Date;
+  arrivalDate(): Date {
+    if (!this.trip.flightInfo.flightDate) {
+      return new Date();
     }
- var arrivalHHTime= Number(this.trip.flightInfo.arrivalTime.split(":")[0]);
- var arrivalMMTime= Number(this.trip.flightInfo.arrivalTime.split(":")[1]);
- var date:Date =  this.trip.flightInfo.flightDate; 
- console.log("date:",date);
-  
- var  arrivalDateTime = new Date(date);
- arrivalDateTime.setHours(arrivalHHTime,arrivalMMTime);
- var DepartureHHTime= Number(this.trip.flightInfo.departureTime.split(":")[0]);
- var DepartureMMTime= Number(this.trip.flightInfo.departureTime.split(":")[1]);
- var departureDateTime=new Date(date  );
-departureDateTime.setHours(DepartureHHTime,DepartureMMTime);
+    var arrivalHHTime = Number(this.trip.flightInfo.arrivalTime.split(':')[0]);
+    var arrivalMMTime = Number(this.trip.flightInfo.arrivalTime.split(':')[1]);
+    var date: Date = this.trip.flightInfo.flightDate;
+    console.log('date:', date);
 
-if(arrivalDateTime<departureDateTime){
+    var arrivalDateTime = new Date(date);
+    arrivalDateTime.setHours(arrivalHHTime, arrivalMMTime);
+    var DepartureHHTime = Number(
+      this.trip.flightInfo.departureTime.split(':')[0]
+    );
+    var DepartureMMTime = Number(
+      this.trip.flightInfo.departureTime.split(':')[1]
+    );
+    var departureDateTime = new Date(date);
+    departureDateTime.setHours(DepartureHHTime, DepartureMMTime);
 
-  try{
-  arrivalDateTime.setDate(date.getDate() + 1);
-  }catch{}
+    if (arrivalDateTime < departureDateTime) {
+      try {
+        arrivalDateTime.setDate(date.getDate() + 1);
+      } catch {}
+    }
+    console.log(this.trip.flightInfo.flightDate);
 
-
-}
-console.log(this.trip.flightInfo.flightDate);
-
-return arrivalDateTime;
-
+    return arrivalDateTime;
   }
 }

@@ -1,0 +1,102 @@
+<div style="background: #ffffff; padding: 15px">
+  <h1 style="width: 100%">
+    Update module definition
+    <button
+      (click)="onRemoveItem()"
+      class="btn btn-danger"
+      style="float: right"
+    >
+      Remove
+    </button>
+ 
+    <a
+      *ngIf="selectedItem && selectedItem.moduleDefinitionId"
+      [routerLink]="[
+        '/dashboard/users/modules/edit',
+        selectedItem.moduleDefinitionId
+      ]"
+      class="btn btn-info mr-5 ml-5"
+      style="float: right"
+      ><i
+        class="far fa-arrow-circle-left mr-5 ml-5"
+        style="font-weight: 100;font-size: 17px;"
+      ></i
+      >Parent</a
+    >
+  </h1>
+
+  <form (ngSubmit)="onFormSubmit($event)">
+    <div *ngIf="isLoading" style="text-align: center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <dx-form
+      [formData]="moduleDefinition"
+      labelLocation="top"
+      labelMode="float"
+    >
+      <dxi-item>
+        <h1 *ngIf="selectedItem">Parent Title: {{ selectedItem.title }}</h1>
+      </dxi-item>
+
+      <dxi-item itemType="group" [colCount]="2">
+        <dxi-item dataField="title">
+          <dxi-validation-rule type="required" message="Title is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item
+          dataField="permissions"
+          editorType="dxTagBox"
+          [editorOptions]="{
+            items: editablePermissions,
+            acceptCustomValue: false,
+            searchEnabled: true
+          }"
+        >
+          <dxi-validation-rule
+            type="required"
+            message="Permissions is required"
+          >
+          </dxi-validation-rule>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item
+        itemType="button"
+        horizontalAlignment="left"
+        [buttonOptions]="buttonOptions"
+      >
+      </dxi-item>
+    </dx-form>
+  </form>
+</div>
+
+<div class="row p-20" *ngIf="selectedItem">
+  <div class="col-12">
+    <hr />
+    <h1 style="display: block; position: absolute; margin-top: 10px">
+      Submodules
+    </h1>
+    <div style="display: block; width: 100%; height: 50px">
+      <a
+        [routerLink]="['/dashboard/users/modules/add', module.id]"
+        class="btn btn-primary btn btn-primary mb-20"
+        style="float: right; width: 140px"
+        >Add Submodule</a
+      >
+    </div>
+    <ul class="ist-group">
+      <li class="list-group-item" *ngFor="let i of module.moduleDefinitions">
+        <div class="row">
+          <div class="col-12">Title:<a [routerLink]="['/dashboard/users/modules/edit/',i.id]"> {{ i.title }}</a></div>
+          <div class="col-12">
+            <dx-tag-box
+              [disabled]="true"
+              [acceptCustomValue]="true"
+              [value]="permissionExtractor(i)"
+            >
+            </dx-tag-box>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

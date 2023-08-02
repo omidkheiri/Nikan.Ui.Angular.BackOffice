@@ -11,6 +11,7 @@
       </div>
       <div class="widget-content widget-content-area">
         <app-passenger-from #passengerForm [type]="type"  [locationId]="locationId"></app-passenger-from>
+       
         <dx-data-grid
           id="gridContainer"
           [dataSource]="this.passenger"
@@ -36,36 +37,36 @@
             [customizeText]="priceColumn_customizeText"
             dataField="gender"
             [width]="100"
+            
           >
           </dxi-column>
 
           <dxi-column caption="Name" dataField="name"></dxi-column>
           <dxi-column caption="Last Name" dataField="lastName"></dxi-column>
-          <dxi-column
-            [width]="100"
-            dataType="boolean"
-            dataField="LOM"
-          ></dxi-column>
-          <dxi-column
-            [width]="100"
-            dataType="boolean"
-            dataField="visa"
-          ></dxi-column>
-          <dxi-column
-            [width]="100"
-            dataType="boolean"
-            caption="Wheelchair"
-            dataField="wheelchair"
-          ></dxi-column>
+          <dxi-column *ngIf="this.serviceListLOM&&this.serviceListLOM[0]"
+          [width]="100"
+          dataType="boolean"
+          dataField="LOM"
+        ></dxi-column>
+        <dxi-column  *ngIf="this.serviceListVisa&&this.serviceListVisa[0]"
+          [width]="100"
+          dataType="boolean"
+          dataField="visa"
+        ></dxi-column>
+        <dxi-column
+          [width]="100"  *ngIf="this.serviceListWheelchair&&this.serviceListWheelchair[0]"
+          dataType="boolean"
+          caption="Wheelchair"
+          dataField="wheelchair"
+        ></dxi-column>
           <dxi-column
             caption=""
             cellTemplate="cellTemp"
             [width]="50"
           ></dxi-column>
-          <dxi-column type="buttons" [width]="50">
-            <dxi-button name="delete"></dxi-button>
+          <dxi-column type="buttons" [width]="50" >
+            <dxi-button name="delete" (click)="delete($event)"></dxi-button>
           </dxi-column>
-
           <div *dxTemplate="let d of 'cellTemp'">
             <button
               style="border: 0; background: none; font-size: 15px"
@@ -73,6 +74,7 @@
               (click)="passengerForm.editPassenger(d)"
             ></button>
           </div>
+         
         </dx-data-grid>
       </div>
     </div>

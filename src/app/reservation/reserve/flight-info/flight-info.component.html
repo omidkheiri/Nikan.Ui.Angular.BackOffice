@@ -5,7 +5,7 @@
       class="row "
       style="direction: rtl"
     >
-      <div class="col-lg-12 col-12 layout-spacing">
+      <div class="col-lg-12 col-12 ">
         <div class="row m-2">
           <div class="col">
             <span
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <form [formGroup]="flightInfoForm">
+    <form [formGroup]="flightInfoForm" *ngIf="this.mode==='new'">
       <div class="row">
 
 
@@ -133,26 +133,24 @@
     </form>
   
     
-<div class="row mt-3" *ngIf="trip&&trip.flightInfo">
-  <div class="col-6" style="direction: rtl;">
+<div class="row mt-1 pl-3 pr-3" *ngIf=" trip&&trip.flightInfo">
+  <div class="col-6 p-1" >
+    <span style="display: block; ">
     <p style="
     text-align: justify;font-size: 12px;
   ">Departure Location</p>
   
-    <app-location-options [id]="'Departure'" [Value]="departureLocation" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
-  
-  
-    
-    
+    <app-location-options [mode]="this.mode"   [id]="'Departure'" [Value]="departureLocation" (SelectedLocation)="onDepartureLocation($event)" [Type]="'Departure'" [Locations]="DepartureLocations" ></app-location-options>
+  </span>
     </div>
   
-  <div class="col-6">
+  <div class="col-6 p-1">
     <p style="
     text-align: justify;font-size: 12px;
     ">Arrival Location</p>
     
-     <app-location-options [Type]="'Arrival'" [id]="'Arrival'" [Value]="arrivalLocation" (SelectedLocation)="onArrivalLocation($event)" [Locations]="ArrivalLocations" ></app-location-options>
-    
+     <app-location-options [mode]="this.mode"   [id]="'Arrival'" [Value]="arrivalLocation" (SelectedLocation)="onArrivalLocation($event)" [Type]="'Arrival'" [Locations]="ArrivalLocations" ></app-location-options>
+
     
     </div>
 

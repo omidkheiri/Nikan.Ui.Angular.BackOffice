@@ -159,6 +159,13 @@
               </a>
             </li>
 
+
+
+
+
+
+
+            
             <li
               class="menu single-menu"
               (mouseleave)="mouseOut('name')"
@@ -233,18 +240,52 @@
                   </a>
                 </li>
                 <li>
+                  <a [routerLink]="'/dashboard/basicdata/airports'">
+               فرودگاه ها
+             
+                  </a>
+                </li>
+                <li>
                   <a [routerLink]="'/dashboard/basicdata/airLines'">
                     {{ "HeaderMenus.AirLineNames" | translate }}   
                   </a>
                 </li>
+
                 <li>
-                  <a [routerLink]="'/dashboard/basicdata/airports'">
-                    {{ "HeaderMenus.Airports" | translate }}   
+                  <a [routerLink]="'/dashboard/forms/category'">
+                  گروه های فرمها
+             
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="'/dashboard/forms/List'">
+                  فرمها
+             
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="'/dashboard/users/userList'">
+                   کاربران داخلی 
+             
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="'/dashboard/users/roles'">
+                  نقشها
+             
+                  </a>
+                </li>
+               
+              
+                <li>
+                  <a [routerLink]="'/dashboard/users/protectedDocuments'">
+                  تعریف انواع اسناد  
              
                   </a>
                 </li>
               </ul>
             </li>
+          
             <li class="menu single-menu" routerLinkActive="active">
               <a
                 routerLink="/dashboard/reserve/ReserveList"

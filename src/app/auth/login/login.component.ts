@@ -5,7 +5,6 @@ import { AuthService } from '../auth.service';
 import * as fromAuth from '../store';
 import * as AuthActions from '../store/auth.actions';
 import { Subscription } from 'rxjs';
-import { AlertComponent } from 'src/app/Shared/alert/alert.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

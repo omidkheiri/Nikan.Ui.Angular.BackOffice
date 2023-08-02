@@ -41,6 +41,7 @@ export class NavSectionComponent implements OnInit {
   contactId: any;
   formMode: any;
   reserveNumber: any;
+  mode: any;
   constructor(
     private store: Store<fromStore.ReserveModuleState>,
     private httpClient: HttpClient,
@@ -136,7 +137,7 @@ export class NavSectionComponent implements OnInit {
   displayCustomer(item: any) {
     return item && `${item.name} ${item.lastName} -> ${item.phone}`;
   }
-
+  
   saveReserve() {
 
 
@@ -197,7 +198,7 @@ export class NavSectionComponent implements OnInit {
   ngOnInit(): void {
 
     this.store$.subscribe((sub: any) => {
-
+      this.mode=sub.reserve.formMode;
       this.items = [];
       this.currentState = sub.reserve;
      

@@ -1,0 +1,203 @@
+<dx-popup
+  [width]="'100vw'"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [title]="formTitle"
+  [dragEnabled]="false"
+  [showCloseButton]="true"
+  [visible]="true"
+  [hideOnOutsideClick]="false"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'" style="padding: 30px">
+    <dx-scroll-view width="100%" height="100%">
+      <div class="role-edit-container" >
+        <div class="role-info" *ngIf="roleInfo">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+              <h5 class="app-title">Manage Roles</h5>
+            </div>
+            <dx-form
+              [readOnly]="true"
+              [formData]="roleInfo"
+              labelLocation="top"
+              labelMode="float"
+              style="width: 100%"
+            >
+              <dxi-item
+                *ngIf="true"
+                [disabled]="true"
+                itemType="group"
+                [colCount]="1"
+              >
+                <dxi-item [disabled]="true" dataField="roleName"></dxi-item>
+                <dxi-item [disabled]="true" dataField="addedBy"></dxi-item>
+                <dxi-item [disabled]="true" dataField="modifiedBy"></dxi-item>
+                <dxi-item
+                  editorType="dxDateBox"
+                  [editorOptions]="{ displayFormat: 'yyyy MMM dd HH:mm:ss' }"
+                  dataType="dateTime"
+                  [disabled]="true"
+                  dataField="created"
+                ></dxi-item>
+                <dxi-item
+                  editorType="dxDateBox"
+                  [editorOptions]="{ displayFormat: 'yyyy MMM dd HH:mm:ss' }"
+                  dataType="dateTime"
+                  [disabled]="true"
+                  format="yyyy-MM-dd HH:mm"
+                  dataField="modified"
+                ></dxi-item>
+              </dxi-item>
+            </dx-form>
+          </div>
+        </div>
+
+        <div id="todo-inbox" class="accordion todo-inbox p-20">
+         
+          <div class="widget-content widget-content-area underline-content">
+            <ul class="nav nav-tabs mb-3" id="lineTab" role="tablist">
+              <li class="nav-item">
+                <button
+                  (click)="OnTab('permission')"
+                  [class]="
+                    'nav-link ' + (activeTab === 'permission' ? 'active' : '')
+                  "
+                  id="underline-home-tab"
+                  data-toggle="tab"
+                  role="tab"
+                  aria-controls="underline-home"
+                  aria-selected="true"
+                >
+                  Permissions
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  [class]="
+                    'nav-link ' + (activeTab === 'document' ? 'active' : '')
+                  "
+                  id="underline-profile-tab"
+                  data-toggle="tab"
+                  (click)="OnTab('document')"
+                  role="tab"
+                  aria-controls="underline-profile"
+                  aria-selected="false"
+                >
+                  Documents
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content" *ngIf="activeTab === 'permission'">
+              <div class="tab-pane fade show active" role="tabpanel">
+                <div id="accordion" *ngIf="modules">
+
+                  <dx-accordion
+                    #accordion
+                    [dataSource]="modules"
+                    [collapsible]="true"
+                    [multiple]="true"
+                    [animationDuration]="300"
+                    id="accordion-container"
+                    [selectedItems]="modules"
+                  >
+                    <div *dxTemplate="let module of modules">
+                      <pre>{{module|json}}</pre>
+                      <h1>{{ modules.title }}</h1>
+                    </div>
+                    <div *dxTemplate="let i of 'item'" class="row pl-20 pr-20">
+                     
+                      <app-permission-control
+                        style="width: 100%"
+                        [permission]="i"
+                        [roleItem]="this.roleInfo"
+                        class="row"
+                      >
+                      </app-permission-control>
+
+                      <hr *ngIf="i.moduleDefinitions.length>0" style="width: 100%;margin: 2px;" />
+                      
+                      <div class="col-12" *ngIf="i.moduleDefinitions.length>0">
+                    
+                        <app-permission-editor
+                          [roleItem]="this.roleInfo"
+                          [subModuleItems]="i"
+                        ></app-permission-editor>
+                      </div>
+                    </div>
+                  </dx-accordion>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content" *ngIf="activeTab === 'document'">
+              <div class="tab-pane fade show active" role="tabpanel">
+                <div class="block">
+
+<div id="accordion" *ngIf="protectedDocuments">
+
+  <dx-accordion
+    #accordion
+    [dataSource]="protectedDocuments"
+    [collapsible]="true"
+    [multiple]="true"
+    [animationDuration]="300"
+    id="accordion-container"
+    [selectedItems]="protectedDocuments"
+  >
+    <div *dxTemplate="let protectedDocument of protectedDocuments">
+      
+      <h1>{{ protectedDocument.title }}</h1>
+    </div>
+    <div *dxTemplate="let i of 'item'" class="row pl-20 pr-20">
+     
+      <app-document-access-control
+        style="width: 100%"
+        [permission]="i"
+        [roleItem]="this.roleInfo"
+        class="row"
+      >
+      </app-document-access-control>
+
+      <hr *ngIf="i.protectedDocuments.length>0" style="width: 100%;margin: 2px;" />
+      
+      <div class="col-12" *ngIf="i.protectedDocuments.length>0">
+    
+        <app-document-access-editor
+          [roleItem]="this.roleInfo"
+          [subDocumentItems]="i"
+        ></app-document-access-editor>
+      </div>
+    </div>
+  </dx-accordion>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+         
+       
+        </div>
+   
+      
+      </div> 
+      </dx-scroll-view>
+  </div>
+</dx-popup>

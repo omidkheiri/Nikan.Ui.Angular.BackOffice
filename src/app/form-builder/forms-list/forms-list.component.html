@@ -1,0 +1,158 @@
+<router-outlet></router-outlet>
+<div class="row layout-top-spacing" style="direction: ltr;">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-heading">
+        <h6 style="display: block; position: absolute; z-index: 1">
+          Form Template List
+        </h6>
+        <dx-data-grid
+        #dataGrid
+          [dataSource]="dataSource"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
+          [hoverStateEnabled]="true"
+          (onExporting)="onExporting($event)"
+          showScrollbar="true"
+          useNative="false"
+        >
+          <dxo-filter-row
+            [visible]="true"
+            [applyFilter]="true"
+          ></dxo-filter-row>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-search-panel
+            [visible]="true"
+            [width]="240"
+            placeholder="Search..."
+          ></dxo-search-panel>
+          <dxi-column
+          dataField="title"
+          dataType="string"
+          width="200"
+        ></dxi-column>
+          <dxi-column
+            dataField="technicalName"
+            dataType="string"
+            width="200"
+          ></dxi-column>
+          <dxi-column
+          dataField="publicAccess"
+          dataType="boolean"
+          width="150"
+        ></dxi-column>
+          <dxi-column
+            dataField="categoryTitle"
+            dataType="string"
+            caption="Category"
+          >
+          
+          </dxi-column>
+       
+
+          <dxi-column
+            dataField="Id"
+            [width]="300"
+            [allowSorting]="false"
+            [allowFiltering]="false"
+            caption=""
+            cellTemplate="cellTemplate"
+          ></dxi-column>
+
+          <dxo-load-panel [enabled]="false"></dxo-load-panel>
+          <dxo-scrolling mode="infinite"></dxo-scrolling>
+
+          <div *dxTemplate="let data of 'cellTemplate'">
+            <div class="row">
+              <div class="col" style="margin-left: 10px" class="inv-action">
+                <a [routerLink]="'/dashboard/forms/List/edit/' + data.data.id"
+                  ><i class="fad fa-info-circle"></i>
+                </a>
+              </div>
+              <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                <a [routerLink]="'/dashboard/forms/List/form/' + data.data.id"
+                  ><i class="fad fa-edit"></i
+                ></a>
+              </div>
+          
+
+
+              <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                <a
+                  [routerLink]="
+                    '/dashboard/forms/List/translate/' + data.data.id
+                  "
+                  ><i class="fad fa-language"></i
+                ></a>
+               
+             
+              </div>
+
+
+
+            
+              <div class="col m-5" style="margin-left: 20px" class="inv-action"> <a
+                (click)="downloadTemplate(data.data.id)"
+                 > 
+               <i class="fad fa-cloud-download"></i></a>
+ </div>
+
+
+
+              <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                <a [routerLink]="['auditLog',data.data.id]"><i class="far fa-history"></i></a>
+              </div>
+              <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                <a
+                 (click)="confirmBox(data.data.id)"
+                  ><i class="fad fa-trash"></i
+                ></a>
+               
+             
+              </div>
+           
+            </div>
+          </div>
+
+          <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          <dxo-export
+            [enabled]="true"
+            [allowExportSelectedData]="true"
+          ></dxo-export>
+          <dxo-toolbar>
+            <dxi-item location="after">
+              <div *dxTemplate>
+                <dx-button
+                  (click)="onAddOpen()"
+                  icon="plus"
+                  textContent="Create"
+                >
+                </dx-button>
+              </div>
+             
+            </dxi-item>
+            <dxi-item   name="Import" location="after">
+              
+              <div *dxTemplate>
+                <dx-button
+                  (click)="importForm()"
+                  icon="import"
+                  textContent="Import"
+                  text="Import"
+                >
+                </dx-button>
+              </div>
+            </dxi-item>
+            <dxi-item name="columnChooserButton"></dxi-item>
+            <dxi-item name="exportButton"></dxi-item>
+            <dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div style="padding: 30px">
+  <div class="row">
+    <div class="col-md-12">
+      <span class="dx-form-group-caption">User Roles</span>
+
+      <div
+        style="
+          padding-top: 19px;
+          margin-top: 6px;
+          border-top: 1px solid #ddd;
+          padding-bottom: 20px;
+        "
+      >
+        <div class="dx-field">
+          <div class="dx-field-label" style="width: 100%">Roles</div>
+          <div class="dx-field-value" style="width: 100%">
+            <dx-select-box
+            #roleItem
+              [dataSource]="dataSource"
+              displayExpr="roleName"
+              valueExpr="id"
+              searchMode="contains"
+              searchExpr="roleName"
+              [minSearchLength]="3"
+              [searchEnabled]="true"
+              [showDataBeforeSearch]="true"
+            ></dx-select-box>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button class="btn btn-success" (click)="AddRole(roleItem)">Add</button>
+    </div>
+    <div class="col-md-12 pt-10">
+      <table class="elsa-min-w-full">
+        <thead>
+          <tr class="elsa-border-t elsa-border-gray-200">
+           
+            <th style="width: 20px;"
+            class="hidden md:elsa-table-cell elsa-px-6 elsa-py-3 elsa-border-b elsa-border-gray-200 elsa-bg-gray-50 elsa-text-left elsa-text-xs elsa-leading-4 elsa-font-medium elsa-text-gray-500 elsa-uppercase elsa-tracking-wider pl-20 pr-20"
+          >
+          
+          </th>
+            <th
+              class="hidden md:elsa-table-cell elsa-px-6 elsa-py-3 elsa-border-b elsa-border-gray-200 elsa-bg-gray-50 elsa-text-left elsa-text-xs elsa-leading-4 elsa-font-medium elsa-text-gray-500 elsa-uppercase elsa-tracking-wider pl-20 pr-20"
+            >
+            Role
+            </th>
+            <th style="width: 200px;
+            "
+              class="elsa-px-6 elsa-py-3 elsa-border-b elsa-border-gray-200 elsa-bg-gray-50 elsa-text-left elsa-text-xs elsa-leading-4 elsa-font-medium elsa-text-gray-500 elsa-uppercase elsa-tracking-wider"
+            >
+            Remove
+            </th>
+           
+          </tr>
+        </thead>
+        <tbody class="elsa-bg-white elsa-divide-y elsa-divide-gray-100">
+        
+             <tr *ngFor="let i of userRoles">
+                <td
+                  class="elsa-px-6 elsa-py-3 elsa-whitespace-no-wrap elsa-text-sm elsa-leading-5 elsa-font-medium elsa-text-gray-900"
+                >
+               
+                </td>
+                <td
+                  class="elsa-px-6 elsa-py-3 elsa-whitespace-no-wrap elsa-text-sm elsa-leading-5 elsa-font-medium elsa-text-gray-900"
+                >
+                 {{i.roleName}}
+                </td>
+                <td
+                class="elsa-px-6 elsa-py-3 elsa-whitespace-no-wrap elsa-text-sm elsa-leading-5 elsa-font-medium elsa-text-gray-900"
+              >
+              <button (click)="RemoveRole(i.roleId)" class="btn btn-danger">Remove</button>
+               
+              </td>
+                 </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

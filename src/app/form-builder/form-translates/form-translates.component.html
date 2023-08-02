@@ -1,0 +1,93 @@
+<dx-popup
+  [width]="'100vw'"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [closeOnOutsideClick]="false"
+  [title]="formTitle"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div class="row pt-20" style="margin: 0px">
+        <div class="col-md-4">
+          <p>
+            Language List
+            <span></span>
+          </p>
+          <hr />
+
+          <dx-data-grid
+            keyExpr="id"
+            #dataGrid
+            [dataSource]="LanguageList"
+            [showBorders]="true"
+            [remoteOperations]="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [hoverStateEnabled]="true"
+            showScrollbar="true"
+            useNative="false"
+            (onSelectionChanged)="viewTranslation($event)"
+            (onRowInserted)="selectionInserted($event)"
+            (onRowUpdated)="selectionChanged($event)"
+            (onRowRemoved)="selectionRemove($event)"
+          >
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel
+              [visible]="true"
+              [width]="240"
+              placeholder="Search..."
+            ></dxo-search-panel>
+            <dxo-editing
+              mode="row"
+              [allowUpdating]="true"
+              [allowDeleting]="true"
+              [allowAdding]="true"
+            >
+            </dxo-editing>
+            <dxi-column dataField="lang" dataType="string">
+              <dxi-validation-rule type="required"></dxi-validation-rule
+            ></dxi-column>
+
+            <dxi-column dataField="langLabel" dataType="string">
+              <dxi-validation-rule type="required"></dxi-validation-rule
+            ></dxi-column>
+
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+            <dxo-scrolling mode="infinite"></dxo-scrolling>
+
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          </dx-data-grid>
+        </div>
+        <div class="col-md-8">
+          <app-translations
+            [translation]="selectedtranslation"
+            [form]="formInfo"
+          ></app-translations>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

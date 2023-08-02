@@ -1,3 +1,4 @@
+<span *ngIf="mode==='new'">
 <div class="card" *ngFor="let l of Locations">
 
     <input type="radio" [checked]="this.value===l.id" (change)="handleChange($event)"  [name]="'Location'+Type" [id]="l.id"  >
@@ -14,4 +15,17 @@
       
     </label>
   </div>
+</span>
+ 
+<span *ngIf="mode==='edit'">
+
+   <div class="" *ngFor="let l of loadedLocations">
+    
+     <span style="font-size: 10px;float: right;"  *ngIf="this.value===l.id">{{l.title}}</span>
+
+    
+     </div>
+    
+   </span>
+
  

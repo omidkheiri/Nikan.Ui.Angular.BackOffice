@@ -1,0 +1,67 @@
+<dx-popup
+  [width]="600"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [title]="formTitle"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div  style="padding: 30px">
+    
+        <form (ngSubmit)="onFormSubmit($event)">
+            <div *ngIf="isLoading" style="text-align: center">
+                <app-loading-spinner></app-loading-spinner>
+              </div>
+          <dx-form
+       
+      labelLocation="top"
+      labelMode="float"
+     
+    >
+<dxi-item>
+    <h1 *ngIf="selectedItem">Parent Title: {{selectedItem.title}}</h1>
+</dxi-item>
+
+    <dxi-item itemType="group" >
+        <dxi-item dataField="title" >
+          <dxi-validation-rule type="required" message="Title is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="permissions" editorType="dxTagBox"   [editorOptions]="{  items:editablePermissions,
+        acceptCustomValue:true }" >
+            <dxi-validation-rule type="required" message="permissions is required">
+            </dxi-validation-rule>
+          </dxi-item>
+
+          <dxi-item
+          itemType="button"
+          horizontalAlignment="left"
+          [buttonOptions]="buttonOptions"
+        >
+        </dxi-item>
+    </dxi-item>
+
+
+    </dx-form>
+ 
+      </form>
+      </div>

@@ -120,7 +120,7 @@ export class ReservesComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
   getStatus(item: any) {
     switch (item) {
@@ -145,7 +145,7 @@ export class ReservesComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
   onNavigateToReserve(item: any) {
     this.router.navigate([

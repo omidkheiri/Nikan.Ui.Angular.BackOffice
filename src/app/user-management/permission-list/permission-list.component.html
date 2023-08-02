@@ -1,0 +1,66 @@
+<div class="row layout-top-spacing block">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+      <div class="widget widget-chart-one" style="padding: 20px">
+        <div class="widget-heading">
+          <h6 style="display: block; position: absolute; z-index: 1">
+           Permission List
+          </h6>
+          <dx-data-grid
+            [dataSource]="dataSource"
+            [showBorders]="true"
+            [remoteOperations]="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [hoverStateEnabled]="true"
+            keyExpr="title"
+            showScrollbar="true"
+            useNative="false"
+            (onRowRemoving)="removeItem"
+          >
+            <dxo-filter-row
+              [visible]="true"
+              [applyFilter]="true"
+            ></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel
+              [visible]="true"
+              [width]="240"
+              placeholder="Search..."
+            ></dxo-search-panel>
+            <!-- [allowDeleting]="true" -->
+            <dxo-editing
+              mode="row"
+             
+              [allowAdding]="true"
+              [allowDeleting]="true"
+            >
+            </dxo-editing>
+  
+            <dxi-column
+              dataField="title"
+              dataType="string"
+              caption="Title"
+            ></dxi-column>
+           
+           
+  
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+            <dxo-scrolling mode="infinite"></dxo-scrolling>
+  
+      
+  
+          
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          
+            <dxo-toolbar>
+              <dxi-item name="addRowButton"></dxi-item>
+        
+              <dxi-item name="searchPanel"></dxi-item>
+            </dxo-toolbar>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  

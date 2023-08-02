@@ -1,0 +1,124 @@
+<div class="row layout-top-spacing block">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+      <div class="widget widget-chart-one" style="padding: 20px">
+        <div class="widget-heading">
+          <h6 style="display: block; position: absolute; z-index: 1">
+          Roles List
+          </h6>
+          <dx-data-grid #dataGrid
+            [dataSource]="dataSource"
+            [showBorders]="true"
+            [remoteOperations]="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            [hoverStateEnabled]="true"
+           
+            showScrollbar="true"
+            useNative="false"
+          >
+            <dxo-filter-row
+              [visible]="true"
+              [applyFilter]="true"
+            ></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel
+              [visible]="true"
+              [width]="240"
+              placeholder="Search..."
+            ></dxo-search-panel>
+          
+  
+            <dxi-column
+              dataField="roleName"
+              dataType="string"
+              caption="Title"
+            ></dxi-column>
+            <dxi-column
+              dataField="addedBy"
+              dataType="string"
+              caption="Added By"
+              [allowEditing]="false"
+            ></dxi-column>
+            <dxi-column
+              dataField="modifiedBy"
+              dataType="string"
+              caption="Modified By"
+              [allowEditing]="false"
+            ></dxi-column>
+            <dxi-column
+              dataField="created"
+              dataType="date"
+              format="yyyy-MM-dd HH:mm"
+              caption="Created"
+              [allowEditing]="false"
+            ></dxi-column>
+            <dxi-column
+              dataField="modified"
+              dataType="date"
+              format="yyyy-MM-dd HH:mm"
+              caption="Modified"
+              [allowEditing]="false"
+            ></dxi-column>
+            <dxi-column
+            dataField="id"
+            [width]="180"
+            [allowSorting]="false"
+            [allowFiltering]="false"
+            caption=""
+            cellTemplate="cellTemplate"
+          ></dxi-column>
+       
+
+   
+       
+            <div *dxTemplate="let data of 'cellTemplate'">
+              <div class="row">
+             
+                <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                  <a [routerLink]="'/dashboard/users/roles/editRole/' + data.data.id"
+                    ><i class="fad fa-edit"></i
+                  ></a>
+                </div>
+                <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                  <button
+                   (click)="onRemoveRole(data.data.id)"
+                    ><i class="fad fa-trash"></i
+                  ></button>
+                 
+               
+                </div>
+                <div class="col m-5" style="margin-left: 20px" class="inv-action">
+                  <a [routerLink]="['auditLog',data.data.id]"><i class="far fa-history"></i></a>
+               
+                </div>
+               
+              </div>
+            </div>
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+            <dxo-scrolling mode="infinite"></dxo-scrolling>
+  
+         
+  
+           
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+            
+            <dxo-toolbar>
+             
+                <dxi-item location="after">
+                  <div *dxTemplate>
+                    <dx-button icon="plus" (onClick)="addRow()">
+                    </dx-button>
+                  </div>
+                </dxi-item>
+        
+             
+              <dxi-item name="searchPanel"></dxi-item>
+            </dxo-toolbar>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+  

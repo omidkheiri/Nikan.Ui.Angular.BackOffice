@@ -1,0 +1,55 @@
+<p>
+  Language
+  <span
+    *ngIf="translateItem"
+    style="font-size: 15px; padding: 10px"
+    class="text-light bg-dark"
+    >{{ translateItem ? translateItem.lang : "" }}</span
+  >
+</p>
+<hr />
+<dx-data-grid
+  keyExpr="key"
+  [dataSource]="items"
+  [showBorders]="true"
+  [remoteOperations]="true"
+  [showColumnLines]="true"
+  [showRowLines]="true"
+  [rowAlternationEnabled]="true"
+  [hoverStateEnabled]="true"
+  showScrollbar="true"
+  useNative="false"
+  #dataGrid
+  (onRowUpdated)="selectionChanged($event)"
+>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Search..."
+  ></dxo-search-panel>
+
+  <dxo-paging [pageSize]="100"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    allowedPageSizes="true"
+    displayMode="compact"
+    [showPageSizeSelector]="true"
+    [showInfo]="false"
+    [showNavigationButtons]="false"
+    (onChanged)="selectionChanged($event)"
+  >
+  </dxo-pager>
+  <dxo-editing mode="cell" [allowUpdating]="true">
+  </dxo-editing>
+  <dxi-column
+    dataField="key"
+    [allowEditing]="false"
+    dataType="string"
+  ></dxi-column>
+
+  <dxi-column dataField="value" dataType="string"></dxi-column>
+
+  <dxo-load-panel [enabled]="false"></dxo-load-panel>
+  <dxo-scrolling mode="infinite"></dxo-scrolling>
+</dx-data-grid>

@@ -177,6 +177,15 @@ trip.reserveRecords=[];
       var Items = reserveRecord.reserveItem.filter((p: any) => {
         return p.id !== Id;
       });
+
+
+if(ReserveItem.serviceTypeId===4){
+   Items= reserveRecord.reserveItem.filter((p: any) => {
+    return p.serviceTypeId !== 4;
+  });
+}
+
+
       Items.push(ReserveItem);
       reserveRecord.reserveItem = Items;
       return {

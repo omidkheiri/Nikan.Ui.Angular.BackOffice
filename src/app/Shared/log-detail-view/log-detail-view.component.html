@@ -1,0 +1,117 @@
+<h5 class="p-5">
+  By: {{ this.changes.data.userName | titlecase }}
+  <span style="float: right">
+    On:{{ this.changes.data.created | date : "medium" }}</span
+  >
+</h5>
+<hr />
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" style="max-width: 10% !important">Title</th>
+      <th scope="col" style="max-width: 45% !important; width: 45%">
+        New Value
+      </th>
+      <th scope="col" style="max-width: 45% !important; width: 45%">
+        Old Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of this.changes.data.auditLogChanges">
+      <td style="max-width: 10% !important">{{ i.title }}</td>
+
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="i.title === 'Template'"
+        [ngClass]="
+          this.changes.data.auditLogType === 2 && i.newValue != i.oldValue
+            ? 'bg-danger text-white'
+            : ''
+        "
+      >
+        <pre>{{ JsonPars(i.newValue) | json }}</pre>
+      </td>
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="i.title === 'Template'"
+        [ngClass]="
+          this.changes.data.auditLogType === 2 && i.newValue != i.oldValue
+            ? 'bg-danger text-white'
+            : ''
+        "
+      >
+        <pre>{{ JsonPars(i.oldValue) | json }}</pre>
+      </td>
+
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="i.title === 'Translation' || i.title === 'SubmittedForm'"
+      >
+        <ul class="list-group list-group-flush">
+          <li
+            class="list-group-item"
+            *ngFor="let i of JsonItems(i.newValue)"
+            style="border-width: 0 0 2px; padding: 5px"
+          >
+          <span [ngClass]="i.className" style="
+          display: block;
+          padding: 3px;
+      ">    {{ i.key }}<span style="float: right"> {{ i.value }}</span></span>
+          </li>
+        </ul>
+      </td>
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="i.title === 'Translation' || i.title === 'SubmittedForm'"
+      >
+        <ul class="list-group list-group-flush bg-white">
+          <li
+           
+            *ngFor="let i of JsonOldItems(i.oldValue,JsonItems(i.newValue))"
+            style="border-width: 0 0 2px; padding: 5px"
+          >
+           <span [ngClass]="i.className" style="
+           display: block;
+           padding: 3px;
+       "> {{ i.key }} <span [ngClass]="i.className" style="float: right"> {{ i.value }}</span></span>
+          </li>
+        </ul>
+      </td>
+
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="
+          i.title != 'Template' &&
+          i.title != 'Translation' &&
+          i.title != 'SubmittedForm'
+        "
+        [ngClass]="
+          this.changes.data.auditLogType === 2 && i.newValue != i.oldValue
+            ? 'bg-danger text-white'
+            : ''
+        "
+      >
+        {{ i.newValue }}
+      </td>
+      <td
+        style="max-width: 45% !important; width: 45%"
+        *ngIf="
+          i.title != 'Template' &&
+          i.title != 'Translation' &&
+          i.title != 'SubmittedForm'
+        "
+        [ngClass]="
+          this.changes.data.auditLogType === 2 && i.newValue !== i.oldValue
+            ? 'bg-danger text-white'
+            : ''
+        "
+      >
+      
+  
+
+        {{ i.oldValue }}
+      </td>
+    </tr>
+  </tbody>
+</table>

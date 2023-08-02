@@ -8,7 +8,7 @@
 
   <label for="input" style="text-align: right; width: 100%">Customer Name </label>
 
-  <dx-lookup
+  <dx-lookup [disabled]="this.mode!='new'"
     (onValueChanged)="setSelectedCustomer($event)"
     [dataSource]="dataSource"
     [displayExpr]="displayCustomer"
@@ -18,7 +18,7 @@
     </dxo-drop-down-options>
   </dx-lookup>
 </div>
-<div style="display: block; width: 100%">
+<div style="display: block; width: 100%" *ngIf="this.mode==='new'">
   <div style="margin: auto">
     <button class="btn btn-dark m-3" (click)="locationReload()">
       <div class="icon-container">

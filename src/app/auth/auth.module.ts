@@ -9,10 +9,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { StoreModule } from '@ngrx/store';
 
 import { authReducers } from './store';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [AuthComponent, ForgotPasswordComponent],
-  imports: [
+  imports: [SharedModule,
     CommonModule,
     FormsModule,
     AuthRoutingModule,

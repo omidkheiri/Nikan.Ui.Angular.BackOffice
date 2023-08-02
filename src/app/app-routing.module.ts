@@ -25,6 +25,20 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'forms',
+        loadChildren: () =>
+          import('./form-builder/form-builder.module').then(
+            (m) => m.FormBuilderModule
+          ),
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./user-management/user-management.module').then(
+            (m) => m.UserManagementModule
+          ),
+      },
+      {
         path: 'crm',
         loadChildren: () => import('./crm/crm.module').then((m) => m.CrmModule),
       },
@@ -41,7 +55,7 @@ const routes: Routes = [
           import('./reservation/reservation.module').then(
             (m) => m.ReservationModule
           ),
-      },
+      }
     ],
   },
 

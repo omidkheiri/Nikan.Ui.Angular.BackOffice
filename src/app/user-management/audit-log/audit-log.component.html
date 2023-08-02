@@ -1,0 +1,136 @@
+<dx-popup
+  [width]="'100vw'"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [closeOnOutsideClick]="false"
+  [title]="popupTitle"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+
+
+
+
+
+
+      <div class="dx-form-group-content p-30">
+        <div class="dx-layout-manager dx-widget">
+          <div
+            class="dx-widget dx-collection dx-responsivebox-screen-lg dx-responsivebox"
+             >
+         <div class="dx-widget-header">
+
+<h5></h5>
+
+         </div>
+              <div
+                class="dx-item-content dx-box-item-content"
+                
+              >
+                <div
+                  class="dx-first-col dx-last-col dx-last-row dx-field-item dx-col-0 dx-field-button-item"
+                  style="text-align: left"
+                >
+
+
+
+
+                <dx-data-grid
+                id="gridContainer"
+                [dataSource]="dataSource"
+                keyExpr="Id"
+                [showBorders]="true"
+                [showBorders]="true"
+                [remoteOperations]="true"
+                [showColumnLines]="true"
+                [showRowLines]="true"
+                [rowAlternationEnabled]="true"
+                [hoverStateEnabled]="true"
+                
+                showScrollbar="true"
+                useNative="false"
+              >
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-filter-row
+              [visible]="true"
+            
+            ></dxo-filter-row>
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Search..."
+  ></dxo-search-panel>
+                <dxi-column dataField="moduleName" [width]="180" caption="Module Name"></dxi-column>
+                <dxi-column dataField="entityName"[width]="180"></dxi-column>
+                <dxi-column dataField="userName" [width]="180"></dxi-column>
+               
+                <dxi-column dataField="title" ></dxi-column>
+                <dxi-column dataField="created" [width]="170" sortOrder="desc" dataType="date" format="yyyy-MM-dd HH:mm:ss"  caption="Date Occurred"></dxi-column>
+                <dxi-column dataField="auditLogType" [width]="120" cellTemplate="cellTemplate"></dxi-column>
+                <div *dxTemplate="let data of 'cellTemplate'">
+                  <div class="inv-action">
+                   
+                   <p style="text-align: center;" *ngIf="data.data.auditLogType===1">Insert</p>
+                   <p style="text-align: center;"  *ngIf="data.data.auditLogType===2">Update</p>
+                   <p style="text-align: center;"  *ngIf="data.data.auditLogType===3">Delete</p>
+                   <p style="text-align: center;"  *ngIf="data.data.auditLogType===4">Other</p>
+                 
+              
+                  </div>
+                </div>
+                <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+                <div *dxTemplate="let item of 'detail'">
+                  <div  class="master-detail-caption p-5"><h6>Module Name: {{item.data.moduleName }} <span style="float: right;"> Entity: {{ item.data.entityName }}</span></h6></div>
+                  <log-detail-view [changes]="item"></log-detail-view>
+                 
+                </div>
+              </dx-data-grid>
+                    
+
+                 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    
+     
+    </dx-scroll-view>
+  </div>
+</dx-popup>

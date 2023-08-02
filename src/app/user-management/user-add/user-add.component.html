@@ -1,0 +1,124 @@
+<dx-popup
+  [width]="600"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [title]="formTitle"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div  style="padding: 30px">
+    <form (ngSubmit)="onFormSubmit($event)">
+      <div *ngIf="isLoading" style="text-align: center">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <div *ngIf="error">
+        <i
+          style="font-size: 21px; color: #0c837c"
+          class="fad fa-exclamation-square mr-5 ml-5"
+        ></i
+        ><span class="text-danger mb-5">{{ error }}</span>
+      </div>
+      <dx-form
+       
+        labelLocation="top"
+        labelMode="float"
+       
+      >
+        <dxi-item itemType="group" caption="Info" [colCount]="2">
+          <dxi-item dataField="name">
+            <dxi-validation-rule type="required" message="Name is required">
+            </dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="lastName">
+            <dxi-validation-rule
+              type="required"
+              message="Last Name is required"
+            >
+            </dxi-validation-rule>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" [colCount]="2">
+          <dxi-item dataField="email">
+            <dxi-validation-rule
+              type="required"
+              message="Email Name is required"
+            >
+            </dxi-validation-rule>
+            <dxi-validation-rule type="email"> </dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="mobile">
+            <dxi-validation-rule type="required" message="Mobile is required">
+            </dxi-validation-rule>
+            <!-- <dxi-validation-rule type="pattern" pattern="/^[0-9]\d{15}$/" message="Valid Mobile">
+            </dxi-validation-rule> -->
+          </dxi-item>
+        </dxi-item>
+
+        <dxi-item itemType="group" caption="Password" [colCount]="2">
+          <dxi-item dataField="password" [editorOptions]="{ mode: 'password' }">
+            <dxi-validation-rule
+              type="required"
+              message="Password Name is required"
+            >
+            </dxi-validation-rule>
+            <dxi-validation-rule
+              type="async"
+              message="Password must contains 8 a-z A-Z 0-9 !@#$%^&*("
+              [validationCallback]="complexyValidation"
+            >
+            </dxi-validation-rule>
+          </dxi-item>
+          <dxi-item
+            dataField="passwordConfirm"
+            [editorOptions]="{ mode: 'password' }"
+          >
+            <dxi-validation-rule
+              type="required"
+              message="Password Confirm is required"
+            >
+            </dxi-validation-rule>
+            <dxi-validation-rule
+              type="compare"
+              [comparisonTarget]="passwordComparison"
+              message="Password and Confirm Password do not match"
+            ></dxi-validation-rule>
+          </dxi-item>
+        </dxi-item>
+
+
+        <dxi-item
+        itemType="button"
+        horizontalAlignment="left"
+        [buttonOptions]="buttonOptions"
+      >
+      </dxi-item>
+
+
+       <!-- <dxi-item>
+        <dxi-button style="padding: 8px 19px;border-radius: 4px;"  class=" dx-button-content dx-button-mode-contained dx-button-success" type="submit" >Save  
+        </dxi-button>
+      </dxi-item> -->
+      </dx-form>
+   
+    </form>
+  </div>
+</dx-popup>

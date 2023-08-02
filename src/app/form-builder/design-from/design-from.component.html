@@ -1,0 +1,47 @@
+<dx-popup
+  [width]="'100vw'"
+  [position]="'right top'"
+  [height]="'100vh'"
+  container=".dx-viewport"
+  [showTitle]="true"
+  [closeOnOutsideClick]="false"
+  [title]="formTitle"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  (onHidden)="popup_hidden($event)"
+  [animation]="{
+    show: {
+      duration: 200,
+      type: 'slide',
+      from: { left: 1500 },
+      easing: 'customEasing'
+    },
+    hide: {
+      duration: 100,
+      type: 'slide',
+      to: { left: 1500 },
+      easing: 'customEasing'
+    }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div class="row" style="margin: 0px">
+        <div class="col-12 mb-10 mt-10 ml-10">
+          <button class="btn btn-success"  (click)="SubmitFrom()">
+            Save Form
+          </button>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="form">
+       
+        <form-builder (change)="onChangeDesign($event)" 
+         [form]="form"     #formio  ></form-builder>
+      </div>
+      <div class="well jsonviewer">
+        <pre id="json"><code class="language-json" #json></code></pre></div
+    ></dx-scroll-view>
+  </div>
+</dx-popup>

@@ -64,7 +64,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    return;
+    return "";
   }
   getStatus(item: any) {
     switch (item) {
@@ -89,7 +89,7 @@ export class ReserveComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    return;
+    return "";
   }
   ngOnInit(): void {
     this.store$.subscribe((sub) => {

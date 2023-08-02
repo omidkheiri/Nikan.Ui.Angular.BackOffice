@@ -21,7 +21,7 @@ export class contactDiscountGroupComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false })
   dataGrid: DxDataGridComponent;
   conatctId: any;
-  getGroup = [];
+  getGroup:any[] = [];
   _httpClient: any;
   account: any;
 

@@ -1,0 +1,29 @@
+<dx-accordion
+  *ngIf="modules.length > 0"
+  #accordion
+  [dataSource]="modules"
+  [collapsible]="true"
+  [multiple]="true"
+  [animationDuration]="300"
+  id="accordion-container_1"
+  [selectedItems]="modules"
+>
+  <div *dxTemplate="let module of modules">
+    {{module|json}}
+    <h1>{{ module.title }}</h1>
+  </div>
+  <div *dxTemplate="let i of 'item'">
+    <app-document-access-control
+     style="width: 100%;"
+      [permission]="i"
+      [roleItem]="roleItem"
+      class="row"
+    ></app-document-access-control>
+
+    <hr style="width: 100%;margin: 2px;" *ngIf="i.protectedDocuments.length>0" />
+    <div class="col-12" *ngIf="i.protectedDocuments.length>0">
+      
+      <app-document-access-editor [roleItem]="roleItem" [subDocumentItems]="i"></app-document-access-editor>
+    </div>
+  </div>
+</dx-accordion>

@@ -3,13 +3,14 @@ import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromAction from '../../store/reserve.action';
 import { ReserveItem } from "../models/ReserveItem";
+import { PassengerFromComponent } from './passenger-from/passenger-from.component';
 @Component({
   selector: 'app-passengers',
   templateUrl: './passengers.component.html',
   styleUrls: ['./passengers.component.css'],
 })
 export class PassengersComponent implements OnInit {
-  @ViewChild('passengerForm') passengerForm: Component;
+  @ViewChild('passengerForm') passengerForm: PassengerFromComponent;
   @Input() locationId:string;
   @Input() type:string;
   store$: any;
@@ -20,6 +21,7 @@ export class PassengersComponent implements OnInit {
   serviceList: any;
   serviceListVisa: any;
   serviceListWheelchair: any;
+  serviceListLOM: any;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
   }
@@ -68,6 +70,11 @@ export class PassengersComponent implements OnInit {
             return data.serviceTypeId === 5;
           }
         );
+        this.serviceListLOM = sub.reserve.departureServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 9;
+          }
+        );
         this.serviceListWheelchair = sub.reserve.departureServiceLine.filter(
           (data: any) => {
             return data.serviceTypeId === 8;
@@ -96,6 +103,11 @@ export class PassengersComponent implements OnInit {
             return data.serviceTypeId === 8;
           }
         );
+        this.serviceListLOM = sub.reserve.arrivalServiceLine.filter(
+          (data: any) => {
+            return data.serviceTypeId === 9;
+          }
+        );
 
        
       }
@@ -115,6 +127,8 @@ export class PassengersComponent implements OnInit {
     );
   }
   delete(id: any) {
+    console.log(id);
+    
     this.store.dispatch(fromAction.DeleteReserveItem({locationId: this.locationId ,Id: id }));
 
     this.store.dispatch(
@@ -122,5 +136,12 @@ export class PassengersComponent implements OnInit {
         state: this.reserveRecord,
       })
     );
+  }
+  edit(id:any){
+
+
+    this.passengerForm.editPassenger(id)
+
+
   }
 }

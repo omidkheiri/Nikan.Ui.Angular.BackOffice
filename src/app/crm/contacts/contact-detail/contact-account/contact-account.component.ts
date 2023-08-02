@@ -123,7 +123,7 @@ export class ContactAccountComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
   getStatus(item: any) {
     switch (item) {
@@ -148,7 +148,7 @@ export class ContactAccountComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
   onNavigateToreserve(item: any) {
     this.router.navigate([

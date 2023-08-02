@@ -1,0 +1,53 @@
+
+<div class="account-profile" style="direction: ltr;">
+<div class="row">
+  <div class="col-xl-3 col-lg-4">
+      <div class="profile-info">
+          <div class="profile-top bg-white">
+              
+              <div class="profile-info divaccountimformation shadow-none">
+              
+                <div *ngIf="UserData" class="row mb-5 d-flex align-items-center">
+                  <div class="col"><h4 class="">User: {{UserData.name}} {{UserData.lastName}}</h4></div></div>
+                <div *ngIf="UserData" class="row mb-5 d-flex align-items-center">
+                  <div class="col"><span class="">Lock Status:</span></div>
+                  <div class="col-auto">
+                      <div class="custom-control custom-switch ">
+                          <input type="checkbox" disabled [checked]="UserData.isLocked" class="custom-control-input chkAccountLock" id="MainchkAccountLock" datauid="0">
+                          <label class="custom-control-label " for="MainchkAccountLock"></label>
+                              <i class="divlockremark fa fa-info-circle d-none" ḍ="" aria-hidden="true" data-toggle="tooltip" data-original-title=""></i>
+                      </div>
+                  </div>
+              </div>
+              <div class="profile-info__body p-20 bg-white">
+        <ul class="nav flex-column w-100">
+            <li class="nav-item"  style="cursor: pointer;">
+              <a ngClass="nav-link {{activeMenu==='profile'? 'active': ''}} "  (click)="onNav('profile')" >Profile</a>
+            </li>
+           
+            <li class="nav-item"  style="cursor: pointer;">
+                <a ngClass="nav-link {{activeMenu==='roles'? 'active': ''}} "  (click)="onNav('roles')" >Roles</a>
+        
+            </li>
+            <li class="nav-item"  style="cursor: pointer;">
+                <a ngClass="nav-link {{activeMenu==='resetPassword'? 'active': ''}} "  (click)="onNav('resetPassword')" >Reset Password</a>
+        
+            </li>
+          
+          </ul>
+        </div>
+       
+    
+  </div>
+ 
+</div></div></div>
+<div class="col-xl-9 col-lg-8 bg-white">
+<div style="position: absolute;float: right;right: 30px;top: 10px;"><a alt="back" routerLink="/dashboard/users/userList" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg></a></div>
+    <app-profile *ngIf="activeMenu==='profile'" [itemId]="itemId" ></app-profile>
+    <app-user-roles *ngIf="activeMenu==='roles'" [itemId]="itemId"></app-user-roles>
+    <app-reset-password *ngIf="activeMenu==='resetPassword'" [itemId]="itemId"></app-reset-password>
+    
+    </div>
+</div>
+</div>
+

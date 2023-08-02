@@ -1,0 +1,144 @@
+<div class="block" style="direction: ltr;">
+  <router-outlet></router-outlet>
+<div class="row layout-top-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-heading">
+        <h6 style="display: block; position: absolute; z-index: 1">
+        Back-Office Users
+        </h6>
+        <dx-data-grid
+          [dataSource]="dataSource"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
+          [hoverStateEnabled]="true"
+          (onExporting)="onExporting($event)"
+          showScrollbar="true"
+          useNative="false"
+        >
+          <dxo-filter-row
+            [visible]="true"
+            [applyFilter]="true"
+          ></dxo-filter-row>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-search-panel
+            [visible]="true"
+            [width]="240"
+            placeholder="Search..."
+          ></dxo-search-panel>
+        
+
+          <dxi-column
+            dataField="email"
+            dataType="string"
+            caption="Email"
+            [allowHeaderFiltering]="false"
+          ></dxi-column>
+          <dxi-column
+          dataField="mobile"
+          dataType="string"
+          caption="Mobile"
+          [allowHeaderFiltering]="false"
+        ></dxi-column>
+        <dxi-column
+        dataField="name"
+        dataType="string"
+        caption="Name"
+        [allowHeaderFiltering]="false"
+      ></dxi-column>
+      <dxi-column
+      dataField="lastName"
+      dataType="string"
+      caption="LastName"
+      [allowHeaderFiltering]="false"
+    ></dxi-column>
+    <dxi-column
+    dataField="isLocked"
+    dataType="boolean"
+    caption="IS Locked"
+    width="100"
+  ></dxi-column>
+  <dxi-column
+  dataField="Id"
+  [width]="150"
+  [allowSorting]="false"
+  [allowFiltering]="false"
+  caption=""
+  cellTemplate="cellTemplate"
+></dxi-column>
+          <!-- <dxi-column
+            dataField="addedBy"
+            dataType="string"
+            caption="Added By"
+            
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="modifiedBy"
+            dataType="string"
+            caption="Modified By"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="created"
+            dataType="date"
+            format="yyyy-MM-dd HH:mm"
+            caption="Created"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="modified"
+            dataType="date"
+            format="yyyy-MM-dd HH:mm"
+            caption="Modified"
+            [allowEditing]="false"
+          ></dxi-column> -->
+
+          <dxo-load-panel [enabled]="false"></dxo-load-panel>
+          <dxo-scrolling mode="infinite"></dxo-scrolling>
+
+          <dxo-search-panel
+          [visible]="true"
+          [width]="240"
+          placeholder="Search..."
+        ></dxo-search-panel>
+
+          
+          <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          <dxo-export
+            [enabled]="true"
+            [allowExportSelectedData]="true"
+          ></dxo-export>
+          <div *dxTemplate="let data of 'cellTemplate'">
+            <div class="row">
+              <div class="col" style="margin-left: 10px" class="inv-action">
+                <a [routerLink]="'/dashboard/users/panel/' + data.data.id"
+                  ><i class="fad fa-eye"></i>
+                </a>
+                <a class="ml-5 "  [routerLink]="'/dashboard/users/userList/auditLog/' + data.data.id">
+                  <i class="fad fa-history"></i>
+                </a>
+              </div>
+              
+            </div>
+          </div>
+          <dxo-toolbar>
+            
+            <dxi-item location="after" name="exportButton" ></dxi-item>
+            <dxi-item location="after">
+                <div *dxTemplate>
+                  <dx-button icon="plus" (onClick)="onAddOpen()">
+                  </dx-button>
+                </div>
+              </dxi-item>
+              <dxi-item location="after" name="searchPanel" ></dxi-item>
+        </dxo-toolbar>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

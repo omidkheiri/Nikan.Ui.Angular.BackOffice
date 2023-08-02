@@ -18,9 +18,14 @@ export class PaymentComponent implements OnInit {
   Locations: any;
   constructor(private router:Router, private route: ActivatedRoute, private service: PaymentService,
     private http:HttpClient) {
+  
     this.route.params.subscribe((params: any) => {
       this.id = params.tripId;
+    
+     
     });
+   
+
     this.http
     .get(
       `${environment.serviceLocationAddress}/ServiceLocation?accountId=&SearchTerm=&PageNumber=1&PageSize=500&OrderBy=Title`
@@ -28,8 +33,6 @@ export class PaymentComponent implements OnInit {
    
 
       this.Locations=data1;})
-
-
 
 
 

@@ -1,0 +1,110 @@
+<router-outlet></router-outlet>
+<div class="row layout-top-spacing">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+    <div class="widget widget-chart-one" style="padding: 20px">
+      <div class="widget-heading">
+        <h6 style="display: block; position: absolute; z-index: 1">
+          Form Category List
+        </h6>
+        <dx-data-grid
+          [dataSource]="dataSource"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [showColumnLines]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
+          [hoverStateEnabled]="true"
+          (onExporting)="onExporting($event)"
+          showScrollbar="true"
+          useNative="false"
+        >
+          <dxo-filter-row
+            [visible]="true"
+            [applyFilter]="true"
+          ></dxo-filter-row>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-search-panel
+            [visible]="true"
+            [width]="240"
+            placeholder="Search..."
+          ></dxo-search-panel>
+          <dxo-editing
+            mode="row"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="true"
+          >
+          </dxo-editing>
+
+          
+          <dxi-column
+            dataField="title"
+            dataType="string"
+            caption="Title"
+          ></dxi-column>
+          <dxi-column
+            dataField="addedBy"
+            dataType="string"
+            caption="Added By"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="modifiedBy"
+            dataType="string"
+            caption="Modified By"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="created"
+            dataType="date"
+            format="yyyy-MM-dd HH:mm"
+            caption="Created"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column
+            dataField="modified"
+            dataType="date"
+            format="yyyy-MM-dd HH:mm"
+            caption="Modified"
+            [allowEditing]="false"
+          ></dxi-column>
+          <dxi-column  [allowEditing]="false"
+          dataField="id"
+          dataType="string" width="50px"
+          caption="log" cellTemplate="cellTemplate"
+
+        ></dxi-column>
+          <dxo-load-panel [enabled]="false"></dxo-load-panel>
+          <dxo-scrolling mode="infinite"></dxo-scrolling>
+
+          <div *dxTemplate="let data of 'cellTemplate'">
+            <a [routerLink]="['auditLog',data.data.id]"><i class="far fa-history"></i></a>
+          </div>
+
+          <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          <dxo-export
+            [enabled]="true"
+            [allowExportSelectedData]="true"
+          ></dxo-export>
+          <dxo-toolbar>
+            <dxi-item name="addRowButton"></dxi-item>
+            <!-- <dxi-item name="add" location="after">
+              <div *dxTemplate>
+                <dx-button
+                  (click)="onAddOpen()"
+                  icon="plus"
+                  textContent="Create"
+                >
+                </dx-button>
+              </div> 
+            </dxi-item> -->
+            <dxi-item name="columnChooserButton"></dxi-item>
+            <dxi-item name="exportButton"></dxi-item>
+            <dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

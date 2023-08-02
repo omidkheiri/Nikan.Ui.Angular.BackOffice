@@ -1,0 +1,102 @@
+
+  <div  style="padding: 30px">
+     <div *ngIf="isLoading" style="text-align: center">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    <form *ngIf="formdata" (ngSubmit)="onFormSubmit($event)">
+     
+      <div *ngIf="error">
+        <i
+          style="font-size: 21px; color: #0c837c"
+          class="fad fa-exclamation-square mr-5 ml-5"
+        ></i
+        ><span class="text-danger mb-5">{{ error }}</span>
+      </div>
+      <dx-form
+       [readOnly]="readonly"
+        labelLocation="top"
+        labelMode="float"
+       [formData]="formdata"
+      >
+        <dxi-item itemType="group" caption="Info" [colCount]="2">
+          <dxi-item dataField="name">
+            <dxi-validation-rule type="required" message="Name is required">
+            </dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="lastName">
+            <dxi-validation-rule
+              type="required"
+              message="Last Name is required"
+            >
+            </dxi-validation-rule>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" [colCount]="2">
+          <dxi-item dataField="email">
+            <dxi-validation-rule
+              type="required"
+              message="Email Name is required"
+            >
+            </dxi-validation-rule>
+            <dxi-validation-rule type="email"> </dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="mobile">
+            <dxi-validation-rule type="required" message="Mobile is required">
+            </dxi-validation-rule>
+            <!-- <dxi-validation-rule type="pattern" pattern="/^[0-9]\d{15}$/" message="Valid Mobile">
+            </dxi-validation-rule> -->
+          </dxi-item>
+        </dxi-item>
+
+        <dxi-item itemType="group" caption="Lock" [colCount]="2">
+          <dxi-item editorType="dxCheckBox" dataField="isLocked" >
+         
+         
+          </dxi-item>
+          
+        </dxi-item>
+
+
+        <dxi-item
+        itemType="button"
+        horizontalAlignment="left"
+        [buttonOptions]="buttonOptions"
+      >
+      </dxi-item>
+      <dxi-item>
+
+        <hr />
+
+      </dxi-item>
+     
+      <dxi-item
+    
+      [disabled]="true"
+      itemType="group"
+      [colCount]="4"
+    >
+      <dxi-item [disabled]="true" dataField="addedBy"></dxi-item>
+      <dxi-item
+            editorType="dxDateBox"
+            editorOptions="{format: 'yyyy-MM-dd HH:mm' }"
+            dataType="dateTime"
+            [disabled]="true"
+            dataField="created"
+          ></dxi-item>
+      
+      <dxi-item [disabled]="true" dataField="modifiedBy"></dxi-item>
+      <dxi-item
+            editorType="dxDateBox"
+            editorOptions="{format: 'yyyy-MM-dd HH:mm' }"
+            dataType="dateTime"
+            [disabled]="true"
+            dataField="modified"
+          ></dxi-item>
+          </dxi-item>
+      </dx-form>
+   
+    </form>
+   
+  
+  </div>
+

@@ -1,0 +1,25 @@
+
+
+
+<form #form  style="width: 100%;display: contents;">
+  
+
+<div class="col-2 mt-5" *ngFor="let i of this.permissions">
+  <span>{{ i.title }}</span>
+
+  <span>
+ <dx-switch style="float: right;
+
+ " class="mr-10 ml-10" 
+   [disabled]="isLoading"
+    [name]="permission.id+'#'+i.title" 
+    [id]="permission.id+'#'+i.title" 
+    [value]="i.value"
+    (onValueChanged)="onValueChanged($event)"
+    >
+</dx-switch>
+</span>
+
+</div>
+  
+</form>

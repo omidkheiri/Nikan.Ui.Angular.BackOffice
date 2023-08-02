@@ -298,7 +298,8 @@ if(this.form.form.controls['birthDate']){
     } else {
       this.removeLOMFromList(item);
     }
-
+    this.editMode=false;
+    this.id="";
     f.form.reset();
   }
   closeForm() {

@@ -2,12 +2,14 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './Shared/shared,module';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 import { ContactEffect } from './crm/contacts/store/contact.effect';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgrxFormsModule } from 'ngrx-forms';
+import {RouterModule} from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+
 import {
   DxNumberBoxModule,
   DxButtonModule,
@@ -26,7 +28,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BasicDataComponent } from './basic-data/basic-data.component';
 import { ReservationComponent } from './reservation/reservation.component';
 
-import { JalaliPipe } from './Shared/jalali.pipe';
+import { JalaliPipe } from './shared/jalali.pipe';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './store/app.reducer';
@@ -38,8 +40,14 @@ import { ServiceLineEffect } from './crm/accounts/account/supplier/services/stor
 import { LocationListComponent } from './layouts/master/location-list/location-list.component';
 import { MenuDirective } from './layouts/master/header/shared/menu.directive';
 import { reserveEffect } from './reservation/store/reserve.effect';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
+
+import { FormBuilderEffect } from './form-builder/store/form-builder.effect';
+import { BackOfficeUserEffect } from './user-management/store/backOfficeUser.effect';
+import { ModuleDefinitionEffect } from './user-management/store/module-definitions.effect';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core.module';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { UserIdleModule } from 'angular-user-idle';
 
 export const metaReducers: MetaReducer<any>[] = [debug];
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -63,7 +71,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     LocationListComponent,
     MenuDirective,
   ],
-  imports: [
+  imports: [CoreModule,RouterModule,FontAwesomeModule,
     NgrxFormsModule,
     SharedModule,
     DxButtonModule,
@@ -78,8 +86,14 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     DxSelectBoxModule,
     DxNumberBoxModule,
     StoreModule.forRoot(appReducer),
-
-    EffectsModule.forRoot([
+    StoreRouterConnectingModule.forRoot(),
+    UserIdleModule.forRoot({idle: 600, timeout: 5, ping: 5}),
+    EffectsModule.forRoot([ 
+      AuthEffects,
+       
+      FormBuilderEffect,
+      BackOfficeUserEffect,
+      ModuleDefinitionEffect,
       reserveEffect,
       AccountEffect,
       AuthEffects,

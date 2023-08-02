@@ -16,9 +16,56 @@ export class SharedService {
   public isLoading = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) {}
 
-  
+  GetCurrentUserAccessList() {
+    if (!this.currentUserAccessList.value) {
+      this.http
+        .get(`${environment.ApiAddress}/backofficeuser/useraccesslist`)
+        .subscribe((data: any) => {
+          this.currentUserAccessList.next(data);
+        });
+    }
+  }
+  GetCurrentUserAccessListWhitToken(token:any) {
+    if (!this.currentUserAccessList.value) {
+      this.http
+        .get(`${environment.ApiAddress}/backofficeuser/useraccesslist`)
+        .subscribe((data: any) => {
+          this.currentUserAccessList.next(data);
+        });
+    }
+  }
 
- 
- 
+  GetModules() {
+    return this.http
+      .get(`${environment.ApiAddress}/modulesdefinition/list`)
+      .subscribe((data: any) => {
+        this.moduleDefinitions.next(data);
+        return data;
+      });
+  }
+  GetProtectedDocument() {
+    let params: HttpParams = new HttpParams();
+    params.set('take', 1000);
+    params.set('skip', 0);
 
+    return this.http
+      .get(`${environment.ApiAddress}/roles/ProtectedDocument/list`, { params })
+      .subscribe((data: any) => {
+        this.protectedDocuments.next(data);
+      });
+  }
+
+  GetCurrentRole(id: any) {
+    this.roleId.next(id);
+    let params: HttpParams = new HttpParams();
+    params.set('take', 1000);
+    params.set('skip', 0);
+
+    return this.http
+      .get(`${environment.ApiAddress}/roles/internalroles/${id}`)
+      .subscribe((data: any) => {
+        this.currentRole.next(data);
+        this.isLoading.next(false);
+      });
+  }
 }

@@ -131,7 +131,7 @@ export class ContactReservesComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
   getStatus(item: any) {
     switch (item) {
@@ -156,7 +156,7 @@ export class ContactReservesComponent implements OnInit {
       default:
         break;
     }
-    return;
+    return "";
   }
 
  
