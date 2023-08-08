@@ -22,6 +22,8 @@ export class AttendeesComponent implements OnInit {
   ];
   currentState: any;
   state: any;
+  tripId: any;
+  reserveRecordId: string;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.genderSource = new ArrayStore({
       key: 'value',
@@ -37,12 +39,24 @@ export class AttendeesComponent implements OnInit {
     }
   }
   ItemRemoved(item: any) {
-    this.store.dispatch(
-      fromAction.DeleteReserveItem({
-        locationId: this.locationId,
-        Id: item.key,
-      })
-    );
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.DeleteReserveItemFromBackend({
+          tripId: this.tripId,
+          reserveRecordId: this.reserveRecordId,
+          reserveItemId: item.key,
+          locationId: this.locationId,
+          Id: item.key,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.DeleteReserveItem({
+          locationId: this.locationId,
+          Id: item.key,
+        })
+      );
+    }
 
     this.store.dispatch(
       fromAction.SaveState({
@@ -71,7 +85,8 @@ export class AttendeesComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
+      serviceAdvanceTotal:
+        this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       passenger: null,
@@ -83,12 +98,23 @@ export class AttendeesComponent implements OnInit {
       pet: null,
     };
 
-    this.store.dispatch(
-      fromAction.SaveReserveItem({
-        locationId: this.locationId,
-        ReserveItem: itemForSave,
-      })
-    );
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.SaveBackendReserveItem({
+          reserveRecordId: this.reserveRecordId,
+          tripId: this.tripId,
+          locationId: this.locationId,
+          ReserveItem: itemForSave,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.SaveReserveItem({
+          locationId: this.locationId,
+          ReserveItem: itemForSave,
+        })
+      );
+    }
 
     this.store.dispatch(
       fromAction.SaveState({
@@ -123,7 +149,8 @@ export class AttendeesComponent implements OnInit {
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal: this.attendancePriceLine[0].serviceLinePrices[0].price,
+      serviceAdvanceTotal:
+        this.attendancePriceLine[0].serviceLinePrices[0].price,
       serviceStatus: 1,
       lom: null,
       passenger: null,
@@ -135,13 +162,33 @@ export class AttendeesComponent implements OnInit {
       pet: null,
     };
 
-    this.store.dispatch(
-      fromAction.UpdateReserveItem({
-        locationId: this.locationId,
-        Id: itemForSave.id ? itemForSave.id : '',
-        ReserveItem: itemForSave,
-      })
-    );
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.UpdateBackendReserveItem({
+          reserveRecordId: this.reserveRecordId,
+          tripId: this.tripId,
+          locationId: this.locationId,
+          Id: itemForSave.id ? itemForSave.id : '',
+          ReserveItem: itemForSave,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.UpdateReserveItem({
+          locationId: this.locationId,
+          Id: itemForSave.id ? itemForSave.id : '',
+          ReserveItem: itemForSave,
+        })
+      );
+    }
+
+    // this.store.dispatch(
+    //   fromAction.UpdateReserveItem({
+    //     locationId: this.locationId,
+    //     Id: itemForSave.id ? itemForSave.id : '',
+    //     ReserveItem: itemForSave,
+    //   })
+    // );
 
     this.store.dispatch(
       fromAction.SaveState({
@@ -151,13 +198,16 @@ export class AttendeesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.store$.subscribe((sub: any) => {
+      this.tripId = sub.reserve.trip.id;
       this.state = sub.reserve;
 
       this.currentState = sub.reserve.trip.reserveRecords.find((data: any) => {
         return data.locationId == this.locationId;
       });
-      if (this.currentState && this.currentState.reserveItem) {
-        this.Attendance = this.currentState.reserveItem.filter((r: any) => {
+
+      this.reserveRecordId = this.currentState.id;
+      if (this.currentState && this.currentState.reserveItems) {
+        this.Attendance = this.currentState.reserveItems.filter((r: any) => {
           return r.serviceTypeId === 2;
         });
       }

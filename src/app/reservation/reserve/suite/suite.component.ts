@@ -24,8 +24,8 @@ export class SuiteComponent implements OnInit {
   ngOnInit(): void {
     this.store$.subscribe((sub: any) => {
       this.currentState = sub.reserve;
-      if (sub.reserve.ReserveItem) {
-        this.Suites = sub.reserve.ReserveItem.filter((r: any) => {
+      if (sub.reserve.ReserveItems) {
+        this.Suites = sub.reserve.ReserveItems.filter((r: any) => {
           return r.serviceTypeId === 6;
         });
         if (sub.reserve.ServiceLine) {

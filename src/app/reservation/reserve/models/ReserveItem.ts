@@ -13,6 +13,7 @@ export interface ReserveItem {
   lom: Lom | null;
   passenger: Passenger | null;
   visa: Visa | null;
+
   transfer: Transfer | null;
   attendee: Attendee | null;
   wheelchair: Wheelchair | null;

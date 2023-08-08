@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, act, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import * as fromAction from './reserve.action';
 import * as Moment from 'moment';
+import { availableFonts } from '@devexpress/analytics-core/analytics-widgets-internal';
 @Injectable({ providedIn: 'root' })
 export class reserveEffect {
   loadLocation$ = createEffect(() => {
@@ -98,5 +99,146 @@ export class reserveEffect {
     );
   });
 
+
+
+
+  SaveBackendReserveItem$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.SaveBackendReserveItem),
+      tap((action) => {
+fromAction.SaveReserveItem({locationId:action.locationId,ReserveItem:action.ReserveItem});
+
+      }),
+      exhaustMap((action) => {
+        return this.http
+          .put<any>(`${environment.ReserveAddress}/trip/${action.tripId}/reserverecord/${action.reserveRecordId}/add`,
+          action.ReserveItem
+          )
+          .pipe(
+            switchMap((reserve) => {
+              return [
+                fromAction.SetReserveFromApi({ reserve: reserve }),
+
+                // fromAction.LoadServiceLineInReserve({
+                //   locationId: reserve.locationId,
+                //   flightDate: reserve.flightInfo.flightDate,
+                // }),
+                // fromAction.LoadLocation({ locationId: reserve.locationId }),
+              ];
+            })
+          );
+      })
+    );
+  });
+
+
+  Sav$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.SaveBackendPassengerReserveItem),
+      tap((action) => {
+fromAction.UpdateReserveItem({Id:action.Id, locationId:action.locationId,ReserveItem:action.ReserveItem});
+
+      })
+      ,
+      exhaustMap((action) => {
+        return this.http
+          .put<any>(`${environment.ReserveAddress}/trip/${action.tripId}/reserverecord/${action.reserveRecordId}/add`,
+          action.ReserveItem
+          )
+          .pipe(
+            switchMap((reserve) => {
+              return [
+                fromAction.SetReserveFromApi({ reserve: reserve }),
+
+                // fromAction.LoadServiceLineInReserve({
+                //   locationId: reserve.locationId,
+                //   flightDate: reserve.flightInfo.flightDate,
+                // }),
+                // fromAction.LoadLocation({ locationId: reserve.locationId }),
+              ];
+            })
+          );
+      })
+    );
+  });
+
+
+
+
+  UpdateBackendReserveItem$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.UpdateBackendReserveItem),
+      tap((action) => {
+            fromAction.UpdateReserveItem({Id:action.Id, locationId:action.locationId,ReserveItem:action.ReserveItem});
+
+      }),
+      exhaustMap((action) => {
+        return this.http
+          .put<any>(`${environment.ReserveAddress}/trip/${action.tripId}/reserverecord/${action.reserveRecordId}/reserveitem/${action.Id}/edit`,
+          action.ReserveItem
+          )
+          .pipe(
+            switchMap((reserve) => {
+              return [
+                fromAction.SetReserveFromApi({ reserve: reserve }),
+
+                // fromAction.LoadServiceLineInReserve({
+                //   locationId: reserve.locationId,
+                //   flightDate: reserve.flightInfo.flightDate,
+                // }),
+                // fromAction.LoadLocation({ locationId: reserve.locationId }),
+              ];
+            })
+          );
+      })
+    );
+  });
+
+
+
+
+
+
+
+  DeleteReserveItemFromBackend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAction.DeleteReserveItemFromBackend),
+      tap((action) => {
+            fromAction.DeleteReserveItem({Id:action.Id, locationId:action.locationId});
+
+      }),
+      exhaustMap((action) => {
+        return this.http
+          .delete<any>(`${environment.ReserveAddress}/trip/${action.tripId}/reserverecord/${action.reserveRecordId}/reserveitem/${action.Id}/delete`,
+       
+          )
+          .pipe(
+            switchMap((reserve) => {
+              return [
+                fromAction.SetReserveFromApi({ reserve: reserve }),
+
+                // fromAction.LoadServiceLineInReserve({
+                //   locationId: reserve.locationId,
+                //   flightDate: reserve.flightInfo.flightDate,
+                // }),
+                // fromAction.LoadLocation({ locationId: reserve.locationId }),
+              ];
+            })
+          );
+      })
+    );
+  });
+
+
+
+
+
+
+
+
+
+
+
+  
   constructor(private actions$: Actions, private http: HttpClient) {}
 }

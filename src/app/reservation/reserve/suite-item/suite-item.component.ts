@@ -69,7 +69,7 @@ export class SuiteItemComponent implements OnInit {
         return r.Id === this.Id.id;
       });
 
-      this.Suite = sub.reserve.ReserveItem.find((r: any) => {
+      this.Suite = sub.reserve.ReserveItems.find((r: any) => {
         return r.serviceLineId === this.Id.id;
       });
     });

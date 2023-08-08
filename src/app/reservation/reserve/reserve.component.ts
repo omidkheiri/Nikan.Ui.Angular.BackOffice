@@ -105,7 +105,8 @@ export class ReserveComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (localStorage.getItem('reserve')) {
+    if (localStorage.getItem('reserve'))
+     {
      
       var reserve = localStorage.getItem('reserve') + '';
 

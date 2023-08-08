@@ -63,7 +63,7 @@ export const reserveReducer = createReducer(
       currentReserveRecord = trip.reserveRecords.filter((p: any) => {
         return p.locationId !== flightInfo.oldLocationValue;
       });
-      currentReserveRecord.push({locationId:flightInfo.arrivalLocationId,reserveItem:[]})
+      currentReserveRecord.push({locationId:flightInfo.arrivalLocationId,reserveItems:[]})
     }else{
       currentReserveRecord = trip.reserveRecords.filter((p: any) => {
         return p.locationId !== flightInfo.oldLocationValue;
@@ -95,7 +95,7 @@ trip.reserveRecords=[];
       currentReserveRecord = trip.reserveRecords.filter((p: any) => {
         return p.locationId !== flightInfo.oldLocationValue;
       });
-      currentReserveRecord.push({locationId:flightInfo.departureLocationId,reserveItem:[]})
+      currentReserveRecord.push({locationId:flightInfo.departureLocationId,reserveItems:[]})
     }else{
       currentReserveRecord = trip.reserveRecords.filter((p: any) => {
         return p.locationId !== flightInfo.oldLocationValue;
@@ -136,14 +136,21 @@ trip.reserveRecords=[];
         });
 
         if (currentReserveRecord) {
-          currentReserveRecord.reserveItem.push(ReserveItem);
+          if( currentReserveRecord.reserveItems){
+          currentReserveRecord.reserveItems.push(ReserveItem);
+          }else{
+var item=[];
+item.push(ReserveItem);
+            currentReserveRecord.reserveItems=item;
+
+          }
         } else {
           var items = [];
           items.push(ReserveItem);
 
           trip.reserveRecords.push({
             locationId: locationId,
-            reserveItem: items,
+            reserveItems: items,
           });
         }
         return {
@@ -156,7 +163,7 @@ trip.reserveRecords=[];
 
         trip.reserveRecords.push({
           locationId: locationId,
-          reserveItem: items,
+          reserveItems: items,
         });
 
         return {
@@ -174,20 +181,20 @@ trip.reserveRecords=[];
         return p.locationId === locationId;
       });
 
-      var Items = reserveRecord.reserveItem.filter((p: any) => {
+      var Items = reserveRecord.reserveItems.filter((p: any) => {
         return p.id !== Id;
       });
 
 
 if(ReserveItem.serviceTypeId===4){
-   Items= reserveRecord.reserveItem.filter((p: any) => {
+   Items= reserveRecord.reserveItems.filter((p: any) => {
     return p.serviceTypeId !== 4;
   });
 }
 
 
       Items.push(ReserveItem);
-      reserveRecord.reserveItem = Items;
+      reserveRecord.reserveItems = Items;
       return {
         ...state,
         trip: trip,
@@ -214,11 +221,11 @@ if(ReserveItem.serviceTypeId===4){
         return p.locationId === locationId;
       });
 
-      var Items = reserveRecord.reserveItem.filter((p: any) => {
+      var Items = reserveRecord.reserveItems.filter((p: any) => {
         return p.id !== Id;
       });
 
-      reserveRecord.reserveItem = Items;
+      reserveRecord.reserveItems = Items;
 
       return {
         ...state,
@@ -244,39 +251,6 @@ if(ReserveItem.serviceTypeId===4){
     };
   }),
 
-  // on(
-  //   fromAction.UpdateVisaReserveItem,
-  //   (state, { ReserveItem: reserveItem }) => {
-  //     const Items: any = state.ReserveItem.filter((p: any) => {
-  //       return (
-  //         !p.visa ||
-  //         p.visa.relatedPassengerId !== reserveItem.visa?.relatedPassengerId
-  //       );
-  //     });
-  //     Items.push(reserveItem);
-  //     return {
-  //       ...state,
-  //       ReserveItem: Items,
-  //     };
-  //   }
-  // ),
-  // on(
-  //   fromAction.UpdateWheelchairReserveItem,
-  //   (state, { ReserveItem: reserveItem }) => {
-  //     const Items: any = state.ReserveItem.filter((p: any) => {
-  //       return (
-  //         !p.wheelchair ||
-  //         p.wheelchair.relatedPassengerId !==
-  //           reserveItem.wheelchair?.relatedPassengerId
-  //       );
-  //     });
-  //     Items.push(reserveItem);
-  //     return {
-  //       ...state,
-  //       ReserveItem: Items,
-  //     };
-  //   }
-  // ),
   on(
     fromAction.SetCustomerId,
     (

@@ -5,7 +5,7 @@ export interface ReserveRecord {
   id: string;
   clientReserveId: string;
   locationId: string;
-  reserveItem: ReserveItem[];
+  reserveItems: ReserveItem[];
   reserveId: string;
   reserveNumber: string;
   discountValue: number;

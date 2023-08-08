@@ -137,22 +137,17 @@ export class NavSectionComponent implements OnInit {
   displayCustomer(item: any) {
     return item && `${item.name} ${item.lastName} -> ${item.phone}`;
   }
-  
+
   saveReserve() {
-
-
     if (this.formMode === 'new') {
       this.httpClient
         .post(`${environment.ReserveAddress}/Trip`, this.reserve.trip)
         .subscribe((data: any) => {
-          
-          this.router.navigate([
-            `/dashboard/reserve/Reserve/${data.id}`,
-          ]);
+          this.router.navigate([`/dashboard/reserve/Reserve/${data.id}`]);
           this.reserveNumber = data.reserveNumber;
           notify(
             {
-              message: "Reserve saved successfully",
+              message: 'Reserve saved successfully',
               height: 45,
               width: 325,
               minWidth: 325,
@@ -164,9 +159,6 @@ export class NavSectionComponent implements OnInit {
             'success',
             4500
           );
-
-
-
         });
     }
     if (this.formMode === 'edit') {
@@ -179,7 +171,7 @@ export class NavSectionComponent implements OnInit {
           this.reserveNumber = data.reserveNumber;
           notify(
             {
-              message: "Reserve saved successfully",
+              message: 'Reserve saved successfully',
               height: 45,
               width: 325,
               minWidth: 325,
@@ -198,69 +190,58 @@ export class NavSectionComponent implements OnInit {
   ngOnInit(): void {
 
     this.store$.subscribe((sub: any) => {
-      this.mode=sub.reserve.formMode;
+  
+      this.mode = sub.reserve.formMode;
       this.items = [];
       this.currentState = sub.reserve;
-     
       this.formMode = sub.reserve.formMode;
       this.reserve = sub.reserve;
       this.contactId = sub.reserve.contactId;
       this.service.setReserveCustomerIdObs(sub.reserve.contactAccountId);
-     
-     if(sub.reserve&&sub.reserve.trip){
-      sub.reserve.trip.reserveRecords.forEach((recordElement: any)=>{
 
+      if (sub.reserve && sub.reserve.trip) {
+        sub.reserve.trip.reserveRecords.forEach((recordElement: any) => {
+          if (recordElement.reserveItems) {
+            var serviceLine: any = [];
+            if (
+              recordElement.locationId ===
+              sub.reserve.trip.flightInfo.arrivalLocationId
+            ) {
+              serviceLine = sub.reserve.arrivalServiceLine;
+            }
+            if (
+              recordElement.locationId ===
+              sub.reserve.trip.flightInfo.departureLocationId
+            ) {
+              serviceLine = sub.reserve.departureServiceLine;
+            }
 
-        if (recordElement.reserveItem) {
-          var serviceLine:any=[];
-if(recordElement.locationId===sub.reserve.trip.flightInfo.arrivalLocationId){
-  serviceLine= sub.reserve.arrivalServiceLine;
+            console.log(serviceLine);
 
-}
-if(recordElement.locationId===sub.reserve.trip.flightInfo.departureLocationId){
-  serviceLine= sub.reserve.departureServiceLine;
-
-}
-
-       
-console.log(serviceLine);
-
-
-
-          if (serviceLine) {
-           
-  
-            recordElement.reserveItem.forEach((element: any) => {
-              if (element.serviceQty === 0) {
-              } else {
-                let val = serviceLine.find((data: any) => {
-                  return data.id === element.serviceLineId;
-                });
-  
-                if (val) {
-                  this.items.push({
-                    Title: val.serviceTypeName,
-                    serviceLineId: val.serviceTypeId,
-                    ServiceTypeName: val.serviceTypeName,
-                    Qty: element.serviceQty,
-                    UnitPrice: val.serviceLinePrices[0].price,
-                    TotalPrice: element.serviceAdvanceTotal,
+            if (serviceLine) {
+              recordElement.reserveItems.forEach((element: any) => {
+                if (element.serviceQty === 0) {
+                } else {
+                  let val = serviceLine.find((data: any) => {
+                    return data.id === element.serviceLineId;
                   });
+
+                  if (val) {
+                    this.items.push({
+                      Title: val.serviceTypeName,
+                      serviceLineId: val.serviceTypeId,
+                      ServiceTypeName: val.serviceTypeName,
+                      Qty: element.serviceQty,
+                      UnitPrice: val.serviceLinePrices[0].price,
+                      TotalPrice: element.serviceAdvanceTotal,
+                    });
+                  }
                 }
-              }
-            });
-          
-           
+              });
+            }
           }
-        }
-
-
-
-      })
-
-
-
-    }
+        });
+      }
 
       this.summery = [];
       this.items.forEach((element) => {
@@ -285,7 +266,6 @@ console.log(serviceLine);
         }
       });
 
-
       this.sum = 0;
       this.summery
         .sort(function (a, b) {
@@ -300,13 +280,7 @@ console.log(serviceLine);
           this.sum += data.Sum;
         });
 
-
-        this.savedisabled = !(
-      
-          this.sum>0&&
-          sub.reserve.trip.contactId
-        );
-
+      this.savedisabled = !(this.sum > 0 && sub.reserve.trip.contactId);
     });
   }
   locationReload() {

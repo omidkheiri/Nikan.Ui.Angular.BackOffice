@@ -13,10 +13,11 @@
                   >Passenger Type</label
                 >
                 <dx-select-box
-                  [dataSource]="serviceListSource"
+                  [dataSource]="passengerTypes"
                   displayExpr="title"
                   name="passengerType"
                   id="passengerType"
+               
                   (onSelectionChanged)="setSelectedPassengerType($event)"
                   ngModel
                   #PassengerType
@@ -31,6 +32,7 @@
                         "ReservePage.Passenger.FormElement.Gender" | translate
                       }}
                     </label>
+                    
                     <dx-select-box
                       [dataSource]="genderSource"
                       displayExpr="label"
@@ -38,6 +40,7 @@
                       name="gender"
                       id="gender"
                       ngModel
+                     
                       #gender
                     ></dx-select-box>
 
@@ -217,11 +220,12 @@
                       <input
                         type="checkbox"
                         class=""
+                        [ngModel]="wheelchair"
+                      
                         id="wheelchair"
                         name="wheelchair"
                         style="height: 25px; width: 25px"
-                        ngModel
-                        #wheelchair
+                       
                       /><label
                         class="pt-1"
                         for="wheelchair"
@@ -239,11 +243,14 @@
                       <input
                         type="checkbox"
                         class=""
+                       
                         name="visa"
                         id="visa"
+                        [ngModel]="visa"
+                        [checked]="visa"
+                       
                         style="height: 25px; width: 25px"
-                        ngModel
-                        #visa
+                      
                       /><label
                         class="pt-1"
                         for="visa"
@@ -258,14 +265,19 @@
 
                   <div class="form-group col-md-3" *ngIf="this.serviceListLOM&&this.serviceListLOM[0]">
                     <label>&nbsp;</label>
+                   
                     <div class="">
+                     
                       <input
                         type="checkbox"
-                        class=""
+                       
+                       
                         id="lom"
                         name="lom"
-                        ngModel
-                        #lom
+                     
+                        [ngModel]="lom"
+                       [checked]="lom"
+                 
                         style="height: 25px; width: 25px"
                       /><label
                         class="pt-1"

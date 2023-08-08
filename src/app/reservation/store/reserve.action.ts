@@ -62,6 +62,18 @@ export const UpdateReserveItem = createAction(
   '[Reserve Component] Update Reserve Item',
   props<{locationId:string; Id: string; ReserveItem: ReserveItem }>()
 );
+export const UpdateBackendReserveItem = createAction(
+  '[Reserve Component] Backend Update Reserve Item',
+  props<{locationId:string;tripId :string,reserveRecordId:string, Id: string; ReserveItem: ReserveItem }>()
+);
+export const SaveBackendReserveItem = createAction(
+  '[Reserve Component] Update Reserve Backend Item',
+  props<{locationId:string;tripId :string,reserveRecordId:string,  ReserveItem: ReserveItem }>()
+);
+export const SaveBackendPassengerReserveItem = createAction(
+  '[Reserve Component] Update Reserve Item',
+  props<{Id:string,locationId:string;tripId :string,reserveRecordId:string,  ReserveItem: ReserveItem }>()
+);
 export const UpdateSuite = createAction(
   '[Reserve Component] Update Suite',
   props<{ Id: string; ReserveItem: ReserveItem }>()
@@ -74,6 +86,10 @@ export const UpdatePet = createAction(
 export const DeleteReserveItem = createAction(
   '[Reserve Component] Delete Reserve Item',
   props<{locationId:string; Id: string }>()
+);
+export const DeleteReserveItemFromBackend = createAction(
+  '[Reserve Component] Delete Reserve Item From Backend',
+  props<{tripId :string,reserveRecordId:string,reserveItemId: string,locationId:string; Id: string }>()
 );
 export const UpdateWheelchairReserveItem = createAction(
   '[Reserve Component] Update Wheelchair Reserve Item',

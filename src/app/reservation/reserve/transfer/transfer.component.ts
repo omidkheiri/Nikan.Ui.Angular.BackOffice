@@ -25,16 +25,18 @@ export class TransferComponent implements OnInit {
   serviceList: any;
   serviceListSource: ArrayStore<any, any>;
   state: any;
+  tripId: any;
+  reserveRecordId: string;
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
   }
-  onSaved(savedData: any) {
-    let item = savedData.changes[0];
+  // onSaved(savedData: any) {
+  //   let item = savedData.changes[0];
 
-    if (item.type === 'insert') {
-      this.saveNew(item.data);
-    }
-  }
+  //   if (item.type === 'insert') {
+  //     this.saveNew(item.data);
+  //   }
+  // }
   saveNew(item: any) {
     let itemForSave: ReserveItem = {
       id: item.id,
@@ -68,12 +70,23 @@ export class TransferComponent implements OnInit {
       pet: null,
     };
 
-    this.store.dispatch(
-      fromAction.SaveReserveItem({
-        locationId: this.locationId,
-        ReserveItem: itemForSave,
-      })
-    );
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.SaveBackendReserveItem({
+          reserveRecordId: this.reserveRecordId,
+          tripId: this.tripId,
+          locationId: this.locationId,
+          ReserveItem: itemForSave,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.SaveReserveItem({
+          locationId: this.locationId,
+          ReserveItem: itemForSave,
+        })
+      );
+    }
 
     this.store.dispatch(
       fromAction.SaveState({
@@ -82,13 +95,24 @@ export class TransferComponent implements OnInit {
     );
   }
   ItemRemoved(item: any) {
-    this.store.dispatch(
-      fromAction.DeleteReserveItem({
-        locationId: this.locationId,
-        Id: item.key,
-      })
-    );
-
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.DeleteReserveItemFromBackend({
+          tripId: this.tripId,
+          reserveRecordId: this.reserveRecordId,
+          reserveItemId: item.key,
+          locationId: this.locationId,
+          Id: item.key,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.DeleteReserveItem({
+          locationId: this.locationId,
+          Id: item.key,
+        })
+      );
+    }
     this.store.dispatch(
       fromAction.SaveState({
         state: this.state,
@@ -136,22 +160,51 @@ export class TransferComponent implements OnInit {
     };
 
    if( itemForSave.id){
-    this.store.dispatch(
-      fromAction.SaveReserveItem({
-        locationId: this.locationId,
-       
-        ReserveItem: itemForSave,
-      })
-    );
+
+    
+    if (this.tripId) {
+      this.store.dispatch(
+        fromAction.UpdateBackendReserveItem({
+          reserveRecordId: this.reserveRecordId,
+          tripId: this.tripId,
+          locationId: this.locationId,
+          Id: itemForSave.id ? itemForSave.id : '',
+          ReserveItem: itemForSave,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        fromAction.UpdateReserveItem({
+          locationId: this.locationId,
+          Id: itemForSave.id ? itemForSave.id : '',
+          ReserveItem: itemForSave,
+        })
+      );
+    }
+   
+    
     }else{
 
-    this.store.dispatch(
-      fromAction.UpdateReserveItem({
-        locationId: this.locationId,
-        Id: itemForSave.id ? itemForSave.id : '',
-        ReserveItem: itemForSave,
-      })
-    );
+
+
+
+      if (this.tripId) {
+        this.store.dispatch(
+          fromAction.SaveBackendReserveItem({
+            reserveRecordId: this.reserveRecordId,
+            tripId: this.tripId,
+            locationId: this.locationId,
+            ReserveItem: itemForSave,
+          })
+        );
+      } else {
+        this.store.dispatch(
+          fromAction.SaveReserveItem({
+            locationId: this.locationId,
+            ReserveItem: itemForSave,
+          })
+        );
+      }
     }
     this.store.dispatch(
       fromAction.SaveState({
@@ -161,6 +214,7 @@ export class TransferComponent implements OnInit {
   }
   ngOnInit(): void {
     this.store$.subscribe((sub: any) => {
+      this.tripId = sub.reserve.trip.id;
       this.state = sub.reserve;
 
       if (
@@ -191,8 +245,10 @@ export class TransferComponent implements OnInit {
       this.currentState = sub.reserve.trip.reserveRecords.find((data: any) => {
         return data.locationId == this.locationId;
       });
-      if (this.currentState && this.currentState.reserveItem) {
-        this.Transfers = this.currentState.reserveItem
+
+      this.reserveRecordId=this.currentState.id;
+      if (this.currentState && this.currentState.reserveItems) {
+        this.Transfers = this.currentState.reserveItems
           .filter((r: any) => {
             return r.serviceTypeId === 3;
           })

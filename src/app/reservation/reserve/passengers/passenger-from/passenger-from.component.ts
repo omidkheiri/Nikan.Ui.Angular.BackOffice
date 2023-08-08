@@ -1,5 +1,14 @@
 import { NgFor } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import ArrayStore from 'devextreme/data/array_store';
@@ -9,19 +18,22 @@ import * as fromAction from '../../../store/reserve.action';
 import { ReserveItem } from '../../models/ReserveItem';
 import { Visa } from '../../models/Visa';
 import * as uuid from 'uuid';
+import { Lom } from '../../models/Lom';
 @Component({
   selector: 'app-passenger-from',
   templateUrl: './passenger-from.component.html',
   styleUrls: ['./passenger-from.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PassengerFromComponent implements OnInit {
+export class PassengerFromComponent implements OnInit, OnChanges {
   @Input() type: string;
   @Input() locationId: string;
+  @Input() passenger: any;
   max = new Date();
   @ViewChild('f') form: NgForm;
   submitted = false;
 
-  serviceListSource: ArrayStore;
+  passengerTypes: ArrayStore;
   selectedPassengerType: any;
   genderSource: ArrayStore;
   genderTypes = [
@@ -38,6 +50,14 @@ export class PassengerFromComponent implements OnInit {
   serviceListVisa: any;
   serviceListWheelchair: any;
   serviceListLOM: any;
+  visa: boolean | undefined;
+  wheelchair: boolean | undefined;
+  lom: boolean | undefined;
+  visa1: boolean | undefined;
+  wheelchair1: boolean | undefined;
+  lom1: boolean | undefined;
+  tripId: any;
+  reserveRecordId: any;
 
   constructor(private store: Store<fromStore.ReserveModuleState>) {
     this.store$ = store.select<any>('reserve');
@@ -46,14 +66,18 @@ export class PassengerFromComponent implements OnInit {
       data: this.genderTypes,
     });
   }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    console.log("",this.type);
-    
     this.store$.subscribe((sub) => {
+      this.tripId = sub.reserve.trip.id;
+
       var items = sub.reserve.trip.reserveRecords.find((data: any) => {
         return data.locationId === this.locationId;
       });
+
+      this.reserveRecordId = items.id;
+
       this.currentState = sub.reserve;
       if (
         this.type === 'Departure' &&
@@ -82,14 +106,14 @@ export class PassengerFromComponent implements OnInit {
         );
 
         if (items) {
-          this.passengers = items.reserveItem;
+          this.passengers = items.reserveItems;
         }
-        this.serviceListSource = new ArrayStore({
+        this.passengerTypes = new ArrayStore({
           key: 'id',
           data: this.serviceList,
         });
       }
-      if(
+      if (
         this.type === 'Arrival' &&
         sub.reserve &&
         sub.reserve.arrivalServiceLine
@@ -115,9 +139,9 @@ export class PassengerFromComponent implements OnInit {
           }
         );
         if (items) {
-          this.passengers = items.reserveItem;
+          this.passengers = items.reserveItems;
         }
-        this.serviceListSource = new ArrayStore({
+        this.passengerTypes = new ArrayStore({
           key: 'id',
           data: this.serviceList,
         });
@@ -134,7 +158,8 @@ export class PassengerFromComponent implements OnInit {
     });
   }
   editPassenger(id: any) {
-    
+    this.passenger = id.row.data;
+
     this.editMode = true;
     this.id = id.row.key;
     let selectedItem: ReserveItem = this.passengers.filter((p: any) => {
@@ -142,41 +167,12 @@ export class PassengerFromComponent implements OnInit {
         p.passenger && (p.passenger.id === id.row.key || p.id === id.row.key)
       );
     })[0];
-
-    this.form.form.controls['passengerType'].setValue(
-      selectedItem.serviceLineId
-    );
-    setTimeout(() => {
-      this.form.form.controls['name'].setValue(selectedItem.passenger?.name);
-      this.form.form.controls['lastName'].setValue(
-        selectedItem.passenger?.lastName
+    console.log(selectedItem);
+    try {
+      this.form.form.controls['passengerType'].setValue(
+        selectedItem.serviceLineId
       );
-      this.form.form.controls['gender'].setValue(
-        selectedItem.passenger?.gender
-      );
-      if (this.form.form.controls['nationalCode']) {
-        this.form.form.controls['nationalCode'].setValue(
-          selectedItem.passenger?.nationalCode
-        );
-      }
-      if (this.form.form.controls['passportNumber']) {
-        this.form.form.controls['passportNumber'].setValue(
-          selectedItem.passenger?.passportNumber
-        );
-      }
-if(this.form.form.controls['birthDate']){
-      this.form.form.controls['birthDate'].setValue(
-        selectedItem.passenger?.birthDate
-      );
-}
-      this.form.form.controls['visa'].setValue(selectedItem.passenger?.visa);
-      this.form.form.controls['wheelchair'].setValue(
-        selectedItem.passenger?.wheelchair
-      );
-      this.form.form.controls['lom'].setValue(
-        selectedItem.passenger?.lom
-      );
-    }, 200);
+    } catch (error) {}
   }
   setSelectedPassengerType($event: any) {
     this.selectedPassengerType = $event.selectedItem;
@@ -185,12 +181,51 @@ if(this.form.form.controls['birthDate']){
         $event.selectedItem.serviceLineScheme.replaceAll("'", '"')
       );
     }
+
+    setTimeout(() => {
+      if (this.passenger) {
+        this.form.form.controls['name'].setValue(this.passenger.name);
+        this.form.form.controls['lastName'].setValue(this.passenger.lastName);
+        this.form.form.controls['gender'].setValue(this.passenger.gender + '');
+        if (this.form.form.controls['nationalCode']) {
+          this.form.form.controls['nationalCode'].setValue(
+            this.passenger.nationalCode
+          );
+        }
+        if (this.form.form.controls['passportNumber']) {
+          this.form.form.controls['passportNumber'].setValue(
+            this.passenger.passportNumber
+          );
+        }
+        if (this.form.form.controls['birthDate']) {
+          this.form.form.controls['birthDate'].setValue(
+            this.passenger.birthDate
+          );
+        }
+
+        this.visa1 = this.passenger.visa;
+        this.wheelchair1 = this.passenger.wheelchair;
+        this.lom1 = this.passenger.lom;
+
+        if (this.form.form.controls['visa'])
+          this.form.form.controls['visa'].setValue(
+            this.visa1 ? this.visa1 : false
+          );
+        if (this.form.form.controls['wheelchair'])
+          this.form.form.controls['wheelchair'].setValue(
+            this.wheelchair1 ? this.wheelchair1 : false
+          );
+        if (this.form.form.controls['lom'])
+          this.form.form.controls['lom'].setValue(
+            this.lom1 ? this.lom1 : false
+          );
+      }
+    }, 300);
   }
   namePattern = true;
   lastNamePattern = true;
 
   onSubmit(f: NgForm) {
-    console.log(f.form);
 
     this.submitted = true;
     if (!f.form.valid) {
@@ -204,7 +239,9 @@ if(this.form.form.controls['birthDate']){
       }
       return;
     }
+
     let newId = uuid.v4();
+
     let visa: Visa | undefined = undefined;
     if (f.form.value.visa) {
       visa = { relatedPassengerId: newId };
@@ -215,11 +252,10 @@ if(this.form.form.controls['birthDate']){
     if (f.form.value.wheelchair) {
       wheelchair = { relatedPassengerId: newId };
     }
-    let lom: Visa | undefined = undefined;
+    let lom: Lom | undefined = undefined;
     if (f.form.value.lom) {
       lom = { relatedPassengerId: newId };
     }
-
 
     if (this.editMode) {
       newId = this.id;
@@ -262,31 +298,63 @@ if(this.form.form.controls['birthDate']){
       serviceStatus: 1,
       lom: null,
       visa: null,
+      wheelchair: null,
       transfer: null,
       attendee: null,
-      wheelchair: null,
       suite: null,
       meetingRoom: null,
       pet: null,
     };
+
     if (this.editMode) {
-      this.store.dispatch(
-        fromAction.UpdateReserveItem({
-          locationId: this.locationId,
-          Id: newId,
-          ReserveItem: item,
-        })
-      );
+      if (this.tripId) {
+        this.store.dispatch(
+          fromAction.UpdateBackendReserveItem({
+            reserveRecordId: this.reserveRecordId,
+            tripId: this.tripId,
+            locationId: this.locationId,
+            Id: newId,
+            ReserveItem: item,
+          })
+        );
+      } else {
+        this.store.dispatch(
+          fromAction.UpdateReserveItem({
+            locationId: this.locationId,
+            Id: newId,
+            ReserveItem: item,
+          })
+        );
+      }
     } else {
-      this.store.dispatch(
-        fromAction.SaveReserveItem({
-          locationId: this.locationId,
-          ReserveItem: item,
-        })
-      );
+      if (this.tripId) {
+        this.store.dispatch(
+          fromAction.SaveBackendReserveItem({
+            reserveRecordId: this.reserveRecordId,
+            tripId: this.tripId,
+            locationId: this.locationId,
+            ReserveItem: item,
+          })
+        );
+      } else {
+        this.store.dispatch(
+          fromAction.SaveReserveItem({
+            locationId: this.locationId,
+            ReserveItem: item,
+          })
+        );
+      }
     }
+
     if (item.passenger?.visa) {
+
+
+
+
+
       this.addVisaToList(item);
+
+
     } else {
       this.removeVisaFromList(item);
     }
@@ -300,8 +368,9 @@ if(this.form.form.controls['birthDate']){
     } else {
       this.removeLOMFromList(item);
     }
-    this.editMode=false;
-    this.id="";
+    this.editMode = false;
+    this.id = '';
+
     f.form.reset();
   }
   closeForm() {
@@ -309,6 +378,11 @@ if(this.form.form.controls['birthDate']){
   }
 
   addVisaToList(passenger: ReserveItem) {
+    var i = this.passengers.find((data: any) => {
+      return data.visa && data.visa.relatedPassengerId === passenger.id;
+    });
+
+    if (!i) {
     let newId = uuid.v4();
     let item: ReserveItem = {
       id: newId,
@@ -339,8 +413,13 @@ if(this.form.form.controls['birthDate']){
       pet: null,
     };
     this.store.dispatch(
-      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
+      fromAction.UpdateReserveItem({
+        locationId: this.locationId,
+        Id: newId,
+        ReserveItem: item,
+      })
     );
+    }
   }
 
   removeVisaFromList(item: ReserveItem) {
@@ -350,14 +429,30 @@ if(this.form.form.controls['birthDate']){
       });
 
       if (i) {
-        this.store.dispatch(
-          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
-        );
+        // this.store.dispatch(
+        //   fromAction.DeleteReserveItem({
+        //     locationId: this.locationId,
+        //     Id: i.id ? i.id : '',
+        //   })
+        // );
+
+        this.store.dispatch(  fromAction.DeleteReserveItem({
+          Id: i.id ? i.id : '',
+          locationId: this.locationId,
+        }));
       }
     }
   }
 
   addWheelchairToList(passenger: ReserveItem) {
+    
+      var i = this.passengers.find((data: any) => {
+        return (
+          data.wheelchair && data.wheelchair.relatedPassengerId === passenger.id
+        );
+      });
+
+      if (!i) {
     let newId = uuid.v4();
     let item: ReserveItem = {
       id: newId,
@@ -388,9 +483,15 @@ if(this.form.form.controls['birthDate']){
       meetingRoom: null,
       pet: null,
     };
+
     this.store.dispatch(
-      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
+      fromAction.UpdateReserveItem({
+        locationId: this.locationId,
+        Id: newId,
+        ReserveItem: item,
+      })
     );
+      }
   }
 
   removeWheelchairFromList(item: ReserveItem) {
@@ -400,24 +501,28 @@ if(this.form.form.controls['birthDate']){
           data.wheelchair && data.wheelchair.relatedPassengerId === item.id
         );
       });
-
       if (i) {
         this.store.dispatch(
-          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
+          fromAction.DeleteReserveItem({
+            Id: i.id ? i.id : '',
+            locationId: this.locationId,
+          })
         );
       }
     }
   }
 
-
-
   addLOMToList(passenger: ReserveItem) {
+    var i = this.passengers.find((data: any) => {
+      return data.lom && data.lom.relatedPassengerId === passenger.id;
+    });
+   
+
+    if (!i) {
     let newId = uuid.v4();
     let item: ReserveItem = {
       id: newId,
-      wheelchair: {
-        relatedPassengerId: passenger.id ? passenger.id : '',
-      },
+      wheelchair: null,
 
       serviceLineId: this.serviceListLOM[0].id,
       serviceLineTitle: this.serviceListLOM[0].title,
@@ -430,10 +535,11 @@ if(this.form.form.controls['birthDate']){
       serviceTotalAfterDiscount: 0,
       taxPercent: 0,
       taxValue: 0,
-      serviceAdvanceTotal:
-        this.serviceListLOM[0].serviceLinePrices[0].price,
+      serviceAdvanceTotal: this.serviceListLOM[0].serviceLinePrices[0].price,
       serviceStatus: 1,
-      lom: null,
+      lom: {
+        relatedPassengerId: passenger.id ? passenger.id : '',
+      },
       passenger: null,
       visa: null,
       transfer: null,
@@ -442,27 +548,32 @@ if(this.form.form.controls['birthDate']){
       meetingRoom: null,
       pet: null,
     };
+
     this.store.dispatch(
-      fromAction.UpdateReserveItem({locationId:this.locationId,Id:newId, ReserveItem: item })
+      fromAction.UpdateReserveItem({
+        Id: newId,
+        locationId: this.locationId,
+        ReserveItem: item,
+      })
     );
+    }
   }
 
   removeLOMFromList(item: ReserveItem) {
     if (this.passengers) {
       var i = this.passengers.find((data: any) => {
-        return (
-          data.wheelchair && data.wheelchair.relatedPassengerId === item.id
-        );
+        return data.lom && data.lom.relatedPassengerId === item.id;
       });
+     
 
       if (i) {
         this.store.dispatch(
-          fromAction.DeleteReserveItem({locationId:this.locationId, Id: i.id ? i.id : '' })
+          fromAction.DeleteReserveItem({
+            Id: i.id ? i.id : '',
+            locationId: this.locationId,
+          })
         );
       }
     }
   }
-
-
-
 }
