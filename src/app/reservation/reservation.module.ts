@@ -42,6 +42,7 @@ import { AddPaymentComponent } from './reserve/payment/add-payment/add-payment.c
 import { PrintReserveComponent } from './reserve/print-reserve/print-reserve.component';
 import { LocationOptionsComponent } from './reserve/flight-info/location-options/location-options.component';
 import { CompleteReserveComponent } from './reserve/payment/complete-reserve/complete-reserve.component';
+import { RefundComponent } from './reserve/payment/refund/refund.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CompleteReserveComponent } from './reserve/payment/complete-reserve/com
     PrintReserveComponent,
     LocationOptionsComponent,
     CompleteReserveComponent,
+    RefundComponent,
   ],
   imports: [
     FormsModule,

@@ -11,6 +11,9 @@
 
     <div *ngIf="this.trip&&this.trip.flightInfo&&this.trip.flightInfo.departureLocationId">
       
+
+<h1></h1>
+
       <app-passengers   *ngIf="hasDeparturePassenger"          [type]="'Departure'"  [locationId]="this.trip.flightInfo.departureLocationId"></app-passengers>
       <app-attendees    *ngIf="hasDepartureAttendance"          [type]="'Departure'"   [locationId]="this.trip.flightInfo.departureLocationId"></app-attendees>
       <app-transfer     *ngIf="hasDepartureTransfer"          [type]="'Departure'"    [locationId]="this.trip.flightInfo.departureLocationId"></app-transfer>

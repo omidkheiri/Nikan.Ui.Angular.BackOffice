@@ -16,6 +16,9 @@ import notify from 'devextreme/ui/notify';
   styleUrls: ['./nav-section.component.css'],
 })
 export class NavSectionComponent implements OnInit {
+GoPayment(e:any) {
+this.router.navigate(["/dashboard/reserve/Payment/"+e])
+}
   //{ Title: string; Count: number; Sum: number }
   savedisabled = true;
   items: {

@@ -22,7 +22,7 @@ export class ReserveListComponent implements OnInit {
     }
 
     this.dataSource = new CustomStore({
-      key: 'id',
+      key: 'Id',
       load(loadOptions: any) {
         let params: HttpParams = new HttpParams();
         [
@@ -79,7 +79,9 @@ export class ReserveListComponent implements OnInit {
   }
 
   getStyle(item: any) {
-    switch (item) {
+    console.log("VVVVVVVVVVVVVVVVVVVVV",item.data.ReserveStatus);
+    
+    switch (item.data.ReserveStatus) {
       case 0:
         return 'badge badge-success';
         break;
@@ -96,15 +98,18 @@ export class ReserveListComponent implements OnInit {
         return 'badge badge-success';
         break;
       case 5:
-        return 'badge badge-success';
+        return 'badge badge-danger';
         break;
+        case 6:
+          return 'badge badge-danger';
+          break;
       default:
         break;
     }
     return "";
   }
   getStatus(item: any) {
-    switch (item) {
+    switch (item.data.ReserveStatus) {
       case 0:
         return 'Draft';
         break;
@@ -122,6 +127,8 @@ export class ReserveListComponent implements OnInit {
         break;
       case 5:
         return 'Cancelled';
+        case 6:
+          return 'ChangeAfterSubmit';
         break;
       default:
         break;
@@ -129,13 +136,15 @@ export class ReserveListComponent implements OnInit {
     return "";
   }
   onNavigateToReserve(item: any) {
+   
+    
     this.router.navigate([
-      `/dashboard/reserve/Reserve/${item.data.tripId}`,
+      `/dashboard/reserve/Reserve/${item.data.TripAggregateId}`,
     ]);
   }
   onNavigateToPayment(item: any) {
     this.router.navigate([
-      `/dashboard/reserve/Payment/${item.data.tripId}`,
+      `/dashboard/reserve/Payment/${item.data.TripAggregateId}`,
     ]);
   }
 }

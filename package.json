@@ -66,6 +66,7 @@
     "@angular-devkit/build-angular": "^14.2.3",
     "@angular/cli": "~14.2.3",
     "@angular/compiler-cli": "^14.2.0",
+    "@ngrx/schematics": "^16.2.0",
     "@types/file-saver-es": "^2.0.1",
     "@types/jasmine": "~4.0.0",
     "@types/uuid": "^9.0.2",

@@ -6,9 +6,12 @@
   >
   </dx-toast>
 
-  <label for="input" style="text-align: right; width: 100%">Customer Name </label>
+  <label for="input" style="text-align: right; width: 100%"
+    >Customer Name
+  </label>
 
-  <dx-lookup [disabled]="this.mode!='new'"
+  <dx-lookup
+    [disabled]="this.mode != 'new'"
     (onValueChanged)="setSelectedCustomer($event)"
     [dataSource]="dataSource"
     [displayExpr]="displayCustomer"
@@ -18,7 +21,7 @@
     </dxo-drop-down-options>
   </dx-lookup>
 </div>
-<div style="display: block; width: 100%" *ngIf="this.mode==='new'">
+<div style="display: block; width: 100%" *ngIf="this.mode === 'new'">
   <div style="margin: auto">
     <button class="btn btn-dark m-3" (click)="locationReload()">
       <div class="icon-container">
@@ -70,6 +73,46 @@
     </button>
   </div>
 </div>
+<div style="display: block; width: 100%" *ngIf="this.mode != 'new'">
+  <div
+    class="col-md-12 pr-5 pl-5"
+    style="text-align: center; font-size: 24px; margin-top: 10px"
+  >
+    <button class="btn btn-dark m-3" (click)="GoPayment(this.reserve.id)">
+      <div class="icon-container">
+        <svg
+          _ngcontent-ncd-c388=""
+          _ngcontent-vag-c402=""
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="feather feather-dollar-sign"
+        >
+          <line
+            _ngcontent-ncd-c388=""
+            _ngcontent-vag-c402=""
+            x1="12"
+            y1="1"
+            x2="12"
+            y2="23"
+          ></line>
+          <path
+            _ngcontent-ncd-c388=""
+            _ngcontent-vag-c402=""
+            d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+          ></path>
+        </svg>
+        <span class="icon-name"> پرداخت</span>
+      </div>
+    </button>
+  </div>
+</div>
 <div style="display: block; width: 100%">
   <dx-list [dataSource]="summery" [height]="400">
     <div *dxTemplate="let item of 'item'">
@@ -91,7 +134,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <small style="font-size: 10px">Total Tax Free</small>
+        <small style="font-size: 10px">جمع بدون مالیات:</small>
       </div>
       <div
         class="col-md-12 pr-5 pl-5"

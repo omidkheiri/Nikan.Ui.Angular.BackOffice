@@ -144,7 +144,8 @@ export class ContactAccountComponent implements OnInit {
         break;
       case 5:
         return 'Cancelled';
-        break;
+        case 6:
+          return 'ChangeAfterSubmit';
       default:
         break;
     }

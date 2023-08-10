@@ -27,6 +27,7 @@
             showScrollbar="true"
             useNative="false"
           >
+          <dxo-scrolling mode="infinite"></dxo-scrolling>
             <!-- <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
             <dxo-pager
               [showPageSizeSelector]="true"
@@ -45,24 +46,18 @@
               placeholder="Search..."
             ></dxo-search-panel>
 
+        
             <dxi-column
-              width="100"
-              dataField="departureReserveStatus"
-              dataType="string"
-              caption="Departure Status"
-              cellTemplate="reserveStatusId"
-            ></dxi-column>
-            <dxi-column
-            width="100"
-            dataField="arrivalReserveStatus"
+            width="150"
+            dataField="ReserveStatus"
             dataType="string"
-            caption="Arrival Status"
+            caption="Status"
             cellTemplate="reserveStatusId"
           ></dxi-column>
             <dxi-column
               direction="rtl"
               alignment="center"
-              dataField="flightName"
+              dataField="FlightName"
               caption="{{ 'ReservePage.List.FlightNumber' | translate }}"
               dataType="string"
               width="100"
@@ -70,59 +65,57 @@
             <dxi-column
               direction="rtl"
               alignment="right"
-              dataField="departureReserveNumber"
+              dataField="ReserveNumber"
               dataType="string"
-              width="120"
+          
               caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
             ></dxi-column> 
-            <dxi-column
-            direction="rtl"
-            alignment="right"
-            dataField="arrivalReserveNumber"
-            dataType="string"
-            width="100"
-            caption="{{ 'ReservePage.List.ReserveNumber' | translate }}"
-          ></dxi-column>
+           
             <dxi-column
               direction="rtl"
               alignment="right"
-              dataField="tripCode"
+              dataField="TripCode"
               dataType="string"
               caption="Trip Code"
-              width="100"
+         
             ></dxi-column>
 
             <dxi-column
-              width="120"
-              dataField="flightDate"
+            sortOrder="desc"
+              dataField="FlightDate"
               dataType="date"
               format="yyyy-MM-dd HH:mm"
               caption="{{ 'ReservePage.List.FlightDate' | translate }}"
             ></dxi-column>
             <dxi-column
-              width="120"
-              dataField="contactFullName"
+          
+              dataField="ContactFullName"
               dataType="string"
               caption="{{ 'ReservePage.List.CustomerName' | translate }}"
+              cellTemplate="gotoCustomerTemplate_1"
             ></dxi-column>
+            <div *dxTemplate="let cellInfo of 'gotoCustomerTemplate_1'">
+              <a style="color: blue;" [href]="'/dashboard/crm/Contact/'+cellInfo.data.ContactId+'/'+cellInfo.data.ContactId+'/contactform/'">{{cellInfo.data.ContactFullName}}</a>
+          </div>
+
             <dxi-column
-              width="120"
-              dataField="arrivalLocationTitle"
-              dataType="string"
-              caption="{{ 'ReservePage.List.ArrivalLocationTitle' | translate }}"
-            ></dxi-column>
-            <dxi-column
-            width="120"
-            dataField="departureLocationTitle"
+          
+            dataField="ContactPhone"
             dataType="string"
-            caption="{{ 'ReservePage.List.ArrivalLocationTitle' | translate }}"
+            caption="{{ 'ReservePage.List.ContactPhone' | translate }}"
+            cellTemplate="gotoCustomerTemplate"
           ></dxi-column>
+          <div *dxTemplate="let cellInfo of 'gotoCustomerTemplate'">
+            <a style="color: blue;" [routerLink]="['/dashboard/crm/Contact/'+cellInfo.data.AccountId+'/'+cellInfo.data.ContactId+'/contactform/']">{{cellInfo.data.ContactPhone}}</a>
+        </div>
             <dxi-column
-              width="50"
-              dataField="payment"
-              caption="{{ 'ReservePage.List.Payment' | translate }}"
-              cellRender="checkBoxCell"
+            
+              dataField="Title"
+              dataType="string"
+              caption="{{ 'ReservePage.List.LocationTitle' | translate }}"
             ></dxi-column>
+          
+<!--          
 
             <dxi-column
               dataField="passengers"
@@ -179,7 +172,7 @@
               allowSorting="false"
               caption="lom"
               [visible]="false"
-            ></dxi-column>
+            ></dxi-column> -->
 
             <!-- <dxi-column
               dataField="remainig"
@@ -201,15 +194,17 @@
               allowedPageSizes="allowedPageSizes"
             ></dxo-pager> -->
             <dxo-load-panel [enabled]="false"></dxo-load-panel>
-            <dxo-scrolling mode="infinite"></dxo-scrolling>
+           
 
             <div *dxTemplate="let data of 'reserveStatusId'">
-              <span style="font-size: 10px" [class]="getStyle(data.value)">
-                {{ getStatus(data.value) }}</span
+              <span style="font-size: 10px" [class]="getStyle(data)">
+                {{ getStatus(data) }}</span
               >
             </div>
             <div *dxTemplate="let data of 'cellTemplate'">
+              
               <div class="inv-action">
+              
                 <button
                   style="background: none; border: none"
                   (click)="onNavigateToReserve(data)"
@@ -265,7 +260,8 @@
               </div>
             </div>
             <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+          
+            <dxo-scrolling mode="virtual" rowRenderingMode="virtual"></dxo-scrolling>
             <dxo-export
               [enabled]="true"
               [allowExportSelectedData]="true"

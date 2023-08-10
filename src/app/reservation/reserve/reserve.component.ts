@@ -85,7 +85,8 @@ export class ReserveComponent implements OnInit, OnDestroy {
         break;
       case 5:
         return 'Cancelled';
-        break;
+        case 6:
+        return 'ChangeAfterSubmit';
       default:
         break;
     }

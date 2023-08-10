@@ -41,7 +41,7 @@ this.tripId=id[4];
     }
     try {
       this.service
-        .completeReserve(this.reserveRecordId,form.controls["ReserveId"].value)
+        .completeReserve(this.reserveRecordId,form.controls["ReserveId"].value,this.tripId)
         .subscribe((a: any) => {
           this.saved = true;
 

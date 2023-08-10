@@ -51,13 +51,21 @@ export class ReserveService {
       JSON.parse(JSON.stringify(value))
     );
   }
-  completeReserve(reserveId: string, reserveCode: any): Observable<any> {
+  completeReserve(reserveId: string, reserveCode: any,tripId:any): Observable<any> {
     return this.http.post(
-      `${environment.FinancialAddress}/Trip/Reserve/${reserveId}`,
+      `${environment.FinancialAddress}/Trip/${tripId}/Reserve/${reserveId}`,
      {reserveId:reserveCode}
     );
   }
+  refund(tripId:any,refundInfo:any){
 
+
+    return this.http.post(
+      `${environment.FinancialAddress}/Trip/${tripId}/refund`,
+     {refundInfo}
+    );
+
+  }
   getContact(contavtId: string) {
     return this.http.get<any>(
       `${environment.accountAddress}/contact/${contavtId}`
