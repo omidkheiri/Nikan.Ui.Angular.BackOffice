@@ -17,7 +17,7 @@
           <dx-data-grid
             [dataSource]="dataSource"
             [showBorders]="true"
-            [remoteOperations]="true"
+           
             [showColumnLines]="true"
             [showRowLines]="true"
             [rowAlternationEnabled]="true"
@@ -26,6 +26,7 @@
             keyExpr="Id"
             showScrollbar="true"
             useNative="false"
+            [remoteOperations]="true"
           >
           <dxo-scrolling mode="infinite"></dxo-scrolling>
             <!-- <dxo-paging [pageSize]="30" [enabled]="true"> </dxo-paging>
@@ -193,9 +194,7 @@
               [showPageSizeSelector]="true"
               allowedPageSizes="allowedPageSizes"
             ></dxo-pager> -->
-            <dxo-load-panel [enabled]="false"></dxo-load-panel>
-           
-
+            
             <div *dxTemplate="let data of 'reserveStatusId'">
               <span style="font-size: 10px" [class]="getStyle(data)">
                 {{ getStatus(data) }}</span
@@ -260,7 +259,9 @@
               </div>
             </div>
             <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-          
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+           
+
             <dxo-scrolling mode="virtual" rowRenderingMode="virtual"></dxo-scrolling>
             <dxo-export
               [enabled]="true"
