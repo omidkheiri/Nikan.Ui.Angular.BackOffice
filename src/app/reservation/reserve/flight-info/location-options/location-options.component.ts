@@ -50,7 +50,8 @@ this.loadedLocations=data;
       
   }
   handleChange(e:any){
-console.log(e.currentTarget.id);
+
+console.log(e.currentTarget);
 this.SelectedLocation.emit(e.currentTarget.id)
 
   }

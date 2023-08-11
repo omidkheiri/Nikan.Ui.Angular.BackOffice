@@ -25,6 +25,7 @@ import { validate } from 'ngrx-forms';
 import { FlightInfo } from '../models/FlightInfo';
 import DataSource from 'devextreme/data/data_source';
 import { Trip } from '../models/Trip';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-flight-info',
@@ -223,6 +224,7 @@ export class FlightInfoComponent
           flightName: item.flightName,
           flightDate: flightDate1.value,
           airlineName: item.airlineName,
+          airlineId: item.airlineId,
           status: item.status,
           scheduled: item.scheduled,
           flightType: 0,
@@ -278,6 +280,7 @@ export class FlightInfoComponent
           this.trip.flightInfo.departureLocationId
             ? this.trip.flightInfo.departureLocationId
             : '';
+console.log("KKKKKKKKKKKKKKK",flightInfo);
 
         this.store.dispatch(
           fromAction.SetFlightInfo({ FlightInfo: flightInfo })
@@ -311,7 +314,19 @@ export class FlightInfoComponent
     this.DepartureLocation = this.DepartureLocations.find((data: any) => {
       return data.id == e;
     });
+
     var flightInfo = JSON.parse(JSON.stringify(this.trip.flightInfo));
+
+if(this.DepartureLocation.excludeAirlines.find((data:any)=>{return data.airlineId==flightInfo.airlineId})){
+
+Swal.fire({text:`این تامین کننده قادر به ارائه سرویس برای پروازهای ${this.trip.flightInfo.airlineName} نمیباشد`});
+
+this.departureLocation=null ;
+return;
+}
+
+
+
     flightInfo.departureLocationId = this.DepartureLocation
       ? this.DepartureLocation.id
       : '';
@@ -328,7 +343,23 @@ export class FlightInfoComponent
     this.ArrivalLocation = this.ArrivalLocations.find((data: any) => {
       return data.id == e;
     });
+    
+    var flightInfo = JSON.parse(JSON.stringify(this.trip.flightInfo));
 
+if(this.ArrivalLocation.excludeAirlines.find((data:any)=>{return data.airlineId==flightInfo.airlineId})){
+
+Swal.fire({text:`این تامین کننده قادر به ارائه سرویس برای پروازهای ${this.trip.flightInfo.airlineName} نمیباشد`});
+
+this.ArrivalLocation=null ;
+return;
+}
+
+    if(this.ArrivalLocation.excludeAirlines.find((data:any)=>{return data.airlineId==flightInfo})){
+    
+    Swal.fire({text:`این تامین کننده قادر به ارائه سرویس برای پروازهای ${this.trip.flightInfo.airlineName} نمیباشد`})
+    return;
+    
+    }
     var flightInfo = JSON.parse(JSON.stringify(this.trip.flightInfo));
     flightInfo.arrivalLocationId = this.ArrivalLocation
       ? this.ArrivalLocation.id

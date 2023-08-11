@@ -1,3 +1,40 @@
+@font-face {
+  font-family: Vazirmatn;
+  src: url("/src/assets/fonts/vazirmatn/webfonts/Vazirmatn-Thin.woff2")
+    format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("/src/assets/fonts/vazirmatn/webfonts/Vazirmatn-ExtraLight.woff2")
+    format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("/src/assets/fonts/vazirmatn/webfonts/Vazirmatn-Light.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Vazirmatn;
+  src: url("../fonts/vazirmatn/webfonts/Vazirmatn-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /*
 	===============================
 			@Import	Function
@@ -3435,7 +3472,7 @@ table .badge-dark {
   color: #000000!important;
   font-weight: 100;
   font-size: 12px;
-  font-family: Vazirmatn;
+  font-weight: 400;
   line-height: 1.35715;
 }
 .dx-dropdownlist-popup-wrapper .dx-empty-message:last-of-type, .dx-dropdownlist-popup-wrapper .dx-list-item:last-of-type {

@@ -19,14 +19,13 @@
             [hoverStateEnabled]="true"
             (onExporting)="onExporting($event)"
             keyExpr="Id"
-          >
-            <dxo-paging [pageSize]="5" [enabled]="true"> </dxo-paging>
-            <dxo-pager
-              [showPageSizeSelector]="true"
-              [allowedPageSizes]="[10, 20, 50]"
-              [showNavigationButtons]="true"
+            [remoteOperations]="true"
             >
-            </dxo-pager>
+            <dxo-scrolling mode="infinite"></dxo-scrolling>
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+           
+
+            <dxo-scrolling mode="virtual" rowRenderingMode="virtual"></dxo-scrolling>
             <dxo-filter-row
               [visible]="true"
               [applyFilter]="true"

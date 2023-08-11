@@ -4,6 +4,7 @@ export interface FlightInfo {
   flightName: string;
   flightDate: Date;
   airlineName: string;
+  airlineId: string;
   status: boolean;
   scheduled: boolean;
   flightType: number;
