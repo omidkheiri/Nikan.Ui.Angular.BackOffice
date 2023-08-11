@@ -49,6 +49,7 @@ import { ServiceLineDicountComponent } from './accounts/account/supplier/locatio
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 import { contactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
 import { SharedModule } from '../shared/shared.module';
+import { ExcludeAirLinesComponent } from './accounts/account/supplier/locations/exclude-air-lines/exclude-air-lines.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { SharedModule } from '../shared/shared.module';
     ServiceLineDicountComponent,
     DiscountComponent,
     contactDiscountGroupComponent,
+    ExcludeAirLinesComponent,
   ],
   imports: [
     FormsModule,

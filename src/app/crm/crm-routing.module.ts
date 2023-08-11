@@ -23,6 +23,7 @@ import { ContactReservesComponent } from './contacts/contact-detail/contact-rese
 import { ContactAccountComponent } from './contacts/contact-detail/contact-account/contact-account.component';
 import { DiscountComponent } from './accounts/account/supplier/locations/discount/discount.component';
 import { contactDiscountGroupComponent } from './contacts/contact-detail/contact-discount-group/contact-discount-group.component';
+import { ExcludeAirLinesComponent } from './accounts/account/supplier/locations/exclude-air-lines/exclude-air-lines.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,11 @@ const routes: Routes = [
                   {
                     path: 'discountGroup/:locationId',
                     component: DiscountComponent,
+                  },
+                  
+                  {
+                    path: 'excludeAirLines/:locationId',
+                    component: ExcludeAirLinesComponent,
                   },
                 ],
               },

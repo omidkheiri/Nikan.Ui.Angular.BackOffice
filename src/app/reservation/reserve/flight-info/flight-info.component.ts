@@ -67,7 +67,7 @@ export class FlightInfoComponent
     private http: HttpClient,
     private route: ActivatedRoute,
     private store: Store<fromStore.ReserveModuleState>
-  ) {
+  ){
     this.store$ = store.select<any>('reserve');
 
     this.loadList(http, service);

@@ -31,7 +31,7 @@
             <th style="text-align: right">Title</th>
             <th style="text-align: right">Allowed Time</th>
             <th style="text-align: right; width: 50px">State</th>
-            <th style="width: 150px"></th>
+            <th style="width: 200px"></th>
           </tr>
         </thead>
         <tbody *ngIf="locations">
@@ -78,7 +78,7 @@
                 <span class="icon-name"> x-circle</span>
               </div>
             </td>
-            <td class="text-center" style="text-align: center">
+            <td  class="text-center" style="text-align: center">
               <div
                 id="82b11d88-1b79-44a0-b91a-d2164b1e3426"
                 class="icon-container"
@@ -110,7 +110,7 @@
                 id="82b11d88-1b79-44a0-b91a-d2164b1e3426"
                 class="icon-container"
                 style="float: right; padding: 0px 5px"
-                (click)="removeLocation( item.id)"
+                (click)="removeLocation(item.id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -154,6 +154,23 @@
                     <path
                       d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
                     ></path>
+                  </svg>
+                </a>
+                <a class="mr-2 ml-2" [routerLink]="['excludeAirLines', item.id]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-send"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                   </svg>
                 </a>
               </div>

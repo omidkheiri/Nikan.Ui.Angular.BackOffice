@@ -1,0 +1,76 @@
+<dx-popup
+  [width]="'80vw'"
+  [height]="'80vh'"
+  [showTitle]="true"
+  title="Exclude AirLines"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="false"
+  container=".dx-viewport"
+  [visible]="true"
+>
+  <div *dxTemplate="let data of 'content'">
+
+    <button
+    type="button"
+    (click)="oncancel()"
+    class="btn btn-warning mb-2 mr-2 ml-2"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="feather feather-x"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+   <dx-data-grid
+ 
+   [dataSource]="dataSource"
+
+   [showBorders]="true"
+   
+   [showColumnLines]="true"
+   [showRowLines]="true"
+   [rowAlternationEnabled]="true"
+   [hoverStateEnabled]="true"
+   showScrollbar="true"
+   useNative="false"
+   (onRowInserting)="insert($event)"
+   (onRowRemoving)="delete($event)"
+   >
+
+   <dxo-selection mode="single"></dxo-selection>
+   <dxo-paging [enabled]="false"></dxo-paging>
+   <dxo-editing
+     mode="row"
+     
+     [allowAdding]="true"
+     [allowDeleting]="true"
+   >
+   </dxo-editing>
+   
+   <dxi-column caption="AirlineId" dataField="airlineId">
+   
+   <dxo-lookup
+   [dataSource]="airLines"
+   valueExpr="id" 
+   displayExpr="name">
+</dxo-lookup>
+   </dxi-column>
+   
+   
+   </dx-data-grid>
+
+
+  </div>
+</dx-popup>
